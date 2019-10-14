@@ -1,20 +1,11 @@
-extern "C" {
-# include "lua.h"
-# include "lauxlib.h"
-# include "lualib.h"
-}
-
-#include <LuaBridge/LuaBridge.h>
 #include <iostream>
-
-using namespace luabridge;
+#include "AIScript.h"
 
 int main() {
-    lua_State *L = luaL_newstate();
-    luaL_dofile(L, "scripts/helloWorld.lua");
-    luaL_openlibs(L);
-    lua_pcall(L, 0, 0, 0);
-    LuaRef s = getGlobal(L, "testString");
-    std::string luaString = s.cast<std::string>();
-    std::cout << luaString << std::endl;
+    std::string scriptName("helloWorld");
+    AIScript script(scriptName);
+    std::string s = script.getVariable("testString");
+    std::cout << s << std::endl;
+    int result = script.callFunction("sumNumbers", {1, 2, 3});
+    std::cout << result << std::endl;
 }

@@ -10,8 +10,10 @@ include_directories(libs/)
 include_directories(/usr/include/lua5.3)
 
 add_executable(scripts_tests
-        scripts/scriptsTests.cpp
         scripts/helloWorld.lua
+        scripts/scriptsTests.cpp
+        scripts/LuaFile.cpp scripts/LuaFile.h
+        scripts/AIScript.h
         )
 target_link_libraries(scripts_tests lua5.3)
 
