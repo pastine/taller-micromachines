@@ -14,10 +14,14 @@ include_directories(/usr/include/lua5.3)
 
 ########## CLIENT ##########
 
+add_executable(client_test
+        client/main.cpp client/SDLWindow.cpp client/SDLWindow.h client/SDLException.cpp client/SDLException.h)
+
+target_link_libraries(client_test SDL2 SDL2_image)
+
 ########## MODS ##########
 add_library(HelloWorld SHARED
-        mods/libHelloWorld.cpp
-        )
+        mods/libHelloWorld.cpp)
 
 add_executable(mods_tests
         mods/modsTests.cpp
