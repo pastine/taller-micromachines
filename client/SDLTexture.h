@@ -18,6 +18,10 @@ public:
                int width, int height);
     ~SDLTexture();
     void render(Area& src, Area& dest);
+    SDLTexture(SDLTexture&& other);
+    SDLTexture& operator=(SDLTexture&& other);
+    SDLTexture& operator=(const SDLTexture&& other) = delete;
+    SDLTexture(const SDLTexture&& other) = delete;
 private:
     SDL_Texture* texture;
     SDL_Renderer* renderer;

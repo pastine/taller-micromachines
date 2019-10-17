@@ -11,16 +11,18 @@
 
 int main (int argc, char** argv) {
     try {
-        SDLWindow window(1020, 840);
+        SDLWindow window(840, 840);
 
-        std::cout << "about to render car\n";
         SDLTextureLoader loader(window.ger_renderer());
-        std::string path = "client/img/foo.png";
+        std::string path = "client/img/cars_transparent.png";
         SDLTexture *car = loader.get_texture(path);
 
-        Area src(0, 0, 64, 205);
-        Area dest(520, 840, 64, 205);
-        window.fill(0,100,0,0xFF);
+        int w = 100;
+        int h = 100;
+
+        Area src(0, 0, w, h);
+        Area dest(100, 100, w*4, h*4);
+        window.fill(0xFF,0xFF,0,0xFF);
         car->render(src, dest);
         window.render();
 

@@ -3,9 +3,9 @@
 //
 
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 #include <iostream>
 #include "SDLTexture.h"
+#include "SDLException.h"
 
 SDLTexture::SDLTexture(SDL_Texture *texture,
                        SDL_Renderer *renderer,
@@ -35,5 +35,33 @@ void SDLTexture::render(Area& src, Area& dest) {
             dest.getX(), dest.getY(),
             dest.getWidth(), dest.getHeight()
     };
-    SDL_RenderCopy(this->renderer, this->texture, &render_from, &render_to);
+    int s = SDL_RenderCopy(this->renderer, this->texture, &render_from, &render_to);
+    if (s) {
+        std::string err_msg = "Error while rendering texture";
+        throw SDLException(err_msg.data(), SDL_GetError());
+    }
+}
+
+SDLTexture::SDLTexture(SDLTexture &&other) {
+    this->width = other.width;
+    other.width = 0;
+    this->height = other.height;
+    other.height = 0;
+    this->renderer = other.renderer;
+    other.renderer = NULL;
+    this->texture = other.texture;
+    other.texture = NULL;
+}
+
+SDLTexture &SDLTexture::operator=(SDLTexture &&other) {
+    if (this == &other) return *this;
+    this->width = other.width;
+    other.width = 0;
+    this->height = other.height;
+    other.height = 0;
+    this->renderer = other.renderer;
+    other.renderer = NULL;
+    this->texture = other.texture;
+    other.texture = NULL;
+    return *this;
 }

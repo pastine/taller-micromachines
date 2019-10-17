@@ -22,6 +22,7 @@ SDLTexture* SDLTextureLoader::get_texture(std::string &path) {
         this->_load_from_file(path);
     }
     it = this->textures.find(path);
+    if (it == this->textures.end()) throw SDLException("Unexpected error in get_texture", 0);
     return &(*it).second;
 }
 
@@ -45,6 +46,6 @@ void SDLTextureLoader::_load_from_file(std::string &path) {
                        this->renderer,
                        loaded_surface->w,
                        loaded_surface->h);
-    this->textures.insert(std::pair<std::string, SDLTexture>(path, texture));
+    this->textures.insert(std::pair<std::string, SDLTexture>(path, std::move(texture)));
     SDL_FreeSurface(loaded_surface);
 }
