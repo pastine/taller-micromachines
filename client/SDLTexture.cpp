@@ -25,8 +25,7 @@ SDLTexture::~SDLTexture() {
     }
 }
 
-void SDLTexture::render(Area& src, Area& dest) {
-    std::cout << "rendering texture...\n";
+void SDLTexture::render_flipped(Area &src, Area &dest, SDL_RendererFlip flip) {
     SDL_Rect render_from = {
             src.getX(), src.getY(),
             src.getWidth(), src.getHeight()
@@ -35,7 +34,32 @@ void SDLTexture::render(Area& src, Area& dest) {
             dest.getX(), dest.getY(),
             dest.getWidth(), dest.getHeight()
     };
-    int s = SDL_RenderCopy(this->renderer, this->texture, &render_from, &render_to);
+    int s = SDL_RenderCopyEx(this->renderer,
+                             this->texture,
+                             &render_from,
+                             &render_to,
+                             0,
+                             NULL,
+                             flip);
+    if (s) {
+        std::string err_msg = "Error while rendering texture";
+        throw SDLException(err_msg.data(), SDL_GetError());
+    }
+}
+
+void SDLTexture::render(Area& src, Area& dest) {
+    SDL_Rect render_from = {
+            src.getX(), src.getY(),
+            src.getWidth(), src.getHeight()
+    };
+    SDL_Rect render_to = {
+            dest.getX(), dest.getY(),
+            dest.getWidth(), dest.getHeight()
+    };
+    int s = SDL_RenderCopy(this->renderer,
+                           this->texture,
+                           &render_from,
+                           &render_to);
     if (s) {
         std::string err_msg = "Error while rendering texture";
         throw SDLException(err_msg.data(), SDL_GetError());

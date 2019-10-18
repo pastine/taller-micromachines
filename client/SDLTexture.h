@@ -18,6 +18,7 @@ public:
                int width, int height);
     ~SDLTexture();
     void render(Area& src, Area& dest);
+    void render_flipped(Area& src, Area& dest, SDL_RendererFlip flip);
     SDLTexture(SDLTexture&& other);
     SDLTexture& operator=(SDLTexture&& other);
     SDLTexture& operator=(const SDLTexture&& other) = delete;

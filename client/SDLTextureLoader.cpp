@@ -7,6 +7,20 @@
 #include "SDLException.h"
 
 
+SDLTextureLoader* SDLTextureLoader::instance = nullptr;
+
+SDLTextureLoader* SDLTextureLoader::get_loader() {
+    if (instance) return instance;
+    throw std::runtime_error("Trying to get the TextureLoader while not being initialized");
+}
+
+void SDLTextureLoader::instance_loader(SDL_Renderer *renderer) {
+    if (instance)
+        throw std::runtime_error("Trying to instance already instanced TextureLoader");
+    instance = new SDLTextureLoader(renderer);
+}
+
+
 SDLTextureLoader::SDLTextureLoader(SDL_Renderer *renderer) : renderer(renderer)
 {}
 
@@ -49,3 +63,5 @@ void SDLTextureLoader::_load_from_file(std::string &path) {
     this->textures.insert(std::pair<std::string, SDLTexture>(path, std::move(texture)));
     SDL_FreeSurface(loaded_surface);
 }
+
+

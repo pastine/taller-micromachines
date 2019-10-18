@@ -12,7 +12,7 @@ public:
     ~SDLWindow();
     void fill(int r, int g, int b, int alpha);
     void render();
-    SDL_Renderer* ger_renderer() const;
+    SDL_Renderer* get_renderer() const;
 private:
     int width;
     int height;
