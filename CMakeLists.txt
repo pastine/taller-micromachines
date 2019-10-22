@@ -15,7 +15,7 @@ include_directories(/usr/include/lua5.3)
 ########## CLIENT ##########
 
 add_executable(client_test
-        client/main.cpp client/SDLWindow.cpp client/SDLWindow.h client/SDLException.cpp client/SDLException.h client/SDLTextureLoader.cpp client/SDLTextureLoader.h client/SDLTexture.cpp client/SDLTexture.h client/Area.cpp client/Area.h client/Car.cpp client/Car.h client/CarFrameResolver.cpp client/CarFrameResolver.h)
+        client/main.cpp client/SDLWindow.cpp client/SDLWindow.h client/SDLException.cpp client/SDLException.h client/SDLTextureLoader.cpp client/SDLTextureLoader.h client/SDLTexture.cpp client/SDLTexture.h client/Area.cpp client/Area.h client/Car.cpp client/Car.h client/CarFrameResolver.cpp client/CarFrameResolver.h client/Boulder.cpp client/Boulder.h)
 
 target_link_libraries(client_test SDL2 SDL2_image)
 

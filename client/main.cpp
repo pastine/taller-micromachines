@@ -9,6 +9,7 @@
 #include "SDLException.h"
 #include "SDLTextureLoader.h"
 #include "Car.h"
+#include "Boulder.h"
 
 
 int main (int argc, char** argv) {
@@ -36,6 +37,7 @@ int main (int argc, char** argv) {
         frames.push_back(Area(_x, 96, 26 + 3, 29));*/
 
         Car car(window.get_renderer());
+        Boulder boulder(window.get_renderer(), 200, 200);
 
         window.fill(0xDE,0xB8,0x81,0xFF);
 
@@ -45,6 +47,7 @@ int main (int argc, char** argv) {
             SDL_Event event;
             window.fill(0xDE,0xB8,0x81,0xFF);
             car.render();
+            boulder.render();
             //car->render(frames[i%4], dest);
 
             /*car->render(frames[0], dest);

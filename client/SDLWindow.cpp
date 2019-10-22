@@ -13,7 +13,7 @@ SDLWindow::SDLWindow(int width, int height) : width(width), height(height) {
 
     err_code = SDL_CreateWindowAndRenderer(this->width,
                                            this->height,
-                                           SDL_RENDERER_SOFTWARE,
+                                           SDL_RENDERER_SOFTWARE | SDL_WINDOW_MINIMIZED | SDL_WINDOW_RESIZABLE,
                                            &this->window,
                                            &this->renderer);
     if (err_code) throw SDLException("Can't create window", SDL_GetError());
