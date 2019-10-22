@@ -16,8 +16,7 @@ FILE(GLOB_RECURSE box2d_src
         ${PROJECT_SOURCE_DIR}/libs/Box2D/*.cpp
         ${PROJECT_SOURCE_DIR}/libs/Box2D/*.h
 )
-add_library(box2d STATIC
-        ${box2d_src})
+add_library(box2d STATIC ${box2d_src})
 
 add_executable(server_test
         server/simulator.cpp
@@ -41,17 +40,16 @@ add_executable(client_test
         client/Boulder.cpp client/Boulder.h)
 
 target_link_libraries(client_test SDL2 SDL2_image)
-
 ########## MODS ##########
 add_library(HelloWorld SHARED
         mods/libHelloWorld.cpp)
-
 
 add_executable(mods_tests
         mods/modsTests.cpp
         )
 
 target_link_libraries(mods_tests HelloWorld ${CMAKE_DL_LIBS})
+
 ########## SCRIPTS ##########
 
 add_executable(scripts_tests
@@ -62,7 +60,7 @@ add_executable(scripts_tests
         )
 target_link_libraries(scripts_tests lua5.3)
 
-########## CPPLINT STUFF ##########
+########## CPPLINT_STUFF ##########
 
 set(CPPLINT_FILTER_OPTIONS
         "-,+build/class,+build/deprecated,+build/include_what_you_use,+build/namespaces,+build/printf_format,\
@@ -74,11 +72,32 @@ set(CPPLINT_FILTER_OPTIONS
         +whitespace/newline,+whitespace/parens,+whitespace/semicolon"
         )
 
-set(CMAKE_CXX_CPPLINT "cpplint;--extensions=c,cpp;--filter=${CPPLINT_FILTER_OPTIONS}")
 
 add_custom_target(lint_headers
-        COMMAND cpplint --filter=${CPPLINT_FILTER_OPTIONS} --recursive "${CMAKE_CURRENT_SOURCE_DIR}/include/"
+        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${CMAKE_CURRENT_SOURCE_DIR}/include/"
+        )
+
+add_custom_target(lint_client
+        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${CMAKE_CURRENT_SOURCE_DIR}/client/"
+        )
+
+add_custom_target(lint_server
+        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${CMAKE_CURRENT_SOURCE_DIR}/server/"
+        )
+
+add_custom_target(lint_mods
+        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${CMAKE_CURRENT_SOURCE_DIR}/mods/"
+        )
+
+add_custom_target(lint_scripts
+        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${CMAKE_CURRENT_SOURCE_DIR}/scripts/"
         )
 
 add_dependencies(scripts_tests lint_headers)
+add_dependencies(scripts_tests lint_scripts)
 add_dependencies(mods_tests lint_headers)
+add_dependencies(mods_tests lint_mods)
+add_dependencies(client_test lint_headers)
+add_dependencies(client_test lint_client)
+add_dependencies(server_test lint_headers)
+add_dependencies(server_test lint_server)
