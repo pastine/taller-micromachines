@@ -75,7 +75,7 @@ void CircuitGenerator::generate_circuit() {
 
 }
 
-int main() {
-  CircuitGenerator::generate_circuit();
-  return 0;
-}
+//int main() {
+//  CircuitGenerator::generate_circuit();
+//  return 0;
+//}

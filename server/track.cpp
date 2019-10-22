@@ -1,5 +1,5 @@
 #include "track.h"
-#include "Box2D.h"
+#include "Box2D/Box2D.h"
 
 Track::Track(b2Vec2 gravity) : world(b2World(gravity)) {
 }

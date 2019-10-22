@@ -44,7 +44,7 @@ b2Vec2 Car::getLateralVelocity() {
 
 void Car::updateFriction() {
   b2Vec2 impulse = m_body->GetMass() * -getLateralVelocity();
-  m_body->ApplyLinearImpulse( impulse, m_body->GetWorldCenter() );
+  m_body->ApplyLinearImpulse( impulse, m_body->GetWorldCenter(), false );
 }
 
 Car::~Car() {

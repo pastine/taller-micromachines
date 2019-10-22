@@ -1,6 +1,6 @@
 #ifndef TALLER_MICROMACHINES_CAR_H
 #define TALLER_MICROMACHINES_CAR_H
-#include "Box2D.h"
+#include "Box2D/Box2D.h"
 
 class Car {
 private:
