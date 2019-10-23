@@ -25,7 +25,7 @@ public:
     SDLTextureLoader(const SDLTextureLoader&) = delete;
     SDLTextureLoader& operator=(const SDLTextureLoader&) = delete;
 private:
-    SDLTextureLoader(SDL_Renderer* renderer);
+    explicit SDLTextureLoader(SDL_Renderer* renderer);
     void _load_from_file(std::string& path);
     std::map<std::string, SDLTexture> textures;
     static SDLTextureLoader* instance;

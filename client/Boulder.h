@@ -7,18 +7,11 @@
 
 
 #include "SDLTexture.h"
+#include "Renderizable.h"
 
-class Boulder {
-private:
-    SDL_Renderer* renderer;
-    SDLTexture* boulder_texture;
-    int x;
-    int y;
-    int w;
-    int h;
+class Boulder : public Renderizable {
 public:
-    Boulder(SDL_Renderer* renderer, int x, int y);
-    void render();
+    explicit Boulder(SDL_Renderer* renderer);
 };
 
 

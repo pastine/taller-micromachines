@@ -11,9 +11,13 @@ SDLWindow::SDLWindow(int width, int height) : width(width), height(height) {
     int err_code = SDL_Init(SDL_INIT_VIDEO);
     if (err_code) throw SDLException("Can't initialize window", SDL_GetError());
 
+    uint32_t flags = SDL_RENDERER_SOFTWARE;
+    flags |= SDL_WINDOW_MINIMIZED;
+    flags |= SDL_WINDOW_RESIZABLE;
+
     err_code = SDL_CreateWindowAndRenderer(this->width,
                                            this->height,
-                                           SDL_RENDERER_SOFTWARE | SDL_WINDOW_MINIMIZED | SDL_WINDOW_RESIZABLE,
+                                           flags,
                                            &this->window,
                                            &this->renderer);
     if (err_code) throw SDLException("Can't create window", SDL_GetError());

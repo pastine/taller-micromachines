@@ -25,7 +25,6 @@ private:
     std::vector<Area> turn_2_down_frames;
     std::vector<Area> turn_3_down_frames;
     int current_frame;
-
 };
 
 

@@ -19,7 +19,6 @@ Car::Car(SDL_Renderer *renderer) : renderer(renderer) {
 void Car::turn_right() {
     angle += 15;
     if (angle == 360) angle = 0;
-
 }
 
 void Car::turn_left() {
