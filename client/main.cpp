@@ -12,34 +12,27 @@
 #include "Boulder.h"
 #include "Oil.h"
 #include "Mud.h"
+#include "Camara.h"
 
 
 int main(int argc, char** argv) {
     try {
-        SDLWindow window(420, 840);
-        window.fill(0xFF,0xFF,0,0xFF);
+        Camara cam;
 
-        // get the car texture
-        SDLTextureLoader::instance_loader(window.get_renderer());
+        Car car;
+        Boulder boulder;
+        Oil oil;
+        Mud mud;
 
-        Car car(window.get_renderer());
-        Boulder boulder(window.get_renderer());
-        Oil oil(window.get_renderer());
-        Mud mud(window.get_renderer());
-
-        window.fill(0xDE,0xB8,0x81,0xFF);
-
-        int i = 0;
         bool running = true;
         while (running) {
             SDL_Event event;
-            window.fill(0xDE,0xB8,0x81,0xFF);
-            //car.render();
-            boulder.render(100, 100);
-            oil.render(50, 50);
-            mud.render(200, 200);
-            mud.render(300, 300);
-            
+
+            cam.render_object(boulder, 100, 100);
+            cam.render_object(oil, 50, 50);
+            cam.render_object(mud, 200, 200);
+            cam.render_object(mud, 350, 350);
+
             if (SDL_PollEvent(&event)) {
                 switch (event.type) {
                     case SDL_QUIT:
@@ -62,8 +55,7 @@ int main(int argc, char** argv) {
                     }
                 }
             }
-            window.render();
-            i++;
+            cam.show_frame();
             SDL_Delay(50);
         }
     } catch (SDLException& e) {

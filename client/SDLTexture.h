@@ -14,18 +14,16 @@
 class SDLTexture {
 public:
     SDLTexture(SDL_Texture* texture,
-               SDL_Renderer* renderer,
                int width, int height);
     ~SDLTexture();
-    void render(Area& src, Area& dest);
-    void render_flipped(Area& src, Area& dest, SDL_RendererFlip flip);
+    void render(SDL_Renderer* renderer, Area& src, Area& dest);
+    void render_flipped(SDL_Renderer* renderer, Area& src, Area& dest, SDL_RendererFlip flip);
     SDLTexture(SDLTexture&& other);
     SDLTexture& operator=(SDLTexture&& other);
     SDLTexture& operator=(const SDLTexture&& other) = delete;
     SDLTexture(const SDLTexture&& other) = delete;
 private:
     SDL_Texture* texture;
-    SDL_Renderer* renderer;
     int width;
     int height;
 };

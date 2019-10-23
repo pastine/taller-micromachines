@@ -13,7 +13,6 @@
 
 class Car {
 private:
-    SDL_Renderer* renderer;
     SDLTexture* car_texture;
     CarFrameResolver frames;
     int x;
@@ -22,8 +21,8 @@ private:
     int h;
     int angle;
 public:
-    explicit Car(SDL_Renderer* renderer);
-    void render();
+    Car();
+    void render(SDL_Renderer* renderer);
     void accelerate();
     void turn_left();
     void turn_right();

@@ -6,7 +6,7 @@
 #include "Car.h"
 #include "SDLTextureLoader.h"
 
-Car::Car(SDL_Renderer *renderer) : renderer(renderer) {
+Car::Car() {
     x = 100;
     y = 100;
     w = 29;
@@ -30,14 +30,14 @@ void Car::accelerate() {
     return;
 }
 
-void Car::render() {
+void Car::render(SDL_Renderer* renderer) {
     int _angle = this->angle % 180;
     Area& src = this->frames.resolve_frame(_angle);
     Area dest = Area(this->x, this->y, this->w*5, this->h*5);
     if (this->angle < 180)
-        this->car_texture->render(src, dest);
+        this->car_texture->render(renderer, src, dest);
     else
-        this->car_texture->render_flipped(src, dest, SDL_FLIP_HORIZONTAL);
+        this->car_texture->render_flipped(renderer, src, dest, SDL_FLIP_HORIZONTAL);
 }
 
 

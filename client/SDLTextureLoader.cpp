@@ -57,7 +57,6 @@ void SDLTextureLoader::_load_from_file(std::string &path) {
         throw SDLException(err_msg.data(), SDL_GetError());
     }
     SDLTexture texture(new_texture,
-                       this->renderer,
                        loaded_surface->w,
                        loaded_surface->h);
     this->textures.insert(std::pair<std::string, SDLTexture>(path, std::move(texture)));

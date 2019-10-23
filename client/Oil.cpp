@@ -5,7 +5,7 @@
 #include "Oil.h"
 #include "SDLTextureLoader.h"
 
-Oil::Oil(SDL_Renderer *renderer) : Renderizable(renderer) {
+Oil::Oil() : Renderizable() {
     w = 550;
     h = 550;
     img_x = 0;

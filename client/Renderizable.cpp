@@ -5,12 +5,10 @@
 #include "Renderizable.h"
 
 
-Renderizable::Renderizable(SDL_Renderer *renderer) {
-    this->renderer = renderer;
-}
+Renderizable::Renderizable() {}
 
-void Renderizable::render(int x, int y, int angle) {
+void Renderizable::render(SDL_Renderer* renderer, int x, int y, int angle) {
     Area src(img_x, img_y, w, h);
     Area dest(x, y, w* resize_factor, h * resize_factor);
-    this->texture->render(src, dest);
+    this->texture->render(renderer, src, dest);
 }

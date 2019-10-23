@@ -9,9 +9,9 @@
 #include <SDL2/SDL_system.h>
 #include "Renderizable.h"
 
-class Mud : public Renderizable{
+class Mud : public Renderizable {
 public:
-    explicit Mud(SDL_Renderer* renderer);
+    Mud();
 };
 
 

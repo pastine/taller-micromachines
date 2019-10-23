@@ -14,7 +14,7 @@
  * This class is the one that owns the SDLTextures. It will load
  * a texture from a file once, it returns a RAII wrapper for the SDL_Textures.
  *
- * IT LEAKS MEM
+ * IT LEAKS MEM... we must destroy the textures :D
  */
 class SDLTextureLoader {
 public:

@@ -10,7 +10,7 @@
 
 class Oil : public Renderizable {
 public:
-    explicit Oil(SDL_Renderer* renderer);
+    Oil();
 };
 
 

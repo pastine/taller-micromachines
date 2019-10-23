@@ -8,11 +8,9 @@
 #include "SDLException.h"
 
 SDLTexture::SDLTexture(SDL_Texture *texture,
-                       SDL_Renderer *renderer,
                        int width,
                        int height) :
                        texture(texture),
-                       renderer(renderer),
                        width(width),
                        height(height) {}
 
@@ -25,7 +23,9 @@ SDLTexture::~SDLTexture() {
     }
 }
 
-void SDLTexture::render_flipped(Area &src, Area &dest, SDL_RendererFlip flip) {
+void SDLTexture::render_flipped(SDL_Renderer* renderer,
+                                Area &src, Area &dest,
+                                SDL_RendererFlip flip) {
     SDL_Rect render_from = {
             src.getX(), src.getY(),
             src.getWidth(), src.getHeight()
@@ -34,7 +34,7 @@ void SDLTexture::render_flipped(Area &src, Area &dest, SDL_RendererFlip flip) {
             dest.getX(), dest.getY(),
             dest.getWidth(), dest.getHeight()
     };
-    int s = SDL_RenderCopyEx(this->renderer,
+    int s = SDL_RenderCopyEx(renderer,
                              this->texture,
                              &render_from,
                              &render_to,
@@ -47,7 +47,7 @@ void SDLTexture::render_flipped(Area &src, Area &dest, SDL_RendererFlip flip) {
     }
 }
 
-void SDLTexture::render(Area& src, Area& dest) {
+void SDLTexture::render(SDL_Renderer* renderer, Area& src, Area& dest) {
     SDL_Rect render_from = {
             src.getX(), src.getY(),
             src.getWidth(), src.getHeight()
@@ -56,7 +56,7 @@ void SDLTexture::render(Area& src, Area& dest) {
             dest.getX(), dest.getY(),
             dest.getWidth(), dest.getHeight()
     };
-    int s = SDL_RenderCopy(this->renderer,
+    int s = SDL_RenderCopy(renderer,
                            this->texture,
                            &render_from,
                            &render_to);
@@ -71,8 +71,6 @@ SDLTexture::SDLTexture(SDLTexture &&other) {
     other.width = 0;
     this->height = other.height;
     other.height = 0;
-    this->renderer = other.renderer;
-    other.renderer = NULL;
     this->texture = other.texture;
     other.texture = NULL;
 }
@@ -83,8 +81,6 @@ SDLTexture &SDLTexture::operator=(SDLTexture &&other) {
     other.width = 0;
     this->height = other.height;
     other.height = 0;
-    this->renderer = other.renderer;
-    other.renderer = NULL;
     this->texture = other.texture;
     other.texture = NULL;
     return *this;

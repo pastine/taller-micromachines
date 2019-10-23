@@ -12,15 +12,14 @@
 class Renderizable {
 protected:
     SDLTexture* texture;
-    SDL_Renderer* renderer;
     int w;
     int h;
     size_t img_x;
     size_t img_y;
     float resize_factor = 1;
 public:
-    explicit Renderizable(SDL_Renderer* renderer);
-    void render(int x, int y, int angle = 0);
+    Renderizable();
+    void render(SDL_Renderer* renderer, int x, int y, int angle = 0);
 };
 
 

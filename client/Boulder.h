@@ -11,7 +11,7 @@
 
 class Boulder : public Renderizable {
 public:
-    explicit Boulder(SDL_Renderer* renderer);
+    Boulder();
 };
 
 
