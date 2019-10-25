@@ -5,7 +5,7 @@
 #include "Mud.h"
 #include "SDLTextureLoader.h"
 
-Mud::Mud() : Renderizable() {
+Mud::Mud() : StaticRenderizable() {
     w = 550;
     h = 550;
     img_x = 0;

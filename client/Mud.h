@@ -6,10 +6,9 @@
 #define TALLER_MICROMACHINES_MUD_H
 
 
-#include <SDL2/SDL_system.h>
-#include "Renderizable.h"
+#include "StaticRenderizable.h"
 
-class Mud : public Renderizable {
+class Mud : public StaticRenderizable {
 public:
     Mud();
 };

@@ -6,10 +6,9 @@
 #define TALLER_MICROMACHINES_BOULDER_H
 
 
-#include "SDLTexture.h"
-#include "Renderizable.h"
+#include "StaticRenderizable.h"
 
-class Boulder : public Renderizable {
+class Boulder : public StaticRenderizable {
 public:
     Boulder();
 };

@@ -12,10 +12,11 @@
 class Camara {
 public:
     Camara();
-    void render_object(Renderizable object, int abs_x, int abs_y, int angle = 0);
+    void render_object(Renderizable& object, int abs_x, int abs_y, int angle = 0);
     void show_frame();
+    void prepare_frame();
 private:
-    bool _is_in_frame(Renderizable object, int abs_x, int abs_y);
+    bool _is_in_frame(Renderizable& object, int abs_x, int abs_y);
     SDLWindow window;
 };
 

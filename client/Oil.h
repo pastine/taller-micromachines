@@ -6,9 +6,9 @@
 #define TALLER_MICROMACHINES_OIL_H
 
 
-#include "Renderizable.h"
+#include "StaticRenderizable.h"
 
-class Oil : public Renderizable {
+class Oil : public StaticRenderizable {
 public:
     Oil();
 };

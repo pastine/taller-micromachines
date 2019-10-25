@@ -24,14 +24,18 @@ int main(int argc, char** argv) {
         Oil oil;
         Mud mud;
 
+
+        auto i = 0;
         bool running = true;
         while (running) {
             SDL_Event event;
 
+            cam.prepare_frame();
             cam.render_object(boulder, 100, 100);
             cam.render_object(oil, 50, 50);
             cam.render_object(mud, 200, 200);
             cam.render_object(mud, 350, 350);
+            cam.render_object(car, 100, 700 - (i % 700), 0);
 
             if (SDL_PollEvent(&event)) {
                 switch (event.type) {
@@ -42,10 +46,8 @@ int main(int argc, char** argv) {
                         SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                         switch (keyEvent.keysym.sym) {
                             case SDLK_LEFT:
-                                car.turn_left();
                                 break;
                             case SDLK_RIGHT:
-                                car.turn_right();
                                 break;
                             case SDLK_UP:
                                 break;
@@ -57,6 +59,7 @@ int main(int argc, char** argv) {
             }
             cam.show_frame();
             SDL_Delay(50);
+            i += 10;
         }
     } catch (SDLException& e) {
         std::cout << e.what() << '\n';

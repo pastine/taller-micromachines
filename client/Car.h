@@ -10,22 +10,17 @@
 #include "Area.h"
 #include "SDLTexture.h"
 #include "CarFrameResolver.h"
+#include "Renderizable.h"
 
-class Car {
+class Car : public Renderizable {
 private:
-    SDLTexture* car_texture;
     CarFrameResolver frames;
-    int x;
-    int y;
     int w;
     int h;
-    int angle;
+    SDLTexture* texture;
 public:
     Car();
-    void render(SDL_Renderer* renderer);
-    void accelerate();
-    void turn_left();
-    void turn_right();
+    void render(SDL_Renderer* renderer, int x, int y, int angle = 0);
 };
 
 

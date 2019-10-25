@@ -38,9 +38,9 @@ add_executable(client_test
         client/Car.cpp client/Car.h
         client/CarFrameResolver.cpp client/CarFrameResolver.h
         client/Boulder.cpp client/Boulder.h
-        client/Renderizable.cpp client/Renderizable.h
+        client/Renderizable.h
         client/Oil.cpp client/Oil.h
-        client/Mud.cpp client/Mud.h client/Camara.cpp client/Camara.h)
+        client/Mud.cpp client/Mud.h client/Camara.cpp client/Camara.h client/StaticRenderizable.cpp client/StaticRenderizable.h)
 
 target_link_libraries(client_test SDL2 SDL2_image)
 ########## MODS ##########

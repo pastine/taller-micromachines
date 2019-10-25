@@ -5,7 +5,7 @@
 #include "Boulder.h"
 #include "SDLTextureLoader.h"
 
-Boulder::Boulder() : Renderizable() {
+Boulder::Boulder() : StaticRenderizable() {
     w = 550;
     h = 550;
     img_x = 0;

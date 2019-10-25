@@ -53,7 +53,6 @@ CarFrameResolver::CarFrameResolver() {
     straight_down_frames.push_back(Area(4 + 250, 33, 26 + 3, 29));
     straight_down_frames.push_back(Area(4 + 250, 67, 26 + 3, 29));
     straight_down_frames.push_back(Area(4 + 250, 96, 26 + 3, 29));
-
     this->current_frame = -1;
 }
 
@@ -68,5 +67,5 @@ Area& CarFrameResolver::resolve_frame(int angle) {
     if (angle <= 150) return this->turn_2_down_frames[this->current_frame % 4];
     if (angle < 180) return this->turn_3_down_frames[this->current_frame % 4];
     if (angle == 180) return this->straight_down_frames[this->current_frame % 4];
-    throw std::runtime_error("asdfasdf");
+    throw std::runtime_error("CarFrameResolver::resolve_frame: Invalid angle");
 }
