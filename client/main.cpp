@@ -4,26 +4,19 @@
 
 #include <SDL2/SDL.h>
 #include <iostream>
-#include <vector>
-#include "SDLWindow.h"
 #include "SDLException.h"
-#include "SDLTextureLoader.h"
 #include "Car.h"
 #include "Boulder.h"
 #include "Oil.h"
 #include "Mud.h"
 #include "Camara.h"
+#include "WorldEntities.h"
 
 
 int main(int argc, char** argv) {
     try {
         Camara cam;
-
-        Car car;
-        Boulder boulder;
-        Oil oil;
-        Mud mud;
-
+        WorldEntities entities;
 
         auto i = 0;
         bool running = true;
@@ -31,11 +24,11 @@ int main(int argc, char** argv) {
             SDL_Event event;
 
             cam.prepare_frame();
-            cam.render_object(boulder, 100, 100);
-            cam.render_object(oil, 50, 50);
-            cam.render_object(mud, 200, 200);
-            cam.render_object(mud, 350, 350);
-            cam.render_object(car, 100, 700 - (i % 700), 0);
+
+            entities.clean();
+            entities.put(WorldEntities::Entity::CAR, 100, 700 - (i % 700), 0);
+            entities.put(WorldEntities::Entity::OIL, 50, 50);
+            entities.render(cam);
 
             if (SDL_PollEvent(&event)) {
                 switch (event.type) {
