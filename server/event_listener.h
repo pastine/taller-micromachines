@@ -1,0 +1,14 @@
+//
+// Created by mile on 27/10/19.
+//
+
+#ifndef TALLER_MICROMACHINES_EVENT_LISTENER_H
+#define TALLER_MICROMACHINES_EVENT_LISTENER_H
+
+
+class event_listener {
+
+};
+
+
+#endif //TALLER_MICROMACHINES_EVENT_LISTENER_H

@@ -23,7 +23,7 @@ add_executable(server_test
         server/track.cpp server/track.h
         server/car.cpp server/car.h
         server/circuit_generator.cpp server/circuit_generator.h
-)
+        server/event_listener.cpp server/event_listener.h)
 
 target_link_libraries(server_test box2d)
 ########## CLIENT ##########
