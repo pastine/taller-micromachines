@@ -5,10 +5,6 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 #include "SDLException.h"
-#include "Car.h"
-#include "Boulder.h"
-#include "Oil.h"
-#include "Mud.h"
 #include "Camara.h"
 #include "WorldEntities.h"
 
