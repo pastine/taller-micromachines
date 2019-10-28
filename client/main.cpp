@@ -4,12 +4,18 @@
 
 #include <SDL2/SDL.h>
 #include <iostream>
+#include <QtWidgets/QApplication>
 #include "client/SDLException.h"
 #include "client/Camara.h"
 #include "client/WorldEntities.h"
+#include "client/Launcher.h"
 
 
 int main(int argc, char** argv) {
+    QApplication app(argc, argv);
+    Launcher launcher;
+    launcher.show();
+    app.exec();
     try {
         Camara cam;
         WorldEntities entities;

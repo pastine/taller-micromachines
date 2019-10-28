@@ -1,3 +1,14 @@
+find_package(Qt5Widgets)
+
+qt5_wrap_ui(UIS_HEADERS
+        Launcher.ui
+        )
+
+qt5_add_resources(RESOURCES_SRC
+        launcherBanner.qrc
+        )
+
+
 add_executable(client_test
         main.cpp
         SDLWindow.cpp ../include/client/SDLWindow.h
@@ -13,6 +24,11 @@ add_executable(client_test
         Mud.cpp ../include/client/Mud.h
         Camara.cpp ../include/client/Camara.h
         StaticRenderizable.cpp ../include/client/StaticRenderizable.h
-        WorldEntities.cpp ../include/client/WorldEntities.h)
+        WorldEntities.cpp ../include/client/WorldEntities.h
+        Launcher.cpp
+        ${UIS_HEADERS}
+        ${RESOURCES_SRC}
+        )
 
 target_link_libraries(client_test SDL2 SDL2_image)
+target_link_libraries(client_test Qt5::Widgets)

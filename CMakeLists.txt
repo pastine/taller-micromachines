@@ -8,6 +8,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}")
 
 include_directories(include/)
 include_directories(libs/)
+include_directories(${PROJECT_BINARY_DIR})
 
 add_subdirectory(scripts)
 add_subdirectory(mods)
