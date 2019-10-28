@@ -2,8 +2,8 @@
 // Created by casimiro on 23/10/19.
 //
 
-#include "Oil.h"
-#include "SDLTextureLoader.h"
+#include "client/Oil.h"
+#include "client/SDLTextureLoader.h"
 
 Oil::Oil() : StaticRenderizable() {
     w = 550;

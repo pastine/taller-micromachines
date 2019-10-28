@@ -1,5 +1,5 @@
 #include <string>
-#include "SDLException.h"
+#include "client/SDLException.h"
 
 SDLException::SDLException(const char* description, const char* sdlError)
         : description(description) {

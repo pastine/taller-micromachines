@@ -2,9 +2,9 @@
 // Created by casimiro on 17/10/19.
 //
 
-#include "Area.h"
+#include "client/Area.h"
 
-#include "Area.h"
+#include "client/Area.h"
 
 Area::Area(int x, int y, int width, int height) :
         x(x), y(y), width(width), height(height){

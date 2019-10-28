@@ -1,4 +1,4 @@
-#include "LuaFile.h"
+#include "scripts/LuaFile.h"
 
 LuaFile::LuaFile(std::string filename) {
     L = luaL_newstate();

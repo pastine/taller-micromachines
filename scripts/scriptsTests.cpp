@@ -1,5 +1,5 @@
 #include <iostream>
-#include "AIScript.h"
+#include "scripts/AIScript.h"
 
 int main() {
     std::string scriptName("helloWorld");

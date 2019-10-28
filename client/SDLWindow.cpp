@@ -4,8 +4,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL_render.h>
-#include "SDLWindow.h"
-#include "SDLException.h"
+#include "client/SDLWindow.h"
+#include "client/SDLException.h"
 
 SDLWindow::SDLWindow(int width, int height) : width(width), height(height) {
     int err_code = SDL_Init(SDL_INIT_VIDEO);

@@ -3,8 +3,8 @@
 //
 
 #include <iostream>
-#include "Car.h"
-#include "SDLTextureLoader.h"
+#include "client/Car.h"
+#include "client/SDLTextureLoader.h"
 
 Car::Car() : Renderizable() {
     w = 29;

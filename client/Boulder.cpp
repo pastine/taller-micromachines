@@ -2,8 +2,8 @@
 // Created by casimiro on 22/10/19.
 //
 
-#include "Boulder.h"
-#include "SDLTextureLoader.h"
+#include "client/Boulder.h"
+#include "client/SDLTextureLoader.h"
 
 Boulder::Boulder() : StaticRenderizable() {
     w = 550;

@@ -3,8 +3,8 @@
 //
 
 #include <iostream>
-#include "SDLTextureLoader.h"
-#include "SDLException.h"
+#include "client/SDLTextureLoader.h"
+#include "client/SDLException.h"
 
 
 SDLTextureLoader* SDLTextureLoader::instance = nullptr;

@@ -2,7 +2,7 @@
 // Created by casimiro on 25/10/19.
 //
 
-#include "StaticRenderizable.h"
+#include "client/StaticRenderizable.h"
 
 
 

@@ -2,8 +2,8 @@
 // Created by casimiro on 23/10/19.
 //
 
-#include "Mud.h"
-#include "SDLTextureLoader.h"
+#include "client/Mud.h"
+#include "client/SDLTextureLoader.h"
 
 Mud::Mud() : StaticRenderizable() {
     w = 550;

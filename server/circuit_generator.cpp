@@ -1,4 +1,4 @@
-#include "circuit_generator.h"
+#include "server/circuit_generator.h"
 #include <iostream>
 #include <random>
 #define H 25

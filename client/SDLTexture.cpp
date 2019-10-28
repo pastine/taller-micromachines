@@ -4,8 +4,8 @@
 
 #include <SDL2/SDL.h>
 #include <iostream>
-#include "SDLTexture.h"
-#include "SDLException.h"
+#include "client/SDLTexture.h"
+#include "client/SDLException.h"
 
 SDLTexture::SDLTexture(SDL_Texture *texture,
                        int width,

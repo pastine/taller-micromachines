@@ -2,9 +2,9 @@
 // Created by casimiro on 23/10/19.
 //
 
-#include "Camara.h"
-#include "SDLWindow.h"
-#include "SDLTextureLoader.h"
+#include "client/Camara.h"
+#include "client/SDLWindow.h"
+#include "client/SDLTextureLoader.h"
 
 
 Camara::Camara() : window(SDLWindow(420, 840)){

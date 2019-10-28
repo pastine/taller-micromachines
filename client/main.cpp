@@ -4,9 +4,9 @@
 
 #include <SDL2/SDL.h>
 #include <iostream>
-#include "SDLException.h"
-#include "Camara.h"
-#include "WorldEntities.h"
+#include "client/SDLException.h"
+#include "client/Camara.h"
+#include "client/WorldEntities.h"
 
 
 int main(int argc, char** argv) {

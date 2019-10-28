@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
 #include "Box2D/Box2D.h"
-#include "track.h"
-#include "car.h"
+#include "server/track.h"
+#include "server/car.h"
 
 int main() {
   b2Vec2 gravity(0.0f, 0.0f); //simulado en un mundo sin gravedad
