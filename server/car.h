@@ -5,6 +5,8 @@
 class Car {
 private:
   b2Body* m_body;
+  float max_speed;
+  float min_speed;
 
 public:
   Car(b2World& world);
@@ -13,11 +15,21 @@ public:
 
   float32 get_angle();
 
-  b2Vec2 getLateralVelocity();
+  b2Vec2 get_lateral_velocity();
 
   void updateFriction();
 
   ~Car();
+
+  void set_linear_velocity(b2Vec2 &v);
+
+  void set_angular_velocity(float32 omega);
+
+  void turn(float torque);
+
+  b2Vec2 get_forward_velocity();
+
+  void move_forward();
 };
 
 

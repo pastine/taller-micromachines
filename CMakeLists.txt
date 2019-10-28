@@ -23,9 +23,12 @@ add_executable(server_test
         server/track.cpp server/track.h
         server/car.cpp server/car.h
         server/circuit_generator.cpp server/circuit_generator.h
-        server/event_listener.cpp server/event_listener.h)
+        server/event_listener.cpp server/event_listener.h
+        server/car_handler.cpp server/car_handler.h
+        server/event_handler.cpp server/event_handler.h)
 
 target_link_libraries(server_test box2d)
+
 ########## CLIENT ##########
 
 add_executable(client_test
@@ -43,6 +46,7 @@ add_executable(client_test
         client/Mud.cpp client/Mud.h client/Camara.cpp client/Camara.h client/StaticRenderizable.cpp client/StaticRenderizable.h client/WorldEntities.cpp client/WorldEntities.h)
 
 target_link_libraries(client_test SDL2 SDL2_image)
+
 ########## MODS ##########
 add_library(HelloWorld SHARED
         mods/libHelloWorld.cpp)
