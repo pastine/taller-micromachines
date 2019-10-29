@@ -18,21 +18,6 @@ void Communication::shutdown() {
 }
 
 
-
-void Communication::send_move(MoveType &move) {
-    uint16_t msg_len = sizeof(char);
-    char char_move = this->move_serializer.serialize(move);
-    try {
-        this->socket.send(reinterpret_cast<const char *>(&msg_len), sizeof(uint16_t));
-        this->socket.send(&char_move, sizeof(char));
-    } catch (std::runtime_error& e) {
-        std::string err = "Error in Communication::send_move -> ";
-        err += e.what();
-        throw std::runtime_error(err);
-    }
-}
-
-
 void Communication::send_msg(std::string& msg) {
     uint16_t msg_len = msg.length();
     try {

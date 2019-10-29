@@ -31,7 +31,6 @@ private:
     Socket socket;
 
     StateSerializer state_serializer;
-
     MoveSerializer move_serializer;
 };
 

@@ -18,6 +18,8 @@ char MoveSerializer::serialize(MoveType &move) {
         case MoveType::RIGHT:
             return 'R';
     }
+    std::string msg = "MoveSerializer::serialize -> Can't serialize";
+    throw std::runtime_error(msg);
 }
 
 MoveType MoveSerializer::deserialize(char move) {
