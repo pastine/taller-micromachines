@@ -12,6 +12,13 @@ add_executable(server_test
         circuit_generator.cpp ../include/server/circuit_generator.h
         event_listener.cpp ../include/server/event_listener.h
         car_handler.cpp ../include/server/car_handler.h
-        event_handler.cpp ../include/server/event_handler.h)
+        event_handler.cpp ../include/server/event_handler.h
+
+        ../common/Communication.cpp ../include/common/Communication.h
+        ../common/MoveSerializer.cpp ../include/common/MoveSerializer.h
+        ../common/StateSerializer.cpp ../include/common/StateSerializer.h
+        ../common/Socket.cpp ../include/common/Socket.h
+        ../include/common/MoveType.h
+        )
 
 target_link_libraries(server_test box2d)

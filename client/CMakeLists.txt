@@ -28,7 +28,13 @@ add_executable(client_test
         Launcher.cpp
         ${UIS_HEADERS}
         ${RESOURCES_SRC}
-        )
+
+        ../common/Communication.cpp ../include/common/Communication.h
+        ../common/MoveSerializer.cpp ../include/common/MoveSerializer.h
+        ../common/StateSerializer.cpp ../include/common/StateSerializer.h
+        ../common/Socket.cpp ../include/common/Socket.h
+        ../include/common/MoveType.h
+        ServerProxy.cpp ServerProxy.h)
 
 target_link_libraries(client_test SDL2 SDL2_image)
 target_link_libraries(client_test Qt5::Widgets)

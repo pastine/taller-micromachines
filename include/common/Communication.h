@@ -11,26 +11,28 @@ using JSON = nlohmann::json;
 
 #include "common/Socket.h"
 #include "common/MoveType.h"
+#include "common/StateSerializer.h"
+#include "common/MoveSerializer.h"
 
 class Communication {
 public:
     Communication(std::string& host, std::string& service);
-    Communication(Socket socket);
-
-    // communication interface
-    void send_state(JSON& state);
-    void send_move(MoveType& move);
-    Communication::MoveType recv_move();
-    JSON recv_state();
+    explicit Communication(Socket socket);
 
     // cant copy the communication
     Communication(const Communication& other) = delete;
     Communication& operator=(const Communication& other) = delete;
 
-    shutdown();
+    void receive_msg(std::string &msg);
+    void send_msg(std::string &msg);
 
+    void shutdown();
 private:
     Socket socket;
+
+    StateSerializer state_serializer;
+
+    MoveSerializer move_serializer;
 };
 
 

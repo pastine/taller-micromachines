@@ -8,4 +8,4 @@
 #endif //TALLER_MICROMACHINES_MOVETYPE_H
 
 
-class enum MoveType {UP, DOWN, LEFT, RIGHT};
+enum MoveType {UP, DOWN, LEFT, RIGHT};

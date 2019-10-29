@@ -17,9 +17,11 @@ private:
     addrinfo *_get_address_list(const char *host, const char *service);
 public:
     Socket();
+    ~Socket();
+    // move operators
     Socket(Socket&& other);
     Socket& operator=(Socket&& other);
-    ~Socket();
+
     // cant copy the socket
     Socket(const Socket& other) = delete;
     Socket& operator=(const Socket& other) = delete;

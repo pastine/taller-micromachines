@@ -8,7 +8,6 @@
 
 #define MAX_CLIENT_QUEUE 10
 
-
 Socket::Socket() {
     this->skt_fd = -1;
 }
