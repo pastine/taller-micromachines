@@ -3,9 +3,8 @@
 //
 
 #include "common/StateSerializer.h"
+#include <common/json.h>
 
-#include <nlohmann/json.hpp>
-using JSON = nlohmann::json;
 
 std::string StateSerializer::serialize(JSON &state) {
     return state.dump();

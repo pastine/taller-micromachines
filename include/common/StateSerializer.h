@@ -5,9 +5,7 @@
 #ifndef TALLER_MICROMACHINES_STATESERIALIZER_H
 #define TALLER_MICROMACHINES_STATESERIALIZER_H
 
-#include <nlohmann/json.hpp>
-using JSON = nlohmann::json;
-
+#include <common/json.h>
 
 class StateSerializer {
 public:

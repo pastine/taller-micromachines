@@ -45,3 +45,14 @@ void Communication::receive_msg(std::string& msg) {
         throw std::runtime_error(err);
     }
 }
+
+Communication::Communication(Communication &&other) {
+    this->socket = std::move(other.socket);
+}
+
+Communication &Communication::operator=(Communication &&other) {
+    if (this == &other) return *this;
+    this->socket = std::move(other.socket);
+    return *this;
+}
+

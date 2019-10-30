@@ -19,6 +19,6 @@ add_executable(server_test
         ../common/StateSerializer.cpp ../include/common/StateSerializer.h
         ../common/Socket.cpp ../include/common/Socket.h
         ../include/common/MoveType.h
-        )
+        ClientProxy.cpp ClientProxy.h ../include/common/json.h)
 
 target_link_libraries(server_test box2d)

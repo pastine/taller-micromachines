@@ -6,12 +6,11 @@
 #define TALLER_MICROMACHINES_SERVERPROXY_H
 
 #include "../include/common/MoveType.h"
-#include <nlohmann/json.hpp>
+#include <common/json.h>
 #include <common/MoveSerializer.h>
 #include <common/StateSerializer.h>
 #include <common/Communication.h>
 
-using JSON = nlohmann::json;
 
 class ServerProxy {
 public:
@@ -22,7 +21,6 @@ public:
 private:
     MoveSerializer move_serializer;
     StateSerializer state_serializer;
-
     Communication communication;
 };
 

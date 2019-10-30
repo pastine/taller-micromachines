@@ -6,9 +6,7 @@
 #define TALLER_MICROMACHINES_COMMUNICATION_H
 
 
-#include <nlohmann/json.hpp>
-using JSON = nlohmann::json;
-
+#include <common/json.h>
 #include "common/Socket.h"
 #include "common/MoveType.h"
 #include "common/StateSerializer.h"
@@ -22,6 +20,10 @@ public:
     // cant copy the communication
     Communication(const Communication& other) = delete;
     Communication& operator=(const Communication& other) = delete;
+
+    // move operations
+    Communication(Communication&& other);
+    Communication& operator=(Communication&& other);
 
     void receive_msg(std::string &msg);
     void send_msg(std::string &msg);
