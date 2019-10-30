@@ -30,3 +30,15 @@ MoveType ClientProxy::get_move() {
         throw std::runtime_error(err);
     }
 }
+
+ClientProxy &ClientProxy::operator=(ClientProxy &&other) {
+    if (this == &other) return *this;
+    this->communication = std::move(other.communication);
+    return *this;
+}
+
+ClientProxy::ClientProxy(ClientProxy &&other) {
+    this->communication = std::move(other.communication);
+}
+
+

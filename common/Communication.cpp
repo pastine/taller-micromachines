@@ -56,3 +56,5 @@ Communication &Communication::operator=(Communication &&other) {
     return *this;
 }
 
+Communication::Communication() {;}
+

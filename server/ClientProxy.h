@@ -12,9 +12,18 @@
 
 class ClientProxy {
 public:
-    explicit ClientProxy(Communication comm);
+    ClientProxy(Communication comm);
     void send_state(JSON& state);
     MoveType get_move();
+
+    // can't be copied
+    ClientProxy& operator=(const ClientProxy& other) = delete;
+    ClientProxy(const ClientProxy& other) = delete;
+
+    // movement
+    ClientProxy(ClientProxy&& other);
+    ClientProxy& operator=(ClientProxy&& other);
+
 private:
     Communication communication;
     MoveSerializer move_serializer;

@@ -14,6 +14,7 @@
 
 class Communication {
 public:
+    Communication();
     Communication(std::string& host, std::string& service);
     explicit Communication(Socket socket);
 
