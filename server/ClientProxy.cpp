@@ -2,7 +2,7 @@
 // Created by casimiro on 30/10/19.
 //
 
-#include "ClientProxy.h"
+#include "server/ClientProxy.h"
 
 ClientProxy::ClientProxy(Communication comm) : communication(std::move(comm)){}
 

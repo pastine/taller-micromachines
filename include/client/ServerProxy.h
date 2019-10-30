@@ -5,7 +5,7 @@
 #ifndef TALLER_MICROMACHINES_SERVERPROXY_H
 #define TALLER_MICROMACHINES_SERVERPROXY_H
 
-#include "../include/common/MoveType.h"
+#include "common/MoveType.h"
 #include <common/json.h>
 #include <common/MoveSerializer.h>
 #include <common/StateSerializer.h>

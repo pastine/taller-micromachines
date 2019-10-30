@@ -2,7 +2,7 @@
 // Created by casimiro on 29/10/19.
 //
 
-#include "ServerProxy.h"
+#include "client/ServerProxy.h"
 
 ServerProxy::ServerProxy(std::string &host, std::string &service) : communication(host, service){}
 

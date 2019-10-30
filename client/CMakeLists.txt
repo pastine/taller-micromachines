@@ -34,7 +34,7 @@ add_executable(client_test
         ../common/StateSerializer.cpp ../include/common/StateSerializer.h
         ../common/Socket.cpp ../include/common/Socket.h
         ../include/common/MoveType.h
-        ServerProxy.cpp ServerProxy.h ../include/common/json.h)
+        ServerProxy.cpp ../include/client/ServerProxy.h ../include/common/json.h)
 
 target_link_libraries(client_test SDL2 SDL2_image)
 target_link_libraries(client_test Qt5::Widgets)
