@@ -8,7 +8,7 @@
 
 #include "Renderizable.h"
 
-class StaticRenderizable : public Renderizable{
+class StaticRenderizable : public Renderizable {
 protected:
     SDLTexture* texture;
     int w;

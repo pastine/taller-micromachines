@@ -12,7 +12,7 @@
 #include "Boulder.h"
 #include "Oil.h"
 #include "Mud.h"
-#include "Camara.h"
+#include "Camera.h"
 
 
 
@@ -31,7 +31,7 @@ public:
     enum class Entity {CAR, MUD, OIL, BOULDER};
     void put(Entity , int x, int y, int angle = 0);
     void clean();
-    void render(Camara& camara);
+    void render(Camera& camara);
 };
 
 

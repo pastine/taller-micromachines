@@ -29,7 +29,7 @@ void WorldEntities::clean() {
     oil_positions.clear();
 }
 
-void WorldEntities::render(Camara &camara) {
+void WorldEntities::render(Camera &camara) {
     for (const std::tuple<int, int>& boulder_pos : boulder_positions)
         camara.render_object(this->boulder,
                              std::get<0>(boulder_pos),

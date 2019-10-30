@@ -6,7 +6,7 @@
 #include <iostream>
 #include <QtWidgets/QApplication>
 #include "client/SDLException.h"
-#include "client/Camara.h"
+#include "client/Camera.h"
 #include "client/WorldEntities.h"
 #include "client/Launcher.h"
 
@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
     launcher.show();
     app.exec();
     try {
-        Camara cam;
+        Camera cam;
         WorldEntities entities;
 
         auto i = 0;

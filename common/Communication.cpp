@@ -9,9 +9,11 @@ Communication::Communication(std::string &host, std::string &service) {
     this->socket.connect_to(host, service);
 }
 
+
 Communication::Communication(Socket socket) {
     this->socket = std::move(socket);
 }
+
 
 void Communication::shutdown() {
     this->socket.shutdown();

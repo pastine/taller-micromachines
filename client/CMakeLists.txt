@@ -22,7 +22,7 @@ add_executable(client_test
         ../include/client/Renderizable.h
         Oil.cpp ../include/client/Oil.h
         Mud.cpp ../include/client/Mud.h
-        Camara.cpp ../include/client/Camara.h
+        Camera.cpp ../include/client/Camera.h
         StaticRenderizable.cpp ../include/client/StaticRenderizable.h
         WorldEntities.cpp ../include/client/WorldEntities.h
         Launcher.cpp
