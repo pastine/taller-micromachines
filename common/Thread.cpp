@@ -2,7 +2,7 @@
 // Created by casimiro on 28/9/19.
 //
 
-#include "common_Thread.h"
+#include "common/Thread.h"
 
 
 Thread::Thread(Thread &&other) {

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.14)
 project(taller_micromachines)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -25,6 +25,19 @@ set(CPPLINT_FILTER_OPTIONS
         +whitespace/newline,+whitespace/parens,+whitespace/semicolon"
         )
 
+
+add_library(common STATIC
+        common/Communication.cpp include/common/Communication.h
+        common/MoveSerializer.cpp include/common/MoveSerializer.h
+        common/StateSerializer.cpp include/common/StateSerializer.h
+        common/Socket.cpp include/common/Socket.h
+        common/Thread.cpp include/common/Thread.h
+        include/common/json.h
+        include/common/MoveType.h
+        )
+
+target_link_libraries(server_test common)
+target_link_libraries(client_test common)
 
 add_custom_target(lint_headers
         COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${CMAKE_CURRENT_SOURCE_DIR}/include/"
