@@ -4,12 +4,12 @@
 #include <string>
 #include "LuaFile.h"
 
-const std::string DIRECTORY = "scripts/";
-const std::string EXTENSION = ".lua";
+const char DIRECTORY[] = "scripts/";
+const char EXTENSION[] = ".lua";
 
 class AIScript : public LuaFile {
 public:
-    AIScript(std::string scriptName) : LuaFile(DIRECTORY + scriptName + EXTENSION) {}
+    explicit AIScript(std::string scriptName) : LuaFile(DIRECTORY + scriptName + EXTENSION) {}
 };
 
 

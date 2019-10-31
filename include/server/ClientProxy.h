@@ -12,7 +12,7 @@
 
 class ClientProxy {
 public:
-    ClientProxy(Communication comm);
+    explicit ClientProxy(Communication comm);
     void send_state(JSON& state);
     MoveType get_move();
 

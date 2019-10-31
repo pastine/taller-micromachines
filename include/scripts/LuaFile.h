@@ -11,12 +11,14 @@ extern "C" {
 
 #include <LuaBridge/LuaBridge.h>
 #include <LuaBridge/Vector.h>
+#include <string>
+#include <vector>
 
 using namespace luabridge;
 
 class LuaFile {
 public:
-    LuaFile(std::string filename);
+    explicit LuaFile(std::string filename);
 
     ~LuaFile();
 

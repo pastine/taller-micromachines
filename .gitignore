@@ -2,4 +2,4 @@ build/
 .idea/
 *.so
 cmake-build-debug/
-client_test
+*_test

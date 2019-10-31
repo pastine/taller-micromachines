@@ -22,7 +22,6 @@ Thread& Thread::operator=(Thread &&other) {
 void Thread::start() {
     this->is_alive = true;
     this->thread = std::thread(&Thread::run, this);
-
 }
 
 Thread::Thread() : is_alive(true) {}

@@ -8,6 +8,7 @@
 
 #include <common/Socket.h>
 #include "ClientProxy.h"
+#include <string>
 
 class ClientAccepter {
 public:

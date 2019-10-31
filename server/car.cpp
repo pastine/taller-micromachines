@@ -49,18 +49,18 @@ void Car::set_angular_velocity(float32 omega) {
 }
 
 b2Vec2 Car::get_lateral_velocity() {
-  b2Vec2 currentRightNormal = m_body->GetWorldVector( b2Vec2(1,0) );
+  b2Vec2 currentRightNormal = m_body->GetWorldVector(b2Vec2(1,0));
   return b2Dot( currentRightNormal, m_body->GetLinearVelocity() ) * currentRightNormal;
 }
 
 b2Vec2 Car::get_forward_velocity() {
-  b2Vec2 currentRightNormal = m_body->GetWorldVector( b2Vec2(0,1) );
+  b2Vec2 currentRightNormal = m_body->GetWorldVector(b2Vec2(0,1));
   return b2Dot( currentRightNormal, m_body->GetLinearVelocity() ) * currentRightNormal;
 }
 
 void Car::updateFriction() {
   b2Vec2 impulse = m_body->GetMass() * -get_lateral_velocity();
-  m_body->ApplyLinearImpulse( impulse, m_body->GetWorldCenter(), false );
+  m_body->ApplyLinearImpulse(impulse, m_body->GetWorldCenter(), false);
 }
 
 void Car::turn(float torque) {
@@ -77,7 +77,7 @@ void Car::move_forward() {
   } else {
     return;
   }
-  m_body->ApplyForce(force * normal, m_body->GetWorldCenter(),);
+  m_body->ApplyForce(force * normal, m_body->GetWorldCenter(),true);
 }
 
 void Car::stop() {
@@ -90,7 +90,7 @@ void Car::stop() {
   } else {
     return;
   }
-  m_body->ApplyForce(force * normal, m_body->GetWorldCenter(),);
+  m_body->ApplyForce(force * normal, m_body->GetWorldCenter(), true);
 }
 
 Car::~Car() {

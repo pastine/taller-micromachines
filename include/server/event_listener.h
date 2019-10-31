@@ -7,7 +7,6 @@
 
 
 class event_listener {
-
 };
 
 

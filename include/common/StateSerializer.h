@@ -6,6 +6,7 @@
 #define TALLER_MICROMACHINES_STATESERIALIZER_H
 
 #include <common/json.h>
+#include <string>
 
 class StateSerializer {
 public:

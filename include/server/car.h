@@ -9,7 +9,7 @@ private:
   float min_speed;
 
 public:
-  Car(b2World& world);
+  explicit Car(b2World& world);
 
   b2Vec2 get_position();
 
@@ -30,6 +30,8 @@ public:
   b2Vec2 get_forward_velocity();
 
   void move_forward();
+
+  void stop();
 };
 
 

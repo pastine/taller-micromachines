@@ -6,7 +6,7 @@ class Track {
 private:
   b2World world;
 public:
-  Track(b2Vec2 gravity);
+  explicit Track(b2Vec2 gravity);
 
   void step(float32 timeStep, int32 velocityIt, int32 positionIt);
 };

@@ -12,7 +12,7 @@ public:
 
     virtual void stop() = 0;
     virtual void run() = 0;
-    virtual ~Thread() {};
+    virtual ~Thread() {}
     Thread();
     Thread(const Thread&) = delete;
     Thread(Thread&&);

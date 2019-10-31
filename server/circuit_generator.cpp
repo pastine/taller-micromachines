@@ -37,7 +37,7 @@ void CircuitGenerator::generate_circuit() {
 
   for (int i = 0; i < H; ++i) {
     for (int j = 0; j < W; ++j) {
-      if((i == NORTH || i == SOUTH) && (j >= WEST && j <= EAST)) {
+      if ((i == NORTH || i == SOUTH) && (j >= WEST && j <= EAST)) {
         double num = dist(mt);
         circuit[i][j] = get_surface(num);
       } else if ((j == WEST || j == EAST) && (i >= NORTH && i <= SOUTH)) {
@@ -52,19 +52,19 @@ void CircuitGenerator::generate_circuit() {
 
   for (int i = 0; i < H; ++i) {
     for (int j = 0; j < W; ++j) {
-     if(circuit[i][j] == 1) {
+     if (circuit[i][j] == 1) {
       std::cout<<'*';
-     } else if(circuit[i][j] == 2) {
+     } else if (circuit[i][j] == 2) {
         std::cout<<"\033[35mH\033[0m";
-     } else if(circuit[i][j] == 3) {
+     } else if (circuit[i][j] == 3) {
         std::cout<<"\033[35mB\033[0m";;
-     } else if(circuit[i][j] == 4) {
+     } else if (circuit[i][j] == 4) {
         std::cout<<"\033[35mS\033[0m";;
-     } else if(circuit[i][j] == 5) {
+     } else if (circuit[i][j] == 5) {
         std::cout<<"\033[35mO\033[0m";;
-     } else if(circuit[i][j] == 6) {
+     } else if (circuit[i][j] == 6) {
         std::cout<<"\033[35mM\033[0m";;
-     } else if(circuit[i][j] == 7) {
+     } else if (circuit[i][j] == 7) {
        std::cout<< "\033[1;31m&\033[0m";
      } else {
        std::cout<< "\033[32m.\033[0m";
@@ -72,7 +72,6 @@ void CircuitGenerator::generate_circuit() {
     }
     std::cout<<"\n";
   }
-
 }
 
 //int main() {

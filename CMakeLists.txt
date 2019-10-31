@@ -15,17 +15,6 @@ add_subdirectory(mods)
 add_subdirectory(client)
 add_subdirectory(server)
 
-set(CPPLINT_FILTER_OPTIONS
-        "-,+build/class,+build/deprecated,+build/include_what_you_use,+build/namespaces,+build/printf_format,\
-        +readability/braces,+readability/check,+readability/fn_size,\
-        +readability/function,+readability/multiline_comment,+readability/multiline_string,+readability/utf8,\
-        +runtime/arrays,+runtime/casting,+runtime/explicit,+runtime/init,+runtime/invalid_increment,\
-        +runtime/memset,+runtime/operator,+runtime/printf,+runtime/printf_format,+runtime/rtti,+runtime/string,+runtime/threadsafe_fn,\
-        +whitespace/blank_line,+whitespace/empty_loop_body,+whitespace/ending_newline,+whitespace/line_length,\
-        +whitespace/newline,+whitespace/parens,+whitespace/semicolon"
-        )
-
-
 add_library(common STATIC
         common/Communication.cpp include/common/Communication.h
         common/MoveSerializer.cpp include/common/MoveSerializer.h
@@ -39,31 +28,43 @@ add_library(common STATIC
 target_link_libraries(server_test common)
 target_link_libraries(client_test common)
 
-add_custom_target(lint_headers
-        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${CMAKE_CURRENT_SOURCE_DIR}/include/"
+set(CPPLINT_FILTER_OPTIONS
+        "-,+build/class,+build/deprecated,+build/include_what_you_use,+build/printf_format,\
+        +readability/braces,+readability/check,+readability/fn_size,\
+        +readability/function,+readability/multiline_comment,+readability/multiline_string,+readability/utf8,\
+        +runtime/arrays,+runtime/casting,+runtime/explicit,+runtime/init,+runtime/invalid_increment,\
+        +runtime/memset,+runtime/operator,+runtime/printf,+runtime/printf_format,+runtime/rtti,+runtime/string,+runtime/threadsafe_fn,\
+        +whitespace/blank_line,+whitespace/empty_loop_body,+whitespace/ending_newline,+whitespace/line_length,\
+        +whitespace/newline,+whitespace/parens,+whitespace/semicolon"
         )
 
-add_custom_target(lint_client
-        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${CMAKE_CURRENT_SOURCE_DIR}/client/"
+add_custom_target(lint_common
+        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/common/"
+        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/include/common/"
         )
 
 add_custom_target(lint_server
-        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${CMAKE_CURRENT_SOURCE_DIR}/server/"
+        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/server/"
+        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/include/server/"
+        )
+
+add_custom_target(lint_client
+        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/client/"
+        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/include/client/"
         )
 
 add_custom_target(lint_mods
-        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${CMAKE_CURRENT_SOURCE_DIR}/mods/"
+        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/mods/"
+        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/include/mods/"
         )
 
 add_custom_target(lint_scripts
-        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${CMAKE_CURRENT_SOURCE_DIR}/scripts/"
+        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/scripts/"
+        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/include/scripts/"
         )
 
-#add_dependencies(scripts_test lint_headers)
-#add_dependencies(scripts_test lint_scripts)
-#add_dependencies(mods_test lint_headers)
-#add_dependencies(mods_test lint_mods)
-#add_dependencies(client_test lint_headers)
-#add_dependencies(client_test lint_client)
-#add_dependencies(server_test lint_headers)
-#add_dependencies(server_test lint_server)
+add_dependencies(common lint_common)
+add_dependencies(scripts_test lint_scripts)
+add_dependencies(mods_test lint_mods)
+add_dependencies(client_test lint_client)
+add_dependencies(server_test lint_server)

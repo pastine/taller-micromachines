@@ -127,7 +127,7 @@ int Socket::send(const char *message, size_t len) {
 
 void Socket::receive(char *buffer, size_t bytes_to_read) {
     int bytes_received = 0, recv_this_time = 0;
-    while(bytes_received < (int) bytes_to_read) {
+    while (bytes_received < (int) bytes_to_read) {
         recv_this_time = ::recv(this->skt_fd,
                                 &buffer[bytes_received],
                                 bytes_to_read - bytes_received,

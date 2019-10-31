@@ -24,7 +24,7 @@ int main() {
 
     b2Vec2 position = car.get_position();
     float32 angle = car.get_angle();
-    if(i%5 == 0 && i!= 0) {
+    if (i%5 == 0 && i!= 0) {
       velocity.x += 1.0f;
       car.set_linear_velocity(velocity);
       float32 omega = 3.50;

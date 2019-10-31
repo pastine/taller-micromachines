@@ -13,14 +13,10 @@ void CarHandler::turn_right() {
 }
 
 void CarHandler::accelerate() {
-
 }
 
 void CarHandler::slow_down() {
-
 }
 
 CarHandler::~CarHandler() {
-
 }
-

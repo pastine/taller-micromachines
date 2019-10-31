@@ -11,6 +11,7 @@
 #include "common/MoveType.h"
 #include "common/StateSerializer.h"
 #include "common/MoveSerializer.h"
+#include <string>
 
 class Communication {
 public:

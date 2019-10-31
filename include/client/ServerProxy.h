@@ -10,7 +10,7 @@
 #include <common/MoveSerializer.h>
 #include <common/StateSerializer.h>
 #include <common/Communication.h>
-
+#include <string>
 
 class ServerProxy {
 public:
