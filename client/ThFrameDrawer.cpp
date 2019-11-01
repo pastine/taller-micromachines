@@ -18,14 +18,16 @@ void ThFrameDrawer::run() {
 }
 
 void ThFrameDrawer::_draw_frame(JSON &state) {
-    this->cam.set_center(state["center"]["x"], state["center"]["y"]);
+    cam.set_center(state["center"]["x"], state["center"]["y"]);
 
     cam.prepare_frame();
     entities.clean();
 
     JSON cars = state["car"];
     for (JSON::iterator it = cars.begin(); it != cars.end(); ++it) {
-        
+        entities.put(WorldEntities::Entity::CAR, (*it)["x"], (*it)["y"], (*it)["angle"]);
     }
+
+    entities.render(cam);
 }
 
