@@ -23,6 +23,7 @@ add_library(common STATIC
         common/Thread.cpp include/common/Thread.h
         include/common/json.h
         include/common/MoveType.h
+        common/ProtectedQueue.cpp include/common/ProtectedQueue.h
         )
 
 target_link_libraries(server_test common)

@@ -14,7 +14,7 @@
 
 class ServerProxy {
 public:
-    void player_move(MoveType& move);
+    void player_move(MoveType move);
     void get_game_state(JSON *json);
 
     ServerProxy(std::string& host, std::string& service);

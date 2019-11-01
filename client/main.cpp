@@ -5,6 +5,8 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <QtWidgets/QApplication>
+#include <client/ServerProxy.h>
+#include <common/ProtectedQueue.h>
 #include "client/SDLException.h"
 #include "client/Camera.h"
 #include "client/WorldEntities.h"
@@ -16,7 +18,15 @@ int main(int argc, char** argv) {
     Launcher launcher;
     launcher.show();
     app.exec();
+
+
     try {
+        std::string host(argv[1]);
+        std::string service(argv[2]);
+        ServerProxy server(host, service);
+
+        ProtectedQueue queue(10);
+
         Camera cam;
         WorldEntities entities;
 
@@ -41,12 +51,16 @@ int main(int argc, char** argv) {
                         SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                         switch (keyEvent.keysym.sym) {
                             case SDLK_LEFT:
+                                server.player_move(MoveType::LEFT);
                                 break;
                             case SDLK_RIGHT:
+                                server.player_move(MoveType::RIGHT);
                                 break;
                             case SDLK_UP:
+                                server.player_move(MoveType::UP);
                                 break;
                             case SDLK_DOWN:
+                                server.player_move(MoveType::DOWN);
                                 break;
                         }
                     }

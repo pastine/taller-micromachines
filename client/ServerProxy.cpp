@@ -7,7 +7,7 @@
 ServerProxy::ServerProxy(std::string &host, std::string &service) : communication(host, service){}
 
 
-void ServerProxy::player_move(MoveType &move) {
+void ServerProxy::player_move(MoveType move) {
     try {
         std::string msg;
         char _move = this->move_serializer.serialize(move);

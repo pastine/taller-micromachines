@@ -24,3 +24,8 @@ void Camera::show_frame() {
 void Camera::prepare_frame() {
     window.fill(0xFF,0xFF,0,0xFF);
 }
+
+void Camera::set_center(int x, int y) {
+    this->center_x = x;
+    this->center_y = y;
+}
