@@ -1,6 +1,8 @@
 #ifndef TALLER_MICROMACHINES_CAR_HANDLER_H
 #define TALLER_MICROMACHINES_CAR_HANDLER_H
 
+#include <utility>
+#include <common/MoveType.h>
 #include "car.h"
 
 class CarHandler {
@@ -10,13 +12,7 @@ private:
 public:
   explicit CarHandler(Car& car);
 
-  void turn_left();
-
-  void turn_right();
-
-  void accelerate();
-
-  void slow_down();
+  void move(MoveType move);
 
   ~CarHandler();
 };

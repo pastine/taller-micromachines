@@ -10,10 +10,10 @@ add_executable(server_test
         track.cpp ../include/server/track.h
         car.cpp ../include/server/car.h
         circuit_generator.cpp ../include/server/circuit_generator.h
-        event_listener.cpp ../include/server/event_listener.h
         car_handler.cpp ../include/server/car_handler.h
-        event_handler.cpp ../include/server/event_handler.h
         ClientProxy.cpp ../include/server/ClientProxy.h
-        ClientAccepter.cpp ../include/server/ClientAccepter.h)
+        ClientAccepter.cpp ../include/server/ClientAccepter.h
+        server.cpp ../include/server/server.h
+        main.cpp player.cpp ../include/server/player.h race.cpp ../include/server/race.h)
 
 target_link_libraries(server_test box2d)

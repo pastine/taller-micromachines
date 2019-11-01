@@ -4,18 +4,14 @@
 CarHandler::CarHandler(Car &car) : car(car) {
 }
 
-void CarHandler::turn_left() {
-  car.turn(TORQUE);
-}
-
-void CarHandler::turn_right() {
-  car.turn(-TORQUE);
-}
-
-void CarHandler::accelerate() {
-}
-
-void CarHandler::slow_down() {
+void CarHandler::move(MoveType move) {
+  switch (move) {
+    case UP :     car.move_forward(); return;
+    case DOWN :   car.stop();         return;
+    case LEFT :   car.turn(TORQUE);   return;
+    case RIGHT :  car.turn(-TORQUE);  return;
+    default: return;
+  }
 }
 
 CarHandler::~CarHandler() {

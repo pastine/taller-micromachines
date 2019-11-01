@@ -4,7 +4,7 @@
 #include "server/track.h"
 #include "server/car.h"
 
-int main() {
+int simulator() {
   b2Vec2 gravity(0.0f, 0.0f); //simulado en un mundo sin gravedad
   b2World world(gravity);
 
