@@ -6,7 +6,6 @@ FILE(GLOB_RECURSE box2d_src
 add_library(box2d STATIC ${box2d_src})
 
 add_executable(server_test
-        simulator.cpp
         track.cpp ../include/server/track.h
         car.cpp ../include/server/car.h
         circuit_generator.cpp ../include/server/circuit_generator.h

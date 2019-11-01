@@ -4,6 +4,8 @@
 #include <server/ClientProxy.h>
 #include <server/car_handler.h>
 #include <common/Thread.h>
+#include <string>
+#include <vector>
 
 class Player : public Thread {
 private:
@@ -21,6 +23,10 @@ public:
   ~Player();
 
   void quit();
+
+  std::vector<std::string> get_position();
+
+  void update_status(JSON &status);
 };
 
 

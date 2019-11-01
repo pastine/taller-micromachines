@@ -16,3 +16,11 @@ void CarHandler::move(MoveType move) {
 
 CarHandler::~CarHandler() {
 }
+
+b2Vec2 CarHandler::get_position() {
+  return car.get_position();
+}
+
+float32 CarHandler::get_angle() {
+  return car.get_angle();
+}

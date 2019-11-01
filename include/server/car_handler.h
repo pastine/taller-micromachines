@@ -14,6 +14,10 @@ public:
 
   void move(MoveType move);
 
+  b2Vec2 get_position();
+
+  float32 get_angle();
+
   ~CarHandler();
 };
 
