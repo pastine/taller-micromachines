@@ -2,7 +2,7 @@
 #define TALLER_MICROMACHINES_SERVER_H
 
 #include "ClientAccepter.h"
-#include "race.h"
+#include "Race.h"
 #include <string>
 
 class Server {

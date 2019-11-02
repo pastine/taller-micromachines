@@ -7,12 +7,20 @@ add_library(box2d STATIC ${box2d_src})
 
 add_executable(server_test
         track.cpp ../include/server/track.h
-        car.cpp ../include/server/car.h
+        Car.cpp ../include/server/Car.h
         circuit_generator.cpp ../include/server/circuit_generator.h
-        car_handler.cpp ../include/server/car_handler.h
+        CarHandler.cpp ../include/server/CarHandler.h
         ClientProxy.cpp ../include/server/ClientProxy.h
         ClientAccepter.cpp ../include/server/ClientAccepter.h
-        server.cpp ../include/server/server.h
-        main.cpp player.cpp ../include/server/player.h race.cpp ../include/server/race.h)
+        Server.cpp ../include/server/Server.h
+        main.cpp Player.cpp ../include/server/Player.h
+        Race.cpp ../include/server/Race.h
+        ContactListener.cpp ../include/server/ContactListener.h
+        Element.cpp ../include/server/Element.h
+        Boost.cpp ../include/server/Boost.h
+        Health.cpp ../include/server/Health.h
+        Oil.cpp ../include/server/Oil.h
+        Mud.cpp ../include/server/Mud.h
+        Stone.cpp ../include/server/Stone.h)
 
 target_link_libraries(server_test box2d)

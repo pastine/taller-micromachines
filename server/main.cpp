@@ -1,4 +1,4 @@
-#include "server/server.h"
+#include "server/Server.h"
 
 int main(int argc, char* argv[]) {
   char *aux = argv[1];

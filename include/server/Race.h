@@ -2,7 +2,7 @@
 #define TALLER_MICROMACHINES_RACE_H
 
 #include "ClientProxy.h"
-#include "player.h"
+#include "Player.h"
 #include <unordered_map>
 #include <string>
 

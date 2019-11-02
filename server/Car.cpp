@@ -1,4 +1,4 @@
-#include "server/car.h"
+#include "server/Car.h"
 #define MAX 100
 
 Car::Car(b2World& world){
@@ -6,7 +6,6 @@ Car::Car(b2World& world){
   bodyDef.type = b2_dynamicBody;
   bodyDef.position.Set(0.0f, 0.0f);
   m_body = world.CreateBody(&bodyDef);
-
   //Define shape
   b2Vec2 vertices[4];
   vertices[0].Set(0.0f, 0.0f);
@@ -14,25 +13,22 @@ Car::Car(b2World& world){
   vertices[2].Set(1.0f, 3.0f);
   vertices[3].Set(0.0f, 3.0f);
   int32 count = 4;
-
   // Define another box shape for our dynamic body.
   b2PolygonShape dynamicBox;
   dynamicBox.Set(vertices, count);
   dynamicBox.SetAsBox(1.0f, 1.5f);
-
   // Define the dynamic body fixture, density, friction
   b2FixtureDef fixtureDef;
   fixtureDef.shape = &dynamicBox;
   fixtureDef.density = 1.0f;
   fixtureDef.friction = 0.3f;
-
   // Add the shape to the body.
   m_body->CreateFixture(&fixtureDef);
   max_speed = MAX;
   min_speed = -MAX;
+  listener = ContactListener();
   contacts = 0;
   m_body->SetUserData(this);
-  listener = ContactListener();
 }
 
 b2Vec2 Car::get_position() {
@@ -44,7 +40,7 @@ float32 Car::get_angle() {
 }
 
 bool Car::is_colliding() {
-  return contacts > 0 ;
+  return contacts > 0;
 }
 
 void Car::set_linear_velocity(b2Vec2& v) {

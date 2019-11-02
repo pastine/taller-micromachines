@@ -2,10 +2,10 @@
 #define TALLER_MICROMACHINES_PLAYER_H
 
 #include <server/ClientProxy.h>
-#include <server/car_handler.h>
+#include <server/CarHandler.h>
 #include <common/Thread.h>
 #include <string>
-#include <vector>
+#include <unordered_map>
 
 class Player : public Thread {
 private:
@@ -24,7 +24,7 @@ public:
 
   void quit();
 
-  std::vector<std::string> get_position();
+  std::unordered_map<std::string, std::string> get_position();
 
   void update_status(JSON &status);
 };

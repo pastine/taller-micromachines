@@ -1,4 +1,4 @@
-#include "server/server.h"
+#include "server/Server.h"
 #include "server/ClientProxy.h"
 
 Server::Server(std::string& service) : acceptor(ClientAccepter(service)),
