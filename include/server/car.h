@@ -1,12 +1,15 @@
 #ifndef TALLER_MICROMACHINES_CAR_H
 #define TALLER_MICROMACHINES_CAR_H
 #include "Box2D/Box2D.h"
+#include "ContactListener.h"
 
 class Car {
 private:
   b2Body* m_body;
   float max_speed;
   float min_speed;
+  int contacts;
+  ContactListener listener;
 
 public:
   explicit Car(b2World& world);
@@ -19,8 +22,6 @@ public:
 
   void updateFriction();
 
-  ~Car();
-
   void set_linear_velocity(b2Vec2 &v);
 
   void set_angular_velocity(float32 omega);
@@ -32,6 +33,14 @@ public:
   void move_forward();
 
   void stop();
+
+  void start_contact();
+
+  void end_contact();
+
+  ~Car();
+
+  bool is_colliding();
 };
 
 

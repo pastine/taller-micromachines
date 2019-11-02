@@ -30,6 +30,9 @@ Car::Car(b2World& world){
   m_body->CreateFixture(&fixtureDef);
   max_speed = MAX;
   min_speed = -MAX;
+  contacts = 0;
+  m_body->SetUserData(this);
+  listener = ContactListener();
 }
 
 b2Vec2 Car::get_position() {
@@ -38,6 +41,10 @@ b2Vec2 Car::get_position() {
 
 float32 Car::get_angle() {
   return m_body->GetAngle();
+}
+
+bool Car::is_colliding() {
+  return contacts > 0 ;
 }
 
 void Car::set_linear_velocity(b2Vec2& v) {
@@ -91,6 +98,14 @@ void Car::stop() {
     return;
   }
   m_body->ApplyForce(force * normal, m_body->GetWorldCenter(), true);
+}
+
+void Car::start_contact() {
+  contacts++;
+}
+
+void Car::end_contact() {
+  contacts--;
 }
 
 Car::~Car() {

@@ -1,5 +1,5 @@
-#ifndef TALLER_MICROMACHINES_CAR_HANDLER_H
-#define TALLER_MICROMACHINES_CAR_HANDLER_H
+#ifndef TALLER_MICROMACHINES_CARHANDLER_H
+#define TALLER_MICROMACHINES_CARHANDLER_H
 
 #include <utility>
 #include <common/MoveType.h>
@@ -18,8 +18,10 @@ public:
 
   float32 get_angle();
 
+  bool is_colliding();
+
   ~CarHandler();
 };
 
 
-#endif //TALLER_MICROMACHINES_CAR_HANDLER_H
+#endif //TALLER_MICROMACHINES_CARHANDLER_H

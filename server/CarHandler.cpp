@@ -1,4 +1,4 @@
-#include "server/car_handler.h"
+#include "server/CarHandler.h"
 #define TORQUE 15
 
 CarHandler::CarHandler(Car &car) : car(car) {
@@ -19,6 +19,10 @@ CarHandler::~CarHandler() {
 
 b2Vec2 CarHandler::get_position() {
   return car.get_position();
+}
+
+bool CarHandler::is_colliding() {
+  return car.is_colliding();
 }
 
 float32 CarHandler::get_angle() {
