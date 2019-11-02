@@ -1,8 +1,9 @@
 #ifndef TALLER_MICROMACHINES_HEALTH_H
 #define TALLER_MICROMACHINES_HEALTH_H
 
+#include "Element.h"
 
-class health {
+class Health : public Element {
 };
 
 

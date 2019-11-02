@@ -1,10 +1,10 @@
 #include <Box2D/Box2D.h>
-#include "server/mud.h"
+#include "server/Mud.h"
 
 Mud::Mud(b2World& world) {
   b2BodyDef bodyDef;
   bodyDef.type = b2_dynamicBody;
-  bodyDef.position.Set(0.0f, 0.0f);
+  bodyDef.position.Set(0.0f, 0.0f); //TODO method that randomizes position
   m_body = world.CreateBody(&bodyDef);
 
   //Define shape
@@ -17,4 +17,16 @@ Mud::Mud(b2World& world) {
   fixture.density = 1.0f;
   fixture.friction = 0.3f;
   m_body->CreateFixture(&fixture);
+
+  contact = ContactListener();
+  contacts = 0;
+  m_body->SetUserData(this);
+}
+
+void Mud::start_contact() {
+  contacts++;
+}
+
+void Mud::end_contact() {
+  contacts--;
 }

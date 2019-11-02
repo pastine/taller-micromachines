@@ -1,8 +1,9 @@
 #ifndef TALLER_MICROMACHINES_BOOST_H
 #define TALLER_MICROMACHINES_BOOST_H
 
+#include "Element.h"
 
-class boost{
+class Boost : public Element {
 };
 
 

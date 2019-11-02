@@ -1,12 +1,9 @@
-//
-// Created by mile on 27/10/19.
-//
-
 #ifndef TALLER_MICROMACHINES_STONE_H
 #define TALLER_MICROMACHINES_STONE_H
 
+#include "Element.h"
 
-class stone {
+class Stone : public Element {
 };
 
 

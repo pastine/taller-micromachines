@@ -1,12 +1,9 @@
-//
-// Created by mile on 27/10/19.
-//
-
 #ifndef TALLER_MICROMACHINES_OIL_H
 #define TALLER_MICROMACHINES_OIL_H
 
+#include "Element.h"
 
-class oil {
+class Oil : public Element {
 };
 
 #endif //TALLER_MICROMACHINES_OIL_H
