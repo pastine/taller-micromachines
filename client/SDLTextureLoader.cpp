@@ -20,11 +20,6 @@ void SDLTextureLoader::instance_loader(SDL_Renderer *renderer) {
     instance = new SDLTextureLoader(renderer);
 }
 
-
-void SDLTextureLoader::destroy_loader() {
-    if (!instance) return;
-}
-
 SDLTextureLoader::SDLTextureLoader(SDL_Renderer *renderer) : renderer(renderer) {}
 
 SDLTextureLoader::~SDLTextureLoader() {}
