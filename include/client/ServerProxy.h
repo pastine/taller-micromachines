@@ -14,6 +14,7 @@
 
 class ServerProxy {
 public:
+    ~ServerProxy();
     void player_move(MoveType move);
     void get_game_state(JSON *json);
 

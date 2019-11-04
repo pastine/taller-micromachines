@@ -9,15 +9,18 @@
 #include <common/ProtectedQueue.h>
 #include <client/Camera.h>
 #include <client/WorldEntities.h>
+#include <common/Thread.h>
 
-class ThFrameDrawer {
+class ThFrameDrawer : public Thread{
 public:
     explicit ThFrameDrawer(ProtectedQueue* state_queue);
-    void run();
+    void run() override;
+    void stop() override;
 private:
     ProtectedQueue* state_queue;
     Camera cam;
     WorldEntities entities;
+    bool done;
     void _draw_frame(JSON& json);
 };
 
