@@ -3,17 +3,21 @@
 
 #include "ClientAccepter.h"
 #include "Race.h"
+#include <common/Thread.h>
 #include <string>
 
-class Server {
+class Server : public Thread {
 private:
   ClientAccepter acceptor;
   Race* race; //next: collection of races
+  bool running;
 
 public:
   explicit Server(std::string& service);
 
-  void run();
+  virtual void run();
+
+  virtual void stop();
 
   ~Server();
 };

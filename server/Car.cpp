@@ -105,5 +105,4 @@ void Car::end_contact() {
 }
 
 Car::~Car() {
-  m_body->GetWorld()->DestroyBody(m_body);
 }

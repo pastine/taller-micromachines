@@ -25,7 +25,10 @@ JSON get_global_status(std::unordered_map<std::string, Player*>& cars) {
   return status;
 }
 
-Race::Race() : world(b2World(gravity)) {
+//Race
+Race::Race() : world(b2World(gravity)),
+               cars(std::unordered_map<std::string, Player*>()),
+               racing(true) {
 }
 
 void Race::run() {
@@ -57,6 +60,8 @@ void Race::stop() {
 }
 
 Race::~Race() {
-  this->stop();
+  for ( auto it = cars.begin(); it != cars.end(); ++it ) {
+    delete(it->second);
+  }
   this->join();
 }

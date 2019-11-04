@@ -24,6 +24,11 @@ public:
     ClientProxy(ClientProxy&& other);
     ClientProxy& operator=(ClientProxy&& other);
 
+    // shutdown communication
+    void shutdown();
+
+    ~ClientProxy(){}
+
 private:
     Communication communication;
     MoveSerializer move_serializer;

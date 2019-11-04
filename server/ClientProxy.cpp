@@ -41,4 +41,10 @@ ClientProxy::ClientProxy(ClientProxy &&other) {
     this->communication = std::move(other.communication);
 }
 
+void ClientProxy::shutdown() {
+  this->communication.shutdown();
+}
+
+
+
 

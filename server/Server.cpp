@@ -2,15 +2,17 @@
 #include "server/ClientProxy.h"
 
 Server::Server(std::string& service) : acceptor(ClientAccepter(service)),
-                                       race(new Race()) {
+                                       race(new Race()),
+                                       running(true) {
   race->start();
 }
 
 
 void Server::run() {
-  while (true){
+  while (running){
     try {
       ClientProxy new_client = acceptor.accept_client();
+      std::cout<<"New accept!\n";
       //game options
       race->add_player(new_client);
     } catch(...) {
@@ -19,6 +21,15 @@ void Server::run() {
   }
 }
 
+void Server::stop() {
+  running = false;
+}
+
 Server::~Server() {
+  race->stop();
+  acceptor.shutdown();
+  this->join();
   delete(race);
 }
+
+

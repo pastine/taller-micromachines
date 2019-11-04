@@ -22,8 +22,6 @@ public:
 
   ~Player();
 
-  void quit();
-
   std::unordered_map<std::string, std::string> get_position();
 
   void update_status(JSON &status);

@@ -10,17 +10,20 @@ Player::Player(ClientProxy &messenger, CarHandler &car) :
 }
 
 void Player::run() {
-  while (playing) {
-    car.move(messenger.get_move());
-    if (car.is_colliding()) {
-      car.move(DOWN); //assuming that a collision slows down the car
+  try {
+    while (playing) {
+      car.move(messenger.get_move());
+      if (car.is_colliding()) {
+        car.move(DOWN); //assuming that a collision slows down the car
+      }
     }
+  } catch (...) {
   }
 }
 
 void Player::stop() {
   playing = false;
-  this->join();
+  messenger.shutdown();
 }
 
 std::unordered_map<std::string, std::string> Player::get_position() {
@@ -36,4 +39,5 @@ void Player::update_status(JSON& status) {
 }
 
 Player::~Player() {
+  this->join();
 }

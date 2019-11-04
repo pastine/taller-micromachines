@@ -18,6 +18,7 @@ ClientProxy ClientAccepter::accept_client() {
 }
 
 void ClientAccepter::shutdown() {
+    std::cout<<"termine\n";
     this->acc_socket.shutdown();
 }
 
