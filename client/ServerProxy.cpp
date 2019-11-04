@@ -32,3 +32,7 @@ void ServerProxy::get_game_state(JSON *json) {
         throw std::runtime_error(err);
     }
 }
+
+ServerProxy::~ServerProxy() {
+    this->communication.shutdown();
+}

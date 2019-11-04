@@ -2,13 +2,15 @@
 // Created by casimiro on 1/11/19.
 //
 
-#include "ThFrameDrawer.h"
+#include "client/ThFrameDrawer.h"
 
-ThFrameDrawer::ThFrameDrawer(ProtectedQueue *state_queue) : state_queue(state_queue) {}
+ThFrameDrawer::ThFrameDrawer(ProtectedQueue *state_queue) : state_queue(state_queue) {
+    this->done = false;
+}
 
 void ThFrameDrawer::run() {
     try {
-        while (true) {
+        while (!this->done) {
             JSON state = this->state_queue->pop();
             this->_draw_frame(state);
         }
@@ -29,5 +31,9 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
     }
 
     entities.render(cam);
+}
+
+void ThFrameDrawer::stop() {
+    this->done = true;
 }
 

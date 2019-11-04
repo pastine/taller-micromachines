@@ -7,18 +7,19 @@
 #include <QtWidgets/QApplication>
 #include <client/ServerProxy.h>
 #include <common/ProtectedQueue.h>
+#include <client/ThStateReceiver.h>
+#include <client/ThFrameDrawer.h>
 #include "client/SDLException.h"
-#include "client/Camera.h"
-#include "client/WorldEntities.h"
 #include "client/Launcher.h"
 
 
 int main(int argc, char** argv) {
+    /*
     QApplication app(argc, argv);
     Launcher launcher;
     launcher.show();
     app.exec();
-
+    */
 
     try {
         std::string host(argv[1]);
@@ -27,20 +28,26 @@ int main(int argc, char** argv) {
 
         ProtectedQueue queue(10);
 
-        Camera cam;
-        WorldEntities entities;
+        ThStateReceiver state_receiver(&server, &queue);
+        ThFrameDrawer frame_drawer(&queue);
+        state_receiver.start();
+        frame_drawer.start();
 
-        auto i = 0;
+        //Camera cam;
+        //WorldEntities entities;
+
         bool running = true;
         while (running) {
             SDL_Event event;
 
+            /*
             cam.prepare_frame();
 
             entities.clean();
             entities.put(WorldEntities::Entity::CAR, 100, 700 - (i % 700), 0);
             entities.put(WorldEntities::Entity::OIL, 50, 50);
             entities.render(cam);
+            */
 
             if (SDL_PollEvent(&event)) {
                 switch (event.type) {
@@ -66,10 +73,11 @@ int main(int argc, char** argv) {
                     }
                 }
             }
-            cam.show_frame();
+            //cam.show_frame();
             SDL_Delay(50);
-            i += 10;
         }
+        state_receiver.stop();
+        frame_drawer.stop();
     } catch (SDLException& e) {
         std::cout << e.what() << '\n';
     }

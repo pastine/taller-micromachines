@@ -14,9 +14,11 @@ class ThStateReceiver : public Thread {
 public:
     ThStateReceiver(ServerProxy* proxy, ProtectedQueue* state_queue);
     void run() override;
+    void stop() override;
 private:
     ProtectedQueue* state_queue;
     ServerProxy* server;
+    bool done;
 };
 
 

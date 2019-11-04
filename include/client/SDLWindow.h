@@ -13,6 +13,8 @@ public:
     void fill(int r, int g, int b, int alpha);
     void render();
     SDL_Renderer* get_renderer() const;
+    int get_width();
+    int get_height();
 private:
     int width;
     int height;
