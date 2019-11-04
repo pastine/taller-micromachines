@@ -21,8 +21,11 @@ void SDLTextureLoader::instance_loader(SDL_Renderer *renderer) {
 }
 
 
-SDLTextureLoader::SDLTextureLoader(SDL_Renderer *renderer) : renderer(renderer)
-{}
+void SDLTextureLoader::destroy_loader() {
+    if (!instance) return;
+}
+
+SDLTextureLoader::SDLTextureLoader(SDL_Renderer *renderer) : renderer(renderer) {}
 
 SDLTextureLoader::~SDLTextureLoader() {}
 
@@ -32,7 +35,6 @@ SDLTexture* SDLTextureLoader::get_texture(std::string &path) {
     // get the SDLTexture or load it from the file
     it = this->textures.find(path);
     if (it == this->textures.end()) {
-        std::cout << "loading texture\n";
         this->_load_from_file(path);
     }
     it = this->textures.find(path);

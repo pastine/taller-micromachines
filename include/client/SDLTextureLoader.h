@@ -20,6 +20,7 @@ class SDLTextureLoader {
 public:
     static SDLTextureLoader* get_loader();
     static void instance_loader(SDL_Renderer* renderer);
+    static void destroy_loader();
     ~SDLTextureLoader();
     SDLTexture* get_texture(std::string& path);
     SDLTextureLoader(const SDLTextureLoader&) = delete;

@@ -14,7 +14,18 @@ Camera::Camera() : window(SDLWindow(420, 840)){
 }
 
 void Camera::render_object(Renderizable& object, int abs_x, int abs_y, int angle) {
-    object.render(this->window.get_renderer(), abs_x, abs_y, angle);
+    if (!this->_is_in_frame(object, abs_x, abs_y)) return;
+
+    int x_distance_to_center_mts = abs_x - this->center_x_mts;
+    int y_distance_to_center_mts = abs_y - this->center_y_mts;
+
+    int x_distance_to_center_px = x_distance_to_center_mts * PIXELS_TO_M;
+    int y_distance_to_center_px = y_distance_to_center_mts * PIXELS_TO_M;
+
+    int relative_x_pos_px = this->center_x_px + x_distance_to_center_px;
+    int relative_y_pos_px = this->center_y_px - y_distance_to_center_px;
+
+    object.render(this->window.get_renderer(), relative_x_pos_px, relative_y_pos_px, angle);
 }
 
 void Camera::show_frame() {
@@ -26,6 +37,16 @@ void Camera::prepare_frame() {
 }
 
 void Camera::set_center(int x, int y) {
-    this->center_x = x;
-    this->center_y = y;
+    this->center_x_mts = x;
+    this->center_y_mts = y;
+    this->center_x_px = this->window.get_width() / 2;
+    this->center_y_px = this->window.get_height() - (this->window.get_height() / 4);
+}
+
+bool Camera::_is_in_frame(Renderizable &object, int object_x_mts, int object_y_mts) {
+    int w_width_mts = this->window.get_width() / PIXELS_TO_M;
+    int w_height_mts = this->window.get_height() / PIXELS_TO_M;
+    if (std::abs(this->center_x_mts - object_x_mts) > w_width_mts) return false;
+    if (std::abs(this->center_y_mts - object_y_mts) > w_height_mts) return false;
+    return true;
 }
