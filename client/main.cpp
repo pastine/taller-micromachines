@@ -30,8 +30,8 @@ int main(int argc, char** argv) {
 
         ThStateReceiver state_receiver(&server, &queue);
         ThFrameDrawer frame_drawer(&queue);
-        state_receiver.run();
-        frame_drawer.run();
+        state_receiver.start();
+        frame_drawer.start();
 
         //Camera cam;
         //WorldEntities entities;

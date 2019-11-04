@@ -47,6 +47,5 @@ bool Camera::_is_in_frame(Renderizable &object, int object_x_mts, int object_y_m
     int w_width_mts = this->window.get_width() / PIXELS_TO_M;
     int w_height_mts = this->window.get_height() / PIXELS_TO_M;
     if (std::abs(this->center_x_mts - object_x_mts) > w_width_mts) return false;
-    if (std::abs(this->center_y_mts - object_y_mts) > w_height_mts) return false;
-    return true;
+    return std::abs(this->center_y_mts - object_y_mts) <= w_height_mts;
 }
