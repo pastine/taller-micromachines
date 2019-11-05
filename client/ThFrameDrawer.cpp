@@ -3,6 +3,7 @@
 //
 
 #include "client/ThFrameDrawer.h"
+#include <string.h>
 
 ThFrameDrawer::ThFrameDrawer(ProtectedQueue *state_queue) : state_queue(state_queue) {
     this->done = false;
@@ -20,24 +21,29 @@ void ThFrameDrawer::run() {
 }
 
 void ThFrameDrawer::_draw_frame(JSON &state) {
-    /*try {
-        cam.set_center((int) state["center"]["x"],(int) state["center"]["y"]);
+    try {
+        std::string center_x = state["center"]["x"];
+        std::string center_y = state["center"]["y"];
+        cam.set_center(std::stoi(center_x), std::stoi(center_y));
 
         cam.prepare_frame();
         entities.clean();
 
         JSON cars = state["cars"];
         for (JSON::iterator it = cars.begin(); it != cars.end(); ++it) {
+            std::string x = (*it)["x"];
+            std::string y = (*it)["y"];
+            std::string angle = (*it)["angle"];
             entities.put(WorldEntities::Entity::CAR,
-                        (int) (*it)["x"],
-                        (int) (*it)["y"],
-                        (int) (*it)["angle"]);
+                        std::stoi(x),
+                         std::stoi(y),
+                         std::stoi(angle));
         }
-
         entities.render(cam);
+        std::cout << "rendered!\n";
     } catch (std::domain_error& e) {
-        //std::cout << e.what() << '\n';
-    }*/
+        std::cout << e.what() << '\n';
+    }
     {}
 }
 

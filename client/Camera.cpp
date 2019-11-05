@@ -2,6 +2,7 @@
 // Created by casimiro on 23/10/19.
 //
 
+#include <iostream>
 #include "client/Camera.h"
 #include "client/SDLWindow.h"
 #include "client/SDLTextureLoader.h"
@@ -25,6 +26,7 @@ void Camera::render_object(Renderizable& object, int abs_x, int abs_y, int angle
     int relative_x_pos_px = this->center_x_px + x_distance_to_center_px;
     int relative_y_pos_px = this->center_y_px - y_distance_to_center_px;
 
+    std::cout << "rendering object!\n";
     object.render(this->window.get_renderer(), relative_x_pos_px, relative_y_pos_px, angle);
 }
 
