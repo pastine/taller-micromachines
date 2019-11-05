@@ -13,6 +13,7 @@ void ServerProxy::player_move(MoveType move) {
         char _move = this->move_serializer.serialize(move);
         msg.append(&_move);
         this->communication.send_msg(msg);
+        std::cout << "sent: " << msg << '\n';
     } catch (std::runtime_error& e) {
         std::string err = "Error in ServerProxy::player_move -> ";
         err += e.what();
@@ -25,6 +26,7 @@ void ServerProxy::get_game_state(JSON *json) {
     try {
         std::string msg;
         this->communication.receive_msg(msg);
+        std::cout << msg.data() << "\n";
         *json = this->state_serializer.deserialize(msg);
     } catch (std::runtime_error& e) {
         std::string err = "Error in ServerProxy::get_game_state -> ";

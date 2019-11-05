@@ -22,7 +22,8 @@ MoveType ClientProxy::get_move() {
     try {
         std::string msg;
         this->communication.receive_msg(msg);
-        MoveType move = this->move_serializer.deserialize(msg[0]);
+        MoveType move = this->move_serializer.deserialize(msg.data()[0]);
+        std::cout << msg.data() << '\n';
         return move;
     } catch (std::runtime_error& e) {
         std::string err = "Error in ClientProxy::get_move -> ";

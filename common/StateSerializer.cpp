@@ -11,5 +11,5 @@ std::string StateSerializer::serialize(JSON &state) {
 }
 
 JSON StateSerializer::deserialize(std::string &serialized_state) {
-    return JSON::parse(serialized_state);
+    return JSON::parse(serialized_state.data());
 }

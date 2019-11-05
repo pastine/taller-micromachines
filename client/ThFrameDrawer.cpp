@@ -20,17 +20,25 @@ void ThFrameDrawer::run() {
 }
 
 void ThFrameDrawer::_draw_frame(JSON &state) {
-    cam.set_center(state["center"]["x"], state["center"]["y"]);
+    /*try {
+        cam.set_center((int) state["center"]["x"],(int) state["center"]["y"]);
 
-    cam.prepare_frame();
-    entities.clean();
+        cam.prepare_frame();
+        entities.clean();
 
-    JSON cars = state["car"];
-    for (JSON::iterator it = cars.begin(); it != cars.end(); ++it) {
-        entities.put(WorldEntities::Entity::CAR, (*it)["x"], (*it)["y"], (*it)["angle"]);
-    }
+        JSON cars = state["cars"];
+        for (JSON::iterator it = cars.begin(); it != cars.end(); ++it) {
+            entities.put(WorldEntities::Entity::CAR,
+                        (int) (*it)["x"],
+                        (int) (*it)["y"],
+                        (int) (*it)["angle"]);
+        }
 
-    entities.render(cam);
+        entities.render(cam);
+    } catch (std::domain_error& e) {
+        //std::cout << e.what() << '\n';
+    }*/
+    {}
 }
 
 void ThFrameDrawer::stop() {
