@@ -3,6 +3,7 @@
 //
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include <iostream>
 #include <QtWidgets/QApplication>
 #include <client/ServerProxy.h>
@@ -11,7 +12,7 @@
 #include "client/Camera.h"
 #include "client/WorldEntities.h"
 #include "client/Launcher.h"
-
+#include "Audio.h"
 
 int main(int argc, char** argv) {
     QApplication app(argc, argv);
@@ -28,6 +29,7 @@ int main(int argc, char** argv) {
         ProtectedQueue queue(10);
 
         Camera cam;
+        Audio audio;
         WorldEntities entities;
 
         auto i = 0;
@@ -51,6 +53,7 @@ int main(int argc, char** argv) {
                         SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                         switch (keyEvent.keysym.sym) {
                             case SDLK_LEFT:
+                                audio.play();
                                 server.player_move(MoveType::LEFT);
                                 break;
                             case SDLK_RIGHT:

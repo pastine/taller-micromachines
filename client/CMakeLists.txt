@@ -28,7 +28,9 @@ add_executable(client_test
         Launcher.cpp
         ${UIS_HEADERS}
         ${RESOURCES_SRC}
-        ServerProxy.cpp ../include/client/ServerProxy.h ThStateReceiver.cpp ../include/client/ThStateReceiver.h ThFrameDrawer.cpp ThFrameDrawer.h)
+        ServerProxy.cpp ../include/client/ServerProxy.h ThStateReceiver.cpp ../include/client/ThStateReceiver.h ThFrameDrawer.cpp ThFrameDrawer.h
+        Audio.cpp Audio.h
+        )
 
-target_link_libraries(client_test SDL2 SDL2_image)
+target_link_libraries(client_test SDL2 SDL2_image SDL2_mixer)
 target_link_libraries(client_test Qt5::Widgets)
