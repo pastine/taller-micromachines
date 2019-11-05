@@ -33,6 +33,10 @@ Race::Race() : world(b2World(gravity)),
 
 void Race::run() {
   while (racing) {
+    float32 time = 20.0f / 1000.0f;
+    int32 velocity = 6;
+    int32 position = 2;
+    world.Step(time, velocity, position);
     JSON status = get_global_status(cars);
     for (auto it = cars.begin(); it != cars.end(); ++it) {
       it->second->update_status(status);

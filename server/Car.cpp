@@ -1,3 +1,4 @@
+#include <iostream>
 #include "server/Car.h"
 #define MAX 100
 
@@ -32,6 +33,8 @@ Car::Car(b2World& world){
 }
 
 b2Vec2 Car::get_position() {
+  std::cout<<"En x: "<<m_body->GetPosition().x;
+  std::cout<<", En y:"<<m_body->GetPosition().y<<'\n';
   return m_body->GetPosition();
 }
 
@@ -80,7 +83,9 @@ void Car::move_forward() {
   } else {
     return;
   }
-  m_body->ApplyForce(force * normal, m_body->GetWorldCenter(),true);
+  normal.y = normal.y * force;
+  m_body->ApplyLinearImpulse(normal, m_body->GetWorldCenter(), true);
+  std::cout<< speed<<'\n';
 }
 
 void Car::stop() {
