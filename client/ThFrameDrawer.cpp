@@ -40,6 +40,7 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
                          std::stoi(angle));
         }
         entities.render(cam);
+        cam.show_frame();
         std::cout << "rendered!\n";
     } catch (std::domain_error& e) {
         std::cout << e.what() << '\n';

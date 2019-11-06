@@ -41,7 +41,7 @@ void Race::run() {
     for (auto it = cars.begin(); it != cars.end(); ++it) {
       it->second->update_status(status);
     }
-    std::chrono::milliseconds tic(20);
+    std::chrono::milliseconds tic(20); //20  - delta
     std::this_thread::sleep_for(tic);
   }
 }

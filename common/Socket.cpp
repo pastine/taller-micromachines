@@ -81,18 +81,21 @@ void Socket::bind_and_listen(std::string &service) {
                              ptr->ai_socktype,
                              ptr->ai_protocol);
         if (skt_fd_tmp < 0) break;
-        if (bind(skt_fd_tmp, addr_list->ai_addr, addr_list->ai_addrlen) == 0) {
+
+      if (bind(skt_fd_tmp, addr_list->ai_addr, addr_list->ai_addrlen) == 0) {
             break;
         }
+
         close(skt_fd_tmp);
     }
-    freeaddrinfo(addr_list);
+  freeaddrinfo(addr_list);
 
     if (skt_fd_tmp < 0)
         throw std::runtime_error("Failed to create the socket");
 
     int status = listen(skt_fd_tmp, MAX_CLIENT_QUEUE);
     if (status != 0) throw std::runtime_error("Failed to start listening");
+
     this->skt_fd = skt_fd_tmp;
 }
 

@@ -9,7 +9,7 @@
 #include "Renderizable.h"
 #include "SDLWindow.h"
 
-#define PIXELS_TO_M 145 // 29 * 5... dimentions of car
+#define PIXELS_TO_M 29 // 29 * 5... dimentions of car
 
 class Camera {
 public:

@@ -18,7 +18,7 @@ Car::Car() : Renderizable() {
 void Car::render(SDL_Renderer* renderer, int x, int y, int angle) {
     int _angle = angle % 180;
     Area& src = this->frames.resolve_frame(_angle);
-    Area dest = Area(x, y, this->w*5, this->h*5);
+    Area dest = Area(x, y, this->w*2, this->h*2);
     if (angle < 180)
         this->texture->render(renderer, src, dest);
     else

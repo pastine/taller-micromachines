@@ -1,6 +1,9 @@
 #include <iostream>
 #include "server/Car.h"
 #define MAX 100
+#define SPEED 20
+#define DEGTORAD 0.0174532925199432957f
+#define RADTODEG 57.295779513082320876f
 
 Car::Car(b2World& world){
   b2BodyDef bodyDef;
@@ -33,13 +36,22 @@ Car::Car(b2World& world){
 }
 
 b2Vec2 Car::get_position() {
-  std::cout<<"En x: "<<m_body->GetPosition().x;
-  std::cout<<", En y:"<<m_body->GetPosition().y<<'\n';
+  //std::cout<<"En x: "<<m_body->GetPosition().x;
+  //std::cout<<", En y:"<<m_body->GetPosition().y;
   return m_body->GetPosition();
 }
 
 float32 Car::get_angle() {
-  return m_body->GetAngle();
+  float32 angle = m_body->GetAngle();
+  if (angle < -180) {
+    angle += 360;
+  } else if (angle > 180) {
+    angle -= 360;
+  }
+  if (angle < -180 || angle > 180) {
+    std::cout<<"aca mal"<< angle<<'\n';
+  }
+  return angle;
 }
 
 bool Car::is_colliding() {
@@ -79,13 +91,11 @@ void Car::move_forward() {
 
   float force = 0;
   if (speed < max_speed) {
-    force = MAX;
+    force = SPEED;
   } else {
     return;
   }
-  normal.y = normal.y * force;
-  m_body->ApplyLinearImpulse(normal, m_body->GetWorldCenter(), true);
-  std::cout<< speed<<'\n';
+  m_body->ApplyForce(force * normal, m_body->GetWorldCenter(), true);
 }
 
 void Car::stop() {
@@ -94,7 +104,7 @@ void Car::stop() {
 
   float force = 0;
   if (speed > min_speed) {
-    force = -MAX;
+    force = -500;
   } else {
     return;
   }
