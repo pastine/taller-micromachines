@@ -3,5 +3,6 @@ sudo apt install lua5.3-dev
 pip install cpplint
 sudo apt-get install libsdl2-dev -y
 sudo apt-get install libsdl2-image-dev -y
+sudo apt-get install libsdl2-mixer-dev -y
 sudo apt install qtbase5-dev -y
 sudo apt install nlohmann-json-dev

@@ -3,6 +3,7 @@
 //
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include <iostream>
 #include <QtWidgets/QApplication>
 #include <client/ServerProxy.h>
@@ -12,7 +13,7 @@
 #include <map>
 #include "client/SDLException.h"
 #include "client/Launcher.h"
-
+#include "client/Audio.h"
 
 int main(int argc, char** argv) {
     try {
@@ -30,6 +31,8 @@ int main(int argc, char** argv) {
         server.handshake_answer(retValue);
 
         ProtectedQueue queue(10);
+
+        Audio audio;
 
         ThStateReceiver state_receiver(&server, &queue);
         ThFrameDrawer frame_drawer(&queue);
@@ -61,6 +64,7 @@ int main(int argc, char** argv) {
                         SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                         switch (keyEvent.keysym.sym) {
                             case SDLK_LEFT:
+                                audio.play();
                                 server.player_move(MoveType::LEFT);
                                 break;
                             case SDLK_RIGHT:
