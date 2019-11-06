@@ -3,10 +3,13 @@
 #define Y "y"
 #define ANGLE "angle"
 
+uint32_t seed;
+
 Player::Player(ClientProxy &messenger, CarHandler &car) :
   messenger(std::move(messenger)),
   car(car),
-  playing(true) {
+  playing(true),
+  id(rand_r(&seed)) {
 }
 
 void Player::run() {
@@ -38,4 +41,8 @@ void Player::update_status(JSON& status) {
 
 Player::~Player() {
   this->join();
+}
+
+int Player::getId() {
+    return id;
 }

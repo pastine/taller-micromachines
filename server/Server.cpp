@@ -2,9 +2,7 @@
 #include "server/ClientProxy.h"
 
 Server::Server(std::string& service) : acceptor(ClientAccepter(service)),
-                                       race(new Race()),
                                        running(true) {
-  race->start();
 }
 
 
@@ -13,8 +11,21 @@ void Server::run() {
     try {
       ClientProxy new_client = acceptor.accept_client();
       std::cout<<"New accept!\n";
-      //game options
-      race->add_player(new_client);
+        std::map<int,int> races_ids_players;
+        for (Race* r: races) {
+            races_ids_players.insert({r->getId(), r->getPlayerCount()});
+        }
+      int race_id = new_client.handshake(races_ids_players);
+      if (race_id == 0) {
+          Race* race = new Race();
+          races.push_back(race);
+          race->start();
+          race->add_player(new_client);
+      } else {
+          for (Race* r: races) {
+              if (r->getId() == race_id) r->add_player(new_client);
+          }
+      }
     } catch(...) {
       break;
     }
@@ -26,10 +37,14 @@ void Server::stop() {
 }
 
 Server::~Server() {
-  race->stop();
-  acceptor.shutdown();
-  this->join();
-  delete(race);
+    acceptor.shutdown();
+    this->join();
+    std::list<Race *>::iterator it = races.begin();
+    while (it != races.end()) {
+        (*it)->stop();
+        delete *it;
+        it = races.erase(it);
+    }
 }
 
 

@@ -12,6 +12,7 @@ private:
   ClientProxy messenger;
   CarHandler car;
   bool playing;
+  int id;
 
 public:
   Player(ClientProxy& messenger, CarHandler& car);
@@ -25,6 +26,8 @@ public:
   std::unordered_map<std::string, std::string> get_position();
 
   void update_status(JSON &status);
+
+    int getId();
 };
 
 

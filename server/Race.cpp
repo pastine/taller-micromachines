@@ -5,6 +5,7 @@
 #define CARS "cars"
 
 b2Vec2 gravity(0.0f, 0.0f);
+std::atomic_int Race::RaceCount(1);
 
 //AUXILIARY
 JSON get_global_status(std::unordered_map<std::string, Player*>& cars) {
@@ -26,7 +27,7 @@ JSON get_global_status(std::unordered_map<std::string, Player*>& cars) {
 }
 
 //Race
-Race::Race() : world(b2World(gravity)),
+Race::Race() : id(RaceCount++), world(b2World(gravity)),
                cars(std::unordered_map<std::string, Player*>()),
                racing(true) {
 }
@@ -50,10 +51,8 @@ void Race::add_player(ClientProxy& messenger) {
   Car car((b2World &) world);
   CarHandler handler(car);
   auto* player = new Player(messenger, handler); //pointers when threads?
-  //TODO generate id
-  std::string s = "test";
   player->start();
-  cars.emplace(s, player);
+  cars.emplace(std::to_string(player->getId()), player);
 }
 
 void Race::stop() {
@@ -68,4 +67,12 @@ Race::~Race() {
     delete(it->second);
   }
   this->join();
+}
+
+int Race::getPlayerCount() {
+    return cars.size();
+}
+
+int Race::getId() {
+    return id;
 }

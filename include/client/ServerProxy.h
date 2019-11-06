@@ -11,6 +11,8 @@
 #include <common/StateSerializer.h>
 #include <common/Communication.h>
 #include <string>
+#include <map>
+#include <common/RacesSerializer.h>
 
 class ServerProxy {
 public:
@@ -19,10 +21,16 @@ public:
     void get_game_state(JSON *json);
 
     ServerProxy(std::string& host, std::string& service);
+
+    std::map<std::string, int> handshake();
+
+    void handshake_answer(int i);
+
 private:
     MoveSerializer move_serializer;
     StateSerializer state_serializer;
     Communication communication;
+    RacesSerializer races_serializer;
 };
 
 

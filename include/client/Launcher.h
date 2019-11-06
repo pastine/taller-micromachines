@@ -1,11 +1,22 @@
 #ifndef LAUNCHER_H
 #define LAUNCHER_H
 
-#include <QMainWindow>
+#include <qt5/QtWidgets/QWidget>
+#include <qt5/QtWidgets/QLabel>
+#include <qt5/QtWidgets/QPushButton>
+#include <qt5/QtWidgets/QVBoxLayout>
+#include <qt5/QtWidgets/QLineEdit>
+#include <list>
+#include <map>
+#include <string>
 
-class Launcher : public QMainWindow {
+class Launcher : public QWidget {
 public:
-    explicit Launcher(QMainWindow *parent = 0);
+    Launcher(std::map<std::string, int> map, int *retValue);
+private:
+    int* retValue;
+public slots:
+    void setValue(std::string id);
 };
 
 #endif // LAUNCHER_H
