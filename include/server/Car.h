@@ -5,7 +5,7 @@
 
 class Car {
 private:
-  b2Body* m_body;
+  b2Body* car;
   float max_speed;
   float min_speed;
   int contacts;

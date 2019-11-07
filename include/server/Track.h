@@ -4,11 +4,11 @@
 
 class Track {
 private:
-  b2World world;
+  b2Body* track;
 public:
-  explicit Track(b2Vec2 gravity);
+  explicit Track(b2World& world);
 
-  void step(float32 timeStep, int32 velocityIt, int32 positionIt);
+
 };
 
 
