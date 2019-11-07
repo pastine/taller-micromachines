@@ -3,30 +3,36 @@
 //
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include <iostream>
 #include <QtWidgets/QApplication>
 #include <client/ServerProxy.h>
 #include <common/ProtectedQueue.h>
 #include <client/ThStateReceiver.h>
 #include <client/ThFrameDrawer.h>
+#include <map>
 #include "client/SDLException.h"
 #include "client/Launcher.h"
-
+#include "client/Audio.h"
 
 int main(int argc, char** argv) {
-    /*
-    QApplication app(argc, argv);
-    Launcher launcher;
-    launcher.show();
-    app.exec();
-    */
-
     try {
         std::string host(argv[1]);
         std::string service(argv[2]);
         ServerProxy server(host, service);
 
+        std::map<std::string,int> races_ids_players = server.handshake();
+        QApplication app(argc, argv);
+        int retValue = -1;
+        Launcher launcher(races_ids_players, &retValue);
+        launcher.show();
+        app.exec();
+
+        server.handshake_answer(retValue);
+
         ProtectedQueue queue(10);
+
+        Audio audio;
 
         ThStateReceiver state_receiver(&server, &queue);
         ThFrameDrawer frame_drawer(&queue);
@@ -58,6 +64,7 @@ int main(int argc, char** argv) {
                         SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                         switch (keyEvent.keysym.sym) {
                             case SDLK_LEFT:
+                                audio.play();
                                 server.player_move(MoveType::LEFT);
                                 break;
                             case SDLK_RIGHT:

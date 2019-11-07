@@ -9,6 +9,9 @@
 #include <common/json.h>
 #include <common/MoveType.h>
 #include <common/Communication.h>
+#include <common/RacesSerializer.h>
+#include <map>
+#include <vector>
 
 class ClientProxy {
 public:
@@ -29,9 +32,13 @@ public:
 
     ~ClientProxy(){}
 
+    // Returns the id of the race to be joined or 0 to create one
+    int handshake(std::map<int,int> races_ids_players);
+
 private:
     Communication communication;
     MoveSerializer move_serializer;
+    RacesSerializer races_serializer;
     StateSerializer state_serializer;
 };
 

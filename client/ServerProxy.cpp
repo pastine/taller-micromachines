@@ -38,3 +38,27 @@ void ServerProxy::get_game_state(JSON *json) {
 ServerProxy::~ServerProxy() {
     this->communication.shutdown();
 }
+
+std::map<std::string, int> ServerProxy::handshake() {
+    try {
+        std::string msg;
+        this->communication.receive_msg(msg);
+        JSON j = this->races_serializer.deserialize(msg);
+        return j.get<std::map<std::string, int>>();
+    } catch (std::runtime_error& e) {
+        std::string err = "Error in ServerProxy::handshake -> ";
+        err += e.what();
+        throw std::runtime_error(err);
+    }
+}
+
+void ServerProxy::handshake_answer(int i) {
+    try {
+        std::string msg = std::to_string(i);
+        this->communication.send_msg(msg);
+    } catch (std::runtime_error& e) {
+        std::string err = "Error in ServerProxy::handshake_answer -> ";
+        err += e.what();
+        throw std::runtime_error(err);
+    }
+}

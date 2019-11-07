@@ -7,7 +7,10 @@
 #include <string>
 
 class Race :public Thread {
+  static std::atomic_int RaceCount;
+
 private:
+  int id;
   b2World world;
   std::unordered_map<std::string, Player*> cars;
   bool racing;
@@ -22,6 +25,10 @@ public:
   virtual void stop();
 
   ~Race();
+
+  int getId();
+
+  int getPlayerCount();
 };
 
 

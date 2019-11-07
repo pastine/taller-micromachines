@@ -5,11 +5,13 @@
 #include "Race.h"
 #include <common/Thread.h>
 #include <string>
+#include <list>
+#include <map>
 
 class Server : public Thread {
 private:
   ClientAccepter acceptor;
-  Race* race; //next: collection of races
+  std::list<Race*> races;
   bool running;
 
 public:

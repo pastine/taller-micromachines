@@ -46,6 +46,22 @@ void ClientProxy::shutdown() {
   this->communication.shutdown();
 }
 
+int ClientProxy::handshake(std::map<int,int> races_ids_players) {
+    try {
+        std::string msg;
+        msg = this->races_serializer.serialize(races_ids_players);
+        this->communication.send_msg(msg);
+
+        std::string response;
+        this->communication.receive_msg(response);
+        return stoi(response);
+    } catch (std::runtime_error& e) {
+        std::string err = "Error in ClientProxy::handshake -> ";
+        err += e.what();
+        throw std::runtime_error(err);
+    }
+}
+
 
 
 
