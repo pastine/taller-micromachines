@@ -5,7 +5,7 @@ void ContactListener::begin_contact(b2Contact* contact) {
   bool A_is_sensor = contact->GetFixtureA()->IsSensor();
   bool B_is_sensor = contact->GetFixtureB()->IsSensor();
   if (A_is_sensor || B_is_sensor) {
-    if(A_is_sensor) {
+    if (A_is_sensor) {
       void* B_body = contact->GetFixtureB()->GetBody()->GetUserData();
       static_cast<Car*>(B_body)->on_track();
     } else {
@@ -26,7 +26,7 @@ void ContactListener::end_contact(b2Contact* contact) {
   bool A_is_sensor = contact->GetFixtureA()->IsSensor();
   bool B_is_sensor = contact->GetFixtureB()->IsSensor();
   if (A_is_sensor || B_is_sensor) {
-    if(A_is_sensor) {
+    if (A_is_sensor) {
       void* B_body = contact->GetFixtureB()->GetBody()->GetUserData();
       static_cast<Car*>(B_body)->off_track();
     } else {

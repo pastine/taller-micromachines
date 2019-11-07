@@ -16,7 +16,10 @@ Car::Car() : Renderizable() {
 
 
 void Car::render(SDL_Renderer* renderer, int x, int y, int angle) {
-    int _angle = angle % 180;
+    /*
+     * The angle comes from 180 upto -180.
+     * */
+    int _angle = std::abs(angle);
     Area& src = this->frames.resolve_frame(_angle);
     Area dest = Area(x, y, this->w*2, this->h*2);
     if (angle < 180)
