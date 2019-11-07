@@ -34,10 +34,12 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
             std::string x = (*it)["x"];
             std::string y = (*it)["y"];
             std::string angle = (*it)["angle"];
+            std::string playerId = (*it)["id"];
             entities.put(WorldEntities::Entity::CAR,
                         std::stoi(x),
                          std::stoi(y),
-                         std::stoi(angle));
+                         std::stoi(angle),
+                         std::stoi(playerId));
         }
         entities.render(cam);
         cam.show_frame();

@@ -9,7 +9,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_rect.h>
 #include "Area.h"
-
+#include <tuple>
 
 class SDLTexture {
 public:
@@ -22,6 +22,9 @@ public:
     SDLTexture& operator=(SDLTexture&& other);
     SDLTexture& operator=(const SDLTexture&& other) = delete;
     SDLTexture(const SDLTexture&& other) = delete;
+
+    void change_color(std::tuple<int,int,int> t);
+
 private:
     SDL_Texture* texture;
     int width;

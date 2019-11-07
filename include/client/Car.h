@@ -20,7 +20,7 @@ private:
     SDLTexture* texture;
 public:
     Car();
-    void render(SDL_Renderer* renderer, int x, int y, int angle = 0);
+    void render(SDL_Renderer* renderer, int x, int y, int angle = 0, int id = 0);
 };
 
 

@@ -25,11 +25,11 @@ private:
     std::vector<std::tuple<int, int>> mud_positions;
     std::vector<std::tuple<int, int>> oil_positions;
     std::vector<std::tuple<int, int>> boulder_positions;
-    std::vector<std::tuple<int, int, int>> car_positions;
+    std::vector<std::tuple<int, int, int, int>> car_positions;
 
 public:
     enum class Entity {CAR, MUD, OIL, BOULDER};
-    void put(Entity , int x, int y, int angle = 0);
+    void put(Entity , int x, int y, int angle = 0, int id = 0);
     void clean();
     void render(Camera& camara);
 };

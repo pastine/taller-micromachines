@@ -3,8 +3,13 @@
 //
 
 #include <iostream>
+#include <tuple>
 #include "client/Car.h"
 #include "client/SDLTextureLoader.h"
+
+std::vector<std::tuple<int,int,int>> colors{{255, 255, 255}, {255, 0, 0},
+                                            {255, 165, 0}, {0, 165, 255},
+                                            {165, 255, 0}, {165, 0, 255}};
 
 Car::Car() : Renderizable() {
     w = 29;
@@ -15,10 +20,12 @@ Car::Car() : Renderizable() {
 }
 
 
-void Car::render(SDL_Renderer* renderer, int x, int y, int angle) {
+void Car::render(SDL_Renderer* renderer, int x, int y, int angle, int id) {
     /*
      * The angle comes from 180 upto -180.
      * */
+    std::tuple<int, int, int> index = colors[id % colors.size()];
+    this->texture->change_color(index);
     int _angle = std::abs(angle);
     Area& src = this->frames.resolve_frame(_angle);
     Area dest = Area(x, y, this->w*2, this->h*2);
