@@ -7,8 +7,6 @@ private:
   b2Body* track;
 public:
   explicit Track(b2World& world);
-
-
 };
 
 

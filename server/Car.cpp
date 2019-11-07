@@ -109,10 +109,12 @@ void Car::stop() {
 }
 
 void Car::start_contact() {
+  std::cout<<"contact\n";
   contacts++;
 }
 
 void Car::end_contact() {
+  std::cout<<"no contact\n";
   contacts--;
 }
 
