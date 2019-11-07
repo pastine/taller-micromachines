@@ -1,7 +1,6 @@
 #ifndef TALLER_MICROMACHINES_CAR_H
 #define TALLER_MICROMACHINES_CAR_H
 #include "Box2D/Box2D.h"
-#include "ContactListener.h"
 
 class Car {
 private:
@@ -9,7 +8,6 @@ private:
   float max_speed;
   float min_speed;
   int contacts;
-  ContactListener listener;
   bool track;
 
 public:

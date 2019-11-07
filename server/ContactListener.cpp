@@ -1,7 +1,9 @@
 #include <server/Car.h>
+#include <iostream>
 #include "server/ContactListener.h"
 
-void ContactListener::begin_contact(b2Contact* contact) {
+void ContactListener::BeginContact(b2Contact *contact) {
+  std::cout<<"entre a begin\n";
   bool A_is_sensor = contact->GetFixtureA()->IsSensor();
   bool B_is_sensor = contact->GetFixtureB()->IsSensor();
   if (A_is_sensor || B_is_sensor) {
@@ -22,7 +24,8 @@ void ContactListener::begin_contact(b2Contact* contact) {
   }
 }
 
-void ContactListener::end_contact(b2Contact* contact) {
+void ContactListener::EndContact(b2Contact *contact) {
+  std::cout<<"entre a end\n";
   bool A_is_sensor = contact->GetFixtureA()->IsSensor();
   bool B_is_sensor = contact->GetFixtureB()->IsSensor();
   if (A_is_sensor || B_is_sensor) {

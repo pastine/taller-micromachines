@@ -30,7 +30,6 @@ Car::Car(b2World& world){
   car->CreateFixture(&fixtureDef);
   max_speed = MAX;
   min_speed = -MAX;
-  listener = ContactListener();
   contacts = 0;
   car->SetUserData(this);
   track = true;

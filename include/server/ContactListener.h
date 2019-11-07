@@ -5,13 +5,9 @@
 
 class ContactListener : public b2ContactListener{
 public:
-  ContactListener(){}
+  virtual void BeginContact(b2Contact* contact);
 
-  virtual void begin_contact(b2Contact* contact);
-
-  virtual void end_contact(b2Contact* contact);
-
-  ~ContactListener(){}
+  virtual void EndContact(b2Contact* contact);
 };
 
 
