@@ -39,21 +39,9 @@ int main(int argc, char** argv) {
         state_receiver.start();
         frame_drawer.start();
 
-        //Camera cam;
-        //WorldEntities entities;
-
         bool running = true;
         while (running) {
             SDL_Event event;
-
-            /*
-            cam.prepare_frame();
-
-            entities.clean();
-            entities.put(WorldEntities::Entity::CAR, 100, 700 - (i % 700), 0);
-            entities.put(WorldEntities::Entity::OIL, 50, 50);
-            entities.render(cam);
-            */
 
             if (SDL_PollEvent(&event)) {
                 switch (event.type) {
@@ -64,7 +52,6 @@ int main(int argc, char** argv) {
                         SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                         switch (keyEvent.keysym.sym) {
                             case SDLK_LEFT:
-                                audio.play();
                                 server.player_move(MoveType::LEFT);
                                 break;
                             case SDLK_RIGHT:
@@ -80,7 +67,7 @@ int main(int argc, char** argv) {
                     }
                 }
             }
-            //cam.show_frame();
+
             SDL_Delay(50);
         }
         state_receiver.stop();
