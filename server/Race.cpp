@@ -33,7 +33,7 @@ Race::Race() : world(b2World(gravity)),
 
 void Race::run() {
   while (racing) {
-    float32 time = 20.0f / 1000.0f;
+    float32 time = 1.0f/30.0f;
     int32 velocity = 6;
     int32 position = 2;
     world.Step(time, velocity, position);

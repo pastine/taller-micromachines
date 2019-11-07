@@ -10,6 +10,7 @@ private:
   float min_speed;
   int contacts;
   ContactListener listener;
+  bool track;
 
 public:
   explicit Car(b2World& world);
@@ -41,6 +42,12 @@ public:
   ~Car();
 
   bool is_colliding();
+
+  void turn_right();
+
+  void on_track();
+
+  void off_track();
 };
 
 

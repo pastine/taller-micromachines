@@ -7,10 +7,10 @@ CarHandler::CarHandler(Car &car) : car(car) {
 
 void CarHandler::move(MoveType move) {
   switch (move) {
-      case UP :     std::cout << "up\n"; car.move_forward(); return;
-    case DOWN :   std::cout << "down\n"; car.stop();         return;
-    case LEFT :   std::cout << "left\n"; car.turn(TORQUE);   return;
-    case RIGHT :  std::cout << "right\n"; car.turn(-TORQUE);  return;
+      case UP : car.move_forward(); return;
+    case DOWN : car.stop();         return;
+    case LEFT : return;
+    case RIGHT :  car.turn_right();  return;
     default: std::cout << "default\n"; return;
   }
 }
