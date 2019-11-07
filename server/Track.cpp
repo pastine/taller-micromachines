@@ -9,14 +9,15 @@ Track::Track(b2World& world) {
   b2PolygonShape walls;
   b2FixtureDef fixture;
   fixture.isSensor = true;
+
   fixture.shape = &walls;
-  walls.SetAsBox( 40, 4.5, b2Vec2(4.5, 0), 0);//ground
+  walls.SetAsBox(40, 4.5, b2Vec2(0, 0), 0);//ground
   track->CreateFixture(&fixture);
-  walls.SetAsBox( 40, 4.5, b2Vec2(4.5, 80), 0);//ceiling
+  walls.SetAsBox(40, 4.5, b2Vec2(0, 89), 0);//ceiling
   track->CreateFixture(&fixture);
-  walls.SetAsBox( 4.5, 40, b2Vec2(-35.5, 40), 0);//left wall
+  walls.SetAsBox(4.5, 40, b2Vec2(-35.5, 44.5), 0);//left wall
   track->CreateFixture(&fixture);
-  walls.SetAsBox( 4.5, 40, b2Vec2(44.5, 40), 0);//right wall
+  walls.SetAsBox(4.5, 40, b2Vec2(35.5, 44.5), 0);//right wall
   track->CreateFixture(&fixture);
 
   b2CircleShape edge1;//down left edge
