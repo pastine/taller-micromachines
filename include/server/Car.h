@@ -11,7 +11,7 @@ private:
   bool track;
 
 public:
-  explicit Car(b2World& world);
+  explicit Car(b2World &world, unsigned long i);
 
   b2Vec2 get_position();
 

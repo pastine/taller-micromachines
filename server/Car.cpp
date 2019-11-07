@@ -5,10 +5,10 @@
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
 
-Car::Car(b2World& world){
+Car::Car(b2World &world, unsigned long i) {
   b2BodyDef bodyDef;
   bodyDef.type = b2_dynamicBody;
-  bodyDef.position.Set(0.0f, 0.0f);
+  bodyDef.position.Set(6*i+0.0f, 0.0f);
   car = world.CreateBody(&bodyDef);
   //Define shape
   b2Vec2 vertices[4];

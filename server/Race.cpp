@@ -49,7 +49,7 @@ void Race::run() {
 }
 
 void Race::add_player(ClientProxy& messenger) {
-  Car car((b2World &) world);
+  Car car((b2World &) world, cars.size());
   CarHandler handler(car);
   auto* player = new Player(messenger, handler); //pointers when threads?
   player->start();
