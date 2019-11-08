@@ -10,7 +10,7 @@ private:
   ProtectedQueue queue;
   ClientProxy messenger;
 public:
-  StateUpdater(ClientProxy& messenger);
+  explicit StateUpdater(ClientProxy& messenger);
 
   virtual void run();
 

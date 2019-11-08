@@ -32,6 +32,8 @@ public:
 
   int getId();
 
+  Track getTrack();
+
   int getPlayerCount();
 };
 

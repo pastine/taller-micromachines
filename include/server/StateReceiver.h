@@ -4,7 +4,6 @@
 #include <common/Thread.h>
 
 class StateReceiver : public Thread {
-
 };
 
 

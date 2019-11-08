@@ -77,3 +77,7 @@ int Race::getPlayerCount() {
 int Race::getId() {
     return id;
 }
+
+Track Race::getTrack() {
+    return track;
+}

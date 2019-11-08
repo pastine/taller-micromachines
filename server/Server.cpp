@@ -18,12 +18,16 @@ void Server::run() {
       int race_id = new_client.handshake(races_ids_players);
       if (race_id == 0) {
           Race* race = new Race();
+          new_client.send_track(race->getTrack());
           races.push_back(race);
           race->start();
           race->add_player(new_client);
       } else {
           for (Race* r: races) {
-              if (r->getId() == race_id) r->add_player(new_client);
+              if (r->getId() == race_id) {
+                  new_client.send_track(r->getTrack());
+                  r->add_player(new_client);
+              }
           }
       }
     } catch(...) {
