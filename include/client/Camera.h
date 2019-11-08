@@ -9,7 +9,7 @@
 #include "Renderizable.h"
 #include "SDLWindow.h"
 
-#define PIXELS_TO_M 29 // 29 * 5... dimentions of car
+#define PIXELS_TO_CM 290 // 29 * 5... dimentions of car
 
 class Camera {
 public:
@@ -21,8 +21,8 @@ public:
 private:
     bool _is_in_frame(Renderizable& object, int abs_x, int abs_y);
     SDLWindow window;
-    int center_x_mts;
-    int center_y_mts;
+    int center_x_cms;
+    int center_y_cms;
     int center_x_px;
     int center_y_px;
 };

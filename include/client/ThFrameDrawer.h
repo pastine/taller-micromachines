@@ -13,7 +13,7 @@
 
 class ThFrameDrawer : public Thread{
 public:
-    explicit ThFrameDrawer(ProtectedQueue* state_queue);
+    explicit ThFrameDrawer(ProtectedQueue* state_queue, JSON& map);
     void run() override;
     void stop() override;
 private:

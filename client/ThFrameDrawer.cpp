@@ -5,8 +5,31 @@
 #include "client/ThFrameDrawer.h"
 #include <string.h>
 
-ThFrameDrawer::ThFrameDrawer(ProtectedQueue *state_queue) : state_queue(state_queue) {
+ThFrameDrawer::ThFrameDrawer(ProtectedQueue *state_queue, JSON& map) : state_queue(state_queue) {
     this->done = false;
+
+    JSON straight_roads = map["straight"];
+    JSON curved_roads = map["curved"];
+
+    for (JSON::iterator it = straight_roads.begin(); it != straight_roads.end(); ++it) {
+        std::string x = (*it)["x"];
+        std::string y = (*it)["y"];
+        std::string angle = (*it)["angle"];
+        entities.put(WorldEntities::Entity::STRAIGHT_ROAD,
+                     std::stoi(x),
+                     std::stoi(y),
+                     std::stoi(angle));
+    }
+
+    for (JSON::iterator it = curved_roads.begin(); it != curved_roads.end(); ++it) {
+        std::string x = (*it)["x"];
+        std::string y = (*it)["y"];
+        std::string angle = (*it)["angle"];
+        entities.put(WorldEntities::Entity::CURVED_ROAD,
+                     std::stoi(x),
+                     std::stoi(y),
+                     std::stoi(angle));
+    }
 }
 
 void ThFrameDrawer::run() {

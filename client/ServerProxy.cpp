@@ -52,10 +52,11 @@ std::map<std::string, int> ServerProxy::handshake() {
     }
 }
 
-void ServerProxy::handshake_answer(int i) {
+void ServerProxy::handshake_answer(int i, JSON* map) {
     try {
         std::string msg = std::to_string(i);
         this->communication.send_msg(msg);
+        *map = {};
     } catch (std::runtime_error& e) {
         std::string err = "Error in ServerProxy::handshake_answer -> ";
         err += e.what();

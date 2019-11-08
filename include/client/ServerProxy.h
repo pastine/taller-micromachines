@@ -24,7 +24,7 @@ public:
 
     std::map<std::string, int> handshake();
 
-    void handshake_answer(int i);
+    void handshake_answer(int i, JSON* map);
 
 private:
     MoveSerializer move_serializer;

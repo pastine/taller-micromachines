@@ -28,14 +28,22 @@ int main(int argc, char** argv) {
         launcher.show();
         app.exec();
 
-        server.handshake_answer(retValue);
+        JSON map;
+        server.handshake_answer(retValue, &map);
+
+        map["straight"] = {
+                //{{"x", "0"}, {"y", "0"}, {"angle", "0"}},
+                //{{"x", "10"}, {"y", "10"}, {"angle", "0"}},
+                {{"x", "0"}, {"y", "0"}, {"angle", "0"}},
+                {{"x", "10"}, {"y", "10"}, {"angle", "30"}},
+        };
 
         ProtectedQueue queue(10);
 
         Audio audio;
 
         ThStateReceiver state_receiver(&server, &queue);
-        ThFrameDrawer frame_drawer(&queue);
+        ThFrameDrawer frame_drawer(&queue, map);
         state_receiver.start();
         frame_drawer.start();
 

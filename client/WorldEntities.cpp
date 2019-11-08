@@ -19,6 +19,12 @@ void WorldEntities::put(WorldEntities::Entity entity, int x, int y, int angle, i
         case Entity::BOULDER:
             boulder_positions.emplace_back(x, y);
             break;
+        case Entity::STRAIGHT_ROAD:
+            straight_road_positions.emplace_back(x, y, angle);
+            break;
+        case Entity::CURVED_ROAD:
+            curved_road_positions.emplace_back(x, y, angle);
+            break;
     }
 }
 
@@ -29,24 +35,30 @@ void WorldEntities::clean() {
     oil_positions.clear();
 }
 
-void WorldEntities::render(Camera &camara) {
+void WorldEntities::render(Camera &camera) {
+    for (const std::tuple<int, int, int>& road_pos : straight_road_positions)
+        camera.render_object(this->straight_road,
+                             std::get<0>(road_pos),
+                             std::get<1>(road_pos),
+                             std::get<2>(road_pos));
+
     for (const std::tuple<int, int>& boulder_pos : boulder_positions)
-        camara.render_object(this->boulder,
+        camera.render_object(this->boulder,
                              std::get<0>(boulder_pos),
                              std::get<1>(boulder_pos));
 
     for (const std::tuple<int, int>& oil_pos : oil_positions)
-        camara.render_object(this->oil,
+        camera.render_object(this->oil,
                              std::get<0>(oil_pos),
                              std::get<1>(oil_pos));
 
     for (const std::tuple<int, int>& mud_pos : mud_positions)
-        camara.render_object(this->mud,
+        camera.render_object(this->mud,
                              std::get<0>(mud_pos),
                              std::get<1>(mud_pos));
 
     for (const std::tuple<int, int, int, int>& car_pos : car_positions)
-        camara.render_object(this->car,
+        camera.render_object(this->car,
                              std::get<0>(car_pos),
                              std::get<1>(car_pos),
                              std::get<2>(car_pos),

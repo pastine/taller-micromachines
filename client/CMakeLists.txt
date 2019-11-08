@@ -21,7 +21,7 @@ add_executable(client_test
         ${RESOURCES_SRC}
         ServerProxy.cpp ../include/client/ServerProxy.h ThStateReceiver.cpp ../include/client/ThStateReceiver.h ThFrameDrawer.cpp ../include/client/ThFrameDrawer.h
         Audio.cpp ../include/client/Audio.h
-        )
+        StraightRoad.cpp ../include/client/StraightRoad.h CurvedRoad.cpp ../include/client/CurvedRoad.h)
 
 target_link_libraries(client_test SDL2 SDL2_image SDL2_mixer)
 target_link_libraries(client_test Qt5::Widgets)
