@@ -8,7 +8,7 @@
 Car::Car(b2World &world, unsigned long i) {
   b2BodyDef bodyDef;
   bodyDef.type = b2_dynamicBody;
-  bodyDef.position.Set(6*i+0.0f, 0.0f);
+  bodyDef.position.Set(6.0f * i , 0.0f);
   car = world.CreateBody(&bodyDef);
   //Define shape
   b2Vec2 vertices[4];
@@ -30,7 +30,6 @@ Car::Car(b2World &world, unsigned long i) {
   car->CreateFixture(&fixtureDef);
   max_speed = MAX;
   min_speed = -MAX;
-  contacts = 0;
   car->SetUserData(this);
   track = true;
 }
@@ -46,10 +45,6 @@ float32 Car::get_angle() {
   while (angle < -180) {angle += 360;}
   while (angle > 180) {angle -= 360;}
   return angle;
-}
-
-bool Car::is_colliding() {
-  return contacts > 0;
 }
 
 void Car::set_linear_velocity(b2Vec2& v) {
@@ -72,60 +67,72 @@ b2Vec2 Car::get_forward_velocity() {
 
 void Car::updateFriction() {
   b2Vec2 impulse = car->GetMass() * -get_lateral_velocity();
-  car->ApplyLinearImpulse(impulse, car->GetWorldCenter(), false);
+  car->ApplyLinearImpulse(impulse,car->GetWorldCenter(),true);
+  car->ApplyAngularImpulse(0.1f * car->GetInertia() * -car->GetAngularVelocity(), true);
+  b2Vec2 fn = get_forward_velocity();
+  float cfs = fn.Normalize();
+  float dfm = -2 * cfs;
+  car->ApplyForce(dfm * fn, car->GetWorldCenter(), true);
+  b2Vec2 i = car->GetMass() * -get_lateral_velocity();
+  if (i.Length() > 3) i *= 3 / i.Length();
+  car->ApplyLinearImpulse(i, car->GetWorldCenter(),true);
+}
+
+void Car::turn_left() {
+  updateFriction();
+  car->ApplyTorque(50,true);
 }
 
 void Car::turn_right() {
-  float32 angle = get_angle();
+  updateFriction();
+  car->ApplyTorque(-50,true);
+  /*float32 angle = get_angle();
   b2Vec2 correction(cos(angle) + 1.5f * sin(angle), - sin(angle) + 1.5f * cos(angle));
   b2Vec2 force = car->GetPosition() + correction;
   car->ApplyForce(b2Vec2(-10 * sin(angle), -10 * cos(angle)), force, true);
-  car->SetLinearDamping(0);
+  car->SetLinearDamping(0);*/
 }
 
 void Car::move_forward() {
-  float32 angle = get_angle();
-  b2Vec2 velocity = car->GetLinearVelocity();
-  if (velocity.y < max_speed) {
-    velocity.y += SPEED;
-  } else {
-    return;
+  b2Vec2 forward_normal = car->GetWorldVector(b2Vec2(0,1));
+  float currentSpeed = b2Dot(this->get_forward_velocity(), forward_normal);
+  float force = 0;
+  if (currentSpeed < max_speed) {
+    force = 100;
   }
-  car->ApplyForce(b2Vec2(30 * sin(angle), 30 * cos(angle)), car->GetPosition(), true);
+  car->ApplyForce(force * forward_normal, car->GetPosition(), true);
   car->SetLinearDamping(0);
 }
 
-
 void Car::stop() {
-  b2Vec2 velocity = car->GetLinearVelocity();
-  if (velocity.y > min_speed) {
-    velocity.y += SPEED;
-  } else {
-    return;
+  b2Vec2 forward_normal = car->GetWorldVector(b2Vec2(0,1));
+  float currentSpeed = b2Dot(this->get_forward_velocity(), forward_normal);
+  float force = 0;
+  if (currentSpeed > min_speed) {
+    force = -100;
   }
-  car->ApplyForce(b2Vec2(0, velocity.y), car->GetPosition(), true);
+  car->ApplyForce(force * forward_normal, car->GetPosition(), true);
   car->SetLinearDamping(0);
 }
 
 void Car::start_contact() {
-  std::cout<<"contact\n";
-  contacts++;
+  this->stop();
 }
 
 void Car::end_contact() {
-  std::cout<<"no contact\n";
-  contacts--;
 }
 
 void Car::on_track() {
-  std::cout<<"en pista\n";
   track = true;
 }
 
 void Car::off_track() {
-  std::cout<<"fuera pista\n";
   track = false;
 }
 
 Car::~Car() {
+}
+
+void Car::surface_effect() {
+  if (!track) {this->stop();}
 }

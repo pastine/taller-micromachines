@@ -15,12 +15,9 @@ Player::Player(ClientProxy &messenger, CarHandler &car) :
 void Player::run() {
   while (playing) {
     car.move(messenger.get_move()); //
-    if (car.is_colliding()) {
-      car.move(DOWN); //assuming that a collision slows down the car
-    }
+    car.update_surface();
   }
 }
-
 
 void Player::stop() {
   playing = false;

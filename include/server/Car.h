@@ -7,7 +7,6 @@ private:
   b2Body* car;
   float max_speed;
   float min_speed;
-  int contacts;
   bool track;
 
 public:
@@ -39,13 +38,15 @@ public:
 
   ~Car();
 
-  bool is_colliding();
-
   void turn_right();
 
   void on_track();
 
   void off_track();
+
+  void surface_effect();
+
+  void turn_left();
 };
 
 
