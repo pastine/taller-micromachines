@@ -86,3 +86,7 @@ SDLTexture &SDLTexture::operator=(SDLTexture &&other) {
     other.texture = NULL;
     return *this;
 }
+
+void SDLTexture::change_color(std::tuple<int,int,int> t) {
+    SDL_SetTextureColorMod(this->texture, std::get<0>(t),std::get<1>(t),std::get<2>(t));
+}

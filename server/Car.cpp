@@ -8,7 +8,7 @@
 Car::Car(b2World &world, unsigned long i) {
   b2BodyDef bodyDef;
   bodyDef.type = b2_dynamicBody;
-  bodyDef.position.Set(6.0f * i , 0.0f);
+  bodyDef.position.Set(4*i, 0.0f);
   car = world.CreateBody(&bodyDef);
   //Define shape
   b2Vec2 vertices[4];

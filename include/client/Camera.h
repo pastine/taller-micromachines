@@ -15,7 +15,7 @@ class Camera {
 public:
     Camera();
     void prepare_frame();
-    void render_object(Renderizable& object, int abs_x, int abs_y, int angle = 0);
+    void render_object(Renderizable& object, int abs_x, int abs_y, int angle = 0, int id = 0);
     void show_frame();
     void set_center(int x, int y);
 private:

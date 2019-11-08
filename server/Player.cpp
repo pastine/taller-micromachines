@@ -2,6 +2,7 @@
 #define X "x"
 #define Y "y"
 #define ANGLE "angle"
+#define ID "id"
 
 uint32_t seed;
 
@@ -29,6 +30,7 @@ std::unordered_map<std::string, std::string> Player::get_position() {
   position.emplace(X, std::to_string(car.get_position().x));
   position.emplace(Y, std::to_string(car.get_position().y));
   position.emplace(ANGLE, std::to_string(car.get_angle()));
+  position.emplace(ID, std::to_string(getId()));
   return std::move(position);
 }
 

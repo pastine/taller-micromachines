@@ -14,7 +14,7 @@ Camera::Camera() : window(SDLWindow(420, 840)){
     SDLTextureLoader::instance_loader(window.get_renderer());
 }
 
-void Camera::render_object(Renderizable& object, int abs_x, int abs_y, int angle) {
+void Camera::render_object(Renderizable& object, int abs_x, int abs_y, int angle, int id) {
     if (!this->_is_in_frame(object, abs_x, abs_y)) return;
 
     int x_distance_to_center_mts = abs_x - this->center_x_mts;
@@ -27,7 +27,7 @@ void Camera::render_object(Renderizable& object, int abs_x, int abs_y, int angle
     int relative_y_pos_px = this->center_y_px - y_distance_to_center_px;
 
     std::cout << "rendering object!\n";
-    object.render(this->window.get_renderer(), relative_x_pos_px, relative_y_pos_px, angle);
+    object.render(this->window.get_renderer(), relative_x_pos_px, relative_y_pos_px, angle, id);
 }
 
 void Camera::show_frame() {
