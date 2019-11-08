@@ -7,14 +7,17 @@
 
 class StateUpdater : public Thread {
 private:
-  ProtectedQueue queue;
-  ClientProxy messenger;
+  ProtectedQueue* queue;
+  ClientProxy* messenger;
+  bool running;
 public:
-  StateUpdater(ClientProxy& messenger);
+  explicit StateUpdater(ClientProxy* messenger);
 
-  virtual void run();
+  void run() override;
 
   void update_status(JSON status);
+
+  void stop() override;
 
   ~StateUpdater();
 };
