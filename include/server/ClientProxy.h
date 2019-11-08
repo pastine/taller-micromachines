@@ -12,6 +12,8 @@
 #include <common/RacesSerializer.h>
 #include <map>
 #include <vector>
+#include <common/TrackSerializer.h>
+#include "Track.h"
 
 class ClientProxy {
 public:
@@ -35,11 +37,14 @@ public:
     // Returns the id of the race to be joined or 0 to create one
     int handshake(std::map<int,int> races_ids_players);
 
+    void send_track(Track track);
+
 private:
     Communication communication;
     MoveSerializer move_serializer;
     RacesSerializer races_serializer;
     StateSerializer state_serializer;
+    TrackSerializer track_serializer;
 };
 
 
