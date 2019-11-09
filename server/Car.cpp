@@ -75,7 +75,7 @@ void Car::updateFriction() {
 void Car::turn_left() {
     car->ApplyTorque(800,true);
     b2Vec2 forward_normal = car->GetWorldVector(b2Vec2(0,1));
-    car->ApplyForce(500 * forward_normal, car->GetPosition(), true);
+    car->ApplyForce(50 * forward_normal, car->GetPosition(), true);
     car->SetAngularDamping(2);
   /*std::cout<<"LEFT\n";
   float32 angle = get_angle();
@@ -93,7 +93,7 @@ void Car::turn_right() {
   /*updateFriction();*/
     car->ApplyTorque(-800,true);
     b2Vec2 forward_normal = car->GetWorldVector(b2Vec2(0,1));
-    car->ApplyForce(500 * forward_normal, car->GetPosition(), true);
+    car->ApplyForce(50 * forward_normal, car->GetPosition(), true);
     car->SetAngularDamping(2);
 
 
@@ -111,25 +111,41 @@ void Car::turn_right() {
 
 void Car::move_forward() {
   std::cout<<"FORWARD\n";
-  b2Vec2 forward_normal = car->GetWorldVector(b2Vec2(0,1));
-  float currentSpeed = b2Dot(this->get_forward_velocity(), forward_normal);
+  float angle = this->get_angle();
+  float correction = 1;
+  if (angle > 0) {correction = -1;}
+  angle = abs(angle);
+  angle *= 0.0174532925199432957;
+  b2Vec2 normal;
+  normal.x = sin(angle) * correction;
+  normal.y = cos(angle);
   float force = 0;
+  float currentSpeed = b2Dot(this->get_forward_velocity(), normal);
   if (currentSpeed < max_speed) {
     force = 800;
   }
-  std::cout<<forward_normal.x<<" "<<forward_normal.y<<'\n';
-  car->ApplyForce(force * forward_normal, car->GetPosition(), true);
+  std::cout<<normal.x<<" "<<normal.y<<'\n';
+  car->ApplyForce(force * normal, car->GetPosition(), true);
   car->SetLinearDamping(1.5);
 }
 
 void Car::stop() {
-  b2Vec2 forward_normal = car->GetWorldVector(b2Vec2(0,1));
-  float currentSpeed = b2Dot(this->get_forward_velocity(), forward_normal);
+  std::cout<<"STOP\n";
+  float angle = this->get_angle();
+  float correction = 1;
+  if (angle > 0) {correction = -1;}
+  angle = abs(angle);
+  angle *= 0.0174532925199432957;
+  b2Vec2 normal;
+  normal.x = sin(angle) * correction;
+  normal.y = cos(angle);
   float force = 0;
-  if (currentSpeed > min_speed) {
+  float currentSpeed = b2Dot(this->get_forward_velocity(), normal);
+  if (currentSpeed < max_speed) {
     force = -800;
   }
-  car->ApplyForce(force * forward_normal, car->GetPosition(), true);
+  std::cout<<normal.x<<" "<<normal.y<<'\n';
+  car->ApplyForce(force * normal, car->GetPosition(), true);
   car->SetLinearDamping(1.5);
 }
 
