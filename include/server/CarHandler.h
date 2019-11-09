@@ -18,7 +18,7 @@ public:
 
   float32 get_angle();
 
-  bool is_colliding();
+  void update_surface();
 
   ~CarHandler();
 };

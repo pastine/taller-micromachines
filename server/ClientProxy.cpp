@@ -23,7 +23,6 @@ MoveType ClientProxy::get_move() {
         std::string msg;
         this->communication.receive_msg(msg);
         MoveType move = this->move_serializer.deserialize(msg.data()[0]);
-        std::cout << msg.data() << '\n';
         return move;
     } catch (std::runtime_error& e) {
         std::string err = "Error in ClientProxy::get_move -> ";
@@ -57,6 +56,18 @@ int ClientProxy::handshake(std::map<int,int> races_ids_players) {
         return stoi(response);
     } catch (std::runtime_error& e) {
         std::string err = "Error in ClientProxy::handshake -> ";
+        err += e.what();
+        throw std::runtime_error(err);
+    }
+}
+
+void ClientProxy::send_track(Track track) {
+    try {
+        std::string msg;
+        msg = this->track_serializer.serialize(track);
+        this->communication.send_msg(msg);
+    } catch (std::runtime_error& e) {
+        std::string err = "Error in ClientProxy::send_track -> ";
         err += e.what();
         throw std::runtime_error(err);
     }

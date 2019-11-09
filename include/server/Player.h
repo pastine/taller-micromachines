@@ -6,6 +6,7 @@
 #include <common/Thread.h>
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 class Player : public Thread {
 private:
@@ -13,6 +14,9 @@ private:
   CarHandler car;
   bool playing;
   int id;
+  int total_laps;
+  int partial_laps;
+  std::vector<std::vector<float>> flags;
 
 public:
   Player(ClientProxy& messenger, CarHandler& car);
@@ -28,6 +32,10 @@ public:
   void update_status(JSON &status);
 
     int getId();
+
+  void update_lap_count();
+
+  void check_progress(int first, int second);
 };
 
 

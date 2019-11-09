@@ -7,9 +7,9 @@ CarHandler::CarHandler(Car &car) : car(car) {
 
 void CarHandler::move(MoveType move) {
   switch (move) {
-      case UP : car.move_forward(); return;
+    case UP : car.move_forward(); return;
     case DOWN : car.stop();         return;
-    case LEFT : return;
+    case LEFT : car.turn_left(); return;
     case RIGHT :  car.turn_right();  return;
     default: std::cout << "default\n"; return;
   }
@@ -22,8 +22,8 @@ b2Vec2 CarHandler::get_position() {
   return car.get_position();
 }
 
-bool CarHandler::is_colliding() {
-  return car.is_colliding();
+void CarHandler::update_surface(){
+  car.surface_effect();
 }
 
 float32 CarHandler::get_angle() {

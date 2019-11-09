@@ -4,6 +4,7 @@
 #include "ClientProxy.h"
 #include "Player.h"
 #include "ContactListener.h"
+#include "Track.h"
 #include <unordered_map>
 #include <string>
 
@@ -14,6 +15,7 @@ private:
   int id;
   b2World world;
   std::unordered_map<std::string, Player*> cars;
+  Track track;
   bool racing;
   ContactListener listener;
 
@@ -29,6 +31,8 @@ public:
   ~Race();
 
   int getId();
+
+  Track getTrack();
 
   int getPlayerCount();
 };

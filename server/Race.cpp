@@ -29,7 +29,7 @@ JSON get_global_status(std::unordered_map<std::string, Player*>& cars) {
 //Race
 Race::Race() : id(RaceCount++), world(b2World(gravity)),
                cars(std::unordered_map<std::string, Player*>()),
-               racing(true), listener(ContactListener()){
+               track(Track(world)), racing(true), listener(ContactListener()){
   world.SetContactListener(&listener);
 }
 
@@ -76,4 +76,8 @@ int Race::getPlayerCount() {
 
 int Race::getId() {
     return id;
+}
+
+Track Race::getTrack() {
+    return track;
 }
