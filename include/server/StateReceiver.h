@@ -6,6 +6,20 @@
 #include "ClientProxy.h"
 
 class StateReceiver : public Thread {
+private:
+  ProtectedQueue* queue;
+  ClientProxy* messenger;
+  bool running;
+public:
+  explicit StateReceiver(ClientProxy* messenger);
+
+  void run() override;
+
+  void receive_status(JSON status);
+
+  void stop() override;
+
+  ~StateReceiver();
 };
 
 
