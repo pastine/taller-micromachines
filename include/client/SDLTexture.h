@@ -16,7 +16,7 @@ public:
     SDLTexture(SDL_Texture* texture,
                int width, int height);
     ~SDLTexture();
-    void render(SDL_Renderer* renderer, Area& src, Area& dest);
+    void render(SDL_Renderer* renderer, Area& src, Area& dest, float angle);
     void render_flipped(SDL_Renderer* renderer, Area& src, Area& dest, SDL_RendererFlip flip);
     SDLTexture(SDLTexture&& other);
     SDLTexture& operator=(SDLTexture&& other);
