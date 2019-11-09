@@ -29,10 +29,11 @@ void Car::render(SDL_Renderer* renderer, int x, int y, int angle, int id) {
     int _angle = std::abs(angle);
     Area& src = this->frames.resolve_frame(_angle);
     Area dest = Area(x, y, this->w*2, this->h*2);
-    if (angle < 180)
+    if (angle < 0) {
         this->texture->render(renderer, src, dest);
-    else
+    } else {
         this->texture->render_flipped(renderer, src, dest, SDL_FLIP_HORIZONTAL);
+    }
 }
 
 

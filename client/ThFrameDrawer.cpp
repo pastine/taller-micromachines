@@ -59,8 +59,8 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
             std::string angle = (*it)["angle"];
             std::string playerId = (*it)["id"];
             entities.put(WorldEntities::Entity::CAR,
-                        std::stoi(x),
-                         std::stoi(y),
+                         (int) 10 * std::stof(x),
+                         (int) 10 * std::stof(y),
                          std::stoi(angle),
                          std::stoi(playerId));
         }

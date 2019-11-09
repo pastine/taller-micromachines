@@ -31,12 +31,13 @@ int main(int argc, char** argv) {
         JSON map;
         server.handshake_answer(retValue, &map);
 
+        /*
         map["straight"] = {
                 //{{"x", "0"}, {"y", "0"}, {"angle", "0"}},
                 //{{"x", "10"}, {"y", "10"}, {"angle", "0"}},
                 {{"x", "0"}, {"y", "0"}, {"angle", "0"}},
                 {{"x", "10"}, {"y", "10"}, {"angle", "30"}},
-        };
+        };*/
 
         ProtectedQueue queue(10);
 
