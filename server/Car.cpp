@@ -22,7 +22,7 @@ Car::Car(b2World &world, unsigned long i) {
   b2FixtureDef fixtureDef;
   fixtureDef.shape = &dynamicBox;
   fixtureDef.density = 1.0f;
-  fixtureDef.friction = 0.3f;
+  fixtureDef.friction = 1.0f;
   car->CreateFixture(&fixtureDef);
   max_speed = MAX;
   min_speed = -MAX;
@@ -73,8 +73,10 @@ void Car::updateFriction() {
 }
 
 void Car::turn_left() {
-  car->ApplyTorque(500,true);
-  car->SetAngularDamping(2);
+    car->ApplyTorque(800,true);
+    b2Vec2 forward_normal = car->GetWorldVector(b2Vec2(0,1));
+    car->ApplyForce(500 * forward_normal, car->GetPosition(), true);
+    car->SetAngularDamping(2);
   /*std::cout<<"LEFT\n";
   float32 angle = get_angle();
   angle *= DEGTORAD;
@@ -89,8 +91,13 @@ void Car::turn_left() {
 
 void Car::turn_right() {
   /*updateFriction();*/
-  car->ApplyTorque(-500,true);
-  this->move_forward();
+    car->ApplyTorque(-800,true);
+    b2Vec2 forward_normal = car->GetWorldVector(b2Vec2(0,1));
+    car->ApplyForce(500 * forward_normal, car->GetPosition(), true);
+    car->SetAngularDamping(2);
+
+
+    //this->move_forward();
   /*std::cout<<"RIGHT\n";
   float32 angle = get_angle();
   angle *= DEGTORAD;
@@ -100,7 +107,6 @@ void Car::turn_right() {
   b2Vec2 force = car->GetPosition() + correction;
   car->ApplyForce(b2Vec2(-20 * sin(angle), -20 * cos(angle)), force, true);
   std::cout<<-20 * sin(angle)<<" "<<-20 * cos(angle)<<'\n';*/
-  car->SetAngularDamping(2);
 }
 
 void Car::move_forward() {
@@ -109,11 +115,11 @@ void Car::move_forward() {
   float currentSpeed = b2Dot(this->get_forward_velocity(), forward_normal);
   float force = 0;
   if (currentSpeed < max_speed) {
-    force = 100;
+    force = 800;
   }
   std::cout<<forward_normal.x<<" "<<forward_normal.y<<'\n';
   car->ApplyForce(force * forward_normal, car->GetPosition(), true);
-  car->SetLinearDamping(0);
+  car->SetLinearDamping(1.5);
 }
 
 void Car::stop() {
@@ -121,10 +127,10 @@ void Car::stop() {
   float currentSpeed = b2Dot(this->get_forward_velocity(), forward_normal);
   float force = 0;
   if (currentSpeed > min_speed) {
-    force = -100;
+    force = -800;
   }
   car->ApplyForce(force * forward_normal, car->GetPosition(), true);
-  car->SetLinearDamping(0);
+  car->SetLinearDamping(1.5);
 }
 
 void Car::start_contact() {

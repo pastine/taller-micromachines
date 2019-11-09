@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
 
         ProtectedQueue queue(10);
 
-        Audio audio;
+        //Audio audio;
 
         ThStateReceiver state_receiver(&server, &queue);
         ThFrameDrawer frame_drawer(&queue, map);

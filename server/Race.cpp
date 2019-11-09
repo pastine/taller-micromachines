@@ -10,11 +10,6 @@ std::atomic_int Race::RaceCount(1);
 //AUXILIARY
 JSON get_global_status(std::unordered_map<std::string, Player*>& cars) {
   JSON status;
-  std::unordered_map<std::string, std::string> center;
-  center.emplace("x", "0");
-  center.emplace("y", "0");
-  JSON j_umap(center);
-  status[CENTER] = j_umap;
 
   JSON car_stats;
   for (auto it = cars.begin(); it != cars.end(); ++it) {

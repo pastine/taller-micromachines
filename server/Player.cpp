@@ -48,7 +48,12 @@ std::unordered_map<std::string, std::string> Player::get_position() {
 }
 
 void Player::update_status(JSON& status) {
-  messenger.send_state(status); //hilo aparte
+    std::unordered_map<std::string, std::string> center;
+    center.emplace("x", std::to_string(this->car.get_position().x));
+    center.emplace("y", std::to_string(this->car.get_position().y));
+    JSON j_umap(center);
+    status["center"] = j_umap;
+    messenger.send_state(status); //hilo aparte
 }
 
 int Player::getId() {
