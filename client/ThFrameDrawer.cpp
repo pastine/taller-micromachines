@@ -16,8 +16,8 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue *state_queue, JSON& map) : state_que
         std::string y = (*it)["y"];
         std::string angle = (*it)["angle"];
         entities.put(WorldEntities::Entity::STRAIGHT_ROAD,
-                     std::stoi(x),
-                     std::stoi(y),
+                     (int) 10 * std::stof(x),
+                     (int) 10 * std::stof(y),
                      std::stoi(angle));
     }
 
@@ -26,8 +26,8 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue *state_queue, JSON& map) : state_que
         std::string y = (*it)["y"];
         std::string angle = (*it)["angle"];
         entities.put(WorldEntities::Entity::CURVED_ROAD,
-                     std::stoi(x),
-                     std::stoi(y),
+                     (int) 10 * std::stof(x),
+                     (int) 10 * std::stof(y),
                      std::stoi(angle));
     }
 }
