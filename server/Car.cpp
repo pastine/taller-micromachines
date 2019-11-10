@@ -74,9 +74,8 @@ void Car::updateFriction() {
 
 void Car::turn_left() {
     car->ApplyTorque(800,true);
-    b2Vec2 forward_normal = car->GetWorldVector(b2Vec2(0,1));
-    car->ApplyForce(50 * forward_normal, car->GetPosition(), true);
-    car->SetAngularDamping(2);
+    this->move_forward();
+    car->SetAngularDamping(1.5);
   /*std::cout<<"LEFT\n";
   float32 angle = get_angle();
   angle *= DEGTORAD;
@@ -92,10 +91,8 @@ void Car::turn_left() {
 void Car::turn_right() {
   /*updateFriction();*/
     car->ApplyTorque(-800,true);
-    b2Vec2 forward_normal = car->GetWorldVector(b2Vec2(0,1));
-    car->ApplyForce(50 * forward_normal, car->GetPosition(), true);
-    car->SetAngularDamping(2);
-
+    this->move_forward();
+    car->SetAngularDamping(1.5);
 
     //this->move_forward();
   /*std::cout<<"RIGHT\n";
