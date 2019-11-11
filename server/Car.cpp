@@ -1,9 +1,20 @@
 #include <iostream>
 #include "server/Car.h"
+#include "common/Constants.h"
 #define MAX 100
 #define SPEED 20
 #define DEGTORAD 0.0174532925199432957f
-#define RADTODEG 57.295779513082320876f
+
+b2Vec2 get_forward_normal(float angle) {
+	float correction = 1;
+	if (angle > 0) {correction = -1;}
+	angle = abs(angle);
+	angle *= DEGTORAD;
+	b2Vec2 normal;
+	normal.x = sin(angle) * correction;
+	normal.y = cos(angle);
+	return normal;
+}
 
 Car::Car(b2World &world, unsigned long i) {
   b2BodyDef bodyDef;
@@ -28,6 +39,8 @@ Car::Car(b2World &world, unsigned long i) {
   min_speed = -MAX;
   car->SetUserData(this);
   track = true;
+  lives = 3;
+  visibility = true;
 }
 
 b2Vec2 Car::get_position() {
@@ -41,86 +54,26 @@ float32 Car::get_angle() {
   return angle;
 }
 
-void Car::set_linear_velocity(b2Vec2& v) {
-  car->SetLinearVelocity(v);
-}
-
-void Car::set_angular_velocity(float32 omega) {
-  car->SetAngularVelocity(omega);
-}
-
-b2Vec2 Car::get_lateral_velocity() {
-  b2Vec2 currentRightNormal = car->GetWorldVector(b2Vec2(1,0));
-  return b2Dot( currentRightNormal, car->GetLinearVelocity() ) * currentRightNormal;
-}
-
-b2Vec2 Car::get_forward_velocity() {
-  b2Vec2 currentRightNormal = car->GetWorldVector(b2Vec2(0,1));
-  return b2Dot( currentRightNormal, car->GetLinearVelocity() ) * currentRightNormal;
-}
-
-void Car::updateFriction() {
-  b2Vec2 impulse = car->GetMass() * -get_lateral_velocity();
-  car->ApplyLinearImpulse(impulse,car->GetWorldCenter(),true);
-  car->ApplyAngularImpulse(0.1f * car->GetInertia() * -car->GetAngularVelocity(), true);
-  b2Vec2 fn = get_forward_velocity();
-  float cfs = fn.Normalize();
-  float dfm = -2 * cfs;
-  car->ApplyForce(dfm * fn, car->GetWorldCenter(), true);
-  b2Vec2 i = car->GetMass() * -get_lateral_velocity();
-  if (i.Length() > 3) i *= 3 / i.Length();
-  car->ApplyLinearImpulse(i, car->GetWorldCenter(),true);
-}
-
 void Car::turn_left() {
     car->ApplyTorque(800,true);
     b2Vec2 forward_normal = car->GetWorldVector(b2Vec2(0,1));
     car->ApplyForce(50 * forward_normal, car->GetPosition(), true);
     car->SetAngularDamping(2);
-  /*std::cout<<"LEFT\n";
-  float32 angle = get_angle();
-  angle *= DEGTORAD;
-  std::cout<<angle<<'\n';
-  b2Vec2 correction(- cos(angle) + 1.5f * sin(angle), sin(angle) + 1.5f * cos(angle));
-  std::cout<<correction.x<<" "<<correction.y<<'\n';
-  b2Vec2 force = car->GetPosition() + correction;
-  car->ApplyForce(b2Vec2(25 * sin(angle), -25 * cos(angle)), force, true);
-  std::cout<<25 * sin(angle)<<" "<<-25 * cos(angle)<<'\n';
-  car->SetLinearDamping(0);*/
 }
 
 void Car::turn_right() {
-  /*updateFriction();*/
     car->ApplyTorque(-800,true);
     b2Vec2 forward_normal = car->GetWorldVector(b2Vec2(0,1));
     car->ApplyForce(50 * forward_normal, car->GetPosition(), true);
     car->SetAngularDamping(2);
-
-
-    //this->move_forward();
-  /*std::cout<<"RIGHT\n";
-  float32 angle = get_angle();
-  angle *= DEGTORAD;
-  std::cout<<angle<<'\n';
-  b2Vec2 correction(cos(angle) + 1.5f * sin(angle), - sin(angle) + 1.5f * cos(angle));
-  std::cout<<correction.x<<" "<<correction.y<<'\n';
-  b2Vec2 force = car->GetPosition() + correction;
-  car->ApplyForce(b2Vec2(-20 * sin(angle), -20 * cos(angle)), force, true);
-  std::cout<<-20 * sin(angle)<<" "<<-20 * cos(angle)<<'\n';*/
 }
 
 void Car::move_forward() {
   std::cout<<"FORWARD\n";
   float angle = this->get_angle();
-  float correction = 1;
-  if (angle > 0) {correction = -1;}
-  angle = abs(angle);
-  angle *= 0.0174532925199432957;
-  b2Vec2 normal;
-  normal.x = sin(angle) * correction;
-  normal.y = cos(angle);
+  b2Vec2 normal = get_forward_normal(angle);
   float force = 0;
-  float currentSpeed = b2Dot(this->get_forward_velocity(), normal);
+  float currentSpeed = b2Dot(car->GetLinearVelocity(), normal);
   if (currentSpeed < max_speed) {
     force = 800;
   }
@@ -131,16 +84,10 @@ void Car::move_forward() {
 
 void Car::stop() {
   std::cout<<"STOP\n";
-  float angle = this->get_angle();
-  float correction = 1;
-  if (angle > 0) {correction = -1;}
-  angle = abs(angle);
-  angle *= 0.0174532925199432957;
-  b2Vec2 normal;
-  normal.x = sin(angle) * correction;
-  normal.y = cos(angle);
+	float angle = this->get_angle();
+	b2Vec2 normal = get_forward_normal(angle);
   float force = 0;
-  float currentSpeed = b2Dot(this->get_forward_velocity(), normal);
+  float currentSpeed = b2Dot(car->GetLinearVelocity(), normal);
   if (currentSpeed < max_speed) {
     force = -800;
   }
@@ -149,11 +96,24 @@ void Car::stop() {
   car->SetLinearDamping(1.5);
 }
 
-void Car::start_contact() {
-  this->stop();
+void Car::start_contact(int ID) {
+	switch (ID) {
+		case TRACK : this->on_track(); return;
+		case CAR : this->contact_car(); return;
+		case MUD : this->contact_mud(); return;
+		case OIL : this->contact_oil(); return;
+		case STONE: this->contact_stone(); return;
+		case HEALTH: this->contact_health(); return;
+		case BOOST: this->contact_boost(); return;
+		default: return;
+	}
 }
 
-void Car::end_contact() {
+void Car::end_contact(int ID) {
+	if(ID == 0) {
+		this->off_track();
+	}
+	return;
 }
 
 void Car::on_track() {
@@ -164,9 +124,47 @@ void Car::off_track() {
   track = false;
 }
 
+void Car::contact_car() {
+	lives--;
+}
+
+void Car::contact_mud() {
+	visibility = false;
+}
+
+void Car::contact_oil() {
+	float friction = car->GetFixtureList()->GetFriction();
+	friction -= 0.3;
+	car->GetFixtureList()->SetFriction(friction);
+}
+
+void Car::contact_stone() {
+	this->stop();
+	lives--;
+}
+
+void Car::contact_health() {
+	if(lives < 3) {lives++;}
+}
+
+void Car::contact_boost() {
+	float angle = this->get_angle();
+	b2Vec2 normal = get_forward_normal(angle);
+	float force = 1000;
+	car->ApplyForce(force * normal, car->GetPosition(), true);
+	car->SetLinearDamping(1.0);
+}
+
+
+int Car::get_entity_type() {
+	return CAR;
+}
+
+
+void Car::surface_effect() {
+	if (!track) {this->stop();}
+}
+
 Car::~Car() {
 }
 
-void Car::surface_effect() {
-  if (!track) {this->stop();}
-}

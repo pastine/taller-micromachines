@@ -6,22 +6,22 @@ StateReceiver::StateReceiver(ClientProxy *messenger) :
 }
 
 void StateReceiver::run() {
-  while (running) {
-    JSON aux = queue->pop();
-    messenger->send_state(aux);
+	while (running) {
+		JSON aux = queue->pop();
+		messenger->send_state(aux);
   }
 }
 
 void StateReceiver::receive_status(JSON status) {
-  queue->push(status);
+	queue->push(status);
 }
 
 void StateReceiver::stop() {
-  running = false;
+	running = false;
 }
 
 StateReceiver::~StateReceiver() {
-  this->stop();
-  delete(queue);
-  this->join();
+	this->stop();
+	delete(queue);
+	this->join();
 }

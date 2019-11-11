@@ -1,26 +1,23 @@
 #ifndef TALLER_MICROMACHINES_MUD_H
 #define TALLER_MICROMACHINES_MUD_H
 
-#include <Box2D/Dynamics/b2World.h>
-#include "Element.h"
-#include "ContactListener.h"
+#include <Box2D/Box2D.h>
+#include "server/Element.h"
 
-class Mud {
+class Mud : public Element {
 private:
   b2Body* m_body;
-  int contacts;
-  ContactListener contact;
 
 public:
-  explicit Mud(b2World& world);
+  explicit Mud(b2World& world, float x, float y);
 
-  void start_contact();
+	void start_contact() override;
 
-  void end_contact();
+	void end_contact() override;
 
-  void destroy();
+  void destroy() override;
 
-  ~Mud(){}
+  int get_entity_type() override;
 };
 
 

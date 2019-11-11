@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "ContactListener.h"
 #include "Track.h"
+#include "Element.h"
 #include <unordered_map>
 #include <string>
 

@@ -7,19 +7,19 @@
 
 class StateReceiver : public Thread {
 private:
-  ProtectedQueue* queue;
-  ClientProxy* messenger;
-  bool running;
+	ProtectedQueue* queue;
+	ClientProxy* messenger;
+	bool running;
 public:
-  explicit StateReceiver(ClientProxy* messenger);
+	explicit StateReceiver(ClientProxy* messenger);
 
-  void run() override;
+	void run() override;
 
-  void receive_status(JSON status);
+	void receive_status(JSON status);
 
-  void stop() override;
+	void stop() override;
 
-  ~StateReceiver();
+	~StateReceiver();
 };
 
 

@@ -21,6 +21,6 @@ add_executable(server_test
         Health.cpp ../include/server/Health.h
         Oil.cpp ../include/server/Oil.h
         Mud.cpp ../include/server/Mud.h
-        Stone.cpp ../include/server/Stone.h StateUpdater.cpp ../include/server/StateUpdater.h StateReceiver.cpp ../include/server/StateReceiver.h)
+        Stone.cpp ../include/server/Stone.h StateUpdater.cpp ../include/server/StateUpdater.h StateReceiver.cpp ../include/server/StateReceiver.h ../include/server/Entity.h)
 
 target_link_libraries(server_test box2d)

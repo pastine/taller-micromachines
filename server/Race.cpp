@@ -1,7 +1,6 @@
 #include "server/Race.h"
 #include "server/Player.h"
 #include "common/json.h"
-#define CENTER "center"
 #define CARS "cars"
 
 b2Vec2 gravity(0.0f, 0.0f);

@@ -5,21 +5,32 @@
 #include <server/Oil.h>
 #include <server/Mud.h>
 #include <server/Stone.h>
+#include <iostream>
 
-void Element::get_element(b2World& world) {
+
+Element* Element::get_element(b2World& world) {
+	//TODO method that randomizes position
+	float x = 0.0f;
+	float y = 0.0f;
   std::random_device rd;
   std::mt19937 mt(rd());
   std::uniform_real_distribution<double> dist(0.0, 1.01);
   double num = dist(mt);
-  if (num > 0 && num <= 0.20) {
+  /*if (num > 0 && num <= 0.20) {
+  	std::cout<<"new Boost\n";
     //return new Boost(world);
   } else if (num > 0.20 && num <= 0.40) {
+		std::cout<<"new Health\n";
     //return new Health(world);
-  } else if (num > 0.40 && num <= 0.60) {
-    //return new Oil(world);
+  }*/
+  if (num > 0.40 && num <= 0.60) {
+		std::cout<<"new Oil\n";
+    return new Oil(world, x, y);
   } else if (num > 0.60 && num <= 0.80) {
-    //return new Mud(world);
+		std::cout<<"new Mud\n";
+    return new Mud(world, x, y);
   } else {
-    //return new Stone(world);
+		std::cout<<"new Stone\n";
+    return new Stone(world, x, y);
   }
 }
