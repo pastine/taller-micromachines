@@ -55,11 +55,11 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
         entities.clean();
 
         JSON cars = state["cars"];
-        for (JSON::iterator it = cars.begin(); it != cars.end(); ++it) {
-            std::string x = (*it)["x"];
-            std::string y = (*it)["y"];
-            std::string angle = (*it)["angle"];
-            std::string playerId = (*it)["id"];
+        for (auto & car : cars) {
+            std::string x = car["x"];
+            std::string y = car["y"];
+            std::string angle = car["angle"];
+            std::string playerId = car["id"];
             entities.put(WorldEntities::Entity::CAR,
                          (int) MULTIPLE * std::stof(x),
                          (int) MULTIPLE * std::stof(y),
@@ -67,17 +67,17 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
                          std::stoi(playerId));
         }
 
+        /* this is just to test it*/
         entities.put(WorldEntities::Entity::BOOST, 550, -100);
         entities.put(WorldEntities::Entity::HEART, 500, -150);
 
-
         entities.render(cam);
+
         cam.render_car_lives(3);
         cam.show_frame();
     } catch (std::domain_error& e) {
         std::cout << e.what() << '\n';
     }
-    {}
 }
 
 void ThFrameDrawer::stop() {
