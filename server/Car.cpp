@@ -115,6 +115,7 @@ void Car::end_contact(int ID) {
 }
 
 void Car::on_track() {
+	std::cout<<"estoy en la ppista\n";
   track = true;
 }
 

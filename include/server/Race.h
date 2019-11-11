@@ -15,8 +15,8 @@ class Race :public Thread {
 private:
   int id;
   b2World world;
+	Track track;
   std::unordered_map<std::string, Player*> cars;
-  Track track;
   bool racing;
   ContactListener listener;
 

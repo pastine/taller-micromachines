@@ -28,7 +28,7 @@ Track::Track(b2World& world) {
 		walls.SetAsBox(2.75, 3.45, b2Vec2(37.25, i), 0);//right wall
 		track->CreateFixture(&fixture);
 	}
-
+	fixture.isSensor = true;
 	int32 count = 3;
 
 	//down right edge
