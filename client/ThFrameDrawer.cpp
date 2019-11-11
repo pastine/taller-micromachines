@@ -66,6 +66,11 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
                          std::stoi(angle),
                          std::stoi(playerId));
         }
+
+        entities.put(WorldEntities::Entity::BOOST, 550, -100);
+        entities.put(WorldEntities::Entity::HEART, 500, -150);
+
+
         entities.render(cam);
         cam.show_frame();
     } catch (std::domain_error& e) {
