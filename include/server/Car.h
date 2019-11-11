@@ -2,6 +2,7 @@
 #define TALLER_MICROMACHINES_CAR_H
 #include "Box2D/Box2D.h"
 #include "Entity.h"
+#include <string>
 
 class Car : public Entity {
 private:
@@ -56,6 +57,10 @@ public:
 	void contact_boost();
 
 	void contact_car();
+
+	std::string get_lives();
+
+	std::string get_mud_state();
 };
 
 

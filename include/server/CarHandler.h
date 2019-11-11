@@ -4,6 +4,8 @@
 #include <utility>
 #include <common/MoveType.h>
 #include "Car.h"
+#include <string>
+#include <unordered_map>
 
 class CarHandler {
 private:
@@ -14,13 +16,19 @@ public:
 
   void move(MoveType move);
 
-  b2Vec2 get_position();
+  float get_x();
+
+  float get_y();
+
+	std::unordered_map<std::string, std::string> get_position();
 
   float32 get_angle();
 
   void update_surface();
 
   ~CarHandler();
+
+	std::unordered_map<std::string, std::string> get_element_state();
 };
 
 

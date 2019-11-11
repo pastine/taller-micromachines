@@ -164,6 +164,18 @@ void Car::surface_effect() {
 	if (!track) {this->stop();}
 }
 
+std::string Car::get_lives() {
+	return std::move(std::to_string(lives));
+}
+
+std::string Car::get_mud_state() {
+	if (!visibility) {
+		visibility = true;
+		return "true";
+	}
+	return "false";
+}
+
 Car::~Car() {
 }
 

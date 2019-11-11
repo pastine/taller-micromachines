@@ -1,9 +1,6 @@
 #include <queue>
 #include "server/Player.h"
-#define X "x"
-#define Y "y"
-#define ANGLE "angle"
-#define ID "id"
+#include "common/Constants.h"
 
 uint32_t seed;
 
@@ -39,20 +36,18 @@ void Player::stop() {
 }
 
 std::unordered_map<std::string, std::string> Player::get_position() {
-  std::unordered_map<std::string, std::string> position;
-  position.emplace(X, std::to_string(car.get_position().x));
-  position.emplace(Y, std::to_string(car.get_position().y));
+  auto position = car.get_position();
   position.emplace(ANGLE, std::to_string(car.get_angle()));
-  position.emplace(ID, std::to_string(getId()));
+  position.emplace("id", std::to_string(getId()));
   return std::move(position);
 }
 
 void Player::update_status(JSON& status) {
-    std::unordered_map<std::string, std::string> center;
-    center.emplace("x", std::to_string(this->car.get_position().x));
-    center.emplace("y", std::to_string(this->car.get_position().y));
-    JSON j_umap(center);
-    status["center"] = j_umap;
+    JSON j_umap(car.get_position());
+    status[CENTER] = j_umap;
+    JSON k_umap(car.get_element_state());
+    status[ELEMENTS] = k_umap;
+    std::cout<<status.dump(4)<<std::endl;
     messenger.send_state(status); //hilo aparte
 }
 
@@ -73,8 +68,8 @@ void Player::update_lap_count() {
 }
 
 void Player::check_progress(int first, int second) {
-  float x = car.get_position().x;
-  float y = car.get_position().y;
+  float x = car.get_x();
+  float y = car.get_y();
   std::vector<float> min = flags[first];
   std::vector<float> max = flags[second];
   if ((x>= min[0] || x<= min[1]) && (y>= min[0] || y<= min[1])) {

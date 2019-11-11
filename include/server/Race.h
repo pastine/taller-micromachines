@@ -8,6 +8,7 @@
 #include "Element.h"
 #include <unordered_map>
 #include <string>
+#include <vector>
 
 class Race :public Thread {
   static std::atomic_int RaceCount;
@@ -17,6 +18,7 @@ private:
   b2World world;
 	Track track;
   std::unordered_map<std::string, Player*> cars;
+  std::vector<Element*> elements;
   bool racing;
   ContactListener listener;
 
