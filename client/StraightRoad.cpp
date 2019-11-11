@@ -7,7 +7,7 @@
 
 StraightRoad::StraightRoad() {
     w = 550;
-    h = 550;
+    h = 690;
     img_x = 0;
     img_y = 0;
     resize_factor = 0.5;
