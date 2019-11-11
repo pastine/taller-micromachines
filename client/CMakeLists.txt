@@ -21,7 +21,7 @@ add_executable(client_test
         ${RESOURCES_SRC}
         ServerProxy.cpp ../include/client/ServerProxy.h ThStateReceiver.cpp ../include/client/ThStateReceiver.h ThFrameDrawer.cpp ../include/client/ThFrameDrawer.h
         sdl_wrappers/Audio.cpp ../include/client/Audio.h
-        entities/StraightRoad.cpp ../include/client/StraightRoad.h entities/CurvedRoad.cpp ../include/client/CurvedRoad.h entities/Boost.cpp ../include/client/Boost.h entities/Heart.cpp ../include/client/Heart.h)
+        entities/StraightRoad.cpp ../include/client/StraightRoad.h entities/CurvedRoad.cpp ../include/client/CurvedRoad.h entities/Boost.cpp ../include/client/Boost.h entities/Heart.cpp ../include/client/Heart.h CarLivesDrawer.cpp ../include/client/CarLivesDrawer.h)
 
 target_link_libraries(client_test SDL2 SDL2_image SDL2_mixer)
 target_link_libraries(client_test Qt5::Widgets)

@@ -40,7 +40,7 @@ void Camera::show_frame() {
 }
 
 void Camera::prepare_frame() {
-    window.fill(0xFF,0xFF,0,0xFF);
+    window.fill(0x0,0x84,0,0x42);
 }
 
 void Camera::set_center(int x, int y) {
@@ -55,4 +55,9 @@ bool Camera::_is_in_frame(Renderizable &object, int object_x_cms, int object_y_c
     int w_height_cms = this->window.get_height() / PIXELS_TO_CM;
     if (std::abs(this->center_x_cms - object_x_cms) > w_width_cms + RENDER_BORDER_CM) return false;
     return std::abs(this->center_y_cms - object_y_cms) <= w_height_cms + RENDER_BORDER_CM;
+}
+
+void Camera::render_car_lives(int lives) {
+    CarLivesDrawer lives_drawer{};
+    lives_drawer.draw_lives(lives, this->window.get_renderer());
 }

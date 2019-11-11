@@ -72,6 +72,7 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
 
 
         entities.render(cam);
+        cam.render_car_lives(3);
         cam.show_frame();
     } catch (std::domain_error& e) {
         std::cout << e.what() << '\n';
