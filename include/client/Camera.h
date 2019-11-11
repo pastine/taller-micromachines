@@ -8,8 +8,7 @@
 
 #include "Renderizable.h"
 #include "SDLWindow.h"
-
-#define PIXELS_TO_CM 1 // 29 * 5... dimentions of car
+#include "CarLivesDrawer.h"
 
 class Camera {
 public:
@@ -18,6 +17,7 @@ public:
     void render_object(Renderizable& object, int abs_x, int abs_y, int angle = 0, int id = 0);
     void show_frame();
     void set_center(int x, int y);
+    void render_car_lives(int lives);
 private:
     bool _is_in_frame(Renderizable& object, int abs_x, int abs_y);
     SDLWindow window;

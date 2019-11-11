@@ -31,12 +31,11 @@ int main(int argc, char** argv) {
         JSON map;
         server.handshake_answer(retValue, &map);
 
-
         map["straight"] = {
-                //{{"x", "0"}, {"y", "0"}, {"angle", "0"}},
-                //{{"x", "10"}, {"y", "10"}, {"angle", "0"}},
                 {{"x", "0"}, {"y", "0"}, {"angle", "0"}},
-                {{"x", "10"}, {"y", "10"}, {"angle", "30"}},
+                {{"x", "55"}, {"y", "0"}, {"angle", "0"}},
+                {{"x", "110"}, {"y", "0"}, {"angle", "0"}},
+                {{"x", "165"}, {"y", "0"}, {"angle", "0"}},
         };
 
         ProtectedQueue queue(10);
@@ -76,7 +75,7 @@ int main(int argc, char** argv) {
                     }
                 }
             }
-            SDL_Delay(50);
+            SDL_Delay(5);
         }
         state_receiver.stop();
         frame_drawer.stop();

@@ -56,16 +56,14 @@ float32 Car::get_angle() {
 
 void Car::turn_left() {
     car->ApplyTorque(800,true);
-    b2Vec2 forward_normal = car->GetWorldVector(b2Vec2(0,1));
-    car->ApplyForce(50 * forward_normal, car->GetPosition(), true);
-    car->SetAngularDamping(2);
+    this->move_forward();
+    car->SetAngularDamping(1.5);
 }
 
 void Car::turn_right() {
     car->ApplyTorque(-800,true);
-    b2Vec2 forward_normal = car->GetWorldVector(b2Vec2(0,1));
-    car->ApplyForce(50 * forward_normal, car->GetPosition(), true);
-    car->SetAngularDamping(2);
+    this->move_forward();
+    car->SetAngularDamping(1.5);
 }
 
 void Car::move_forward() {
