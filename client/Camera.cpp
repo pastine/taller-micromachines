@@ -7,8 +7,11 @@
 #include "client/SDLWindow.h"
 #include "client/SDLTextureLoader.h"
 
+#define RENDER_BORDER_CM 200
+#define PIXELS_TO_CM 1 // 29 * 5... dimentions of car
 
-Camera::Camera() : window(SDLWindow(420, 840)){
+
+Camera::Camera() : window(SDLWindow(480, 840)){
     window.fill(0xFF,0xFF,0,0xFF);
     this->window.render();
     SDLTextureLoader::instance_loader(window.get_renderer());
@@ -50,6 +53,6 @@ void Camera::set_center(int x, int y) {
 bool Camera::_is_in_frame(Renderizable &object, int object_x_cms, int object_y_cms) {
     int w_width_cms = this->window.get_width() / PIXELS_TO_CM;
     int w_height_cms = this->window.get_height() / PIXELS_TO_CM;
-    if (std::abs(this->center_x_cms - object_x_cms) > w_width_cms) return false;
-    return std::abs(this->center_y_cms - object_y_cms) <= w_height_cms;
+    if (std::abs(this->center_x_cms - object_x_cms) > w_width_cms + RENDER_BORDER_CM) return false;
+    return std::abs(this->center_y_cms - object_y_cms) <= w_height_cms + RENDER_BORDER_CM;
 }
