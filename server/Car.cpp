@@ -55,23 +55,27 @@ float32 Car::get_angle() {
   return angle;
 }
 
-void Car::turn_left() {
+void Car::turn_left(bool accelerate) {
+    if (accelerate) this->move_forward();
+    float currentSpeed = get_speed();
+    if (currentSpeed < 10) return;
     car->ApplyTorque(FORCE,true);
-    this->move_forward();
     car->SetAngularDamping(1.5);
 }
 
-void Car::turn_right() {
+void Car::turn_right(bool accelerate) {
+    if (accelerate) this->move_forward();
+    float currentSpeed = get_speed();
+    if (currentSpeed < 10) return;
     car->ApplyTorque(- FORCE,true);
-    this->move_forward();
     car->SetAngularDamping(1.5);
 }
 
 void Car::move_forward() {
-  float angle = this->get_angle();
-  b2Vec2 normal = get_forward_normal(angle);
-  float force = 0;
-  float currentSpeed = b2Dot(car->GetLinearVelocity(), normal);
+    float angle = this->get_angle();
+    float force = 0;
+    b2Vec2 normal = get_forward_normal(angle);
+    float currentSpeed = get_speed();
   if (currentSpeed < max_speed) {
     force = FORCE;
   }
@@ -112,12 +116,10 @@ void Car::end_contact(int id) {
 }
 
 void Car::on_track() {
-	std::cout<<"estoy en la pista\n";
   track = true;
 }
 
 void Car::off_track() {
-	std::cout<<"NO estoy en la pista\n";
   track = false;
 }
 
@@ -175,5 +177,11 @@ std::string Car::get_mud_state() {
 }
 
 Car::~Car() {
+}
+
+float Car::get_speed() {
+    float angle = this->get_angle();
+    b2Vec2 normal = get_forward_normal(angle);
+    return b2Dot(car->GetLinearVelocity(), normal);
 }
 

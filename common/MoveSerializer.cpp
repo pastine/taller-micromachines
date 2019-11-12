@@ -17,6 +17,10 @@ char MoveSerializer::serialize(MoveType &move) {
             return 'L';
         case MoveType::RIGHT:
             return 'R';
+        case MoveType::UPLEFT:
+            return 'Q';
+        case MoveType::UPRIGHT:
+            return 'E';
     }
     std::string msg = "MoveSerializer::serialize -> Can't serialize";
     throw std::runtime_error(msg);
@@ -32,6 +36,10 @@ MoveType MoveSerializer::deserialize(char move) {
             return MoveType::LEFT;
         case 'R':
             return MoveType ::RIGHT;
+        case 'Q':
+            return MoveType ::UPLEFT;
+        case 'E':
+            return MoveType ::UPRIGHT;
     }
     std::string msg = "MoveSerializer::deserialize -> Not recognized character";
     msg += ": ";
