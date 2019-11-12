@@ -58,14 +58,14 @@ CarFrameResolver::CarFrameResolver() {
 
 Area& CarFrameResolver::resolve_frame(int angle) {
     this->current_frame++;
-    if (angle == 0) return this->straight_up_frames[this->current_frame % 4];
-    if (angle > 0 && angle <= 30) return this->turn_1_up_frames[this->current_frame % 4];
+    if (angle <= 3) return this->straight_up_frames[this->current_frame % 4];
+    if (angle > 3 && angle <= 30) return this->turn_1_up_frames[this->current_frame % 4];
     if (angle > 30 && angle <= 45) return this->turn_2_up_frames[this->current_frame % 4];
-    if (angle > 45 && angle < 90) return this->turn_3_up_frames[this->current_frame % 4];
-    if (angle == 90) return this->side_frames[this->current_frame % 4];
-    if (angle > 90 && angle <= 120) return this->turn_1_down_frames[this->current_frame % 4];
+    if (angle > 45 && angle < 87) return this->turn_3_up_frames[this->current_frame % 4];
+    if (angle >= 87 && angle <= 93) return this->side_frames[this->current_frame % 4];
+    if (angle > 93 && angle <= 120) return this->turn_1_down_frames[this->current_frame % 4];
     if (angle > 120 && angle <= 135) return this->turn_2_down_frames[this->current_frame % 4];
-    if (angle > 135 && angle < 179) return this->turn_3_down_frames[this->current_frame % 4];
-    if (angle == 180 || angle == 179) return this->straight_down_frames[this->current_frame % 4];
+    if (angle > 135 && angle < 177) return this->turn_3_down_frames[this->current_frame % 4];
+    if (angle >= 177) return this->straight_down_frames[this->current_frame % 4];
     throw std::runtime_error("CarFrameResolver::resolve_frame: Invalid angle");
 }
