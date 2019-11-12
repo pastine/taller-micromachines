@@ -44,7 +44,7 @@ void Camera::set_center(int x, int y) {
     this->center_x_cms = x;
     this->center_y_cms = y;
     this->center_x_px = this->window.get_width() / 2;
-    this->center_y_px = this->window.get_height() - (this->window.get_height() / 4);
+    this->center_y_px = this->window.get_height() - (this->window.get_height() / 3);
 }
 
 bool Camera::_is_in_frame(Renderizable &object, int object_x_cms, int object_y_cms) {
