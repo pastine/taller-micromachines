@@ -2,7 +2,7 @@
 #include "common/Constants.h"
 #include "server/Car.h"
 #define MAX 100
-#define FORCE 800
+#define FORCE 2500
 #define DEGTORAD 0.0174532925199432957f
 
 b2Vec2 get_forward_normal(float angle) {
@@ -19,17 +19,17 @@ b2Vec2 get_forward_normal(float angle) {
 Car::Car(b2World &world, unsigned long i) {
   b2BodyDef bodyDef;
   bodyDef.type = b2_dynamicBody;
-  bodyDef.position.Set(4*i, 0.0f);
+  bodyDef.position.Set(10*i, 16*i);
   car = world.CreateBody(&bodyDef);
   b2Vec2 vertices[4];
   vertices[0].Set(0.0f, 0.0f);
-  vertices[1].Set(1.0f, 0.0f);
-  vertices[2].Set(1.0f, 3.0f);
-  vertices[3].Set(0.0f, 3.0f);
+  vertices[1].Set(4.0f, 0.0f);
+  vertices[2].Set(4.0f, 6.0f);
+  vertices[3].Set(0.0f, 6.0f);
   int32 count = 4;
   b2PolygonShape dynamicBox;
   dynamicBox.Set(vertices, count);
-  dynamicBox.SetAsBox(1.0f, 1.5f);
+  dynamicBox.SetAsBox(2.0f, 3.0f);
   b2FixtureDef fixtureDef;
   fixtureDef.shape = &dynamicBox;
   fixtureDef.density = 1.0f;
@@ -60,7 +60,10 @@ void Car::turn_left(bool accelerate) {
     float currentSpeed = get_speed();
     if (currentSpeed < 10) return;
     car->ApplyTorque(FORCE,true);
-    car->SetAngularDamping(1.5);
+    car->SetAngularDamping(1);
+    int angle = std::abs(this->get_angle());
+    if (angle <= 3 || (angle >= 87 && angle <= 93) || (angle >= 177))
+        car->SetAngularDamping(7);
 }
 
 void Car::turn_right(bool accelerate) {
@@ -68,7 +71,10 @@ void Car::turn_right(bool accelerate) {
     float currentSpeed = get_speed();
     if (currentSpeed < 10) return;
     car->ApplyTorque(- FORCE,true);
-    car->SetAngularDamping(1.5);
+    car->SetAngularDamping(1);
+    int angle = std::abs(this->get_angle());
+    if (angle <= 3 || (angle >= 87 && angle <= 93) || (angle >= 177))
+        car->SetAngularDamping(7);
 }
 
 void Car::move_forward() {
