@@ -1,4 +1,5 @@
 #include <iostream>
+#include "common/Constants.h"
 #include "server/Car.h"
 #define MAX 100
 #define FORCE 800
@@ -33,6 +34,7 @@ Car::Car(b2World &world, unsigned long i) {
   fixtureDef.shape = &dynamicBox;
   fixtureDef.density = 1.0f;
   fixtureDef.friction = 1.0f;
+  fixtureDef.restitution = 0.3f;
   car->CreateFixture(&fixtureDef);
   max_speed = MAX;
   min_speed = -MAX;

@@ -14,7 +14,6 @@ void ProtectedQueueState::push(MoveType& move) {
 MoveType ProtectedQueueState::pop() {
   std::unique_lock<std::mutex> lock(this->m);
   while (this->q.empty() && ! this->done) {
-  	std::cout<<done<<"me quede esperado----------\n";
   	this->cond_var.wait(lock);
   }
 	MoveType move = q.front();
