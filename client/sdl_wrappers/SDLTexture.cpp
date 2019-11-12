@@ -48,7 +48,6 @@ void SDLTexture::render_flipped(SDL_Renderer* renderer,
 }
 
 void SDLTexture::render(SDL_Renderer* renderer, Area& src, Area& dest, float angle) {
-    std::cout << "rendering texture!\n";
     SDL_Rect render_from = {
             src.getX(), src.getY(),
             src.getWidth(), src.getHeight()

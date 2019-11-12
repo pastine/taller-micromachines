@@ -59,6 +59,9 @@ void Car::turn_left(bool accelerate) {
     if (currentSpeed < 10) return;
     car->ApplyTorque(FORCE,true);
     car->SetAngularDamping(1.5);
+    int angle = std::abs(this->get_angle());
+    if (angle <= 3 || (angle >= 87 && angle <= 93) || (angle >= 177))
+        car->SetAngularDamping(25);
 }
 
 void Car::turn_right(bool accelerate) {
@@ -67,6 +70,9 @@ void Car::turn_right(bool accelerate) {
     if (currentSpeed < 10) return;
     car->ApplyTorque(- FORCE,true);
     car->SetAngularDamping(1.5);
+    int angle = std::abs(this->get_angle());
+    if (angle <= 3 || (angle >= 87 && angle <= 93) || (angle >= 177))
+        car->SetAngularDamping(25);
 }
 
 void Car::move_forward() {

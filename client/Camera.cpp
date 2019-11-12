@@ -29,9 +29,6 @@ void Camera::render_object(Renderizable& object, int abs_x, int abs_y, int angle
     int relative_x_pos_px = this->center_x_px + x_distance_to_center_px;
     int relative_y_pos_px = this->center_y_px - y_distance_to_center_px;
 
-    std::cout << "rendering object! at x: " << relative_x_pos_px;
-    std::cout << " and y: " << relative_y_pos_px << "\n";
-    std::cout << "center x: " << this->center_x_px << " center y: " << this->center_y_px;
     object.render(this->window.get_renderer(), relative_x_pos_px, relative_y_pos_px, angle, id);
 }
 
