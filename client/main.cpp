@@ -15,6 +15,8 @@
 #include "client/Launcher.h"
 #include "client/Audio.h"
 
+void send_moves(ServerProxy *up, bool down, bool left, bool right, bool b);
+
 int main(int argc, char** argv) {
     try {
         std::string host(argv[1]);
@@ -22,11 +24,13 @@ int main(int argc, char** argv) {
         ServerProxy server(host, service);
 
         std::map<std::string,int> races_ids_players = server.handshake();
-        QApplication app(argc, argv);
-        int retValue = -1;
-        Launcher launcher(races_ids_players, &retValue);
-        launcher.show();
-        app.exec();
+        int retValue = 0;
+        if (races_ids_players.size()) {
+            QApplication app(argc, argv);
+            Launcher launcher(races_ids_players, &retValue);
+            launcher.show();
+            app.exec();
+        }
 
         JSON map;
         server.handshake_answer(retValue, &map);
@@ -57,7 +61,9 @@ int main(int argc, char** argv) {
         frame_drawer.start();
 
         bool running = true;
+        bool up = false, down = false, left = false, right = false;
         while (running) {
+            send_moves(&server, up, down, left, right);
             SDL_Event event;
 
             if (SDL_PollEvent(&event)) {
@@ -69,18 +75,29 @@ int main(int argc, char** argv) {
                         SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                         switch (keyEvent.keysym.sym) {
                             case SDLK_LEFT:
-                                server.player_move(MoveType::LEFT);
-                                break;
+                                left = true; break;
                             case SDLK_RIGHT:
-                                server.player_move(MoveType::RIGHT);
-                                break;
+                                right = true; break;
                             case SDLK_UP:
-                                server.player_move(MoveType::UP);
-                                break;
+                                up = true; break;
                             case SDLK_DOWN:
-                                server.player_move(MoveType::DOWN);
-                                break;
+                                down = true; break;
                         }
+                        break;
+                    }
+                    case SDL_KEYUP: {
+                        SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
+                        switch (keyEvent.keysym.sym) {
+                            case SDLK_LEFT:
+                                left = false; break;
+                            case SDLK_RIGHT:
+                                right = false; break;
+                            case SDLK_UP:
+                                up = false; break;
+                            case SDLK_DOWN:
+                                down = false; break;
+                        }
+                        break;
                     }
                 }
             }
@@ -91,4 +108,13 @@ int main(int argc, char** argv) {
     } catch (SDLException& e) {
         std::cout << e.what() << '\n';
     }
+}
+
+void send_moves(ServerProxy *server, bool up, bool down, bool left, bool right) {
+    if (left && up) server->player_move(MoveType::UPLEFT);
+    else if (right && up) server->player_move(MoveType::UPRIGHT);
+    else if (up) server->player_move(MoveType::UP);
+    else if (down) server->player_move(MoveType::DOWN);
+    else if (right) server->player_move(MoveType::RIGHT);
+    else if (left) server->player_move(MoveType::LEFT);
 }

@@ -35,7 +35,7 @@ public:
 
   ~Car();
 
-  void turn_right();
+  void turn_right(bool b);
 
   void on_track();
 
@@ -43,7 +43,7 @@ public:
 
   void surface_effect();
 
-  void turn_left();
+  void turn_left(bool b);
 
 	int get_entity_type() override;
 
@@ -62,6 +62,8 @@ public:
 	std::string get_lives();
 
 	std::string get_mud_state();
+
+    float get_speed();
 };
 
 

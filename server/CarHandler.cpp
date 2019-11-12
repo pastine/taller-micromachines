@@ -9,9 +9,11 @@ CarHandler::CarHandler(Car &car) : car(car) {
 void CarHandler::move(MoveType move) {
   switch (move) {
     case UP : car.move_forward(); return;
-    case DOWN : car.stop();         return;
-    case LEFT : car.turn_left(); return;
-    case RIGHT :  car.turn_right();  return;
+    case DOWN : car.stop(); return;
+    case LEFT : car.turn_left(false); return;
+    case RIGHT : car.turn_right(false);  return;
+      case UPLEFT : car.turn_left(true);  return;
+      case UPRIGHT : car.turn_right(true);  return;
     default: std::cout << "default\n"; return;
   }
 }
@@ -21,8 +23,8 @@ CarHandler::~CarHandler() {
 
 std::unordered_map<std::string, std::string> CarHandler::get_position() {
 	std::unordered_map<std::string, std::string> center;
-	center.emplace(X, std::to_string(this->car.get_position().x));
-	center.emplace(Y, std::to_string(this->car.get_position().y));
+	center.emplace(X, std::to_string((int)this->car.get_position().x));
+    center.emplace(Y, std::to_string((int)this->car.get_position().y));
 	return center;
 }
 
