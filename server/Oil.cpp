@@ -1,5 +1,4 @@
 #include "server/Oil.h"
-#include "common/Constants.h"
 
 Oil::Oil(b2World& world, float x, float y) {
 	b2BodyDef bodyDef;

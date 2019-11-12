@@ -6,6 +6,7 @@
 #include "Car.h"
 #include <string>
 #include <unordered_map>
+#include "common/Constants.h"
 
 class CarHandler {
 private:

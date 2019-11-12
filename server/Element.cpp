@@ -16,14 +16,13 @@ Element* Element::get_element(b2World& world) {
   std::mt19937 mt(rd());
   std::uniform_real_distribution<double> dist(0.0, 1.01);
   double num = dist(mt);
-  /*if (num > 0 && num <= 0.20) {
-  	std::cout<<"new Boost\n";
-    //return new Boost(world);
-  } else if (num > 0.20 && num <= 0.40) {
+	if (num > 0 && num <= 0.20) {
+		std::cout<<"new Boost\n";
+		return new Boost(world, x, y);
+	} else if (num > 0.20 && num <= 0.40) {
 		std::cout<<"new Health\n";
-    //return new Health(world);
-  }*/
-  if (num > 0.40 && num <= 0.60) {
+    return new Health(world, x, y);
+  } else if (num > 0.40 && num <= 0.60) {
 		std::cout<<"new Oil\n";
     return new Oil(world, x, y);
   } else if (num > 0.60 && num <= 0.80) {

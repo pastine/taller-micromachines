@@ -1,7 +1,8 @@
-#include "ProtectedQueueState.h"
+#include <iostream>
+#include "common/ProtectedQueueState.h"
 
-ProtectedQueueState::ProtectedQueueState() {
-  this->q = std::queue<MoveType>();
+ProtectedQueueState::ProtectedQueueState() : q(std::queue<MoveType>()),
+																						 done(false) {
 }
 
 void ProtectedQueueState::push(MoveType& move) {
@@ -12,12 +13,20 @@ void ProtectedQueueState::push(MoveType& move) {
 
 MoveType ProtectedQueueState::pop() {
   std::unique_lock<std::mutex> lock(this->m);
-  while (this->q.empty()) {
-    this->cond_var.wait(lock);
+  while (this->q.empty() && ! this->done) {
+  	std::cout<<done<<"me quede esperado----------\n";
+  	this->cond_var.wait(lock);
   }
-  MoveType move = std::move(q.front());
-  q.pop();
-  return move;
+	MoveType move = q.front();
+	q.pop();
+	return move;
+}
+
+void ProtectedQueueState::stop() {
+	this->done = true;
+}
+
+ProtectedQueueState::~ProtectedQueueState() {
 }
 
 

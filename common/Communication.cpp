@@ -10,6 +10,7 @@ Communication::Communication(std::string &host, std::string &service) {
 }
 
 
+
 Communication::Communication(Socket socket) {
     this->socket = std::move(socket);
 }

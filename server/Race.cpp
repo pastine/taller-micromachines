@@ -29,24 +29,28 @@ Race::Race() : id(RaceCount++), world(b2World(gravity)), track(Track(world)),
 }
 
 void Race::run() {
-  while (racing) {
-    float32 time = 1.0f/30.0f;
-    int32 velocity = 6;
-    int32 position = 2;
-    world.Step(time, velocity, position);
-    JSON status = get_global_status(cars);
-    for (auto it = cars.begin(); it != cars.end(); ++it) {
-      it->second->update_status(status);
-    }
-    std::chrono::milliseconds tic(20); //20  - delta
-    std::this_thread::sleep_for(tic);
-  }
+	try {
+		while (racing) {
+			float32 time = 1.0f / 30.0f;
+			int32 velocity = 6;
+			int32 position = 2;
+			world.Step(time, velocity, position);
+			JSON status = get_global_status(cars);
+			for (auto it = cars.begin(); it != cars.end(); ++it) {
+				it->second->update_status(status);
+			}
+			std::chrono::milliseconds tic(20); //20  - delta
+			std::this_thread::sleep_for(tic);
+		}
+	} catch(...) {
+		return;
+	}
 }
 
-void Race::add_player(ClientProxy& messenger) {
+void Race::add_player(ClientProxy messenger) {
   Car car((b2World &) world, cars.size());
   CarHandler handler(car);
-  auto* player = new Player(messenger, handler); //pointers when threads?
+  auto* player = new Player(std::move(messenger), handler); //pointers when threads?
   player->start();
   cars.emplace(std::to_string(player->getId()), player);
 }

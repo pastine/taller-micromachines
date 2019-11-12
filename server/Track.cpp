@@ -1,6 +1,5 @@
 #include "server/Track.h"
 #include "Box2D/Box2D.h"
-#define TRACK 0
 
 Track::Track(b2World& world) {
 	b2BodyDef def;
@@ -12,20 +11,20 @@ Track::Track(b2World& world) {
 	fixture.isSensor = true;
 	fixture.shape = &walls;
 
-	for (float i = -31.05; i < 31.05; i += 6.9) {
-		walls.SetAsBox(3.45, 2.75, b2Vec2(i, 0), 0);//ground
+	for (float i = FIRST_GROUND_TILE_X; i < 31.05; i += W) {
+		walls.SetAsBox(W/2, H/2, b2Vec2(i, FIRST_GROUND_TILE_Y), 0);//ground
 		track->CreateFixture(&fixture);
 	}
-	for (float i = -31.05; i < 31.05; i += 6.9) {
-		walls.SetAsBox(3.45, 2.75, b2Vec2(i, 74.5), 0);//ceiling
+	for (float i = FIRST_CEILING_TILE_X; i < 31.05; i += W) {
+		walls.SetAsBox(W/2, H/2, b2Vec2(i, FIRST_CEILING_TILE_Y), 0);//ceiling
 		track->CreateFixture(&fixture);
 	}
-	for (float i = 6.2; i < 69; i += 6.9) {
-		walls.SetAsBox(2.75, 3.45, b2Vec2(-37.25, i), 0);//left wall
+	for (float i = FIRST_LEFT_TILE_Y; i < 69; i += W) {
+		walls.SetAsBox(H/2, W/2, b2Vec2(FIRST_LEFT_TILE_X, i), 0);//left wall
 		track->CreateFixture(&fixture);
 	}
-	for (float i = 6.2; i < 69; i += 6.9) {
-		walls.SetAsBox(2.75, 3.45, b2Vec2(37.25, i), 0);//right wall
+	for (float i = FIRST_RIGHT_TILE_Y; i < 69; i += W) {
+		walls.SetAsBox(H/2, W/2, b2Vec2(FIRST_RIGHT_TILE_X, i), 0);//right wall
 		track->CreateFixture(&fixture);
 	}
 	fixture.isSensor = true;

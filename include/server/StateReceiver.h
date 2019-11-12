@@ -2,12 +2,13 @@
 #define TALLER_MICROMACHINES_STATERECEIVER_H
 
 #include <common/Thread.h>
-#include <common/ProtectedQueue.h>
+#include <common/MoveType.h>
+#include <common/ProtectedQueueState.h>
 #include "ClientProxy.h"
 
 class StateReceiver : public Thread {
 private:
-	ProtectedQueue* queue;
+	ProtectedQueueState* queue;
 	ClientProxy* messenger;
 	bool running;
 public:
@@ -15,9 +16,9 @@ public:
 
 	void run() override;
 
-	void receive_status(JSON status);
-
 	void stop() override;
+
+	MoveType get_move();
 
 	~StateReceiver();
 };

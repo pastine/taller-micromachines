@@ -1,8 +1,7 @@
 #include <iostream>
 #include "server/Car.h"
-#include "common/Constants.h"
 #define MAX 100
-#define SPEED 20
+#define FORCE 800
 #define DEGTORAD 0.0174532925199432957f
 
 b2Vec2 get_forward_normal(float angle) {
@@ -55,47 +54,43 @@ float32 Car::get_angle() {
 }
 
 void Car::turn_left() {
-    car->ApplyTorque(800,true);
+    car->ApplyTorque(FORCE,true);
     this->move_forward();
     car->SetAngularDamping(1.5);
 }
 
 void Car::turn_right() {
-    car->ApplyTorque(-800,true);
+    car->ApplyTorque(- FORCE,true);
     this->move_forward();
     car->SetAngularDamping(1.5);
 }
 
 void Car::move_forward() {
-  std::cout<<"FORWARD\n";
   float angle = this->get_angle();
   b2Vec2 normal = get_forward_normal(angle);
   float force = 0;
   float currentSpeed = b2Dot(car->GetLinearVelocity(), normal);
   if (currentSpeed < max_speed) {
-    force = 800;
+    force = FORCE;
   }
-  std::cout<<normal.x<<" "<<normal.y<<'\n';
   car->ApplyForce(force * normal, car->GetPosition(), true);
   car->SetLinearDamping(1.5);
 }
 
 void Car::stop() {
-  std::cout<<"STOP\n";
 	float angle = this->get_angle();
 	b2Vec2 normal = get_forward_normal(angle);
   float force = 0;
   float currentSpeed = b2Dot(car->GetLinearVelocity(), normal);
-  if (currentSpeed < max_speed) {
-    force = -800;
+  if (currentSpeed > min_speed) {
+    force = - FORCE;
   }
-  std::cout<<normal.x<<" "<<normal.y<<'\n';
   car->ApplyForce(force * normal, car->GetPosition(), true);
   car->SetLinearDamping(1.5);
 }
 
-void Car::start_contact(int ID) {
-	switch (ID) {
+void Car::start_contact(int id) {
+	switch (id) {
 		case TRACK : this->on_track(); return;
 		case CAR : this->contact_car(); return;
 		case MUD : this->contact_mud(); return;
@@ -107,19 +102,20 @@ void Car::start_contact(int ID) {
 	}
 }
 
-void Car::end_contact(int ID) {
-	if(ID == 0) {
+void Car::end_contact(int id) {
+	if(id == 0) {
 		this->off_track();
 	}
 	return;
 }
 
 void Car::on_track() {
-	std::cout<<"estoy en la ppista\n";
+	std::cout<<"estoy en la pista\n";
   track = true;
 }
 
 void Car::off_track() {
+	std::cout<<"NO estoy en la pista\n";
   track = false;
 }
 

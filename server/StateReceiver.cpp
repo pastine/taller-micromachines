@@ -1,27 +1,32 @@
 #include "server/StateReceiver.h"
 
-StateReceiver::StateReceiver(ClientProxy *messenger) :
-        queue(new ProtectedQueue(1)),
+StateReceiver::StateReceiver(ClientProxy* messenger) :
+        queue(new ProtectedQueueState()),
         messenger(messenger), running(true){
 }
 
 void StateReceiver::run() {
-	while (running) {
-		JSON aux = queue->pop();
-		messenger->send_state(aux);
-  }
+	try {
+		while (running) {
+			MoveType move = messenger->get_move();
+			queue->push(move);
+		}
+	} catch (...) {
+		return;
+	}
 }
 
-void StateReceiver::receive_status(JSON status) {
-	queue->push(status);
+MoveType StateReceiver::get_move() {
+	return queue->pop();
 }
 
 void StateReceiver::stop() {
 	running = false;
+	queue->stop();
 }
 
 StateReceiver::~StateReceiver() {
-	this->stop();
+	messenger = nullptr;
 	delete(queue);
 	this->join();
 }

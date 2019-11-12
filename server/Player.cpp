@@ -15,16 +15,19 @@ void add_boundaries(std::vector<std::vector<float>>& flags) {
   flags.emplace_back(std::vector<float>{-35.5, 4.5});
 }
 
-Player::Player(ClientProxy &messenger, CarHandler &car) :
-  messenger(std::move(messenger)), car(car), playing(true),
+Player::Player(ClientProxy messenger, CarHandler &car) :
+  messenger(std::move(messenger)),
+  car(car), playing(true),
   id(rand_r(&seed)), total_laps(0), partial_laps(0),
   flags(std::vector<std::vector<float>>()) {
   add_boundaries(flags);
+  receiver = new StateReceiver(&this->messenger);
+  receiver->start();
 }
 
 void Player::run() {
   while (playing) {
-    car.move(messenger.get_move());
+    car.move(receiver->get_move());
     car.update_surface();
     this->update_lap_count();
   }
@@ -32,13 +35,14 @@ void Player::run() {
 
 void Player::stop() {
   playing = false;
+  receiver->stop();
   messenger.shutdown();
 }
 
 std::unordered_map<std::string, std::string> Player::get_position() {
   auto position = car.get_position();
   position.emplace(ANGLE, std::to_string(car.get_angle()));
-  position.emplace("id", std::to_string(getId()));
+  position.emplace(ID, std::to_string(getId()));
   return std::move(position);
 }
 
@@ -47,7 +51,7 @@ void Player::update_status(JSON& status) {
     status[CENTER] = j_umap;
     JSON k_umap(car.get_element_state());
     status[ELEMENTS] = k_umap;
-    std::cout<<status.dump(4)<<std::endl;
+    //std::cout<<status.dump(4)<<std::endl;
     messenger.send_state(status); //hilo aparte
 }
 
@@ -78,5 +82,6 @@ void Player::check_progress(int first, int second) {
 }
 
 Player::~Player() {
+	delete(receiver);
   this->join();
 }

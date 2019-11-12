@@ -27,7 +27,7 @@ public:
 
   virtual void run();
 
-  void add_player(ClientProxy& messenger);
+  void add_player(ClientProxy messenger);
 
   virtual void stop();
 

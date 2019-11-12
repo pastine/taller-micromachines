@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 18/9/19.
-//
-
 #include <queue>
 #include <mutex>
 #include <condition_variable>

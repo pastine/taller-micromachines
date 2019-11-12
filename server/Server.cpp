@@ -21,12 +21,12 @@ void Server::run() {
           new_client.send_track(race->getTrack());
           races.push_back(race);
           race->start();
-          race->add_player(new_client);
+          race->add_player(std::move(new_client));
       } else {
           for (Race* r: races) {
               if (r->getId() == race_id) {
                   new_client.send_track(r->getTrack());
-                  r->add_player(new_client);
+                  r->add_player(std::move(new_client));
               }
           }
       }
@@ -41,14 +41,15 @@ void Server::stop() {
 }
 
 Server::~Server() {
+		this->stop();
     acceptor.shutdown();
-    this->join();
-    std::list<Race *>::iterator it = races.begin();
+    auto it = races.begin();
     while (it != races.end()) {
         (*it)->stop();
         delete *it;
         it = races.erase(it);
     }
+		this->join();
 }
 
 

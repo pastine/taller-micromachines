@@ -2,6 +2,7 @@
 #define TALLER_MICROMACHINES_OIL_H
 
 #include "server/Element.h"
+#include "common/Constants.h"
 #include <Box2D/Box2D.h>
 
 class Oil : public Element {

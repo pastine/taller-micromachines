@@ -7,6 +7,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include "StateReceiver.h"
 
 class Player : public Thread {
 private:
@@ -17,9 +18,10 @@ private:
   int total_laps;
   int partial_laps;
   std::vector<std::vector<float>> flags;
+	StateReceiver* receiver;
 
 public:
-  Player(ClientProxy& messenger, CarHandler& car);
+  Player(ClientProxy messenger, CarHandler& car);
 
   virtual void run();
 

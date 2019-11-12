@@ -12,10 +12,17 @@ class ProtectedQueueState {
     std::queue<MoveType> q;
     std::mutex m;
     std::condition_variable cond_var;
+    bool done;
   public:
     ProtectedQueueState();
+
     void push(MoveType& move);
+
     MoveType pop();
+
+    void stop();
+
+    ~ProtectedQueueState();
 };
 
 

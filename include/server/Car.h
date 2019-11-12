@@ -2,6 +2,7 @@
 #define TALLER_MICROMACHINES_CAR_H
 #include "Box2D/Box2D.h"
 #include "Entity.h"
+#include "common/Constants.h"
 #include <string>
 
 class Car : public Entity {
@@ -28,9 +29,9 @@ public:
 
   void stop();
 
-  void start_contact(int ID);
+  void start_contact(int id);
 
-  void end_contact(int ID);
+  void end_contact(int id);
 
   ~Car();
 
