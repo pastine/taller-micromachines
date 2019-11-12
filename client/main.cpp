@@ -37,6 +37,15 @@ int main(int argc, char** argv) {
                 {{"x", "110"}, {"y", "0"}, {"angle", "0"}},
                 {{"x", "165"}, {"y", "0"}, {"angle", "0"}},
         };
+        /*
+        std::cout << "MAPAAAAAAAAAAAAAAa\n";
+        std::cout << map;
+        std::cout << map;
+        std::cout << map;
+        std::cout << map;
+        std::cout << map;
+        std::cout << map;
+        std::cout << "MAPAAAAAAAAAAAAAAa\n";*/
 
         ProtectedQueue queue(10);
 
