@@ -124,6 +124,7 @@ void Car::off_track() {
 }
 
 void Car::contact_car() {
+	std::cout<<"con otro auto\n";
 	lives--;
 }
 
@@ -165,7 +166,8 @@ void Car::surface_effect() {
 }
 
 std::string Car::get_lives() {
-	return std::move(std::to_string(lives));
+	std::cout<<"vidas"<<lives<<'\n';
+	return std::to_string(lives);
 }
 
 std::string Car::get_mud_state() {
