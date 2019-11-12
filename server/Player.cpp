@@ -5,14 +5,14 @@
 uint32_t seed;
 
 void add_boundaries(std::vector<std::vector<float>>& flags) {
-  flags.emplace_back(std::vector<float>{-44.5, 75.5});
-  flags.emplace_back(std::vector<float>{-35.5, 75.5});
-  flags.emplace_back(std::vector<float>{35.5, 75.5});
-  flags.emplace_back(std::vector<float>{35.5, 84.5});
-  flags.emplace_back(std::vector<float>{35.5, 4.5});
-  flags.emplace_back(std::vector<float>{44.5, 4.5});
-  flags.emplace_back(std::vector<float>{-35.5, -4.5});
-  flags.emplace_back(std::vector<float>{-35.5, 4.5});
+  flags.emplace_back(std::vector<float>{-40.0f, 71.75f});
+  flags.emplace_back(std::vector<float>{-34.5f, 71.75f});
+  flags.emplace_back(std::vector<float>{34.5f, 71.75f});
+  flags.emplace_back(std::vector<float>{34.5f, 77.25f});
+  flags.emplace_back(std::vector<float>{34.5f, -2.75f});
+  flags.emplace_back(std::vector<float>{34.5f, 2.75f});
+  flags.emplace_back(std::vector<float>{-34.5f, -2.75f});
+  flags.emplace_back(std::vector<float>{-34.5f, 2.75f});
 }
 
 Player::Player(ClientProxy messenger, CarHandler &car) :
@@ -76,7 +76,7 @@ void Player::check_progress(int first, int second) {
   float y = car.get_y();
   std::vector<float> min = flags[first];
   std::vector<float> max = flags[second];
-  if ((x>= min[0] || x<= min[1]) && (y>= min[0] || y<= min[1])) {
+  if ((x>= min[0] || x<= min[1]) && (y>= max[0] || y<= max[1])) {
     partial_laps++;
   }
 }

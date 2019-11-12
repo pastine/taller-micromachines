@@ -54,7 +54,7 @@ Track::Track(b2World& world) {
 	fixture_edge2.isSensor = true;
 	track->CreateFixture(&fixture_edge2);
 
-	//top right edge
+	//top left edge
 	b2Vec2 vertices3[3];
 	vertices3[0].Set(-34.5f, 71.75f);
 	vertices3[1].Set(-34.5f, 77.25f);
@@ -66,7 +66,7 @@ Track::Track(b2World& world) {
 	fixture_edge3.isSensor = true;
 	track->CreateFixture(&fixture_edge3);
 
-	//top left edge
+	//top right edge
 	b2Vec2 vertices4[3];
 	vertices4[0].Set(34.5f, 71.75f);
 	vertices4[1].Set(34.5f, 77.25f);
