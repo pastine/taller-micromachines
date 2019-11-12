@@ -18,8 +18,8 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue *state_queue, JSON& map) : state_que
         std::string y = (*it)["y"];
         std::string angle = (*it)["angle"];
         entities.put(WorldEntities::Entity::STRAIGHT_ROAD,
-                     (int) 30 * std::stof(x),
-                     (int) 30 * std::stof(y),
+                     (int) 35 * std::stof(x),
+                     (int) 35 * std::stof(y),
                      std::stoi(angle));
     }
 
