@@ -10,7 +10,7 @@
 ThFrameDrawer::ThFrameDrawer(ProtectedQueue *state_queue, JSON& map) : state_queue(state_queue) {
     this->done = false;
 
-    JSON straight_roads = map["straight"];
+    JSON straight_roads = map["tracks"];
     JSON curved_roads = map["curved"];
 
     for (JSON::iterator it = straight_roads.begin(); it != straight_roads.end(); ++it) {
@@ -18,8 +18,8 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue *state_queue, JSON& map) : state_que
         std::string y = (*it)["y"];
         std::string angle = (*it)["angle"];
         entities.put(WorldEntities::Entity::STRAIGHT_ROAD,
-                     (int) MULTIPLE * std::stof(x),
-                     (int) MULTIPLE * std::stof(y),
+                     (int) 30 * std::stof(x),
+                     (int) 30 * std::stof(y),
                      std::stoi(angle));
     }
 
