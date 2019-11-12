@@ -9,7 +9,7 @@ void ContactListener::BeginContact(b2Contact *contact) {
 	if(A_is_sensor && B_is_sensor) { return;}
   void* A = contact->GetFixtureA()->GetBody()->GetUserData();
 	int A_ID = static_cast<Entity*>(A)->get_entity_type();
-	void* B = contact->GetFixtureA()->GetBody()->GetUserData();
+	void* B = contact->GetFixtureB()->GetBody()->GetUserData();
 	int B_ID = static_cast<Entity*>(B)->get_entity_type();
 	if (A_ID == 1 && B_ID == 1){
 		static_cast<Car*>(A)->start_contact(B_ID);
@@ -33,7 +33,7 @@ void ContactListener::EndContact(b2Contact *contact) {
 	if(A_is_sensor && B_is_sensor) { return;}
 	void* A = contact->GetFixtureA()->GetBody()->GetUserData();
 	int A_ID = static_cast<Entity*>(A)->get_entity_type();
-	void* B = contact->GetFixtureA()->GetBody()->GetUserData();
+	void* B = contact->GetFixtureB()->GetBody()->GetUserData();
 	int B_ID = static_cast<Entity*>(B)->get_entity_type();
 	if (A_ID == 1 && B_ID == 1){
 		static_cast<Car*>(A)->end_contact(B_ID);
