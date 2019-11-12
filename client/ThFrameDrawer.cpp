@@ -72,8 +72,8 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
         entities.put(WorldEntities::Entity::HEART, 500, -150);
 
         entities.render(cam);
-
-        cam.render_car_lives(3);
+        std::string lives = state["elements"]["lives"];
+        cam.render_car_lives(std::stoi(lives));
         cam.show_frame();
     } catch (std::domain_error& e) {
         std::cout << e.what() << '\n';
