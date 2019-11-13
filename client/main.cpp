@@ -24,13 +24,11 @@ int main(int argc, char** argv) {
         ServerProxy server(host, service);
 
         std::map<std::string,int> races_ids_players = server.handshake();
-        int retValue = 0;
-        if (races_ids_players.size()) {
-            QApplication app(argc, argv);
-            Launcher launcher(races_ids_players, &retValue);
-            launcher.show();
-            app.exec();
-        }
+        int retValue = -1;
+        QApplication app(argc, argv);
+        Launcher launcher(races_ids_players, &retValue);
+        launcher.show();
+        app.exec();
 
         JSON map;
         server.handshake_answer(retValue, &map);
@@ -44,7 +42,7 @@ int main(int argc, char** argv) {
 
         ProtectedQueue queue(10);
 
-        //Audio audio;
+        Audio audio;
 
         ThStateReceiver state_receiver(&server, &queue);
         ThFrameDrawer frame_drawer(&queue, map);
