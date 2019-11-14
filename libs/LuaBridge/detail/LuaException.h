@@ -80,6 +80,7 @@ namespace luabridge {
         */
         template<class Exception>
         static void Throw(Exception e) {
+
             throw e;
         }
 

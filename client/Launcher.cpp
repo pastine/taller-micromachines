@@ -2,7 +2,8 @@
 #include "client/Launcher.h"
 
 
-Launcher::Launcher(std::map<std::string, int> races, int* ret) : retValue(ret) {
+Launcher::Launcher(std::map<std::string, int> races, int* ret, bool* bot) :
+            retValue(ret), playwithbot(bot) {
     QVBoxLayout* mainLayout = new QVBoxLayout();
     QPushButton* createGameBtn = new QPushButton("Create Game");
     QLabel* img = new QLabel;
@@ -23,12 +24,19 @@ Launcher::Launcher(std::map<std::string, int> races, int* ret) : retValue(ret) {
                 [this, p]() {setValue(p.first);});
         existingGames->addWidget(btn);
     }
+    QRadioButton* botBtn = new QRadioButton("Play with Bot");
+    connect(botBtn, &QPushButton::clicked, this, [this]() {toggleBot();});
+    mainLayout->addWidget(botBtn);
     this->setLayout(mainLayout);
 }
 
 void Launcher::setValue(std::string id) {
     *retValue = stoi(id);
     this->close();
+}
+
+void Launcher::toggleBot() {
+    *playwithbot = !*playwithbot;
 }
 
 

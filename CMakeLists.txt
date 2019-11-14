@@ -10,7 +10,6 @@ include_directories(include/)
 include_directories(libs/)
 include_directories(${PROJECT_BINARY_DIR})
 
-add_subdirectory(scripts)
 add_subdirectory(mods)
 add_subdirectory(client)
 add_subdirectory(server)
@@ -59,13 +58,8 @@ add_custom_target(lint_mods
         COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/include/mods/"
         )
 
-add_custom_target(lint_scripts
-        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/scripts/"
-        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/include/scripts/"
-        )
 
 add_dependencies(common lint_common)
-add_dependencies(scripts_test lint_scripts)
 add_dependencies(mods_test lint_mods)
 add_dependencies(client_test lint_client)
 add_dependencies(server_test lint_server)
