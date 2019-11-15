@@ -12,6 +12,7 @@ Audio::Audio() {
         throw SDLException("Can't initialize mixer", Mix_GetError());
 
     Mix_Music *background = Mix_LoadMUS("client/audio/background.wav");
+    Mix_VolumeMusic(20);
     powerup = Mix_LoadWAV("client/audio/powerup.wav");
     Mix_PlayMusic(background, -1);
 }

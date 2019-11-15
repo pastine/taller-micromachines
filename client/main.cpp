@@ -14,8 +14,16 @@
 #include "client/SDLException.h"
 #include "client/Launcher.h"
 #include "client/Audio.h"
+#include "client/AIScript.h"
 
-void send_moves(ServerProxy *up, bool down, bool left, bool right, bool b);
+void send_moves(ServerProxy *server, bool up, bool down, bool left, bool right) {
+    if (left && up) server->player_move(MoveType::UPLEFT);
+    else if (right && up) server->player_move(MoveType::UPRIGHT);
+    else if (up) server->player_move(MoveType::UP);
+    else if (down) server->player_move(MoveType::DOWN);
+    else if (right) server->player_move(MoveType::RIGHT);
+    else if (left) server->player_move(MoveType::LEFT);
+}
 
 int main(int argc, char** argv) {
     try {
@@ -24,13 +32,12 @@ int main(int argc, char** argv) {
         ServerProxy server(host, service);
 
         std::map<std::string,int> races_ids_players = server.handshake();
-        int retValue = 0;
-        if (races_ids_players.size()) {
-            QApplication app(argc, argv);
-            Launcher launcher(races_ids_players, &retValue);
-            launcher.show();
-            app.exec();
-        }
+        int retValue = -1;
+        bool playwithbot = 0;
+        QApplication app(argc, argv);
+        Launcher launcher(races_ids_players, &retValue, &playwithbot);
+        launcher.show();
+        app.exec();
 
         JSON map;
         server.handshake_answer(retValue, &map);
@@ -44,7 +51,7 @@ int main(int argc, char** argv) {
 
         ProtectedQueue queue(10);
 
-        //Audio audio;
+        Audio audio;
 
         ThStateReceiver state_receiver(&server, &queue);
         ThFrameDrawer frame_drawer(&queue, map);
@@ -53,8 +60,10 @@ int main(int argc, char** argv) {
 
         bool running = true;
         bool up = false, down = false, left = false, right = false;
+        AIScript script("bot");
         while (running) {
             send_moves(&server, up, down, left, right);
+            if (playwithbot) server.player_move(static_cast<MoveType>(script.getNextMove()));
             SDL_Event event;
 
             if (SDL_PollEvent(&event)) {
@@ -99,13 +108,4 @@ int main(int argc, char** argv) {
     } catch (SDLException& e) {
         std::cout << e.what() << '\n';
     }
-}
-
-void send_moves(ServerProxy *server, bool up, bool down, bool left, bool right) {
-    if (left && up) server->player_move(MoveType::UPLEFT);
-    else if (right && up) server->player_move(MoveType::UPRIGHT);
-    else if (up) server->player_move(MoveType::UP);
-    else if (down) server->player_move(MoveType::DOWN);
-    else if (right) server->player_move(MoveType::RIGHT);
-    else if (left) server->player_move(MoveType::LEFT);
 }

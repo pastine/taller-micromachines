@@ -40,7 +40,7 @@ Car::Car(b2World &world, unsigned long i) {
   min_speed = -MAX;
   car->SetUserData(this);
   track = true;
-  lives = 3;
+  lives = new int(3);
   visibility = true;
 }
 
@@ -131,7 +131,7 @@ void Car::off_track() {
 
 void Car::contact_car() {
 	std::cout<<"con otro auto\n";
-	lives--;
+	*lives-=1;
 }
 
 void Car::contact_mud() {
@@ -146,11 +146,11 @@ void Car::contact_oil() {
 
 void Car::contact_stone() {
 	this->stop();
-	lives--;
+    *lives-=1;
 }
 
 void Car::contact_health() {
-	if(lives < 3) {lives++;}
+	if(*lives < 3) {*lives+=1;}
 }
 
 void Car::contact_boost() {
@@ -172,8 +172,7 @@ void Car::surface_effect() {
 }
 
 std::string Car::get_lives() {
-	std::cout<<"vidas"<<lives<<'\n';
-	return std::to_string(lives);
+	return std::to_string(*lives);
 }
 
 std::string Car::get_mud_state() {

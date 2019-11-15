@@ -11,6 +11,7 @@
 #include "SDLTexture.h"
 #include "CarFrameResolver.h"
 #include "Renderizable.h"
+#include <tuple>
 
 class Car : public Renderizable {
 private:
@@ -18,6 +19,7 @@ private:
     int w;
     int h;
     SDLTexture* texture;
+    std::vector<std::tuple<int,int,int>> colors;
 public:
     Car();
     void render(SDL_Renderer* renderer, int x, int y, int angle = 0, int id = 0);

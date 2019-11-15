@@ -1,4 +1,5 @@
 find_package(Qt5Widgets)
+include_directories(/usr/include/lua5.3)
 
 add_executable(client_test
         main.cpp
@@ -17,11 +18,13 @@ add_executable(client_test
         sdl_wrappers/StaticRenderizable.cpp ../include/client/StaticRenderizable.h
         WorldEntities.cpp ../include/client/WorldEntities.h
         Launcher.cpp
-        ${UIS_HEADERS}
-        ${RESOURCES_SRC}
+        scripts/bot.lua
+        scripts/LuaFile.cpp ../../include/client/LuaFile.h
+        ../../include/client/AIScript.h
         ServerProxy.cpp ../include/client/ServerProxy.h ThStateReceiver.cpp ../include/client/ThStateReceiver.h ThFrameDrawer.cpp ../include/client/ThFrameDrawer.h
         sdl_wrappers/Audio.cpp ../include/client/Audio.h
-        entities/StraightRoad.cpp ../include/client/StraightRoad.h entities/CurvedRoad.cpp ../include/client/CurvedRoad.h entities/Boost.cpp ../include/client/Boost.h entities/Heart.cpp ../include/client/Heart.h CarLivesDrawer.cpp ../include/client/CarLivesDrawer.h)
+        entities/StraightRoad.cpp ../include/client/StraightRoad.h entities/CurvedRoad.cpp ../include/client/CurvedRoad.h entities/Boost.cpp ../include/client/Boost.h entities/Heart.cpp ../include/client/Heart.h CarLivesDrawer.cpp ../include/client/CarLivesDrawer.h scripts/AIScript.cpp)
 
 target_link_libraries(client_test SDL2 SDL2_image SDL2_mixer)
 target_link_libraries(client_test Qt5::Widgets)
+target_link_libraries(client_test lua5.3)

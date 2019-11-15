@@ -10,7 +10,7 @@ private:
   float max_speed;
   float min_speed;
   bool track;
-  int lives;
+  int* lives;
   bool visibility;
 
 public:
