@@ -130,7 +130,6 @@ void Car::off_track() {
 }
 
 void Car::contact_car() {
-	std::cout<<"con otro auto\n";
 	*lives-=1;
 }
 
@@ -184,6 +183,7 @@ std::string Car::get_mud_state() {
 }
 
 Car::~Car() {
+	delete(lives);
 }
 
 float Car::get_speed() {
