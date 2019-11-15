@@ -23,4 +23,8 @@ add_executable(server_test
         Mud.cpp ../include/server/Mud.h
         Stone.cpp ../include/server/Stone.h StateUpdater.cpp ../include/server/StateUpdater.h StateReceiver.cpp ../include/server/StateReceiver.h ../include/server/Entity.h)
 
+add_library(MiddleManState SHARED mods/libMiddleManState.cpp)
+
+
 target_link_libraries(server_test box2d)
+target_link_libraries(server_test MiddleManState ${CMAKE_DL_LIBS})

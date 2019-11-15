@@ -14,6 +14,7 @@
 #include <vector>
 #include <common/TrackSerializer.h>
 #include "Track.h"
+#include <string>
 
 class ClientProxy {
 public:
@@ -45,6 +46,8 @@ private:
     RacesSerializer races_serializer;
     StateSerializer state_serializer;
     TrackSerializer track_serializer;
+
+    void modify_state(std::string &basicString);
 };
 
 

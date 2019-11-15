@@ -3,6 +3,7 @@
 //
 
 #include "server/ClientProxy.h"
+#include <dlfcn.h>
 
 ClientProxy::ClientProxy(Communication comm) : communication(std::move(comm)){}
 
@@ -10,6 +11,7 @@ void ClientProxy::send_state(JSON &state) {
     try {
         std::string msg;
         msg = this->state_serializer.serialize(state);
+        modify_state(msg);
         this->communication.send_msg(msg);
     } catch (std::runtime_error& e) {
         std::string err = "Error in ClientProxy::send_state -> ";
@@ -73,6 +75,11 @@ void ClientProxy::send_track(Track track) {
     }
 }
 
-
-
-
+void ClientProxy::modify_state(std::string &msg) {
+    void *shared_lib = dlopen("./libMiddleManState.so", RTLD_NOW);
+    void (*middleman)(char**);
+    *(void **) (&middleman) = dlsym(shared_lib, "middleman");
+    char* dup_msg = strdup(msg.c_str());
+    middleman(&dup_msg);
+    msg = std::string(dup_msg);
+}
