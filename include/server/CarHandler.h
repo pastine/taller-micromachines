@@ -10,10 +10,10 @@
 
 class CarHandler {
 private:
-  Car car;
+  Car* car;
 
 public:
-  explicit CarHandler(Car& car);
+  explicit CarHandler(Car* car);
 
   void move(MoveType move);
 

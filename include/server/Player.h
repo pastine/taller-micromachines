@@ -12,7 +12,7 @@
 class Player : public Thread {
 private:
   ClientProxy messenger;
-  CarHandler car;
+  CarHandler* car;
   bool playing;
   int id;
   int total_laps;
@@ -21,7 +21,7 @@ private:
 	StateReceiver* receiver;
 
 public:
-  Player(ClientProxy messenger, CarHandler& car);
+  Player(ClientProxy messenger, CarHandler* car);
 
   virtual void run();
 
@@ -33,7 +33,7 @@ public:
 
   void update_status(JSON &status);
 
-    int getId();
+  int getId();
 
   void update_lap_count();
 

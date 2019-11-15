@@ -1,6 +1,7 @@
 #include <queue>
 #include "server/Player.h"
 #include "common/Constants.h"
+#include "../common/ClosedQueueException.h"
 
 uint32_t seed;
 
@@ -15,7 +16,7 @@ void add_boundaries(std::vector<std::vector<float>>& flags) {
   flags.emplace_back(std::vector<float>{-34.5f, 2.75f});
 }
 
-Player::Player(ClientProxy messenger, CarHandler &car) :
+Player::Player(ClientProxy messenger, CarHandler* car) :
   messenger(std::move(messenger)),
   car(car), playing(true),
   id(rand_r(&seed)), total_laps(0), partial_laps(0),
@@ -26,11 +27,17 @@ Player::Player(ClientProxy messenger, CarHandler &car) :
 }
 
 void Player::run() {
-  while (playing) {
-    car.move(receiver->get_move());
-    car.update_surface();
-    this->update_lap_count();
-  }
+	try {
+		while (playing) {
+			car->move(receiver->get_move());
+			car->update_surface();
+			this->update_lap_count();
+		}
+	} catch (ClosedQueueException) {
+		playing = false;
+	} catch (...) {
+		std::cout<<"Unknown exception found \n";
+	}
 }
 
 void Player::stop() {
@@ -40,16 +47,16 @@ void Player::stop() {
 }
 
 std::unordered_map<std::string, std::string> Player::get_position() {
-  auto position = car.get_position();
-  position.emplace(ANGLE, std::to_string(car.get_angle()));
+  auto position = car->get_position();
+  position.emplace(ANGLE, std::to_string(car->get_angle()));
   position.emplace(ID, std::to_string(getId()));
   return std::move(position);
 }
 
 void Player::update_status(JSON& status) {
-    JSON j_umap(car.get_position());
+    JSON j_umap(car->get_position());
     status[CENTER] = j_umap;
-    JSON k_umap(car.get_element_state());
+    JSON k_umap(car->get_element_state());
     status[ELEMENTS] = k_umap;
     //std::cout<<status.dump(4)<<std::endl;
     messenger.send_state(status); //hilo aparte
@@ -72,8 +79,8 @@ void Player::update_lap_count() {
 }
 
 void Player::check_progress(int first, int second) {
-  float x = car.get_x();
-  float y = car.get_y();
+  float x = car->get_x();
+  float y = car->get_y();
   std::vector<float> min = flags[first];
   std::vector<float> max = flags[second];
   if ((x>= min[0] || x<= min[1]) && (y>= max[0] || y<= max[1])) {
@@ -82,6 +89,7 @@ void Player::check_progress(int first, int second) {
 }
 
 Player::~Player() {
+	delete(car);
 	delete(receiver);
   this->join();
 }
