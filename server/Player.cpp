@@ -1,6 +1,7 @@
 #include <queue>
 #include "server/Player.h"
 #include "common/Constants.h"
+#include "../common/ClosedQueueException.h"
 
 uint32_t seed;
 
@@ -26,11 +27,17 @@ Player::Player(ClientProxy messenger, CarHandler &car) :
 }
 
 void Player::run() {
-  while (playing) {
-    car.move(receiver->get_move());
-    car.update_surface();
-    this->update_lap_count();
-  }
+	try {
+		while (playing) {
+			car.move(receiver->get_move());
+			car.update_surface();
+			this->update_lap_count();
+		}
+	} catch (ClosedQueueException) {
+		playing = false;
+	} catch (...) {
+		std::cout<<"Unknown exception found \n";
+	}
 }
 
 void Player::stop() {

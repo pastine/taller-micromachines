@@ -1,5 +1,6 @@
 #include <iostream>
 #include "common/ProtectedQueueState.h"
+#include "ClosedQueueException.h"
 
 ProtectedQueueState::ProtectedQueueState() : q(std::queue<MoveType>()),
 																						 done(false) {
@@ -16,6 +17,7 @@ MoveType ProtectedQueueState::pop() {
   while (this->q.empty() && ! this->done) {
   	this->cond_var.wait(lock);
   }
+  if (q.empty() && done) {throw ClosedQueueException("Closed Queue");}
 	MoveType move = q.front();
 	q.pop();
 	return move;
@@ -23,6 +25,7 @@ MoveType ProtectedQueueState::pop() {
 
 void ProtectedQueueState::stop() {
 	this->done = true;
+	this->cond_var.notify_all();
 }
 
 ProtectedQueueState::~ProtectedQueueState() {
