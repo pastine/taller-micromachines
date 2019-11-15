@@ -58,7 +58,6 @@ void Player::update_status(JSON& status) {
     status[CENTER] = j_umap;
     JSON k_umap(car->get_element_state());
     status[ELEMENTS] = k_umap;
-    //std::cout<<status.dump(4)<<std::endl;
     messenger.send_state(status); //hilo aparte
 }
 
