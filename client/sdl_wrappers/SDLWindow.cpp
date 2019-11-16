@@ -5,7 +5,7 @@
 #include "client/SDLException.h"
 
 SDLWindow::SDLWindow(int width, int height) : width(width), height(height) {
-    int err_code = SDL_Init(SDL_INIT_VIDEO);
+    int err_code = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK);
     if (err_code) throw SDLException("Can't initialize window", SDL_GetError());
 
     uint32_t flags = SDL_RENDERER_SOFTWARE;

@@ -10,6 +10,8 @@
 #include "client/Launcher.h"
 #include "client/AIScript.h"
 
+const int JOYSTICK_DEAD_ZONE = 8000;
+
 void send_moves(ServerProxy *server, bool up, bool down, bool left, bool right) {
     if (left && up) server->player_move(MoveType::UPLEFT);
     else if (right && up) server->player_move(MoveType::UPRIGHT);
@@ -50,6 +52,12 @@ int main(int argc, char **argv) {
         bool running = true;
         bool up = false, down = false, left = false, right = false;
         AIScript script("bot");
+        SDL_Joystick* gGameController = NULL;
+        if (SDL_NumJoysticks() >= 1) {
+            gGameController = SDL_JoystickOpen(0);
+            std::cout << "Yas" <<"\n";
+        }
+
         while (running) {
             send_moves(&server, up, down, left, right);
             if (playwithbot) {
@@ -71,17 +79,17 @@ int main(int argc, char **argv) {
                         SDL_KeyboardEvent &keyEvent = (SDL_KeyboardEvent &) event;
                         switch (keyEvent.keysym.sym) {
                             case SDLK_LEFT:
-                                left = true;
-                                break;
+                            case SDLK_a:
+                                left = true; break;
                             case SDLK_RIGHT:
-                                right = true;
-                                break;
+                            case SDLK_d:
+                                right = true; break;
                             case SDLK_UP:
-                                up = true;
-                                break;
+                            case SDLK_w:
+                                up = true; break;
                             case SDLK_DOWN:
-                                down = true;
-                                break;
+                            case SDLK_s:
+                                down = true; break;
                         }
                         break;
                     }
@@ -89,19 +97,43 @@ int main(int argc, char **argv) {
                         SDL_KeyboardEvent &keyEvent = (SDL_KeyboardEvent &) event;
                         switch (keyEvent.keysym.sym) {
                             case SDLK_LEFT:
-                                left = false;
-                                break;
+                            case SDLK_a:
+                                left = false; break;
                             case SDLK_RIGHT:
-                                right = false;
-                                break;
+                            case SDLK_d:
+                                right = false; break;
                             case SDLK_UP:
-                                up = false;
-                                break;
+                            case SDLK_w:
+                                up = false; break;
                             case SDLK_DOWN:
-                                down = false;
-                                break;
+                            case SDLK_s:
+                                down = false; break;
                         }
                         break;
+                    }
+                    case SDL_JOYAXISMOTION: {
+                        if (event.jaxis.which == 0) {
+                            if (event.jaxis.axis == 0) {
+                                if (event.jaxis.value < -JOYSTICK_DEAD_ZONE) {
+                                    left = true;
+                                } else if (event.jaxis.value > JOYSTICK_DEAD_ZONE) {
+                                    right = true;
+                                } else {
+                                    left = false;
+                                    right = false;
+                                }
+                            }
+                            if (event.jaxis.axis == 1) {
+                                if (event.jaxis.value < -JOYSTICK_DEAD_ZONE) {
+                                    up = true;
+                                } else if (event.jaxis.value > JOYSTICK_DEAD_ZONE) {
+                                    down = true;
+                                } else {
+                                    up = false;
+                                    down = false;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -113,7 +145,9 @@ int main(int argc, char **argv) {
         frame_drawer.stop();
         state_receiver.join();
         frame_drawer.join();
-    } catch (SDLException &e) {
+        SDL_JoystickClose(gGameController);
+        gGameController = NULL;
+    } catch (SDLException& e) {
         std::cout << e.what() << '\n';
     }
 }
