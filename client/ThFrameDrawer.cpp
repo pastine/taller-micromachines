@@ -60,11 +60,13 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
             std::string y = car["y"];
             std::string angle = car["angle"];
             std::string playerId = car["id"];
+            std::string moving = car["moving"];
             entities.put(WorldEntities::Entity::CAR,
                          (int) MULTIPLE * std::stof(x),
                          (int) MULTIPLE * std::stof(y),
                          std::stoi(angle),
-                         std::stoi(playerId));
+                         std::stoi(playerId),
+                         (bool)std::stoi(moving));
         }
 
         /* this is just to test it*/

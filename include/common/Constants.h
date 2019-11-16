@@ -15,6 +15,7 @@
 #define Y "y"
 #define ANGLE "angle"
 #define ID "id"
+#define MOVING "moving"
 
 #define W 6.9
 #define H 5.5

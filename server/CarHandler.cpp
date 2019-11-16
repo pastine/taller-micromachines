@@ -50,3 +50,7 @@ float CarHandler::get_x() {
 float CarHandler::get_y() {
 	return car->get_position().y;
 }
+
+bool CarHandler::isMoving() {
+    return car->isMoving();
+}

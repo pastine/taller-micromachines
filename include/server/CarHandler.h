@@ -30,6 +30,8 @@ public:
   ~CarHandler();
 
 	std::unordered_map<std::string, std::string> get_element_state();
+
+    bool isMoving();
 };
 
 

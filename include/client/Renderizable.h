@@ -11,7 +11,8 @@
 
 class Renderizable {
 public:
-    virtual void render(SDL_Renderer* renderer, int x, int y, int angle = 0, int id = 0) = 0;
+    virtual void render(SDL_Renderer* renderer, int x, int y,
+            int angle = 0, int id = 0, bool moving = false) = 0;
 };
 
 

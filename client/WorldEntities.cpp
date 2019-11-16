@@ -5,10 +5,11 @@
 #include <tuple>
 #include "client/WorldEntities.h"
 
-void WorldEntities::put(WorldEntities::Entity entity, int x, int y, int angle, int id) {
+void WorldEntities::put(WorldEntities::Entity entity, int x, int y,
+        int angle, int id, bool moving) {
     switch (entity) {
         case Entity::CAR:
-            car_positions.emplace_back(x, y, angle, id);
+            car_positions.emplace_back(x, y, angle, id, moving);
             break;
         case Entity::MUD:
             mud_positions.emplace_back(x, y);
@@ -73,12 +74,13 @@ void WorldEntities::render(Camera &camera) {
                              std::get<0>(mud_pos),
                              std::get<1>(mud_pos));*/
 
-    for (const std::tuple<int, int, int, int>& car_pos : car_positions)
+    for (const std::tuple<int, int, int, int, bool>& car_pos : car_positions)
         camera.render_object(this->car,
                              std::get<0>(car_pos),
                              std::get<1>(car_pos),
                              std::get<2>(car_pos),
-                             std::get<3>(car_pos));
+                             std::get<3>(car_pos),
+                             std::get<4>(car_pos));
 }
 
 void WorldEntities::_render_simple_object(

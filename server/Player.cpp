@@ -52,6 +52,7 @@ std::unordered_map<std::string, std::string> Player::get_position() {
   auto position = car->get_position();
   position.emplace(ANGLE, std::to_string(car->get_angle()));
   position.emplace(ID, std::to_string(getId()));
+  position.emplace(MOVING, std::to_string(car->isMoving()));
   return std::move(position);
 }
 

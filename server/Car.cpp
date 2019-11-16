@@ -95,7 +95,7 @@ void Car::stop() {
   float force = 0;
   float currentSpeed = b2Dot(car->GetLinearVelocity(), normal);
   if (currentSpeed > min_speed) {
-    force = - FORCE;
+    force = - FORCE/2;
   }
   car->ApplyForce(force * normal, car->GetPosition(), true);
   car->SetLinearDamping(1.5);
@@ -190,5 +190,9 @@ float Car::get_speed() {
     float angle = this->get_angle();
     b2Vec2 normal = get_forward_normal(angle);
     return b2Dot(car->GetLinearVelocity(), normal);
+}
+
+bool Car::isMoving() {
+    return car->GetLinearVelocity().Length() > 1;
 }
 

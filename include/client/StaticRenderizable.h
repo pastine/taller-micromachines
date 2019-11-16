@@ -18,7 +18,8 @@ protected:
     float resize_factor = 1;
 public:
     StaticRenderizable();
-    void render(SDL_Renderer* renderer, int x, int y, int angle = 0, int id = 0) override;
+    void render(SDL_Renderer* renderer, int x, int y,
+            int angle = 0, int id = 0, bool moving = false) override;
 };
 
 

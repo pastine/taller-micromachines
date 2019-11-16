@@ -22,7 +22,8 @@ private:
     std::vector<std::tuple<int,int,int>> colors;
 public:
     Car();
-    void render(SDL_Renderer* renderer, int x, int y, int angle = 0, int id = 0);
+    void render(SDL_Renderer* renderer, int x, int y,
+            int angle = 0, int id = 0, bool moving = false);
 };
 
 

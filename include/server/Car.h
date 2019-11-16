@@ -63,6 +63,8 @@ public:
 	std::string get_mud_state();
 
     float get_speed();
+
+    bool isMoving();
 };
 
 
