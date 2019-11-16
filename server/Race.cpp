@@ -1,6 +1,7 @@
 #include "server/Race.h"
 #include "server/Player.h"
 #include "common/json.h"
+#include <memory>
 #define CARS "cars"
 
 b2Vec2 gravity(0.0f, 0.0f);
@@ -48,9 +49,9 @@ void Race::run() {
 }
 
 void Race::add_player(ClientProxy messenger) {
-  Car *car = new Car((b2World &) world, cars.size());
-  CarHandler handler(*car);
-  auto* player = new Player(std::move(messenger), handler); //pointers when threads?
+  Car* car = new Car((b2World &) world, cars.size());
+  CarHandler* handler = new CarHandler(car);
+  auto* player = new Player(std::move(messenger), handler); //pointers when threads
 	cars.emplace(std::to_string(player->getId()), player);
   player->start();
 }

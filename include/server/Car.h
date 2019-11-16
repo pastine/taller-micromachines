@@ -32,7 +32,7 @@ public:
 
   void end_contact(int id);
 
-  ~Car();
+  virtual ~Car();
 
   void turn_right(bool b);
 
