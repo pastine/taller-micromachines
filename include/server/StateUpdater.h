@@ -2,12 +2,12 @@
 #define TALLER_MICROMACHINES_STATEUPDATER_H
 
 #include <common/Thread.h>
-#include <common/ProtectedQueue.h>
 #include <server/ClientProxy.h>
+#include <common/ProtectedQueueUpdate.h>
 
 class StateUpdater : public Thread {
 private:
-  ProtectedQueue* queue;
+  ProtectedQueueUpdate* queue;
   ClientProxy* messenger;
   bool running;
 public:
@@ -15,7 +15,7 @@ public:
 
   void run() override;
 
-  void update_status(JSON status);
+  void update_status(JSON& status);
 
   void stop() override;
 

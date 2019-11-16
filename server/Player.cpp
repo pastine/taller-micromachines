@@ -1,7 +1,7 @@
 #include <queue>
 #include "server/Player.h"
 #include "common/Constants.h"
-#include "../common/ClosedQueueException.h"
+#include "common/ClosedQueueException.h"
 
 uint32_t seed;
 
@@ -24,6 +24,8 @@ Player::Player(ClientProxy messenger, CarHandler* car) :
   add_boundaries(flags);
   receiver = new StateReceiver(&this->messenger);
   receiver->start();
+  updater = new StateUpdater(&this->messenger);
+  updater->start();
 }
 
 void Player::run() {
@@ -58,7 +60,7 @@ void Player::update_status(JSON& status) {
     status[CENTER] = j_umap;
     JSON k_umap(car->get_element_state());
     status[ELEMENTS] = k_umap;
-    messenger.send_state(status); //hilo aparte
+    updater->update_status(status);
 }
 
 int Player::getId() {
@@ -90,5 +92,6 @@ void Player::check_progress(int first, int second) {
 Player::~Player() {
 	delete(car);
 	delete(receiver);
+	delete(updater);
   this->join();
 }

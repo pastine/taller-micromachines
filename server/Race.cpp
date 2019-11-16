@@ -2,6 +2,8 @@
 #include "server/Player.h"
 #include "common/json.h"
 #include <memory>
+#include <common/ClosedQueueException.h>
+
 #define CARS "cars"
 
 b2Vec2 gravity(0.0f, 0.0f);
@@ -43,7 +45,9 @@ void Race::run() {
 			std::chrono::milliseconds tic(20); //20  - delta
 			std::this_thread::sleep_for(tic);
 		}
-	} catch(...) {
+	} catch(ClosedQueueException) {
+		racing = false;
+	} catch (...) {
 		return;
 	}
 }

@@ -1,6 +1,6 @@
 #include <iostream>
 #include "common/ProtectedQueueState.h"
-#include "ClosedQueueException.h"
+#include "common/ClosedQueueException.h"
 
 ProtectedQueueState::ProtectedQueueState() : q(std::queue<MoveType>()),
 																						 done(false) {
