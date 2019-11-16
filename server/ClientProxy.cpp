@@ -77,9 +77,12 @@ void ClientProxy::send_track(Track track) {
 
 void ClientProxy::modify_state(std::string &msg) {
     void *shared_lib = dlopen("./libMiddleManState.so", RTLD_NOW);
-    void (*middleman)(char**);
-    *(void **) (&middleman) = dlsym(shared_lib, "middleman");
+    typedef char* (*func)(char*);
+    func middleman = (func)dlsym(shared_lib, "middleman");
     char* dup_msg = strdup(msg.c_str());
-    middleman(&dup_msg);
-    msg = std::string(dup_msg);
+    char* modifiedstr = middleman(dup_msg);
+    msg = std::string(modifiedstr);
+    free(dup_msg);
+    free(modifiedstr);
+    dlclose(shared_lib);
 }
