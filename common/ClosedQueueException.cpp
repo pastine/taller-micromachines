@@ -1,4 +1,4 @@
-#include "ClosedQueueException.h"
+#include "common/ClosedQueueException.h"
 
 ClosedQueueException::ClosedQueueException(const char *description) :
 	description(description) {

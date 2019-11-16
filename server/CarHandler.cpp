@@ -1,7 +1,6 @@
 #include <iostream>
 #include <unordered_map>
 #include "server/CarHandler.h"
-#define TORQUE 1500
 
 CarHandler::CarHandler(Car* car) : car(car) {
 }

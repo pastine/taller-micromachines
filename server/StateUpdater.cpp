@@ -2,7 +2,7 @@
 #define MAX 1000
 
 StateUpdater::StateUpdater(ClientProxy* messenger) :
-  queue(new ProtectedQueue(MAX)),
+  queue(new ProtectedQueueUpdate()),
   messenger(messenger), running(true){
 }
 
@@ -13,12 +13,13 @@ void StateUpdater::run() {
   }
 }
 
-void StateUpdater::update_status(JSON status) {
+void StateUpdater::update_status(JSON& status) {
   queue->push(status);
 }
 
 void StateUpdater::stop() {
   running = false;
+  queue->stop();
 }
 
 StateUpdater::~StateUpdater() {

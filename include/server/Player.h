@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <vector>
 #include "StateReceiver.h"
+#include "StateUpdater.h"
 
 class Player : public Thread {
 private:
@@ -19,6 +20,7 @@ private:
   int partial_laps;
   std::vector<std::vector<float>> flags;
 	StateReceiver* receiver;
+	StateUpdater* updater;
 
 public:
   Player(ClientProxy messenger, CarHandler* car);
