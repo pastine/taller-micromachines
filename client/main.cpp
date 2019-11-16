@@ -105,6 +105,8 @@ int main(int argc, char** argv) {
         }
         state_receiver.stop();
         frame_drawer.stop();
+        state_receiver.join();
+        frame_drawer.join();
     } catch (SDLException& e) {
         std::cout << e.what() << '\n';
     }
