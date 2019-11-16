@@ -168,7 +168,7 @@ int Car::get_entity_type() {
 
 
 void Car::surface_effect() {
-	if (!track) {this->stop();}
+//	if (!track) {this->stop();}
 }
 
 std::string Car::get_lives() {
