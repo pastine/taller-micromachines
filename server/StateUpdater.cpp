@@ -1,8 +1,7 @@
 #include "server/StateUpdater.h"
-#define MAX 1000
 
 StateUpdater::StateUpdater(ClientProxy* messenger) :
-  queue(new ProtectedQueue<JSON>(MAX)),
+  queue(new ProtectedQueue<JSON>()),
   messenger(messenger), running(true){
 }
 

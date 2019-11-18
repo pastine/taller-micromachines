@@ -9,13 +9,11 @@
 template <class T> class ProtectedQueue {
 private:
 	std::queue<T> q;
-    size_t max_size;
-    std::mutex m;
-    std::condition_variable push_var;
-    std::condition_variable pop_var;
+	std::mutex m;
+	std::condition_variable cond_var;
 	bool done;
 public:
-	explicit ProtectedQueue(size_t maxsize);
+	ProtectedQueue();
 
 	void push(T block);
 

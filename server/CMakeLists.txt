@@ -21,7 +21,7 @@ add_executable(server_test
         Health.cpp ../include/server/Health.h
         Oil.cpp ../include/server/Oil.h
         Mud.cpp ../include/server/Mud.h
-        Stone.cpp ../include/server/Stone.h StateUpdater.cpp ../include/server/StateUpdater.h StateReceiver.cpp ../include/server/StateReceiver.h ../include/server/Entity.h)
+        Stone.cpp ../include/server/Stone.h StateUpdater.cpp ../include/server/StateUpdater.h StateReceiver.cpp ../include/server/StateReceiver.h ../include/server/Entity.h Limit.cpp ../include/server/Limit.h)
 
 add_library(MiddleManState SHARED mods/libMiddleManState.cpp)
 

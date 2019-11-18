@@ -9,6 +9,7 @@
 #define STONE 4
 #define BOOST 5
 #define HEALTH 6
+#define LIMIT 7
 #define CENTER "center"
 #define USER "user"
 #define ELEMENTS "elements"
