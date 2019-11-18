@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
         JSON map;
         server.handshake_answer(retValue, &map);
 
-        ProtectedQueue<JSON> queue(10);
+        ProtectedQueue<JSON> queue;
 
         Audio audio;
 

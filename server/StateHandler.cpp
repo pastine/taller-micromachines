@@ -3,7 +3,7 @@
 
 template<class T>
 StateHandler<T>::StateHandler(ClientProxy* messenger) :
-        queue(new ProtectedQueue<T>(MAX)),
+        queue(new ProtectedQueue<T>()),
         messenger(messenger), running(true){
 }
 

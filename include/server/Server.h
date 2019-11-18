@@ -22,6 +22,8 @@ public:
   virtual void stop();
 
   ~Server();
+
+    void reaper();
 };
 
 
