@@ -4,6 +4,6 @@ pip install cpplint
 sudo apt-get install libsdl2-dev -y
 sudo apt-get install libsdl2-image-dev -y
 sudo apt-get install libsdl2-mixer-dev -y
-sudo apt-get install libsdl-ttf2.0-dev -y
+sudo apt-get install libsdl2-ttf-dev -y
 sudo apt install qtbase5-dev -y
 sudo apt install nlohmann-json-dev -y
