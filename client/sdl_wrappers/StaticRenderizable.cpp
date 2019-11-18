@@ -14,3 +14,6 @@ void StaticRenderizable::render(SDL_Renderer* renderer, int x, int y,
 }
 
 StaticRenderizable::StaticRenderizable() : Renderizable() {}
+
+StaticRenderizable::StaticRenderizable(SDLTexture *texture) : Renderizable(),
+                                                              texture(texture){}

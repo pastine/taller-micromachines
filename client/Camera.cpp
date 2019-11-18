@@ -60,3 +60,7 @@ void Camera::render_car_lives(int lives) {
     CarLivesDrawer lives_drawer{};
     lives_drawer.draw_lives(lives, this->window.get_renderer());
 }
+
+void Camera::render_text() {
+    this->text_creator.render_text("Hola mundo", this->window.get_renderer(), 10, 50);
+}

@@ -20,6 +20,7 @@ public:
     StaticRenderizable();
     void render(SDL_Renderer* renderer, int x, int y,
             int angle = 0, int id = 0, bool moving = false) override;
+    explicit StaticRenderizable(SDLTexture* texture);
 };
 
 

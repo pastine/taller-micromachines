@@ -9,6 +9,7 @@
 #include "Renderizable.h"
 #include "SDLWindow.h"
 #include "CarLivesDrawer.h"
+#include "SDLText.h"
 
 class Camera {
 public:
@@ -19,6 +20,7 @@ public:
     void show_frame();
     void set_center(int x, int y);
     void render_car_lives(int lives);
+    void render_text();
 private:
     bool _is_in_frame(Renderizable& object, int abs_x, int abs_y);
     SDLWindow window;
@@ -26,6 +28,7 @@ private:
     int center_y_cms;
     int center_x_px;
     int center_y_px;
+    SDLText text_creator;
 };
 
 
