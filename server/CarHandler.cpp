@@ -36,11 +36,11 @@ float32 CarHandler::get_angle() {
   return car->get_angle();
 }
 
-std::unordered_map<std::string, std::string> CarHandler::get_element_state() {
-	std::unordered_map<std::string, std::string> elements;
-	elements.emplace("mud", car->get_mud_state());
-	elements.emplace("lives", car->get_lives());
-	return elements;
+std::unordered_map<std::string, std::string> CarHandler::get_user_state() {
+	std::unordered_map<std::string, std::string> user;
+	user.emplace("mud", car->get_mud_state());
+	user.emplace("lives", car->get_lives());
+	return user;
 }
 
 float CarHandler::get_x() {

@@ -32,3 +32,7 @@ void Oil::destroy() {
 int Oil::get_entity_type() {
 	return OIL;
 }
+
+b2Vec2 Oil::get_position() {
+    return m_body->GetPosition();
+}

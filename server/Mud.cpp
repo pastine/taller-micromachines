@@ -34,4 +34,8 @@ int Mud::get_entity_type() {
 	return MUD;
 }
 
+b2Vec2 Mud::get_position() {
+    return m_body->GetPosition();
+}
+
 

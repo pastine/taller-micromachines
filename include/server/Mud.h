@@ -18,6 +18,7 @@ public:
   void destroy() override;
 
   int get_entity_type() override;
+    b2Vec2 get_position() override;
 };
 
 
