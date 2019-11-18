@@ -5,7 +5,7 @@
 #include "client/ThStateReceiver.h"
 
 ThStateReceiver::ThStateReceiver(ServerProxy *proxy,
-                                 ProtectedQueue *state_queue) :
+                                 ProtectedQueueStatus *state_queue) :
                                  state_queue(state_queue),
                                  server(proxy) {
     this->done = false;

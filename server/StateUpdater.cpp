@@ -2,7 +2,7 @@
 #define MAX 1000
 
 StateUpdater::StateUpdater(ClientProxy* messenger) :
-  queue(new ProtectedQueueUpdate()),
+  queue(new ProtectedQueueStatus(MAX)),
   messenger(messenger), running(true){
 }
 

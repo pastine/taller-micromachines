@@ -7,7 +7,8 @@
 
 #define MULTIPLE 5
 
-ThFrameDrawer::ThFrameDrawer(ProtectedQueue *state_queue, JSON& map) : state_queue(state_queue) {
+ThFrameDrawer::ThFrameDrawer(ProtectedQueueStatus *state_queue, JSON& map)
+: state_queue(state_queue) {
     this->done = false;
 
     JSON straight_roads = map["tracks"];

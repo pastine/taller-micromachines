@@ -6,18 +6,18 @@
 #define TALLER_MICROMACHINES_THFRAMEDRAWER_H
 
 
-#include <common/ProtectedQueue.h>
+#include <common/ProtectedQueueStatus.h>
 #include <client/Camera.h>
 #include <client/WorldEntities.h>
 #include <common/Thread.h>
 
 class ThFrameDrawer : public Thread{
 public:
-    explicit ThFrameDrawer(ProtectedQueue* state_queue, JSON& map);
+    explicit ThFrameDrawer(ProtectedQueueStatus* state_queue, JSON& map);
     void run() override;
     void stop() override;
 private:
-    ProtectedQueue* state_queue;
+    ProtectedQueueStatus* state_queue;
     Camera cam;
     WorldEntities entities;
     bool done;
