@@ -71,6 +71,7 @@ Race::~Race() {
   for ( auto it = cars.begin(); it != cars.end(); ++it ) {
     delete(it->second);
   }
+  track.delete_elements();
   this->join();
 }
 

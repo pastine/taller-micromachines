@@ -117,3 +117,8 @@ std::vector<Element*> Track::get_static_elements() {
 b2Vec2 Track::get_position() {
     return b2Vec2();
 }
+
+void Track::delete_elements() {
+    for (auto& e : static_elements)
+        delete(e);
+}

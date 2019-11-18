@@ -22,6 +22,8 @@ public:
 
     std::vector<Element*> get_static_elements();
     b2Vec2 get_position() override;
+
+    void delete_elements();
 };
 
 
