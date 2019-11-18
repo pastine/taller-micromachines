@@ -19,7 +19,7 @@ b2Vec2 get_forward_normal(float angle) {
 Car::Car(b2World &world, unsigned long i) {
   b2BodyDef bodyDef;
   bodyDef.type = b2_dynamicBody;
-  bodyDef.position.Set(10*i, 16*i);
+  bodyDef.position.Set(10*i+STARTPOINT_X, 16*i+STARTPOINT_Y);
   car = world.CreateBody(&bodyDef);
   b2Vec2 vertices[4];
   vertices[0].Set(0.0f, 0.0f);
@@ -167,7 +167,32 @@ int Car::get_entity_type() {
 
 
 void Car::surface_effect() {
-//	if (!track) {this->stop();}
+    if (track) {
+        std::cout<<"ontrack"<<"\n";
+    }
+    if (!track) {
+        std::cout<<"offtrack"<<"\n";
+    }
+//    b2PolygonShape dynamicBox;
+//    b2Vec2 vertices[4];
+//    vertices[0].Set(0.0f, 0.0f);
+//    vertices[1].Set(4.0f, 0.0f);
+//    vertices[2].Set(4.0f, 6.0f);
+//    vertices[3].Set(0.0f, 6.0f);
+//    dynamicBox.Set(vertices, 4);
+//    dynamicBox.SetAsBox(2.0f, 3.0f);
+//    b2FixtureDef fixtureDef;
+//    fixtureDef.shape = &dynamicBox;
+//    fixtureDef.density = 10.0f;
+//    fixtureDef.friction = 1.0f;
+//    fixtureDef.restitution = 0.3f;
+//    if (!track && offTrack == nullptr) {
+//        offTrack = car->CreateFixture(&fixtureDef);
+//    } else if (track && offTrack != nullptr) {
+//        car->DestroyFixture(offTrack);
+//        offTrack = nullptr;
+//        std::cout<<"no tengo"<<"\n";
+//    }
 }
 
 std::string Car::get_lives() {
