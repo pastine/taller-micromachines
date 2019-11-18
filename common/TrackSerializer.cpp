@@ -62,9 +62,9 @@
                 break;
         }
     }
-    aux_elements["oils"] = JSON(oils);
-    aux_elements["muds"] = JSON(muds);
-    aux_elements["boulders"] = JSON(boulders);
+    aux_elements["oils"].push_back(JSON(oils));
+    aux_elements["muds"].push_back(JSON(muds));
+    aux_elements["boulders"].push_back(JSON(boulders));
     all["elements"] = aux_elements;
 
 	return all.dump();
