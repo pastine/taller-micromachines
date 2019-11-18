@@ -33,6 +33,15 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON& map)
                      (int) MULTIPLE * std::stof(y),
                      std::stoi(angle));
     }
+
+    JSON muds = map["elements"]["muds"];
+    for (auto & mud : muds) {
+        std::string x = mud["x"];
+        std::string y = mud["y"];
+        entities.put(WorldEntities::Entity::MUD,
+                     (int) MULTIPLE * std::stof(x),
+                     (int) MULTIPLE * std::stof(y));
+    }
 }
 
 void ThFrameDrawer::run() {
@@ -76,7 +85,10 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
 
         entities.render(cam);
         std::string lives = state["elements"]["lives"];
+        cam.render_text();
         cam.render_car_lives(std::stoi(lives));
+
+        // after rendering everything
         cam.show_frame();
     } catch (std::domain_error& e) {
         std::cout << e.what() << '\n';

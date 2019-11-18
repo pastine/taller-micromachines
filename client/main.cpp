@@ -103,6 +103,8 @@ int main(int argc, char** argv) {
             }
             SDL_Delay(5);
         }
+
+        // stopping all threads
         state_receiver.stop();
         frame_drawer.stop();
         state_receiver.join();
