@@ -34,14 +34,14 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON& map)
                      std::stoi(angle));
     }
 
-    JSON muds = map["elements"]["muds"];
-    for (auto & mud : muds) {
-        std::string x = mud["x"];
-        std::string y = mud["y"];
-        entities.put(WorldEntities::Entity::MUD,
-                     (int) MULTIPLE * std::stof(x),
-                     (int) MULTIPLE * std::stof(y));
-    }
+//    JSON muds = map["elements"]["muds"];
+//    for (auto & mud : muds) {
+//        std::string x = mud["x"];
+//        std::string y = mud["y"];
+//        entities.put(WorldEntities::Entity::MUD,
+//                     (int) MULTIPLE * std::stof(x),
+//                     (int) MULTIPLE * std::stof(y));
+//    }
 }
 
 void ThFrameDrawer::run() {

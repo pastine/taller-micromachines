@@ -19,7 +19,7 @@ void ThStateReceiver::run() {
             this->state_queue->push(std::move(state));
         }
     } catch (std::runtime_error& e) {
-        std::cout << "Error in StateReceiver -> " << e.what();
+        std::cout << "Error in StateHandler -> " << e.what();
     }
 }
 
