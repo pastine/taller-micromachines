@@ -10,7 +10,7 @@ Oil::Oil() : StaticRenderizable() {
     h = 550;
     img_x = 0;
     img_y = 0;
-    resize_factor = 0.5;
+    resize_factor = 0.25;
     SDLTextureLoader *loader =  SDLTextureLoader::get_loader();
     std::string path = "client/img/oil.png";
     this->texture = loader->get_texture(path);

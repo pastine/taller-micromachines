@@ -20,6 +20,7 @@ private:
     int h;
     SDLTexture* texture;
     std::vector<std::tuple<int,int,int>> colors;
+    int resize_factor;
 public:
     Car();
     void render(SDL_Renderer* renderer, int x, int y,

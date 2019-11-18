@@ -7,8 +7,8 @@
 #include "client/SDLWindow.h"
 #include "client/SDLTextureLoader.h"
 
-#define RENDER_BORDER_CM 200
-#define PIXELS_TO_CM 1 // 29 * 5... dimentions of car
+#define RENDER_BORDER_CM 10000
+#define PIXELS_TO_CM 0.01
 
 
 Camera::Camera() : window(SDLWindow(480, 840)){
@@ -57,7 +57,7 @@ bool Camera::_is_in_frame(Renderizable &object, int object_x_cms, int object_y_c
 }
 
 void Camera::render_car_lives(int lives) {
-    CarLivesDrawer lives_drawer{};
+    CarLivesDrawer lives_drawer;
     lives_drawer.draw_lives(lives, this->window.get_renderer());
 }
 

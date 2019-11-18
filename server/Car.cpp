@@ -1,8 +1,8 @@
 #include <iostream>
 #include "common/Constants.h"
 #include "server/Car.h"
-#define MAX 100
-#define FORCE 2500
+#define MAX 10
+#define FORCE 150
 #define DEGTORAD 0.0174532925199432957f
 
 b2Vec2 get_forward_normal(float angle) {
@@ -19,21 +19,23 @@ b2Vec2 get_forward_normal(float angle) {
 Car::Car(b2World &world, unsigned long i) {
   b2BodyDef bodyDef;
   bodyDef.type = b2_dynamicBody;
-  bodyDef.position.Set(10*i+STARTPOINT_X, 16*i+STARTPOINT_Y);
+  //bodyDef.position.Set(10*i+STARTPOINT_X, 16*i+STARTPOINT_Y);
+  bodyDef.position.Set(0, 0);
+
   car = world.CreateBody(&bodyDef);
   b2Vec2 vertices[4];
   vertices[0].Set(0.0f, 0.0f);
-  vertices[1].Set(4.0f, 0.0f);
-  vertices[2].Set(4.0f, 6.0f);
-  vertices[3].Set(0.0f, 6.0f);
+  vertices[1].Set(0.29f * 2, 0.0f);
+  vertices[2].Set(0.29f * 2, 0.29f * 2);
+  vertices[3].Set(0.0f, 0.29f * 2);
   int32 count = 4;
   b2PolygonShape dynamicBox;
   dynamicBox.Set(vertices, count);
-  dynamicBox.SetAsBox(2.0f, 3.0f);
+  dynamicBox.SetAsBox(0.145f * 2, 0.145f * 2);
   b2FixtureDef fixtureDef;
   fixtureDef.shape = &dynamicBox;
-  fixtureDef.density = 1.0f;
-  fixtureDef.friction = 1.0f;
+  fixtureDef.density = 60.0f;
+  fixtureDef.friction = 10.0f;
   fixtureDef.restitution = 0.3f;
   car->CreateFixture(&fixtureDef);
   max_speed = MAX;

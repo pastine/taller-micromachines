@@ -37,24 +37,16 @@ void WorldEntities::put(WorldEntities::Entity entity, int x, int y,
 
 void WorldEntities::clean() {
     car_positions.clear();
-    boulder_positions.clear();
-    mud_positions.clear();
-    oil_positions.clear();
     heart_positions.clear();
     boost_positions.clear();
 }
 
 void WorldEntities::render(Camera &camera) {
-    for (const std::tuple<int, int, int>& road_pos : straight_road_positions)
+    for (const std::tuple<int, int, int> &road_pos : straight_road_positions)
         camera.render_object(this->straight_road,
                              std::get<0>(road_pos),
                              std::get<1>(road_pos),
                              std::get<2>(road_pos));
-    /*
-    for (const std::tuple<int, int>& boulder_pos : boulder_positions)
-        camera.render_object(this->boulder,
-                             std::get<0>(boulder_pos),
-                             std::get<1>(boulder_pos));*/
 
     _render_simple_object(this->boulder_positions, this->boulder, camera);
     _render_simple_object(this->oil_positions, this->oil, camera);
@@ -62,17 +54,6 @@ void WorldEntities::render(Camera &camera) {
     _render_simple_object(this->boost_positions, this->boost, camera);
     _render_simple_object(this->heart_positions, this->heart, camera);
 
-
-    /*
-    for (const std::tuple<int, int>& oil_pos : oil_positions)
-        camera.render_object(this->oil,
-                             std::get<0>(oil_pos),
-                             std::get<1>(oil_pos));
-
-    for (const std::tuple<int, int>& mud_pos : mud_positions)
-        camera.render_object(this->mud,
-                             std::get<0>(mud_pos),
-                             std::get<1>(mud_pos));*/
 
     for (const std::tuple<int, int, int, int, bool>& car_pos : car_positions)
         camera.render_object(this->car,
