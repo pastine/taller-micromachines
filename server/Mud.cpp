@@ -27,7 +27,7 @@ void Mud::end_contact() {
 }
 
 void Mud::destroy() {
-	m_body->GetWorld()->DestroyBody(m_body);
+	//m_body->GetWorld()->DestroyBody(m_body);
 }
 
 int Mud::get_entity_type() {

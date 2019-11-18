@@ -27,7 +27,7 @@ void Stone::end_contact() {
 }
 
 void Stone::destroy() {
-	m_body->GetWorld()->DestroyBody(m_body);
+	//m_body->GetWorld()->DestroyBody(m_body);
 }
 
 int Stone::get_entity_type() {

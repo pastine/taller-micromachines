@@ -26,7 +26,7 @@ void Oil::end_contact() {
 }
 
 void Oil::destroy() {
-	m_body->GetWorld()->DestroyBody(m_body);
+	//m_body->GetWorld()->DestroyBody(m_body);
 }
 
 int Oil::get_entity_type() {
