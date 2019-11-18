@@ -1,11 +1,13 @@
 #include <common/json.h>
 #include <unordered_map>
+#include <server/Oil.h>
 #include "common/TrackSerializer.h"
 #include "common/Constants.h"
 
 	std::string TrackSerializer::serialize(Track track) {
 	JSON all;
 	JSON aux;
+	JSON aux_elements;
 	for (float i = FIRST_GROUND_TILE_X; i < 31.05; i+= W) {
 		std::unordered_map<std::string, std::string> ground;
 		ground.emplace(X, std::to_string(i));
@@ -37,5 +39,33 @@
 	}
 
 	all["tracks"] = aux;
+
+	std::unordered_map<std::string, std::string> oils;
+    std::unordered_map<std::string, std::string> muds;
+    std::unordered_map<std::string, std::string> boulders;
+
+    for (auto& element : track.get_static_elements()) {
+        int t = element->get_entity_type();
+        b2Vec2 a = element->get_position();
+        switch (t) {
+            case 3:
+                oils.emplace("x", std::to_string(a.x));
+                oils.emplace("y", std::to_string(a.y));
+                break;
+            case 2:
+                muds.emplace("x", std::to_string(a.x));
+                muds.emplace("y", std::to_string(a.y));
+                break;
+            case 4:
+                boulders.emplace("x", std::to_string(a.x));
+                boulders.emplace("y", std::to_string(a.y));
+                break;
+        }
+    }
+    aux_elements["oils"] = JSON(oils);
+    aux_elements["muds"] = JSON(muds);
+    aux_elements["boulders"] = JSON(boulders);
+    all["elements"] = aux_elements;
+
 	return all.dump();
 }

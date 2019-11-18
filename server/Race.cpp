@@ -40,7 +40,7 @@ void Race::run() {
 			world.Step(time, velocity, position);
 			JSON status = get_global_status(cars);
 			for (auto it = cars.begin(); it != cars.end(); ++it) {
-				it->second->update_status(status);
+				it->second->update_status(status, track);
 			}
 			std::chrono::milliseconds tic(20); //20  - delta
 			std::this_thread::sleep_for(tic);

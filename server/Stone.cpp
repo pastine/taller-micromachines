@@ -34,4 +34,8 @@ int Stone::get_entity_type() {
 	return STONE;
 }
 
+b2Vec2 Stone::get_position() {
+    return m_body->GetPosition();
+}
+
 

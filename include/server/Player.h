@@ -33,7 +33,7 @@ public:
 
   std::unordered_map<std::string, std::string> get_position();
 
-  void update_status(JSON &status);
+  void update_status(JSON &status, Track& track);
 
   int getId();
 

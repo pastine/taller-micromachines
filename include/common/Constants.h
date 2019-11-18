@@ -10,6 +10,7 @@
 #define BOOST 5
 #define HEALTH 6
 #define CENTER "center"
+#define USER "user"
 #define ELEMENTS "elements"
 #define X "x"
 #define Y "y"

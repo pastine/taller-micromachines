@@ -56,11 +56,13 @@ std::unordered_map<std::string, std::string> Player::get_position() {
   return std::move(position);
 }
 
-void Player::update_status(JSON& status) {
+void Player::update_status(JSON& status, Track& track) {
     JSON j_umap(car->get_position());
     status[CENTER] = j_umap;
-    JSON k_umap(car->get_element_state());
-    status[ELEMENTS] = k_umap;
+    JSON k_umap(car->get_user_state());
+    status[USER] = k_umap;
+    JSON l_umap(track.get_elements_state());
+    status[ELEMENTS] = l_umap;
     updater->update_status(status);
 }
 

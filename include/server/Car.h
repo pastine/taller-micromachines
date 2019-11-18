@@ -16,7 +16,7 @@ private:
 public:
   explicit Car(b2World &world, unsigned long i);
 
-  b2Vec2 get_position();
+  b2Vec2 get_position() override;
 
   float32 get_angle();
 

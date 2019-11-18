@@ -1,3 +1,6 @@
+#include <server/Oil.h>
+#include <server/Mud.h>
+#include <server/Stone.h>
 #include "server/Track.h"
 #include "Box2D/Box2D.h"
 
@@ -79,9 +82,38 @@ Track::Track(b2World& world) {
 	track->CreateFixture(&fixture_edge4);
 
 	track->SetUserData(this);
+
+    for (int i = 0; i < 3; i++) {
+        std::vector<float> oil_pos = Element::get_random_pos();
+        Oil* o = new Oil(world, oil_pos[0], oil_pos[1]);
+        static_elements.emplace_back(o);
+
+        std::vector<float> mud_pos = Element::get_random_pos();
+        Mud* m = new Mud(world, mud_pos[0], mud_pos[1]);
+        static_elements.emplace_back(m);
+
+        std::vector<float> boulder_pos = Element::get_random_pos();
+        Stone* s = new Stone(world, boulder_pos[0], boulder_pos[1]);
+        static_elements.emplace_back(s);
+    }
 }
 
 int Track::get_entity_type() {
 	return TRACK;
 }
 
+std::unordered_map<std::string, std::string> Track::get_elements_state() {
+//    std::unordered_map<std::string, std::string> user;
+//    user.emplace("mud", car->get_mud_state());
+//    user.emplace("lives", car->get_lives());
+//    return user;
+    return {};
+}
+
+std::vector<Element*> Track::get_static_elements() {
+    return static_elements;
+}
+
+b2Vec2 Track::get_position() {
+    return b2Vec2();
+}
