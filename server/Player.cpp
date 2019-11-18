@@ -22,16 +22,16 @@ Player::Player(ClientProxy messenger, CarHandler* car) :
   id(rand_r(&seed)), total_laps(0), partial_laps(0),
   flags(std::vector<std::vector<float>>()) {
   add_boundaries(flags);
-  receiver = new StateReceiver(&this->messenger);
+  receiver = new StateHandler<MoveType>(&this->messenger);
   receiver->start();
-  updater = new StateUpdater(&this->messenger);
+  updater = new StateHandler<JSON>(&this->messenger);
   updater->start();
 }
 
 void Player::run() {
 	try {
 		while (playing) {
-			car->move(receiver->get_move());
+			car->move(receiver->receive());
 			car->update_surface();
 			this->update_lap_count();
 		}
@@ -63,7 +63,7 @@ void Player::update_status(JSON& status, Track& track) {
     status[USER] = k_umap;
     JSON l_umap(track.get_elements_state());
     status[ELEMENTS] = l_umap;
-    updater->update_status(status);
+    updater->send(status);
 }
 
 int Player::getId() {

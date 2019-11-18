@@ -7,8 +7,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include "StateReceiver.h"
-#include "StateUpdater.h"
+#include "StateHandler.h"
 
 class Player : public Thread {
 private:
@@ -19,8 +18,8 @@ private:
   int total_laps;
   int partial_laps;
   std::vector<std::vector<float>> flags;
-	StateReceiver* receiver;
-	StateUpdater* updater;
+	StateHandler<MoveType>* receiver;
+    StateHandler<JSON>* updater;
 
 public:
   Player(ClientProxy messenger, CarHandler* car);
