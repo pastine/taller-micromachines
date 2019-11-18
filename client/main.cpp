@@ -56,7 +56,14 @@ int main(int argc, char** argv) {
         AIScript script("bot");
         while (running) {
             send_moves(&server, up, down, left, right);
-            if (playwithbot) server.player_move(static_cast<MoveType>(script.getNextMove()));
+            if (playwithbot) {
+                int move = script.getNextMove();
+                for (int i = 0; i <20; i++) {
+                    server.player_move(static_cast<MoveType>(move));
+                    SDL_Delay(5);
+                }
+                SDL_Delay(20);
+            }
             SDL_Event event;
 
             if (SDL_PollEvent(&event)) {
