@@ -7,7 +7,7 @@
 
 #define MULTIPLE 5
 
-ThFrameDrawer::ThFrameDrawer(ProtectedQueueStatus *state_queue, JSON& map)
+ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON& map)
 : state_queue(state_queue) {
     this->done = false;
 

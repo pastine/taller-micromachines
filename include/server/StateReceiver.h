@@ -3,12 +3,12 @@
 
 #include <common/Thread.h>
 #include <common/MoveType.h>
-#include <common/ProtectedQueueState.h>
+#include <common/ProtectedQueue.h>
 #include "ClientProxy.h"
 
 class StateReceiver : public Thread {
 private:
-	ProtectedQueueState* queue;
+	ProtectedQueue<MoveType>* queue;
 	ClientProxy* messenger;
 	bool running;
 public:

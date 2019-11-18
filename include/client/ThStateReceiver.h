@@ -8,15 +8,15 @@
 
 #include <common/Thread.h>
 #include <client/ServerProxy.h>
-#include <common/ProtectedQueueStatus.h>
+#include <common/ProtectedQueue.h>
 
 class ThStateReceiver : public Thread {
 public:
-    ThStateReceiver(ServerProxy* proxy, ProtectedQueueStatus* state_queue);
+    ThStateReceiver(ServerProxy* proxy, ProtectedQueue<JSON>* state_queue);
     void run() override;
     void stop() override;
 private:
-    ProtectedQueueStatus* state_queue;
+    ProtectedQueue<JSON>* state_queue;
     ServerProxy* server;
     bool done;
 };

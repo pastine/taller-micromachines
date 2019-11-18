@@ -7,7 +7,7 @@
 #include <iostream>
 #include <QtWidgets/QApplication>
 #include <client/ServerProxy.h>
-#include <common/ProtectedQueueStatus.h>
+#include <common/ProtectedQueue.h>
 #include <client/ThStateReceiver.h>
 #include <client/ThFrameDrawer.h>
 #include <map>
@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
         JSON map;
         server.handshake_answer(retValue, &map);
 
-        ProtectedQueueStatus queue(10);
+        ProtectedQueue<JSON> queue(10);
 
         Audio audio;
 

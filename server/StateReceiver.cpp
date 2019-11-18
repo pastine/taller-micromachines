@@ -1,7 +1,8 @@
 #include "server/StateReceiver.h"
+#define MAX 1000
 
 StateReceiver::StateReceiver(ClientProxy* messenger) :
-        queue(new ProtectedQueueState()),
+        queue(new ProtectedQueue<MoveType>(MAX)),
         messenger(messenger), running(true){
 }
 

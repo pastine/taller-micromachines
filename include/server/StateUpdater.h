@@ -3,11 +3,12 @@
 
 #include <common/Thread.h>
 #include <server/ClientProxy.h>
-#include <common/ProtectedQueueStatus.h>
+#include <common/json.h>
+#include <common/ProtectedQueue.h>
 
 class StateUpdater : public Thread {
 private:
-  ProtectedQueueStatus* queue;
+  ProtectedQueue<JSON>* queue;
   ClientProxy* messenger;
   bool running;
 public:
