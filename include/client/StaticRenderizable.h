@@ -12,6 +12,7 @@ protected:
     size_t img_x;
     size_t img_y;
     float resize_factor = 1;
+    float real_resize = 1;
 public:
     StaticRenderizable();
 
