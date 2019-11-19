@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <vector>
 #include "StateHandler.h"
+#include "State.h"
 
 class Player : public Thread {
 private:
@@ -19,7 +20,7 @@ private:
     int partial_laps = 0;
     std::vector<std::vector<float>> flags;
     StateHandler<MoveType> *receiver;
-    StateHandler<JSON> *updater;
+    StateHandler<State> *updater;
 
 public:
     Player(ClientProxy messenger, CarHandler *car);
@@ -41,6 +42,12 @@ public:
     void check_progress(int first, int second);
 
     bool isAlive();
+
+    void add_camera(State &state);
+
+    void add_user(State &state);
+
+    void send_update(State &state);
 };
 
 

@@ -5,6 +5,7 @@
 #include "Entity.h"
 #include "common/Constants.h"
 #include "Element.h"
+#include "State.h"
 #include <unordered_map>
 #include <string>
 #include <vector>
@@ -24,6 +25,8 @@ public:
     b2Vec2 get_position() override;
 
     void delete_elements();
+
+    void add_elements(State &state);
 };
 
 

@@ -3,6 +3,7 @@
 #include "common/json.h"
 #include <common/ClosedQueueException.h>
 #include <common/CommunicationConstants.h>
+#include <server/State.h>
 
 std::atomic_int Race::RaceCount(1);
 
@@ -18,9 +19,13 @@ void Race::run() {
             int32 velocity = 6;
             int32 position = 2;
             world.Step(time, velocity, position);
-            JSON status = get_global_status();
+            State state;
+            add_cars(state);
             for (auto it = cars.begin(); it != cars.end(); ++it) {
-                it->second->update_status(status, track);
+                track.add_elements(state);
+                it->second->add_camera(state);
+                it->second->add_user(state);
+                it->second->send_update(state);
             }
             std::chrono::milliseconds tic(20); //20  - delta
             std::this_thread::sleep_for(tic);
@@ -83,8 +88,7 @@ bool Race::isAlive() {
     return (racing) && (getPlayerCount() > 0);
 }
 
-JSON Race::get_global_status() {
-    JSON status;
+void Race::add_cars(State &state) {
     JSON car_stats;
     for (auto it = cars.begin(); it != cars.end(); ++it) {
         if (!it->second->isAlive()) continue;
@@ -92,6 +96,5 @@ JSON Race::get_global_status() {
         JSON k_umap(car);
         car_stats.push_back(k_umap);
     }
-    status[J_CARS] = car_stats;
-    return status;
+    state.append(J_CARS, car_stats);
 }

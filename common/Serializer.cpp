@@ -1,15 +1,14 @@
 
 #include "common/Serializer.h"
 #include <server/Track.h>
+#include <server/State.h>
 #include <map>
-#include <server/Player.h>
 #include "common/MoveType.h"
 
 template<class T>
 std::string Serializer<T>::serialize(T &block) {
-    JSON j =
-            serialize_to_json(block);
-    return serialize(j);
+    JSON j = serialize_to_json(block);
+    return j.dump();
 }
 
 template<class T>
@@ -43,12 +42,8 @@ void Serializer<T>::send(Communication &comm, T &block) {
     }
 }
 
-template<class T>
-std::string Serializer<T>::serialize(JSON &block) {
-    return block.dump();
-}
-
 template class Serializer<MoveType>;
 template class Serializer<Track>;
 template class Serializer<std::map<int,int>>; //Races
-template class Serializer<Player>;
+template
+class Serializer<State>;

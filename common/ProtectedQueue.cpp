@@ -2,6 +2,7 @@
 #include "common/ProtectedQueue.h"
 #include <common/json.h>
 #include <common/MoveType.h>
+#include <server/State.h>
 
 template<class T>
 ProtectedQueue<T>::ProtectedQueue() :
@@ -36,6 +37,9 @@ void ProtectedQueue<T>::stop() {
 template<class T>
 ProtectedQueue<T>::~ProtectedQueue() {
 }
+
+template
+class ProtectedQueue<State>;
 
 template
 class ProtectedQueue<JSON>;

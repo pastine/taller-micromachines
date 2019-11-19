@@ -3,17 +3,9 @@
 
 ClientProxy::ClientProxy(Communication comm) : communication(std::move(comm)) {}
 
-void ClientProxy::send_state(JSON &state) {
-    try {
-        std::string msg;
-        msg = this->state_serializer.serialize(state);
-        modify_state(msg);
-        this->communication.send_msg(msg);
-    } catch (std::runtime_error &e) {
-        std::string err = "Error in ClientProxy::send_state -> ";
-        err += e.what();
-        throw std::runtime_error(err);
-    }
+void ClientProxy::send_state(State &state) {
+//    modify_state(msg);
+    state_serializer.send(communication, state);
 }
 
 MoveType ClientProxy::get_move() {

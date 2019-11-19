@@ -38,8 +38,8 @@ void StateHandler<T>::send(T block) {
 }
 
 template<>
-void StateHandler<JSON>::work() {
-    JSON aux = queue.pop();
+void StateHandler<State>::work() {
+    State aux = queue.pop();
     messenger->send_state(aux);
 }
 
@@ -50,7 +50,7 @@ void StateHandler<MoveType>::work() {
 }
 
 template
-class StateHandler<JSON>;
+class StateHandler<State>;
 
 template
 class StateHandler<MoveType>;

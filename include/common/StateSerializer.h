@@ -3,12 +3,12 @@
 
 #include <common/json.h>
 #include <string>
+#include <server/State.h>
+#include <common/Serializer.h>
 
-class StateSerializer {
+class StateSerializer : public Serializer<State> {
 public:
-    std::string serialize(JSON &state);
-
-    JSON deserialize(std::string &serialized_state);
+    JSON serialize_to_json(State &state) override;
 };
 
 

@@ -21,7 +21,7 @@ Player::Player(ClientProxy messenger, CarHandler *car) :
         messenger(std::move(messenger)), car(car), id(rand_r(&seed) % 9999) {
     add_boundaries(flags);
     receiver = new StateHandler<MoveType>(this->messenger);
-    updater = new StateHandler<JSON>(this->messenger);
+    updater = new StateHandler<State>(this->messenger);
     receiver->start();
     updater->start();
 }
@@ -52,20 +52,6 @@ std::unordered_map<std::string, std::string> Player::get_position() {
     position.emplace(J_ID, getId());
     position.emplace(J_MOVING, std::to_string(car->isMoving()));
     return std::move(position);
-}
-
-void Player::update_status(JSON &status, Track &track) {
-    std::unordered_map<std::string, std::string> position;
-    std::tuple<float, float, float> pos = car->get_position();
-    position.emplace(J_X, std::to_string(std::get<0>(pos)));
-    position.emplace(J_Y, std::to_string(std::get<1>(pos)));
-    JSON j_umap(position);
-    status[J_CENTER] = j_umap;
-    JSON k_umap(car->get_user_state());
-    status[J_USER] = k_umap;
-    JSON l_umap(track.get_elements_state());
-    status[J_ELEMENTS] = l_umap;
-    updater->send(status);
 }
 
 std::string Player::getId() {
@@ -119,4 +105,20 @@ Player::~Player() {
 
 bool Player::isAlive() {
     return playing;
+}
+
+void Player::add_camera(State &state) {
+    std::unordered_map<std::string, std::string> position;
+    std::tuple<float, float, float> pos = car->get_position();
+    position.emplace(J_X, std::to_string(std::get<0>(pos)));
+    position.emplace(J_Y, std::to_string(std::get<1>(pos)));
+    state.append(J_CENTER, position);
+}
+
+void Player::add_user(State &state) {
+    state.append(J_USER, car->get_user_state());
+}
+
+void Player::send_update(State &state) {
+    updater->send(state);
 }

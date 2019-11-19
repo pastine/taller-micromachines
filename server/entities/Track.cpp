@@ -1,6 +1,7 @@
 #include <server/Oil.h>
 #include <server/Mud.h>
 #include <server/Boulder.h>
+#include <common/CommunicationConstants.h>
 #include "server/Track.h"
 #include "Box2D/Box2D.h"
 
@@ -121,4 +122,8 @@ std::vector<Element *> Track::get_static_elements() {
 void Track::delete_elements() {
     for (auto &e : static_elements)
         delete (e);
+}
+
+void Track::add_elements(State &state) {
+    state.append(J_ELEMENTS, get_elements_state());
 }

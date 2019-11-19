@@ -10,7 +10,6 @@
 template<class T>
 class Serializer {
 public:
-    std::string serialize(JSON& block);
     virtual std::string serialize(T& block);
     virtual JSON deserialize(std::string &str);
     virtual JSON serialize_to_json(T &block) = 0;

@@ -7,6 +7,7 @@
 #include "Track.h"
 #include "Element.h"
 #include "Limit.h"
+#include "State.h"
 #include <unordered_map>
 #include <string>
 #include <vector>
@@ -42,9 +43,9 @@ public:
 
     int getPlayerCount();
 
-    JSON get_global_status();
-
     bool isAlive();
+
+    void add_cars(State &state);
 };
 
 
