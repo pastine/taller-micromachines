@@ -1,8 +1,9 @@
 #include <iostream>
 #include "common/Constants.h"
 #include "server/Car.h"
-#define MAX 10
-#define FORCE 150
+#define MAX 50
+#define TORQUE 100
+#define FORCE 15
 #define DEGTORAD 0.0174532925199432957f
 
 b2Vec2 get_forward_normal(float angle) {
@@ -33,8 +34,8 @@ Car::Car(b2World &world, unsigned long i) {
   dynamicBox.SetAsBox(0.145f * 2, 0.145f * 2);
   b2FixtureDef fixtureDef;
   fixtureDef.shape = &dynamicBox;
-  fixtureDef.density = 60.0f;
-  fixtureDef.friction = 10.0f;
+  fixtureDef.density = 55.0f;
+  fixtureDef.friction = 8.0f;
   fixtureDef.restitution = 0.3f;
   car->CreateFixture(&fixtureDef);
   max_speed = MAX;
@@ -60,7 +61,7 @@ void Car::turn_left(bool accelerate) {
     if (accelerate) this->move_forward();
     float currentSpeed = get_speed();
     if (currentSpeed < 10) return;
-    car->ApplyTorque(FORCE,true);
+    car->ApplyTorque(TORQUE,true);
     car->SetAngularDamping(1);
     int angle = std::abs(this->get_angle());
     if (angle <= 3 || (angle >= 87 && angle <= 93) || (angle >= 177))
@@ -71,7 +72,7 @@ void Car::turn_right(bool accelerate) {
     if (accelerate) this->move_forward();
     float currentSpeed = get_speed();
     if (currentSpeed < 10) return;
-    car->ApplyTorque(- FORCE,true);
+    car->ApplyTorque(- TORQUE,true);
     car->SetAngularDamping(1);
     int angle = std::abs(this->get_angle());
     if (angle <= 3 || (angle >= 87 && angle <= 93) || (angle >= 177))
@@ -86,8 +87,8 @@ void Car::move_forward() {
   if (currentSpeed < max_speed) {
     force = FORCE;
   }
-  car->ApplyForce(force * normal, car->GetPosition(), true);
-  car->SetLinearDamping(1.5);
+  car->ApplyLinearImpulse(force * normal, car->GetPosition(), true);
+  car->SetLinearDamping(2);
 }
 
 void Car::stop() {
@@ -96,10 +97,10 @@ void Car::stop() {
   float force = 0;
   float currentSpeed = b2Dot(car->GetLinearVelocity(), normal);
   if (currentSpeed > min_speed) {
-    force = - FORCE/2;
+    force = - FORCE;
   }
-  car->ApplyForce(force * normal, car->GetPosition(), true);
-  car->SetLinearDamping(1.5);
+  car->ApplyLinearImpulse(force * normal, car->GetPosition(), true);
+  car->SetLinearDamping(2);
 }
 
 void Car::start_contact(int id) {
