@@ -1,10 +1,8 @@
 #include "server/Race.h"
 #include "server/Player.h"
 #include "common/json.h"
-#include <memory>
 #include <common/ClosedQueueException.h>
-
-#define CARS "cars"
+#include <common/CommunicationConstants.h>
 
 std::atomic_int Race::RaceCount(1);
 
@@ -17,7 +15,7 @@ JSON Race::get_global_status() {
         JSON k_umap(car);
         car_stats.push_back(k_umap);
     }
-    status[CARS] = car_stats;
+    status[J_CARS] = car_stats;
     return status;
 }
 
@@ -49,8 +47,8 @@ void Race::run() {
 void Race::add_player(ClientProxy messenger) {
     Car *car = new Car(world, cars.size());
     CarHandler *handler = new CarHandler(car);
-    auto *player = new Player(std::move(messenger), handler); //pointers when threads
-    cars.emplace(std::to_string(player->getId()), player);
+    auto *player = new Player(std::move(messenger), handler);
+    cars.emplace(player->getId(), player);
     player->start();
 }
 

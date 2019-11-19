@@ -16,12 +16,15 @@ private:
     int h;
     SDLTexture *texture;
     std::vector<std::tuple<int, int, int>> colors;
-    int resize_factor;
 public:
     Car();
 
     void render(SDL_Renderer *renderer, int x, int y,
-                int angle = 0, int id = 0, bool moving = false);
+                int angle = 0, int id = 0, bool moving = false) override;
+
+    void increase_resize() override;
+    void decrease_resize() override;
+    void set_resize_factor(float resize) override;
 };
 
 

@@ -7,7 +7,6 @@
 
 class Car : public Entity {
 private:
-    b2Body *car;
     float max_speed;
     float min_speed;
     bool track;
@@ -21,7 +20,7 @@ public:
 
     float32 get_angle();
 
-    void move_forward();
+    void move_straight(bool move_forward);
 
     void stop();
 
@@ -31,7 +30,7 @@ public:
 
     virtual ~Car();
 
-    void turn_right(bool b);
+    void turn(bool turn_left);
 
     void on_track();
 
@@ -39,7 +38,7 @@ public:
 
     void surface_effect();
 
-    void turn_left(bool b);
+    void turn_left();
 
     int get_entity_type() override;
 
@@ -64,6 +63,8 @@ public:
     bool isMoving();
 
     void contact_limit();
+
+    int min_turn_speed;
 };
 
 

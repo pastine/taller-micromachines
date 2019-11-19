@@ -5,8 +5,6 @@
 #include "server/Element.h"
 
 class Boulder : public Element {
-private:
-    b2Body *m_body;
 public:
     explicit Boulder(b2World &world, float x, float y);
 
@@ -14,11 +12,7 @@ public:
 
     void end_contact() override;
 
-    void destroy() override;
-
     int get_entity_type() override;
-
-    b2Vec2 get_position() override;
 };
 
 

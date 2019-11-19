@@ -11,9 +11,8 @@
 
 class Track : public Entity {
 private:
-    b2Body *track;
     std::vector<Element *> static_elements;
-    std::vector<Element *> elements;
+	std::vector<Element *> elements;
 public:
     explicit Track(b2World &world);
 

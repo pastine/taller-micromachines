@@ -51,3 +51,10 @@ Element* Element::get_element(b2World& world) {
 		return new Health(world, x, y);
 	}
 }
+
+void Element::destroy() {
+}
+
+b2Vec2 Element::get_position() {
+    return m_body->GetPosition();
+}

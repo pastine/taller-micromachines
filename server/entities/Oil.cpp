@@ -1,7 +1,6 @@
-#include "server/Mud.h"
-#include "common/Constants.h"
+#include "server/Oil.h"
 
-Mud::Mud(b2World &world, float x, float y) {
+Oil::Oil(b2World &world, float x, float y) {
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(x, y);
@@ -18,24 +17,13 @@ Mud::Mud(b2World &world, float x, float y) {
     m_body->SetUserData(this);
 }
 
-void Mud::start_contact() {
+void Oil::start_contact() {
     //nothing for me
 }
 
-void Mud::end_contact() {
-    this->destroy();
+void Oil::end_contact() {
 }
 
-void Mud::destroy() {
-    //m_body->GetWorld()->DestroyBody(m_body);
+int Oil::get_entity_type() {
+    return OIL;
 }
-
-int Mud::get_entity_type() {
-    return MUD;
-}
-
-b2Vec2 Mud::get_position() {
-    return m_body->GetPosition();
-}
-
-

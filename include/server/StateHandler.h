@@ -9,11 +9,11 @@
 template<class T>
 class StateHandler : public Thread {
 private:
-    ProtectedQueue<T> *queue;
+    ProtectedQueue<T> queue;
     ClientProxy *messenger;
     bool running;
 public:
-    explicit StateHandler(ClientProxy *messenger);
+    explicit StateHandler(ClientProxy &messenger);
 
     void run() override;
 

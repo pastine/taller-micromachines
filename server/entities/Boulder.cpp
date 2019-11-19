@@ -26,16 +26,7 @@ void Boulder::end_contact() {
     this->destroy();
 }
 
-void Boulder::destroy() {
-    //m_body->GetWorld()->DestroyBody(m_body);
-}
-
 int Boulder::get_entity_type() {
     return STONE;
 }
-
-b2Vec2 Boulder::get_position() {
-    return m_body->GetPosition();
-}
-
 

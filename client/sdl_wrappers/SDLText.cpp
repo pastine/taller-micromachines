@@ -4,7 +4,6 @@
 #include "client/SDLException.h"
 
 #include <SDL2/SDL_ttf.h>
-#include <client/StaticRenderizable.h>
 
 
 #define FONT_FILE "client/fonts/8bitfont.ttf"

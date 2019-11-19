@@ -32,9 +32,6 @@ int Boost::get_entity_type() {
     return BOOST;
 }
 
-b2Vec2 Boost::get_position() {
-	return b2Vec2(0, 0);
-}
 
 
 

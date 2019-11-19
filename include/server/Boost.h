@@ -5,9 +5,6 @@
 #include <Box2D/Box2D.h>
 
 class Boost : public Element {
-private:
-    b2Body *m_body;
-
 public:
     explicit Boost(b2World &world, float x, float y);
 
@@ -16,8 +13,6 @@ public:
     void end_contact() override;
 
     void destroy() override;
-
-    b2Vec2 get_position() override;
 
     int get_entity_type() override;
 };

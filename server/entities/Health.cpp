@@ -32,8 +32,3 @@ int Health::get_entity_type() {
     return HEALTH;
 }
 
-b2Vec2 Health::get_position() {
-	return b2Vec2(0, 0);
-}
-
-

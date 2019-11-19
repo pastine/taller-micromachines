@@ -8,7 +8,7 @@ Track::Track(b2World &world) {
     b2BodyDef def;
     def.type = b2_staticBody;
     def.position.Set(0, 0);
-    track = world.CreateBody(&def);
+    m_body = world.CreateBody(&def);
     b2PolygonShape walls;
     b2FixtureDef fixture;
     fixture.isSensor = true;
@@ -16,19 +16,19 @@ Track::Track(b2World &world) {
 
     for (float i = FIRST_GROUND_TILE_X; i < 31.05; i += W) {
         walls.SetAsBox(W / 2, H / 2, b2Vec2(i, FIRST_GROUND_TILE_Y), 0);//ground
-        track->CreateFixture(&fixture);
+        m_body->CreateFixture(&fixture);
     }
     for (float i = FIRST_CEILING_TILE_X; i < 31.05; i += W) {
         walls.SetAsBox(W / 2, H / 2, b2Vec2(i, FIRST_CEILING_TILE_Y), 0);//ceiling
-        track->CreateFixture(&fixture);
+        m_body->CreateFixture(&fixture);
     }
     for (float i = FIRST_LEFT_TILE_Y; i < 69; i += W) {
         walls.SetAsBox(H / 2, W / 2, b2Vec2(FIRST_LEFT_TILE_X, i), 0);//left wall
-        track->CreateFixture(&fixture);
+        m_body->CreateFixture(&fixture);
     }
     for (float i = FIRST_RIGHT_TILE_Y; i < 69; i += W) {
         walls.SetAsBox(H / 2, W / 2, b2Vec2(FIRST_RIGHT_TILE_X, i), 0);//right wall
-        track->CreateFixture(&fixture);
+        m_body->CreateFixture(&fixture);
     }
     fixture.isSensor = true;
     int32 count = 3;
@@ -43,7 +43,7 @@ Track::Track(b2World &world) {
     b2FixtureDef fixture_edge1;
     fixture_edge1.shape = &edge1;
     fixture_edge1.isSensor = true;
-    track->CreateFixture(&fixture_edge1);
+    m_body->CreateFixture(&fixture_edge1);
 
     //down left edge
     b2Vec2 vertices2[3];
@@ -55,7 +55,7 @@ Track::Track(b2World &world) {
     b2FixtureDef fixture_edge2;
     fixture_edge2.shape = &edge2;
     fixture_edge2.isSensor = true;
-    track->CreateFixture(&fixture_edge2);
+    m_body->CreateFixture(&fixture_edge2);
 
     //top left edge
     b2Vec2 vertices3[3];
@@ -67,7 +67,7 @@ Track::Track(b2World &world) {
     b2FixtureDef fixture_edge3;
     fixture_edge3.shape = &edge3;
     fixture_edge3.isSensor = true;
-    track->CreateFixture(&fixture_edge3);
+    m_body->CreateFixture(&fixture_edge3);
 
     //top right edge
     b2Vec2 vertices4[3];
@@ -79,9 +79,9 @@ Track::Track(b2World &world) {
     b2FixtureDef fixture_edge4;
     fixture_edge4.shape = &edge4;
     fixture_edge4.isSensor = true;
-    track->CreateFixture(&fixture_edge4);
+    m_body->CreateFixture(&fixture_edge4);
 
-    track->SetUserData(this);
+    m_body->SetUserData(this);
 
     for (int i = 0; i < 5; i++) {
         std::vector<float> oil_pos = Element::get_random_pos();
@@ -106,6 +106,10 @@ int Track::get_entity_type() {
     return TRACK;
 }
 
+b2Vec2 Track::get_position() {
+    return m_body->GetPosition();
+}
+
 std::unordered_map<std::string, std::string> Track::get_elements_state() {
 //    std::unordered_map<std::string, std::string> user;
 //    user.emplace("mud", car->get_mud_state());
@@ -116,10 +120,6 @@ std::unordered_map<std::string, std::string> Track::get_elements_state() {
 
 std::vector<Element *> Track::get_static_elements() {
     return static_elements;
-}
-
-b2Vec2 Track::get_position() {
-    return b2Vec2();
 }
 
 void Track::delete_elements() {

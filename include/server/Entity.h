@@ -4,6 +4,8 @@
 
 class Entity {
 public:
+    b2Body *m_body;
+
     virtual int get_entity_type() = 0;
 
     virtual b2Vec2 get_position() = 0;
