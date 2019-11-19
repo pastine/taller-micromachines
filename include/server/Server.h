@@ -24,6 +24,12 @@ public:
     ~Server();
 
     void reaper();
+
+    void create_race(ClientProxy& proxy);
+
+    void add_player_to_race(ClientProxy& new_client, int id);
+
+    int handshake(ClientProxy &new_client);
 };
 
 

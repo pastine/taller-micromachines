@@ -12,24 +12,11 @@ void Server::run() {
             ClientProxy new_client = acceptor.accept_client();
             std::cout << "New accept!\n";
             reaper();
-            std::map<int, int> races_ids_players;
-            for (Race *r: races) {
-                races_ids_players.insert({r->getId(), r->getPlayerCount()});
-            }
-            int race_id = new_client.handshake(races_ids_players);
+            int race_id = handshake(new_client);
             if (race_id == 0) {
-                Race *race = new Race();
-                new_client.send_track(race->getTrack());
-                races.push_back(race);
-                race->start();
-                race->add_player(std::move(new_client));
+                create_race(new_client);
             } else {
-                for (Race *r: races) {
-                    if (r->getId() == race_id) {
-                        new_client.send_track(r->getTrack());
-                        r->add_player(std::move(new_client));
-                    }
-                }
+                add_player_to_race(new_client, race_id);
             }
         } catch (...) {
             stop();
@@ -65,4 +52,29 @@ void Server::reaper() {
             it++;
         }
     }
+}
+
+void Server::create_race(ClientProxy& new_client) {
+    Race *race = new Race();
+    new_client.send_track(race->getTrack());
+    races.push_back(race);
+    race->start();
+    race->add_player(std::move(new_client));
+}
+
+void Server::add_player_to_race(ClientProxy& new_client, int id) {
+    for (Race *r: races) {
+        if (r->getId() == id) {
+            new_client.send_track(r->getTrack());
+            r->add_player(std::move(new_client));
+        }
+    }
+}
+
+int Server::handshake(ClientProxy &new_client) {
+    std::map<int, int> races_ids_players;
+    for (Race *r: races) {
+        races_ids_players.insert({r->getId(), r->getPlayerCount()});
+    }
+    return new_client.handshake(races_ids_players);
 }
