@@ -7,12 +7,11 @@
 #include <string>
 #include <unordered_map>
 #include <common/json.h>
+#include <common/Serializer.h>
 
-class RacesSerializer {
+class RacesSerializer : public Serializer<std::map<int,int>>{
 public:
-    std::string serialize(std::map<int, int> races);
-
-    JSON deserialize(std::string &basicString);
+    JSON serialize_to_json(std::map<int,int> &races) override;
 };
 
 

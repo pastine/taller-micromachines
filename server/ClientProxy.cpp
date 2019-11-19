@@ -35,23 +35,13 @@ void ClientProxy::shutdown() {
 }
 
 int ClientProxy::handshake(std::map<int, int> races_ids_players) {
-    try {
-        std::string msg;
-        msg = this->races_serializer.serialize(std::move(races_ids_players));
-        this->communication.send_msg(msg);
-
-        std::string response;
-        this->communication.receive_msg(response);
-        return stoi(response);
-    } catch (std::runtime_error &e) {
-        std::string err = "Error in ClientProxy::handshake -> ";
-        err += e.what();
-        throw std::runtime_error(err);
-    }
+    races_serializer.send(communication, races_ids_players);
+    JSON j = races_serializer.receive(communication);
+    return std::stoi(j.dump());
 }
 
 void ClientProxy::send_track(Track track) {
-    return track_serializer.send(communication, track);
+    track_serializer.send(communication, track);
 }
 
 void ClientProxy::modify_state(std::string &msg) {
