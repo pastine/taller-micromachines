@@ -2,10 +2,10 @@
 #include "common/Constants.h"
 #include "server/Car.h"
 
-#define MAX 50
-#define MIN_TURN_SPEED 10
-#define TORQUE 100
-#define FORCE 15
+#define MAX 50 * CAR_RESIZE_FACTOR
+#define MIN_TURN_SPEED 10 * CAR_RESIZE_FACTOR
+#define TORQUE 300 * CAR_RESIZE_FACTOR
+#define FORCE 10 * CAR_RESIZE_FACTOR
 #define DEGTORAD 0.0174532925199432957f
 
 b2Vec2 get_forward_normal(float angle) {
@@ -27,13 +27,13 @@ Car::Car(b2World &world, unsigned long i) {
     m_body = world.CreateBody(&bodyDef);
     b2Vec2 vertices[4];
     vertices[0].Set(0.0f, 0.0f);
-    vertices[1].Set(0.29f * 2, 0.0f);
-    vertices[2].Set(0.29f * 2, 0.29f * 2);
-    vertices[3].Set(0.0f, 0.29f * 2);
+    vertices[1].Set(0.29f * CAR_RESIZE_FACTOR, 0.0f);
+    vertices[2].Set(0.29f * CAR_RESIZE_FACTOR, 0.29f * CAR_RESIZE_FACTOR);
+    vertices[3].Set(0.0f, 0.29f * CAR_RESIZE_FACTOR);
     int32 count = 4;
     b2PolygonShape dynamicBox;
     dynamicBox.Set(vertices, count);
-    dynamicBox.SetAsBox(0.145f * 2, 0.145f * 2);
+    dynamicBox.SetAsBox(0.145f * CAR_RESIZE_FACTOR, 0.145f * CAR_RESIZE_FACTOR);
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &dynamicBox;
     fixtureDef.density = 55.0f;
