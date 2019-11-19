@@ -2,48 +2,48 @@
 #include "common/MoveSerializer.h"
 #include "common/MoveType.h"
 
-
-char MoveSerializer::serialize(MoveType &move) {
+JSON MoveSerializer::serialize_to_json(MoveType &move) {
     switch (move) {
         case MoveType::UP:
-            return 'U';
+            return "U";
         case MoveType::DOWN:
-            return 'D';
+            return "D";
         case MoveType::LEFT:
-            return 'L';
+            return "L";
         case MoveType::RIGHT:
-            return 'R';
+            return "R";
         case MoveType::UPLEFT:
-            return 'Q';
+            return "Q";
         case MoveType::UPRIGHT:
-            return 'E';
+            return "E";
         case MoveType::DOWNLEFT:
-            return 'Z';
+            return "Z";
         case MoveType::DOWNRIGHT:
-            return 'C';
+            return "C";
     }
     std::string msg = "MoveSerializer::serialize -> Can't serialize";
     throw std::runtime_error(msg);
 }
 
-MoveType MoveSerializer::deserialize(std::string move) {
-    switch (move[0]) {
+JSON MoveSerializer::deserialize(std::string &move) {
+    JSON j = JSON::parse(move);
+    switch (j.get<std::string>()[0]) {
         case 'U':
-            return MoveType::UP;
+            return JSON(MoveType::UP);
         case 'D':
-            return MoveType::DOWN;
+            return JSON(MoveType::DOWN);
         case 'L':
-            return MoveType::LEFT;
+            return JSON(MoveType::LEFT);
         case 'R':
-            return MoveType::RIGHT;
+            return JSON(MoveType::RIGHT);
         case 'Q':
-            return MoveType::UPLEFT;
+            return JSON(MoveType::UPLEFT);
         case 'E':
-            return MoveType::UPRIGHT;
+            return JSON(MoveType::UPRIGHT);
         case 'Z':
-            return MoveType::DOWNLEFT;
+            return JSON(MoveType::DOWNLEFT);
         case 'C':
-            return MoveType::DOWNRIGHT;
+            return JSON(MoveType::DOWNRIGHT);
     }
     std::string msg = "MoveSerializer::deserialize -> Not recognized character";
     msg += ": ";

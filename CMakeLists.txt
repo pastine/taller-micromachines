@@ -15,13 +15,15 @@ add_subdirectory(server)
 
 add_library(common STATIC
         common/Communication.cpp include/common/Communication.h
-        common/MoveSerializer.cpp include/common/MoveSerializer.h
-        common/StateSerializer.cpp include/common/StateSerializer.h
+        common/serializers/MoveSerializer.cpp include/common/MoveSerializer.h
+        common/serializers/StateSerializer.cpp include/common/StateSerializer.h
         common/Socket.cpp include/common/Socket.h
         common/Thread.cpp include/common/Thread.h
         include/common/json.h
         include/common/MoveType.h
-        common/RacesSerializer.cpp include/common/RacesSerializer.h common/TrackSerializer.cpp include/common/TrackSerializer.h include/common/Constants.h common/ClosedQueueException.cpp include/common/ClosedQueueException.h common/ProtectedQueue.cpp include/common/ProtectedQueue.h include/common/CommunicationConstants.h)
+        common/serializers/RacesSerializer.cpp include/common/RacesSerializer.h common/serializers/TrackSerializer.cpp include/common/TrackSerializer.h include/common/Constants.h common/ClosedQueueException.cpp include/common/ClosedQueueException.h common/ProtectedQueue.cpp include/common/ProtectedQueue.h include/common/CommunicationConstants.h
+        common/Serializer.cpp include/common/Serializer.h
+        )
 
 target_link_libraries(server_test common)
 target_link_libraries(client_test common)

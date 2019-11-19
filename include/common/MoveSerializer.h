@@ -3,12 +3,14 @@
 
 #include <string>
 #include "common/MoveType.h"
+#include <common/json.h>
+#include <common/Serializer.h>
 
-class MoveSerializer {
+class MoveSerializer : public Serializer<MoveType> {
 public:
-    char serialize(MoveType &move);
+    JSON serialize_to_json(MoveType &move) override;
 
-    MoveType deserialize(std::string move);
+    JSON deserialize(std::string &str) override;
 };
 
 

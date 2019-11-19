@@ -62,7 +62,7 @@ int ClientProxy::handshake(std::map<int, int> races_ids_players) {
 void ClientProxy::send_track(Track track) {
     try {
         std::string msg;
-        msg = this->track_serializer.serialize(std::move(track));
+        msg = this->track_serializer.serialize(track);
         this->communication.send_msg(msg);
     } catch (std::runtime_error &e) {
         std::string err = "Error in ClientProxy::send_track -> ";

@@ -5,10 +5,8 @@ ServerProxy::ServerProxy(std::string &host, std::string &service) : communicatio
 
 void ServerProxy::player_move(MoveType move) {
     try {
-        char _move = this->move_serializer.serialize(move);
-        std::string msg(&_move);
-        msg.resize(sizeof(char));
-        this->communication.send_msg(msg);
+        std::string _move = this->move_serializer.serialize(move);
+        this->communication.send_msg(_move);
     } catch (std::runtime_error &e) {
         std::string err = "Error in ServerProxy::player_move -> ";
         err += e.what();

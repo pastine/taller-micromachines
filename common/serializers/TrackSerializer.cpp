@@ -5,7 +5,7 @@
 #include "common/Constants.h"
 #include "common/CommunicationConstants.h"
 
-std::string TrackSerializer::serialize(Track track) {
+JSON TrackSerializer::serialize_to_json(Track &track) {
     JSON all;
     JSON aux;
     JSON aux_elements;
@@ -68,5 +68,5 @@ std::string TrackSerializer::serialize(Track track) {
     aux_elements["boulders"].push_back(JSON(boulders));
     all["elements"] = aux_elements;
 
-    return all.dump();
+    return all;
 }

@@ -4,10 +4,11 @@
 
 #include <string>
 #include <server/Track.h>
+#include <common/Serializer.h>
 
-class TrackSerializer {
+class TrackSerializer : public Serializer<Track> {
 public:
-    std::string serialize(Track track);
+    JSON serialize_to_json(Track &track) override;
 };
 
 
