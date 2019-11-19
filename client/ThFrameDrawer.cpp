@@ -33,7 +33,7 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON& map)
                      (int) MULTIPLE * std::stof(y),
                      std::stoi(angle));
     }
-
+		/*
     JSON muds = map["elements"]["muds"];
     for (auto & mud : muds) {
         std::string x = mud["x"];
@@ -41,7 +41,7 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON& map)
         entities.put(WorldEntities::Entity::MUD,
                      (int) MULTIPLE * std::stof(x),
                      (int) MULTIPLE * std::stof(y));
-    }
+    }*/
 }
 
 void ThFrameDrawer::run() {

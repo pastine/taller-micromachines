@@ -19,7 +19,8 @@ b2Vec2 get_forward_normal(float angle) {
 Car::Car(b2World &world, unsigned long i) {
   b2BodyDef bodyDef;
   bodyDef.type = b2_dynamicBody;
-  bodyDef.position.Set(10*i+STARTPOINT_X, 16*i+STARTPOINT_Y);
+  //bodyDef.position.Set(10*i+STARTPOINT_X, 16*i+STARTPOINT_Y);
+	bodyDef.position.Set(0, 0);
   car = world.CreateBody(&bodyDef);
   b2Vec2 vertices[4];
   vertices[0].Set(0.0f, 0.0f);
@@ -110,6 +111,7 @@ void Car::start_contact(int id) {
 		case STONE: this->contact_stone(); return;
 		case HEALTH: this->contact_health(); return;
 		case BOOST: this->contact_boost(); return;
+		case LIMIT: this->contact_limit(); return;
 		default: return;
 	}
 }
@@ -123,10 +125,12 @@ void Car::end_contact(int id) {
 
 void Car::on_track() {
   track = true;
+  if (track) {std::cout<<"on track----------\n";}
 }
 
 void Car::off_track() {
   track = false;
+	if (!track) {std::cout<<"off track----------\n";}
 }
 
 void Car::contact_car() {
@@ -167,32 +171,12 @@ int Car::get_entity_type() {
 
 
 void Car::surface_effect() {
-    if (track) {
+    /*if (track) {
         std::cout<<"ontrack"<<"\n";
     }
     if (!track) {
         std::cout<<"offtrack"<<"\n";
-    }
-//    b2PolygonShape dynamicBox;
-//    b2Vec2 vertices[4];
-//    vertices[0].Set(0.0f, 0.0f);
-//    vertices[1].Set(4.0f, 0.0f);
-//    vertices[2].Set(4.0f, 6.0f);
-//    vertices[3].Set(0.0f, 6.0f);
-//    dynamicBox.Set(vertices, 4);
-//    dynamicBox.SetAsBox(2.0f, 3.0f);
-//    b2FixtureDef fixtureDef;
-//    fixtureDef.shape = &dynamicBox;
-//    fixtureDef.density = 10.0f;
-//    fixtureDef.friction = 1.0f;
-//    fixtureDef.restitution = 0.3f;
-//    if (!track && offTrack == nullptr) {
-//        offTrack = car->CreateFixture(&fixtureDef);
-//    } else if (track && offTrack != nullptr) {
-//        car->DestroyFixture(offTrack);
-//        offTrack = nullptr;
-//        std::cout<<"no tengo"<<"\n";
-//    }
+    }*/
 }
 
 std::string Car::get_lives() {
@@ -219,5 +203,9 @@ float Car::get_speed() {
 
 bool Car::isMoving() {
     return car->GetLinearVelocity().Length() > 1;
+}
+
+void Car::contact_limit() {
+	std::cout<<"car on limit\n";
 }
 

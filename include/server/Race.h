@@ -6,6 +6,7 @@
 #include "ContactListener.h"
 #include "Track.h"
 #include "Element.h"
+#include "Limit.h"
 #include <unordered_map>
 #include <string>
 #include <vector>
@@ -21,6 +22,7 @@ private:
   std::vector<Element*> elements;
   bool racing;
   ContactListener listener;
+  Limit limit;
 
 public:
   Race();

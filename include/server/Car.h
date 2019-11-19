@@ -65,6 +65,8 @@ public:
     float get_speed();
 
     bool isMoving();
+
+	void contact_limit();
 };
 
 
