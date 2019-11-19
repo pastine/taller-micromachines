@@ -3,9 +3,9 @@
 #include "client/SDLWindow.h"
 #include "client/SDLTextureLoader.h"
 
-#define RENDER_BORDER_CM 10000
+#define RENDER_BORDER 100000
 #define PIXELS_TO_CM 0.01
-
+#define ZOOM 0.5
 
 Camera::Camera() : window(SDLWindow(480, 840)) {
     window.fill(0xFF, 0xFF, 0, 0xFF);
@@ -26,7 +26,8 @@ void Camera::render_object(Renderizable &object, int abs_x, int abs_y,
     int relative_x_pos_px = this->center_x_px + x_distance_to_center_px;
     int relative_y_pos_px = this->center_y_px - y_distance_to_center_px;
 
-    object.render(this->window.get_renderer(), relative_x_pos_px, relative_y_pos_px,
+    object.set_resize_factor(ZOOM);
+    object.render(this->window.get_renderer(), relative_x_pos_px * ZOOM, relative_y_pos_px * ZOOM,
                   angle, id, moving);
 }
 
@@ -48,8 +49,8 @@ void Camera::set_center(int x, int y) {
 bool Camera::_is_in_frame(Renderizable &object, int object_x_cms, int object_y_cms) {
     int w_width_cms = this->window.get_width() / PIXELS_TO_CM;
     int w_height_cms = this->window.get_height() / PIXELS_TO_CM;
-    if (std::abs(this->center_x_cms - object_x_cms) > w_width_cms + RENDER_BORDER_CM) return false;
-    return std::abs(this->center_y_cms - object_y_cms) <= w_height_cms + RENDER_BORDER_CM;
+    if (std::abs(this->center_x_cms - object_x_cms) > w_width_cms + RENDER_BORDER) return false;
+    return std::abs(this->center_y_cms - object_y_cms) <= w_height_cms + RENDER_BORDER;
 }
 
 void Camera::render_car_lives(int lives) {
