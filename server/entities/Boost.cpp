@@ -23,12 +23,15 @@ void Boost::start_contact() {
 }
 
 void Boost::end_contact() {
-    this->destroy();
+}
+
+void Boost::destroy() {
 }
 
 int Boost::get_entity_type() {
     return BOOST;
 }
+
 
 
 

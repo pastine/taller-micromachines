@@ -29,3 +29,4 @@ void Boulder::end_contact() {
 int Boulder::get_entity_type() {
     return STONE;
 }
+

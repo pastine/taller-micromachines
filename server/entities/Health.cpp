@@ -23,11 +23,12 @@ void Health::start_contact() {
 }
 
 void Health::end_contact() {
-    this->destroy();
+}
+
+void Health::destroy() {
 }
 
 int Health::get_entity_type() {
     return HEALTH;
 }
-
 

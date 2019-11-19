@@ -12,6 +12,8 @@ public:
 
     void end_contact() override;
 
+    void destroy() override;
+
     int get_entity_type() override;
 };
 

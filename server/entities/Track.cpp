@@ -96,6 +96,10 @@ Track::Track(b2World &world) {
         std::vector<float> boulder_pos = Element::get_random_pos();
         Boulder *s = new Boulder(world, boulder_pos[0], boulder_pos[1]);
         static_elements.emplace_back(s);
+
+				std::vector<float> fav = Element::get_random_pos();
+				Element* element = Element::get_element(world);
+				elements.emplace_back(element);//TODO bien solo 5?
     }
 }
 

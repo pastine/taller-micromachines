@@ -1,6 +1,9 @@
 #include "server/Element.h"
 #include <random>
 #include <vector>
+#include <iostream>
+#include <server/Boost.h>
+#include <server/Health.h>
 
 
 std::vector<float> Element::get_random_pos() {
@@ -32,36 +35,26 @@ std::vector<float> Element::get_random_pos() {
     return std::vector<float>{x_pos, y_pos};
 }
 
+Element* Element::get_element(b2World& world) {
+	std::vector<float> pos = get_random_pos();
+	float x = pos[0];
+	float y = pos[1];
+  std::random_device rd;
+  std::mt19937 mt(rd());
+  std::uniform_real_distribution<double> dist(0.0, 1.01);
+  double num = dist(mt);
+	if (num > 0 && num <= 0.49) {
+		std::cout<<"new Boost\n";
+		return new Boost(world, x, y);
+	} else {
+		std::cout << "new Health\n";
+		return new Health(world, x, y);
+	}
+}
+
 void Element::destroy() {
-    m_body->GetWorld()->DestroyBody(m_body);
 }
 
 b2Vec2 Element::get_position() {
     return m_body->GetPosition();
 }
-
-//Element* Element::get_element(b2World& world) {
-//	std::vector<float> pos = get_random_pos();
-//	float x = pos[0];
-//	float y = pos[1];
-//  std::random_device rd;
-//  std::mt19937 mt(rd());
-//  std::uniform_real_distribution<double> dist(0.0, 1.01);
-//  double num = dist(mt);
-//	if (num > 0 && num <= 0.20) {
-//		std::cout<<"new Boost\n";
-//		return new Boost(world, x, y);
-//	} else if (num > 0.20 && num <= 0.40) {
-//		std::cout<<"new Health\n";
-//    return new Health(world, x, y);
-//  } else if (num > 0.40 && num <= 0.60) {
-//		std::cout<<"new Oil\n";
-//    return new Oil(world, x, y);
-//  } else if (num > 0.60 && num <= 0.80) {
-//		std::cout<<"new Mud\n";
-//    return new Mud(world, x, y);
-//  } else {
-//		std::cout<<"new Boulder\n";
-//    return new Boulder(world, x, y);
-//  }
-//}

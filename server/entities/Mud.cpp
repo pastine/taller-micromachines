@@ -23,7 +23,7 @@ void Mud::start_contact() {
 }
 
 void Mud::end_contact() {
-    this->destroy();
+    //this->destroy();
 }
 
 int Mud::get_entity_type() {
