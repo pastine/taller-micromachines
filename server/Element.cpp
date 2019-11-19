@@ -32,6 +32,14 @@ std::vector<float> Element::get_random_pos() {
     return std::vector<float>{x_pos, y_pos};
 }
 
+void Element::destroy() {
+    m_body->GetWorld()->DestroyBody(m_body);
+}
+
+b2Vec2 Element::get_position() {
+    return m_body->GetPosition();
+}
+
 //Element* Element::get_element(b2World& world) {
 //	std::vector<float> pos = get_random_pos();
 //	float x = pos[0];

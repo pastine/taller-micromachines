@@ -7,7 +7,6 @@
 
 class Car : public Entity {
 private:
-    b2Body *car;
     float max_speed;
     float min_speed;
     bool track;

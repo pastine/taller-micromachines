@@ -1,6 +1,7 @@
-#include "server/Oil.h"
+#include "server/Boost.h"
+#include "common/Constants.h"
 
-Oil::Oil(b2World &world, float x, float y) {
+Boost::Boost(b2World &world, float x, float y) {
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(x, y);
@@ -17,22 +18,17 @@ Oil::Oil(b2World &world, float x, float y) {
     m_body->SetUserData(this);
 }
 
-void Oil::start_contact() {
+void Boost::start_contact() {
     //nothing for me
 }
 
-void Oil::end_contact() {
+void Boost::end_contact() {
     this->destroy();
 }
 
-void Oil::destroy() {
-    //m_body->GetWorld()->DestroyBody(m_body);
+int Boost::get_entity_type() {
+    return BOOST;
 }
 
-int Oil::get_entity_type() {
-    return OIL;
-}
 
-b2Vec2 Oil::get_position() {
-    return m_body->GetPosition();
-}
+

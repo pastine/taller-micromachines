@@ -24,7 +24,7 @@ Car::Car(b2World &world, unsigned long i) {
     bodyDef.type = b2_dynamicBody;
     //bodyDef.position.Set(10*i+STARTPOINT_X, 16*i+STARTPOINT_Y);
     bodyDef.position.Set(0, 0);
-    car = world.CreateBody(&bodyDef);
+    m_body = world.CreateBody(&bodyDef);
     b2Vec2 vertices[4];
     vertices[0].Set(0.0f, 0.0f);
     vertices[1].Set(0.29f * 2, 0.0f);
@@ -39,22 +39,22 @@ Car::Car(b2World &world, unsigned long i) {
     fixtureDef.density = 55.0f;
     fixtureDef.friction = 8.0f;
     fixtureDef.restitution = 0.3f;
-    car->CreateFixture(&fixtureDef);
+    m_body->CreateFixture(&fixtureDef);
     max_speed = MAX;
     min_speed = -MAX;
     min_turn_speed = MIN_TURN_SPEED;
-    car->SetUserData(this);
+    m_body->SetUserData(this);
     track = true;
     lives = new int(3);
     visibility = true;
 }
 
 b2Vec2 Car::get_position() {
-    return car->GetPosition();
+    return m_body->GetPosition();
 }
 
 float32 Car::get_angle() {
-    float32 angle = car->GetAngle();
+    float32 angle = m_body->GetAngle();
     while (angle < -180) { angle += 360; }
     while (angle > 180) { angle -= 360; }
     return angle;
@@ -64,13 +64,13 @@ void Car::turn(bool turn_left) {
     float currentSpeed = get_speed();
     if (currentSpeed < min_turn_speed && currentSpeed > 0) return;
     if (turn_left)
-        car->ApplyTorque(TORQUE, true);
+        m_body->ApplyTorque(TORQUE, true);
     else
-        car->ApplyTorque(-TORQUE, true);
-    car->SetAngularDamping(1);
+        m_body->ApplyTorque(-TORQUE, true);
+    m_body->SetAngularDamping(1);
     int angle = std::abs(this->get_angle());
     if (angle <= 3 || (angle >= 87 && angle <= 93) || (angle >= 177))
-        car->SetAngularDamping(7);
+        m_body->SetAngularDamping(7);
 }
 
 void Car::move_straight(bool move_forward) {
@@ -82,8 +82,8 @@ void Car::move_straight(bool move_forward) {
         force = FORCE;
     else if (!move_forward && currentSpeed > min_speed)
         force = -FORCE / 2;
-    car->ApplyLinearImpulse(force * normal, car->GetPosition(), true);
-    car->SetLinearDamping(2);
+    m_body->ApplyLinearImpulse(force * normal, m_body->GetPosition(), true);
+    m_body->SetLinearDamping(2);
 }
 
 void Car::start_contact(int id) {
@@ -142,9 +142,9 @@ void Car::contact_mud() {
 }
 
 void Car::contact_oil() {
-    float friction = car->GetFixtureList()->GetFriction();
+    float friction = m_body->GetFixtureList()->GetFriction();
     friction -= 0.3;
-    car->GetFixtureList()->SetFriction(friction);
+    m_body->GetFixtureList()->SetFriction(friction);
 }
 
 void Car::contact_stone() {
@@ -160,8 +160,8 @@ void Car::contact_boost() {
     float angle = this->get_angle();
     b2Vec2 normal = get_forward_normal(angle);
     float force = 1000;
-    car->ApplyForce(force * normal, car->GetPosition(), true);
-    car->SetLinearDamping(1.0);
+    m_body->ApplyForce(force * normal, m_body->GetPosition(), true);
+    m_body->SetLinearDamping(1.0);
 }
 
 
@@ -198,11 +198,11 @@ Car::~Car() {
 float Car::get_speed() {
     float angle = this->get_angle();
     b2Vec2 normal = get_forward_normal(angle);
-    return b2Dot(car->GetLinearVelocity(), normal);
+    return b2Dot(m_body->GetLinearVelocity(), normal);
 }
 
 bool Car::isMoving() {
-    return car->GetLinearVelocity().Length() > 1;
+    return m_body->GetLinearVelocity().Length() > 1;
 }
 
 void Car::contact_limit() {

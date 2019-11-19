@@ -1,7 +1,7 @@
-#include "server/Boost.h"
+#include "server/Health.h"
 #include "common/Constants.h"
 
-Boost::Boost(b2World &world, float x, float y) {
+Health::Health(b2World &world, float x, float y) {
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(x, y);
@@ -18,21 +18,16 @@ Boost::Boost(b2World &world, float x, float y) {
     m_body->SetUserData(this);
 }
 
-void Boost::start_contact() {
+void Health::start_contact() {
     //nothing for me
 }
 
-void Boost::end_contact() {
+void Health::end_contact() {
     this->destroy();
 }
 
-void Boost::destroy() {
-    m_body->GetWorld()->DestroyBody(m_body);
+int Health::get_entity_type() {
+    return HEALTH;
 }
-
-int Boost::get_entity_type() {
-    return BOOST;
-}
-
 
 

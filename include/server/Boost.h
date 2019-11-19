@@ -5,17 +5,12 @@
 #include <Box2D/Box2D.h>
 
 class Boost : public Element {
-private:
-    b2Body *m_body;
-
 public:
     explicit Boost(b2World &world, float x, float y);
 
     void start_contact() override;
 
     void end_contact() override;
-
-    void destroy() override;
 
     int get_entity_type() override;
 };

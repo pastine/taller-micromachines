@@ -6,8 +6,8 @@ FILE(GLOB_RECURSE box2d_src
 add_library(box2d STATIC ${box2d_src})
 
 add_executable(server_test
-        Track.cpp ../include/server/Track.h
-        Car.cpp ../include/server/Car.h
+        entities/Track.cpp ../include/server/Track.h
+        entities/Car.cpp ../include/server/Car.h
         CarHandler.cpp ../include/server/CarHandler.h
         ClientProxy.cpp ../include/server/ClientProxy.h
         ClientAccepter.cpp ../include/server/ClientAccepter.h
@@ -16,14 +16,14 @@ add_executable(server_test
         Race.cpp ../include/server/Race.h
         ContactListener.cpp ../include/server/ContactListener.h
         Element.cpp ../include/server/Element.h
-        Boost.cpp ../include/server/Boost.h
-        Health.cpp ../include/server/Health.h
-        Oil.cpp ../include/server/Oil.h
-        Mud.cpp ../include/server/Mud.h
-        Boulder.cpp ../include/server/Boulder.h
+        entities/Boost.cpp ../include/server/Boost.h
+        entities/Health.cpp ../include/server/Health.h
+        entities/Oil.cpp ../include/server/Oil.h
+        entities/Mud.cpp ../include/server/Mud.h
+        entities/Boulder.cpp ../include/server/Boulder.h
         StateHandler.cpp ../include/server/StateHandler.h
         ../include/server/Entity.h
-        Limit.cpp ../include/server/Limit.h
+        entities/Limit.cpp ../include/server/Limit.h
         )
 
 add_library(MiddleManState SHARED mods/libMiddleManState.cpp)

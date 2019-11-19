@@ -1,7 +1,6 @@
-#include "server/Health.h"
-#include "common/Constants.h"
+#include "server/Oil.h"
 
-Health::Health(b2World &world, float x, float y) {
+Oil::Oil(b2World &world, float x, float y) {
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(x, y);
@@ -18,20 +17,13 @@ Health::Health(b2World &world, float x, float y) {
     m_body->SetUserData(this);
 }
 
-void Health::start_contact() {
+void Oil::start_contact() {
     //nothing for me
 }
 
-void Health::end_contact() {
-    this->destroy();
+void Oil::end_contact() {
 }
 
-void Health::destroy() {
-    m_body->GetWorld()->DestroyBody(m_body);
+int Oil::get_entity_type() {
+    return OIL;
 }
-
-int Health::get_entity_type() {
-    return HEALTH;
-}
-
-
