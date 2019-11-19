@@ -1,9 +1,4 @@
-//
-// Created by casimiro on 1/11/19.
-//
-
 #include "client/ThFrameDrawer.h"
-#include <string.h>
 
 
 #define MULTIPLE 10000.0f
@@ -15,20 +10,20 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON &map)
     JSON straight_roads = map["tracks"];
     JSON curved_roads = map["curved"];
 
-    for (JSON::iterator it = straight_roads.begin(); it != straight_roads.end(); ++it) {
-        std::string x = (*it)["x"];
-        std::string y = (*it)["y"];
-        std::string angle = (*it)["angle"];
+    for (auto &straight_road : straight_roads) {
+        std::string x = straight_road["x"];
+        std::string y = straight_road["y"];
+        std::string angle = straight_road["angle"];
         entities.put(WorldEntities::Entity::STRAIGHT_ROAD,
                      (int) MULTIPLE * std::stof(x),
                      (int) MULTIPLE * std::stof(y),
                      std::stoi(angle));
     }
 
-    for (JSON::iterator it = curved_roads.begin(); it != curved_roads.end(); ++it) {
-        std::string x = (*it)["x"];
-        std::string y = (*it)["y"];
-        std::string angle = (*it)["angle"];
+    for (auto &curved_road : curved_roads) {
+        std::string x = curved_road["x"];
+        std::string y = curved_road["y"];
+        std::string angle = curved_road["angle"];
         entities.put(WorldEntities::Entity::CURVED_ROAD,
                      (int) (MULTIPLE * std::stof(x)),
                      (int) (MULTIPLE * std::stof(y)),
@@ -86,8 +81,8 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
             std::string x = car["x"];
             std::string y = car["y"];
 
-            float f_x = std::atof(x.data());
-            float f_y = std::atof(y.data());
+            float f_x = std::stof(x.data());
+            float f_y = std::stof(y.data());
 
             std::cout << "x: " << f_x;
             std::cout << "y: " << f_y << '\n';

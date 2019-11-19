@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 30/10/19.
-//
-
 #ifndef TALLER_MICROMACHINES_JSON_H
 #define TALLER_MICROMACHINES_JSON_H
 

@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 26/9/19.
-//
-
 #ifndef SRC_COMMON_SOCKET_H
 #define SRC_COMMON_SOCKET_H
 

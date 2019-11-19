@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 30/10/19.
-//
-
 #include "server/ClientAccepter.h"
 
 ClientAccepter::ClientAccepter(std::string &service) {

@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 23/10/19.
-//
-
 #include <iostream>
 #include "client/Camera.h"
 #include "client/SDLWindow.h"

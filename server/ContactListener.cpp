@@ -1,5 +1,4 @@
 #include <server/Car.h>
-#include <iostream>
 #include <server/Element.h>
 #include "server/ContactListener.h"
 

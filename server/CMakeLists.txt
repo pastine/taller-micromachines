@@ -8,7 +8,6 @@ add_library(box2d STATIC ${box2d_src})
 add_executable(server_test
         Track.cpp ../include/server/Track.h
         Car.cpp ../include/server/Car.h
-        ../include/server/circuit_generator.h
         CarHandler.cpp ../include/server/CarHandler.h
         ClientProxy.cpp ../include/server/ClientProxy.h
         ClientAccepter.cpp ../include/server/ClientAccepter.h

@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 1/11/19.
-//
-
 #include "client/ThStateReceiver.h"
 
 ThStateReceiver::ThStateReceiver(ServerProxy *proxy,

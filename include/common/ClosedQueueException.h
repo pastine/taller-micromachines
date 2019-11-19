@@ -4,7 +4,7 @@
 
 #include <string>
 
-class ClosedQueueException {
+class ClosedQueueException : public std::exception {
 private:
     std::string description;
 public:

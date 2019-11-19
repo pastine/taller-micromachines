@@ -19,7 +19,6 @@ private:
     b2World world;
     Track track;
     std::unordered_map<std::string, Player *> cars;
-    std::vector<Element *> elements;
     bool racing;
     ContactListener listener;
     Limit limit;

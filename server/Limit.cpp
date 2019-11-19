@@ -28,7 +28,7 @@ void Limit::end_contact() {
 }
 
 b2Vec2 Limit::get_position() {
-    return b2Vec2(0, 0);
+    return {0, 0};
 }
 
 int Limit::get_entity_type() {

@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 25/10/19.
-//
-
 #include "client/StaticRenderizable.h"
 
 

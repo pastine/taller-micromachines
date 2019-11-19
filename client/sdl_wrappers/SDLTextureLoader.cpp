@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 17/10/19.
-//
-
 #include <iostream>
 #include "client/SDLTextureLoader.h"
 #include "client/SDLException.h"
@@ -33,7 +29,7 @@ SDLTexture *SDLTextureLoader::get_texture(std::string &path) {
         this->_load_from_file(path);
     }
     it = this->textures.find(path);
-    if (it == this->textures.end()) throw SDLException("Unexpected error in get_texture", 0);
+    if (it == this->textures.end()) throw SDLException("Unexpected error in get_texture", nullptr);
     return &(*it).second;
 }
 

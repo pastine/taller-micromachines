@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 22/10/19.
-//
-
 #ifndef TALLER_MICROMACHINES_BOULDER_H
 #define TALLER_MICROMACHINES_BOULDER_H
 

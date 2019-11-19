@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 10/11/19.
-//
-
 #include <iostream>
 #include "client/CarLivesDrawer.h"
 

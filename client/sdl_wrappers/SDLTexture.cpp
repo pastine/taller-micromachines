@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 17/10/19.
-//
-
 #include <SDL2/SDL.h>
 #include <iostream>
 #include "client/SDLTexture.h"
@@ -39,7 +35,7 @@ void SDLTexture::render_flipped(SDL_Renderer *renderer,
                              &render_from,
                              &render_to,
                              0,
-                             NULL,
+                             nullptr,
                              flip);
     if (s) {
         std::string err_msg = "Error while rendering texture";
@@ -62,7 +58,7 @@ void SDLTexture::render(SDL_Renderer *renderer, Area &src, Area &dest, float ang
                              &render_from,
                              &render_to,
                              (double) angle,
-                             NULL,
+                             nullptr,
                              SDL_FLIP_NONE);
     if (s) {
         std::string err_msg = "Error while rendering texture";
@@ -76,7 +72,7 @@ SDLTexture::SDLTexture(SDLTexture &&other) {
     this->height = other.height;
     other.height = 0;
     this->texture = other.texture;
-    other.texture = NULL;
+    other.texture = nullptr;
 }
 
 SDLTexture &SDLTexture::operator=(SDLTexture &&other) {
@@ -86,7 +82,7 @@ SDLTexture &SDLTexture::operator=(SDLTexture &&other) {
     this->height = other.height;
     other.height = 0;
     this->texture = other.texture;
-    other.texture = NULL;
+    other.texture = nullptr;
     return *this;
 }
 

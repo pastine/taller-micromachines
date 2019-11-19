@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 17/10/19.
-//
-
 #include "client/Area.h"
 
 #include "client/Area.h"

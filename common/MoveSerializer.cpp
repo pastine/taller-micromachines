@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 29/10/19.
-//
-
 #include <stdexcept>
 #include "common/MoveSerializer.h"
 #include "common/MoveType.h"

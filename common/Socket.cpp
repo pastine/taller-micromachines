@@ -29,7 +29,7 @@ addrinfo *Socket::_get_address_list(const char *host, const char *service) {
     int err = getaddrinfo(host, service, &hints, &addr_list);
     if (err != 0) {
         std::cout << gai_strerror(err) << "\n";
-        return NULL;
+        return nullptr;
     }
     return addr_list;
 }
@@ -71,7 +71,7 @@ void Socket::connect_to(std::string &host, std::string &service) {
 
 void Socket::bind_and_listen(std::string &service) {
     const char *_service = service.data();
-    struct addrinfo *addr_list = _get_address_list(NULL, _service);
+    struct addrinfo *addr_list = _get_address_list(nullptr, _service);
     if (!addr_list) throw std::runtime_error("No address list available");
 
     int skt_fd_tmp = -1;
@@ -101,7 +101,7 @@ void Socket::bind_and_listen(std::string &service) {
 
 Socket Socket::accept_connection() {
     Socket other;
-    other.skt_fd = accept(this->skt_fd, NULL, NULL);
+    other.skt_fd = accept(this->skt_fd, nullptr, nullptr);
     if (other.skt_fd < 0) {
         std::string err = "Socket can't accept client: ";
         err += strerror(errno);

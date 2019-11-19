@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 22/10/19.
-//
-
 #include "client/Boulder.h"
 #include "client/SDLTextureLoader.h"
 

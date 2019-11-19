@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 17/10/19.
-//
-
 #ifndef TALLER_MICROMACHINES_SDLEXCEPTION_H
 #define TALLER_MICROMACHINES_SDLEXCEPTION_H
 
@@ -9,7 +5,7 @@
 #include <exception>
 
 
-class SDLException {
+class SDLException : public std::exception {
 public:
     SDLException(const char *description, const char *sdlError);
 

@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 26/10/19.
-//
-
 #include <tuple>
 #include "client/WorldEntities.h"
 

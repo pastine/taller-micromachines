@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 28/9/19.
-//
-
 #include "common/Thread.h"
 
 

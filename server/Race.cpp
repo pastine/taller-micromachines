@@ -6,12 +6,10 @@
 
 #define CARS "cars"
 
-b2Vec2 gravity(0.0f, 0.0f);
 std::atomic_int Race::RaceCount(1);
 
 JSON Race::get_global_status() {
     JSON status;
-
     JSON car_stats;
     for (auto it = cars.begin(); it != cars.end(); ++it) {
         if (!it->second->isAlive()) continue;
@@ -23,10 +21,8 @@ JSON Race::get_global_status() {
     return status;
 }
 
-Race::Race() : id(RaceCount++), world(b2World(gravity)), track(Track(world)),
-               cars(std::unordered_map<std::string, Player *>()),
-               elements(std::vector<Element *>()),
-               racing(true), listener(ContactListener()), limit(world) {
+Race::Race() : id(RaceCount++), world(b2World({0.0f, 0.0f})), track(world),
+               racing(true), limit(world) {
     world.SetContactListener(&listener);
 }
 
@@ -45,14 +41,13 @@ void Race::run() {
             std::this_thread::sleep_for(tic);
         } catch (...) {
             reaper();
-            if (!isAlive())
-                stop();
+            if (!isAlive()) stop();
         }
     }
 }
 
 void Race::add_player(ClientProxy messenger) {
-    Car *car = new Car((b2World &) world, cars.size());
+    Car *car = new Car(world, cars.size());
     CarHandler *handler = new CarHandler(car);
     auto *player = new Player(std::move(messenger), handler); //pointers when threads
     cars.emplace(std::to_string(player->getId()), player);
@@ -61,9 +56,8 @@ void Race::add_player(ClientProxy messenger) {
 
 void Race::stop() {
     racing = false;
-    for (auto it = cars.begin(); it != cars.end(); ++it) {
+    for (auto it = cars.begin(); it != cars.end(); ++it)
         it->second->stop();
-    }
 }
 
 Race::~Race() {

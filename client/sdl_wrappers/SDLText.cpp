@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 18/11/19.
-//
-
 #include "client/SDLText.h"
 #include <string>
 #include <SDL2/SDL_render.h>
@@ -54,7 +50,7 @@ void SDLText::render_text(std::string text,
     }
 
     SDL_Rect renderQuad = {px_x, px_y, w, h};
-    SDL_RenderCopy(renderer, texture, NULL, &renderQuad);
+    SDL_RenderCopy(renderer, texture, nullptr, &renderQuad);
     SDL_DestroyTexture(texture);
 }
 

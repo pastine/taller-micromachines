@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 18/10/19.
-//
-
 #include <iostream>
 #include <fstream>
 #include "client/Car.h"

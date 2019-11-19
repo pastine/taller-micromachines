@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 8/11/19.
-//
-
 #include <client/SDLTextureLoader.h>
 #include "client/CurvedRoad.h"
 

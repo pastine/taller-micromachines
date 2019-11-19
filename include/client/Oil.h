@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 23/10/19.
-//
-
 #ifndef TALLER_MICROMACHINES_OIL_H
 #define TALLER_MICROMACHINES_OIL_H
 

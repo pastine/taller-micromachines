@@ -138,7 +138,6 @@ void Car::end_contact(int id) {
     if (id == 0) {
         this->off_track();
     }
-    return;
 }
 
 void Car::on_track() {

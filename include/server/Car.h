@@ -21,10 +21,6 @@ public:
 
     float32 get_angle();
 
-    b2Vec2 get_lateral_velocity();
-
-    b2Vec2 get_forward_velocity();
-
     void move_forward();
 
     void stop();

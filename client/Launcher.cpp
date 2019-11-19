@@ -15,7 +15,7 @@ Launcher::Launcher(std::map<std::string, int> races, int *ret, bool *bot) :
     img->show();
     mainLayout->addLayout(existingGames);
     connect(createGameBtn, &QPushButton::clicked, this, [this]() { setValue("0"); });
-    for (std::pair<const std::string, int> p : races) {
+    for (std::pair<const std::string, int> &p : races) {
         std::ostringstream str;
         str << "Join Game #" << p.first << " (" << p.second << " players)";
         std::string label = str.str();

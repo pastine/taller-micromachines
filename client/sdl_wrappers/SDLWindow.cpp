@@ -1,6 +1,3 @@
-//
-// Created by casimiro on 17/10/19.
-//
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL_render.h>

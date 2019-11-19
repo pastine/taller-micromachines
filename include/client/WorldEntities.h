@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 26/10/19.
-//
-
 #ifndef TALLER_MICROMACHINES_WORLDENTITIES_H
 #define TALLER_MICROMACHINES_WORLDENTITIES_H
 

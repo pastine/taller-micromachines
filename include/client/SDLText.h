@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 18/11/19.
-//
-
 #ifndef TALLER_MICROMACHINES_SDLTEXT_H
 #define TALLER_MICROMACHINES_SDLTEXT_H
 

@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 29/10/19.
-//
-
 #include "client/ServerProxy.h"
 
 ServerProxy::ServerProxy(std::string &host, std::string &service) : communication(host, service) {}
@@ -9,9 +5,8 @@ ServerProxy::ServerProxy(std::string &host, std::string &service) : communicatio
 
 void ServerProxy::player_move(MoveType move) {
     try {
-        std::string msg = "";
         char _move = this->move_serializer.serialize(move);
-        msg.append(&_move);
+        std::string msg(&_move);
         msg.resize(sizeof(char));
         this->communication.send_msg(msg);
     } catch (std::runtime_error &e) {

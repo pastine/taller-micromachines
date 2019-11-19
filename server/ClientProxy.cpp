@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 30/10/19.
-//
-
 #include "server/ClientProxy.h"
 #include <dlfcn.h>
 
@@ -24,7 +20,7 @@ MoveType ClientProxy::get_move() {
     try {
         std::string msg;
         this->communication.receive_msg(msg);
-        MoveType move = this->move_serializer.deserialize(msg.data()[0]);
+        MoveType move = this->move_serializer.deserialize(msg[0]);
         return move;
     } catch (std::runtime_error &e) {
         std::string err = "Error in ClientProxy::get_move -> ";
@@ -50,7 +46,7 @@ void ClientProxy::shutdown() {
 int ClientProxy::handshake(std::map<int, int> races_ids_players) {
     try {
         std::string msg;
-        msg = this->races_serializer.serialize(races_ids_players);
+        msg = this->races_serializer.serialize(std::move(races_ids_players));
         this->communication.send_msg(msg);
 
         std::string response;
@@ -66,7 +62,7 @@ int ClientProxy::handshake(std::map<int, int> races_ids_players) {
 void ClientProxy::send_track(Track track) {
     try {
         std::string msg;
-        msg = this->track_serializer.serialize(track);
+        msg = this->track_serializer.serialize(std::move(track));
         this->communication.send_msg(msg);
     } catch (std::runtime_error &e) {
         std::string err = "Error in ClientProxy::send_track -> ";

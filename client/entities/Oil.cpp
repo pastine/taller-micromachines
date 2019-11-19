@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 23/10/19.
-//
-
 #include "client/Oil.h"
 #include "client/SDLTextureLoader.h"
 

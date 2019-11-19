@@ -1,9 +1,4 @@
-//
-// Created by casimiro on 17/10/19.
-//
-
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_mixer.h>
 #include <iostream>
 #include <QtWidgets/QApplication>
 #include <client/ServerProxy.h>
@@ -13,7 +8,6 @@
 #include <map>
 #include "client/SDLException.h"
 #include "client/Launcher.h"
-#include "client/Audio.h"
 #include "client/AIScript.h"
 
 void send_moves(ServerProxy *server, bool up, bool down, bool left, bool right) {
