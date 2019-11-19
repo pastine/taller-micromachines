@@ -42,7 +42,7 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON &map)
     for (auto &mud : muds) {
         std::string x = mud[J_X];
         std::string y = mud[J_Y];
-        entities.put(WorldEntities::Entity::MUD,
+        entities.put(WorldEntities::Entity::OIL,
                      (int) MULTIPLE * std::stof(x),
                      (int) MULTIPLE * std::stof(y));
     }
@@ -50,7 +50,7 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON &map)
     for (auto &mud : muds) {
         std::string x = mud[J_X];
         std::string y = mud[J_Y];
-        entities.put(WorldEntities::Entity::MUD,
+        entities.put(WorldEntities::Entity::BOULDER,
                      (int) MULTIPLE * std::stof(x),
                      (int) MULTIPLE * std::stof(y));
     }
