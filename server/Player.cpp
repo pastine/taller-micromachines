@@ -29,22 +29,19 @@ Player::Player(ClientProxy messenger, CarHandler* car) :
 }
 
 void Player::run() {
-	try {
-		while (playing) {
+    while (playing) {
+        try {
 			car->move(receiver->receive());
 			car->update_surface();
 			this->update_lap_count();
-		}
-	} catch (ClosedQueueException) {
-		playing = false;
-	} catch (...) {
-		std::cout<<"Unknown exception found \n";
+        } catch (...) {
+    		stop();
+        }
 	}
 }
 
 void Player::stop() {
   playing = false;
-  receiver->stop();
   messenger.shutdown();
 }
 
@@ -97,4 +94,8 @@ Player::~Player() {
 	delete(receiver);
 	delete(updater);
   this->join();
+}
+
+bool Player::isAlive() {
+    return playing;
 }

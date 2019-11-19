@@ -11,6 +11,7 @@ void Server::run() {
     try {
       ClientProxy new_client = acceptor.accept_client();
       std::cout<<"New accept!\n";
+      reaper();
         std::map<int,int> races_ids_players;
         for (Race* r: races) {
             races_ids_players.insert({r->getId(), r->getPlayerCount()});
@@ -31,7 +32,7 @@ void Server::run() {
           }
       }
     } catch(...) {
-      break;
+      stop();
     }
   }
 }
@@ -52,4 +53,16 @@ Server::~Server() {
 		this->join();
 }
 
-
+void Server::reaper() {
+    auto it = races.begin();
+    while (it != races.end()) {
+        (*it)->reaper();
+        if (!(*it)->isAlive()){
+            (*it)->stop();
+            delete *it;
+            it = races.erase(it);
+        } else {
+            it++;
+        }
+    }
+}

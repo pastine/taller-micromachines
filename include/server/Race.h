@@ -28,7 +28,7 @@ public:
   virtual void run();
 
   void add_player(ClientProxy messenger);
-
+  void reaper();
   virtual void stop();
 
   ~Race();
@@ -38,6 +38,9 @@ public:
   Track getTrack();
 
   int getPlayerCount();
+
+    JSON get_global_status();
+    bool isAlive();
 };
 
 

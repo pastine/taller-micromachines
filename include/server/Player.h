@@ -39,6 +39,8 @@ public:
   void update_lap_count();
 
   void check_progress(int first, int second);
+
+  bool isAlive();
 };
 
 

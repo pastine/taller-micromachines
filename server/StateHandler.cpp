@@ -9,13 +9,13 @@ StateHandler<T>::StateHandler(ClientProxy* messenger) :
 
 template<class T>
 void StateHandler<T>::run() {
-	try {
-		while (running) {
+    while (running) {
+    	try {
 			work();
-		}
-	} catch (...) {
-		return;
-	}
+	    } catch (...) {
+		    stop();
+	    }
+    }
 }
 
 template<class T>
