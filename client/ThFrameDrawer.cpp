@@ -35,24 +35,24 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON &map)
         std::string x = mud[J_X];
         std::string y = mud[J_Y];
         entities.put(WorldEntities::Entity::MUD,
-                     (int) MULTIPLE * std::stof(x),
-                     (int) MULTIPLE * std::stof(y));
+                     (int) (MULTIPLE * std::stof(x)),
+                     (int) (MULTIPLE * std::stof(y)));
     }
     JSON oils = map[J_ELEMENTS][J_OILS];
-    for (auto &mud : muds) {
-        std::string x = mud[J_X];
-        std::string y = mud[J_Y];
+    for (auto &oil : oils) {
+        std::string x = oil[J_X];
+        std::string y = oil[J_Y];
         entities.put(WorldEntities::Entity::OIL,
-                     (int) MULTIPLE * std::stof(x),
-                     (int) MULTIPLE * std::stof(y));
+                     (int) (MULTIPLE * std::stof(x)),
+                     (int) (MULTIPLE * std::stof(y)));
     }
     JSON boulders = map[J_ELEMENTS][J_BOULDERS];
-    for (auto &mud : muds) {
-        std::string x = mud[J_X];
-        std::string y = mud[J_Y];
+    for (auto &boulder : boulders) {
+        std::string x = boulder[J_X];
+        std::string y = boulder[J_Y];
         entities.put(WorldEntities::Entity::BOULDER,
-                     (int) MULTIPLE * std::stof(x),
-                     (int) MULTIPLE * std::stof(y));
+                     (int) (MULTIPLE * std::stof(x)),
+                     (int) (MULTIPLE * std::stof(y)));
     }
 }
 
@@ -82,8 +82,8 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
         for (auto &car : cars) {
             std::string x = car[J_X];
             std::string y = car[J_Y];
-            float f_x = std::stof(x);
-            float f_y = std::stof(y);
+            double f_x = std::stod(x);
+            double f_y = std::stod(y);
 
             f_x *= MULTIPLE;
             f_y *= MULTIPLE;

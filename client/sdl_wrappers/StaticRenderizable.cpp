@@ -17,7 +17,6 @@ void StaticRenderizable::increase_resize() {
     this->resize_factor += 0.1;
 }
 
-
 void StaticRenderizable::decrease_resize() {
     if (this->resize_factor == 0) return;
     this->resize_factor -= 0.1;
