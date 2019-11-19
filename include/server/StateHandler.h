@@ -9,7 +9,7 @@
 template<class T>
 class StateHandler : public Thread {
 private:
-    ProtectedQueue<T> *queue;
+    ProtectedQueue<T> queue;
     ClientProxy *messenger;
     bool running;
 public:
