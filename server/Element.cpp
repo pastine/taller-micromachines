@@ -4,7 +4,7 @@
 #include <server/Health.h>
 #include <server/Oil.h>
 #include <server/Mud.h>
-#include <server/Stone.h>
+#include <server/Boulder.h>
 #include <iostream>
 #include <vector>
 
@@ -59,7 +59,7 @@ std::vector<float> Element::get_random_pos() {
 //		std::cout<<"new Mud\n";
 //    return new Mud(world, x, y);
 //  } else {
-//		std::cout<<"new Stone\n";
-//    return new Stone(world, x, y);
+//		std::cout<<"new Boulder\n";
+//    return new Boulder(world, x, y);
 //  }
 //}

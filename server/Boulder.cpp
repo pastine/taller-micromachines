@@ -1,7 +1,7 @@
-#include "server/Stone.h"
+#include "server/Boulder.h"
 #include "common/Constants.h"
 
-Stone::Stone(b2World& world, float x, float y) {
+Boulder::Boulder(b2World& world, float x, float y) {
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(x, y);
@@ -18,23 +18,23 @@ Stone::Stone(b2World& world, float x, float y) {
 	m_body->SetUserData(this);
 }
 
-void Stone::start_contact() {
+void Boulder::start_contact() {
 	//nothing for me
 }
 
-void Stone::end_contact() {
+void Boulder::end_contact() {
 	this->destroy();
 }
 
-void Stone::destroy() {
+void Boulder::destroy() {
 	//m_body->GetWorld()->DestroyBody(m_body);
 }
 
-int Stone::get_entity_type() {
+int Boulder::get_entity_type() {
 	return STONE;
 }
 
-b2Vec2 Stone::get_position() {
+b2Vec2 Boulder::get_position() {
     return m_body->GetPosition();
 }
 

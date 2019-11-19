@@ -1,6 +1,6 @@
 #include <server/Oil.h>
 #include <server/Mud.h>
-#include <server/Stone.h>
+#include <server/Boulder.h>
 #include "server/Track.h"
 #include "Box2D/Box2D.h"
 
@@ -93,7 +93,7 @@ Track::Track(b2World& world) {
         static_elements.emplace_back(m);
 
         std::vector<float> boulder_pos = Element::get_random_pos();
-        Stone* s = new Stone(world, boulder_pos[0], boulder_pos[1]);
+        Boulder* s = new Boulder(world, boulder_pos[0], boulder_pos[1]);
         static_elements.emplace_back(s);
     }
 }

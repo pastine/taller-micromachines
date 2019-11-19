@@ -1,14 +1,14 @@
-#ifndef TALLER_MICROMACHINES_STONE_H
-#define TALLER_MICROMACHINES_STONE_H
+#ifndef TALLER_MICROMACHINES_BOULDER_H
+#define TALLER_MICROMACHINES_BOULDER_H
 
 #include <Box2D/Box2D.h>
 #include "server/Element.h"
 
-class Stone : public Element {
+class Boulder : public Element {
 private:
 	b2Body* m_body;
 public:
-	explicit Stone(b2World& world, float x, float y);
+	explicit Boulder(b2World& world, float x, float y);
 
 	void start_contact() override;
 
@@ -21,4 +21,4 @@ public:
 };
 
 
-#endif //TALLER_MICROMACHINES_STONE_H
+#endif //TALLER_MICROMACHINES_BOULDER_H

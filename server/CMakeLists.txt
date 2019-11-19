@@ -21,7 +21,7 @@ add_executable(server_test
         Health.cpp ../include/server/Health.h
         Oil.cpp ../include/server/Oil.h
         Mud.cpp ../include/server/Mud.h
-        Stone.cpp ../include/server/Stone.h
+        Boulder.cpp ../include/server/Boulder.h
         StateHandler.cpp ../include/server/StateHandler.h
         ../include/server/Entity.h
         Limit.cpp ../include/server/Limit.h)
