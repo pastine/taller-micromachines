@@ -44,7 +44,7 @@ int main(int argc, char** argv) {
 
         ProtectedQueue<JSON> queue;
 
-        Audio audio;
+        //Audio audio;
 
         ThStateReceiver state_receiver(&server, &queue);
         ThFrameDrawer frame_drawer(&queue, map);
@@ -62,7 +62,7 @@ int main(int argc, char** argv) {
                     server.player_move(static_cast<MoveType>(move));
                     SDL_Delay(5);
                 }
-                SDL_Delay(20);
+                SDL_Delay(1);
             }
             SDL_Event event;
 
@@ -101,7 +101,7 @@ int main(int argc, char** argv) {
                     }
                 }
             }
-            SDL_Delay(5);
+            SDL_Delay(20);
         }
 
         // stopping all threads

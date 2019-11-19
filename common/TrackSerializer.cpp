@@ -8,7 +8,7 @@
 	JSON all;
 	JSON aux;
 	JSON aux_elements;
-	for (float i = FIRST_GROUND_TILE_X; i < 31.05; i+= W) {
+	for (float i = FIRST_GROUND_TILE_X; i < 31.05; i+= (W - 2)) {
 		std::unordered_map<std::string, std::string> ground;
 		ground.emplace(X, std::to_string(i));
 		ground.emplace(Y, std::to_string(FIRST_GROUND_TILE_Y));
@@ -23,7 +23,7 @@
 		aux.push_back(k_umap);
 	}
 
-	for (float i = FIRST_LEFT_TILE_Y; i < 69; i += W) {
+	for (float i = FIRST_LEFT_TILE_Y; i < 69; i += (W - 2)) {
 		std::unordered_map<std::string, std::string> left;
 		left.emplace(X, std::to_string(FIRST_LEFT_TILE_X));
 		left.emplace(Y, std::to_string(i));
