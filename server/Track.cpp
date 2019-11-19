@@ -83,7 +83,7 @@ Track::Track(b2World &world) {
 
     track->SetUserData(this);
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 5; i++) {
         std::vector<float> oil_pos = Element::get_random_pos();
         Oil *o = new Oil(world, oil_pos[0], oil_pos[1]);
         static_elements.emplace_back(o);

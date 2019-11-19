@@ -15,13 +15,13 @@ class Race : public Thread {
     static std::atomic_int RaceCount;
 
 private:
-    int id;
-    b2World world;
-    Track track;
-    std::unordered_map<std::string, Player *> cars;
-    bool racing;
-    ContactListener listener;
-    Limit limit;
+  int id;
+  b2World world;
+	Track track;
+  std::unordered_map<std::string, Player*> cars;
+  bool racing;
+  ContactListener listener;
+  Limit limit;
 
 public:
     Race();
