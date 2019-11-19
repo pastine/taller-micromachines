@@ -6,6 +6,8 @@
 #include <common/MoveType.h>
 #include <common/Communication.h>
 #include <common/RacesSerializer.h>
+#include <common/MoveSerializer.h>
+#include <common/StateSerializer.h>
 #include <map>
 #include <vector>
 #include <common/TrackSerializer.h>

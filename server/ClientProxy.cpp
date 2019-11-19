@@ -17,16 +17,7 @@ void ClientProxy::send_state(JSON &state) {
 }
 
 MoveType ClientProxy::get_move() {
-    try {
-        std::string msg;
-        this->communication.receive_msg(msg);
-        MoveType move = this->move_serializer.deserialize(msg);
-        return move;
-    } catch (std::runtime_error &e) {
-        std::string err = "Error in ClientProxy::get_move -> ";
-        err += e.what();
-        throw std::runtime_error(err);
-    }
+    return move_serializer.receive(communication);
 }
 
 ClientProxy &ClientProxy::operator=(ClientProxy &&other) {
@@ -60,15 +51,7 @@ int ClientProxy::handshake(std::map<int, int> races_ids_players) {
 }
 
 void ClientProxy::send_track(Track track) {
-    try {
-        std::string msg;
-        msg = this->track_serializer.serialize(track);
-        this->communication.send_msg(msg);
-    } catch (std::runtime_error &e) {
-        std::string err = "Error in ClientProxy::send_track -> ";
-        err += e.what();
-        throw std::runtime_error(err);
-    }
+    return track_serializer.send(communication, track);
 }
 
 void ClientProxy::modify_state(std::string &msg) {
