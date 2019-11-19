@@ -1,6 +1,7 @@
 #include <queue>
 #include "server/Player.h"
 #include "common/Constants.h"
+#include "common/CommunicationConstants.h"
 #include "common/ClosedQueueException.h"
 
 uint32_t seed;
@@ -19,12 +20,11 @@ void add_boundaries(std::vector<std::vector<float>> &flags) {
 Player::Player(ClientProxy messenger, CarHandler *car) :
         messenger(std::move(messenger)),
         car(car), playing(true),
-        id(rand_r(&seed)), total_laps(0), partial_laps(0),
-        flags(std::vector<std::vector<float>>()) {
+        id(rand_r(&seed) % 9999), total_laps(0), partial_laps(0) {
     add_boundaries(flags);
-    receiver = new StateHandler<MoveType>(&this->messenger);
+    receiver = new StateHandler<MoveType>(this->messenger);
+    updater = new StateHandler<JSON>(this->messenger);
     receiver->start();
-    updater = new StateHandler<JSON>(&this->messenger);
     updater->start();
 }
 
@@ -47,19 +47,19 @@ void Player::stop() {
 
 std::unordered_map<std::string, std::string> Player::get_position() {
     auto position = car->get_position();
-    position.emplace(ANGLE, std::to_string(car->get_angle()));
-    position.emplace(ID, std::to_string(getId()));
-    position.emplace(MOVING, std::to_string(car->isMoving()));
+    position.emplace(J_ANGLE, std::to_string(car->get_angle()));
+    position.emplace(J_ID, std::to_string(getId()));
+    position.emplace(J_MOVING, std::to_string(car->isMoving()));
     return std::move(position);
 }
 
 void Player::update_status(JSON &status, Track &track) {
     JSON j_umap(car->get_position());
-    status[CENTER] = j_umap;
+    status[J_CENTER] = j_umap;
     JSON k_umap(car->get_user_state());
-    status[USER] = k_umap;
+    status[J_USER] = k_umap;
     JSON l_umap(track.get_elements_state());
-    status[ELEMENTS] = l_umap;
+    status[J_ELEMENTS] = l_umap;
     updater->send(status);
 }
 

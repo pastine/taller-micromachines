@@ -3,9 +3,9 @@
 #define MAX 1000
 
 template<class T>
-StateHandler<T>::StateHandler(ClientProxy *messenger) :
+StateHandler<T>::StateHandler(ClientProxy &messenger) :
         queue(new ProtectedQueue<T>()),
-        messenger(messenger), running(true) {
+        messenger(&messenger), running(true) {
 }
 
 template<class T>

@@ -21,7 +21,7 @@ add_library(common STATIC
         common/Thread.cpp include/common/Thread.h
         include/common/json.h
         include/common/MoveType.h
-        common/RacesSerializer.cpp include/common/RacesSerializer.h common/TrackSerializer.cpp include/common/TrackSerializer.h include/common/Constants.h common/ClosedQueueException.cpp include/common/ClosedQueueException.h common/ProtectedQueue.cpp include/common/ProtectedQueue.h)
+        common/RacesSerializer.cpp include/common/RacesSerializer.h common/TrackSerializer.cpp include/common/TrackSerializer.h include/common/Constants.h common/ClosedQueueException.cpp include/common/ClosedQueueException.h common/ProtectedQueue.cpp include/common/ProtectedQueue.h include/common/CommunicationConstants.h)
 
 target_link_libraries(server_test common)
 target_link_libraries(client_test common)

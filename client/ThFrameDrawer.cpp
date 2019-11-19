@@ -1,5 +1,5 @@
 #include "client/ThFrameDrawer.h"
-
+#include "common/CommunicationConstants.h"
 
 #define MULTIPLE 10000.0f
 
@@ -7,13 +7,13 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON &map)
         : state_queue(state_queue) {
     this->done = false;
 
-    JSON straight_roads = map["tracks"];
-    JSON curved_roads = map["curved"];
+    JSON straight_roads = map[J_TRACKS];
+    JSON curved_roads = map[J_CURVED];
 
     for (auto &straight_road : straight_roads) {
-        std::string x = straight_road["x"];
-        std::string y = straight_road["y"];
-        std::string angle = straight_road["angle"];
+        std::string x = straight_road[J_X];
+        std::string y = straight_road[J_Y];
+        std::string angle = straight_road[J_ANGLE];
         entities.put(WorldEntities::Entity::STRAIGHT_ROAD,
                      (int) MULTIPLE * std::stof(x),
                      (int) MULTIPLE * std::stof(y),
@@ -21,35 +21,35 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON &map)
     }
 
     for (auto &curved_road : curved_roads) {
-        std::string x = curved_road["x"];
-        std::string y = curved_road["y"];
-        std::string angle = curved_road["angle"];
+        std::string x = curved_road[J_X];
+        std::string y = curved_road[J_Y];
+        std::string angle = curved_road[J_ANGLE];
         entities.put(WorldEntities::Entity::CURVED_ROAD,
                      (int) (MULTIPLE * std::stof(x)),
                      (int) (MULTIPLE * std::stof(y)),
                      std::stoi(angle));
     }
 
-    JSON muds = map["elements"]["muds"];
+    JSON muds = map[J_ELEMENTS][J_MUDS];
     for (auto &mud : muds) {
-        std::string x = mud["x"];
-        std::string y = mud["y"];
+        std::string x = mud[J_X];
+        std::string y = mud[J_Y];
         entities.put(WorldEntities::Entity::MUD,
                      (int) MULTIPLE * std::stof(x),
                      (int) MULTIPLE * std::stof(y));
     }
-    JSON oils = map["elements"]["oils"];
+    JSON oils = map[J_ELEMENTS][J_OILS];
     for (auto &mud : muds) {
-        std::string x = mud["x"];
-        std::string y = mud["y"];
+        std::string x = mud[J_X];
+        std::string y = mud[J_Y];
         entities.put(WorldEntities::Entity::MUD,
                      (int) MULTIPLE * std::stof(x),
                      (int) MULTIPLE * std::stof(y));
     }
-    JSON boulders = map["elements"]["boulders"];
+    JSON boulders = map[J_ELEMENTS][J_BOULDERS];
     for (auto &mud : muds) {
-        std::string x = mud["x"];
-        std::string y = mud["y"];
+        std::string x = mud[J_X];
+        std::string y = mud[J_Y];
         entities.put(WorldEntities::Entity::MUD,
                      (int) MULTIPLE * std::stof(x),
                      (int) MULTIPLE * std::stof(y));
@@ -69,30 +69,27 @@ void ThFrameDrawer::run() {
 
 void ThFrameDrawer::_draw_frame(JSON &state) {
     try {
-        std::string center_x = state["center"]["x"];
-        std::string center_y = state["center"]["y"];
+        std::string center_x = state[J_CENTER][J_X];
+        std::string center_y = state[J_CENTER][J_Y];
         cam.set_center((int) std::stof(center_x) * MULTIPLE, (int) std::stof(center_y) * MULTIPLE);
 
         cam.prepare_frame();
         entities.clean();
 
-        JSON cars = state["cars"];
+        JSON cars = state[J_CARS];
         for (auto &car : cars) {
-            std::string x = car["x"];
-            std::string y = car["y"];
+            std::string x = car[J_X];
+            std::string y = car[J_Y];
 
             float f_x = std::stof(x.data());
             float f_y = std::stof(y.data());
 
-            std::cout << "x: " << f_x;
-            std::cout << "y: " << f_y << '\n';
-
             f_x *= MULTIPLE;
             f_y *= MULTIPLE;
 
-            std::string angle = car["angle"];
-            std::string playerId = car["id"];
-            std::string moving = car["moving"];
+            std::string angle = car[J_ANGLE];
+            std::string playerId = car[J_ID];
+            std::string moving = car[J_MOVING];
             entities.put(WorldEntities::Entity::CAR,
                          f_x,
                          f_y,
@@ -102,7 +99,7 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
         }
 
         entities.render(cam);
-        std::string lives = state["user"]["lives"];
+        std::string lives = state[J_USER][J_LIVES];
         cam.render_car_lives(std::stoi(lives));
         cam.render_text();
 

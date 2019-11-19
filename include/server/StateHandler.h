@@ -13,7 +13,7 @@ private:
     ClientProxy *messenger;
     bool running;
 public:
-    explicit StateHandler(ClientProxy *messenger);
+    explicit StateHandler(ClientProxy &messenger);
 
     void run() override;
 

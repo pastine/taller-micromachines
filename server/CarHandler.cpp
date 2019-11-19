@@ -1,5 +1,6 @@
 #include <iostream>
 #include <unordered_map>
+#include <common/CommunicationConstants.h>
 #include "server/CarHandler.h"
 
 CarHandler::CarHandler(Car *car) : car(car) {
@@ -37,8 +38,8 @@ CarHandler::~CarHandler() {
 
 std::unordered_map<std::string, std::string> CarHandler::get_position() {
     std::unordered_map<std::string, std::string> center;
-    center.emplace(X, std::to_string(this->car->get_position().x));
-    center.emplace(Y, std::to_string(this->car->get_position().y));
+    center.emplace(J_X, std::to_string(this->car->get_position().x));
+    center.emplace(J_Y, std::to_string(this->car->get_position().y));
     return center;
 }
 
@@ -52,8 +53,8 @@ float32 CarHandler::get_angle() {
 
 std::unordered_map<std::string, std::string> CarHandler::get_user_state() {
     std::unordered_map<std::string, std::string> user;
-    user.emplace("mud", car->get_mud_state());
-    user.emplace("lives", car->get_lives());
+    user.emplace(J_MUDS, car->get_mud_state());
+    user.emplace(J_LIVES, car->get_lives());
     return user;
 }
 

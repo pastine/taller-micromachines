@@ -10,14 +10,7 @@
 #define BOOST 5
 #define HEALTH 6
 #define LIMIT 7
-#define CENTER "center"
-#define USER "user"
-#define ELEMENTS "elements"
-#define X "x"
-#define Y "y"
-#define ANGLE "angle"
-#define ID "id"
-#define MOVING "moving"
+
 
 #define W 6.9
 #define H 5.5
