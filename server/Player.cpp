@@ -46,15 +46,22 @@ void Player::stop() {
 }
 
 std::unordered_map<std::string, std::string> Player::get_position() {
-    auto position = car->get_position();
-    position.emplace(J_ANGLE, std::to_string(car->get_angle()));
-    position.emplace(J_ID, std::to_string(getId()));
+    std::unordered_map<std::string, std::string> position;
+    std::tuple<float, float, float> pos = car->get_position();
+    position.emplace(J_X, std::to_string(std::get<0>(pos)));
+    position.emplace(J_Y, std::to_string(std::get<1>(pos)));
+    position.emplace(J_ANGLE, std::to_string(std::get<2>(pos)));
+    position.emplace(J_ID, getId());
     position.emplace(J_MOVING, std::to_string(car->isMoving()));
     return std::move(position);
 }
 
 void Player::update_status(JSON &status, Track &track) {
-    JSON j_umap(car->get_position());
+    std::unordered_map<std::string, std::string> position;
+    std::tuple<float, float, float> pos = car->get_position();
+    position.emplace(J_X, std::to_string(std::get<0>(pos)));
+    position.emplace(J_Y, std::to_string(std::get<1>(pos)));
+    JSON j_umap(position);
     status[J_CENTER] = j_umap;
     JSON k_umap(car->get_user_state());
     status[J_USER] = k_umap;
@@ -63,8 +70,8 @@ void Player::update_status(JSON &status, Track &track) {
     updater->send(status);
 }
 
-int Player::getId() {
-    return id;
+std::string Player::getId() {
+    return std::to_string(id);
 }
 
 void Player::update_lap_count() {
@@ -95,8 +102,9 @@ void Player::update_lap_count() {
 }
 
 void Player::check_progress(int first, int second) {
-    float x = car->get_x();
-    float y = car->get_y();
+    std::tuple<float, float, float> pos = car->get_position();
+    float x = std::get<0>(pos);
+    float y = std::get<1>(pos);
     std::vector<float> min = flags[first];
     std::vector<float> max = flags[second];
     if ((x >= min[0] || x <= min[1]) && (y >= max[0] || y <= max[1])) {

@@ -48,7 +48,7 @@ void Race::add_player(ClientProxy messenger) {
     Car *car = new Car(world, cars.size());
     CarHandler *handler = new CarHandler(car);
     auto *player = new Player(std::move(messenger), handler);
-    cars.emplace(std::to_string(player->getId()), player);
+    cars.emplace(player->getId(), player);
     player->start();
 }
 

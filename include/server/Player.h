@@ -34,7 +34,7 @@ public:
 
     void update_status(JSON &status, Track &track);
 
-    int getId();
+    std::string getId();
 
     void update_lap_count();
 

@@ -7,6 +7,7 @@
 #include <string>
 #include <unordered_map>
 #include "common/Constants.h"
+#include <tuple>
 
 class CarHandler {
 private:
@@ -17,13 +18,7 @@ public:
 
     void move(MoveType move);
 
-    float get_x();
-
-    float get_y();
-
-    std::unordered_map<std::string, std::string> get_position();
-
-    float32 get_angle();
+    std::tuple<float, float, float> get_position();
 
     void update_surface();
 

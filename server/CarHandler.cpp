@@ -46,19 +46,12 @@ CarHandler::~CarHandler() {
     delete (car);
 }
 
-std::unordered_map<std::string, std::string> CarHandler::get_position() {
-    std::unordered_map<std::string, std::string> center;
-    center.emplace(J_X, std::to_string(this->car->get_position().x));
-    center.emplace(J_Y, std::to_string(this->car->get_position().y));
-    return center;
+std::tuple<float, float, float> CarHandler::get_position() {
+    return {car->get_position().x, car->get_position().y, car->get_angle()};
 }
 
 void CarHandler::update_surface() {
     car->surface_effect();
-}
-
-float32 CarHandler::get_angle() {
-    return car->get_angle();
 }
 
 std::unordered_map<std::string, std::string> CarHandler::get_user_state() {
@@ -66,14 +59,6 @@ std::unordered_map<std::string, std::string> CarHandler::get_user_state() {
     user.emplace(J_MUDS, car->get_mud_state());
     user.emplace(J_LIVES, car->get_lives());
     return user;
-}
-
-float CarHandler::get_x() {
-    return car->get_position().x;
-}
-
-float CarHandler::get_y() {
-    return car->get_position().y;
 }
 
 bool CarHandler::isMoving() {
