@@ -21,8 +21,6 @@ public:
 	int get_entity_type() override;
 
 	void destroy() override;
-
-	~Limit() {}
 };
 
 #endif //TALLER_MICROMACHINES_LIMIT_H

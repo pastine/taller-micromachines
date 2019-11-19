@@ -24,6 +24,7 @@ add_executable(server_test
         Boulder.cpp ../include/server/Boulder.h
         StateHandler.cpp ../include/server/StateHandler.h
         ../include/server/Entity.h
+        Limit.cpp ../include/server/Limit.h
         )
 
 add_library(MiddleManState SHARED mods/libMiddleManState.cpp)
