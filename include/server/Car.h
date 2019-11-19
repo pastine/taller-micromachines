@@ -21,7 +21,7 @@ public:
 
     float32 get_angle();
 
-    void move_forward();
+    void move_straight(bool move_forward);
 
     void stop();
 

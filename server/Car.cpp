@@ -73,28 +73,18 @@ void Car::turn(bool turn_left) {
         car->SetAngularDamping(7);
 }
 
-void Car::move_forward() {
+void Car::move_straight(bool move_forward) {
     float angle = this->get_angle();
     float force = 0;
     b2Vec2 normal = get_forward_normal(angle);
     float currentSpeed = get_speed();
-    if (currentSpeed < max_speed)
+    if (move_forward && currentSpeed < max_speed)
         force = FORCE;
-    car->ApplyLinearImpulse(force * normal, car->GetPosition(), true);
-    car->SetLinearDamping(2);
-}
-
-void Car::stop() {
-    float angle = this->get_angle();
-    b2Vec2 normal = get_forward_normal(angle);
-    float force = 0;
-    float currentSpeed = b2Dot(car->GetLinearVelocity(), normal);
-    if (currentSpeed > min_speed)
+    else if (!move_forward && currentSpeed > min_speed)
         force = -FORCE / 2;
     car->ApplyLinearImpulse(force * normal, car->GetPosition(), true);
     car->SetLinearDamping(2);
 }
-
 
 void Car::start_contact(int id) {
     switch (id) {
@@ -158,7 +148,7 @@ void Car::contact_oil() {
 }
 
 void Car::contact_stone() {
-    this->stop();
+    this->move_straight(false);
     *lives -= 1;
 }
 

@@ -9,10 +9,10 @@ CarHandler::CarHandler(Car *car) : car(car) {
 void CarHandler::move(MoveType move) {
     switch (move) {
         case UP :
-            car->move_forward();
+            car->move_straight(true);
             return;
         case DOWN :
-            car->stop();
+            car->move_straight(false);
             return;
         case LEFT :
             car->turn(true);
@@ -21,20 +21,20 @@ void CarHandler::move(MoveType move) {
             car->turn(false);
             return;
         case UPLEFT :
-            car->move_forward();
+            car->move_straight(true);
             car->turn(true);
             return;
         case UPRIGHT :
-            car->move_forward();
+            car->move_straight(true);
             car->turn(false);
             return;
         case DOWNLEFT :
-            car->stop();
-            car->turn(true);
+            car->move_straight(false);
+            car->turn(false);
             return;
         case DOWNRIGHT :
-            car->stop();
-            car->turn(false);
+            car->move_straight(false);
+            car->turn(true);
             return;
         default:
             std::cout << "default\n";
