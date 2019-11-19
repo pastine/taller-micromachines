@@ -7,6 +7,7 @@
 #define PIXELS_TO_CM 0.01
 #define ZOOM 0.5
 
+
 Camera::Camera() : window(SDLWindow(480, 840)) {
     window.fill(0xFF, 0xFF, 0, 0xFF);
     this->window.render();

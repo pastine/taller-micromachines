@@ -1,7 +1,7 @@
 #include "client/ThFrameDrawer.h"
 #include "common/CommunicationConstants.h"
 
-#define MULTIPLE 10000.0f
+#define MULTIPLE (10000.0f)
 
 ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON &map)
         : state_queue(state_queue) {
@@ -69,9 +69,11 @@ void ThFrameDrawer::run() {
 
 void ThFrameDrawer::_draw_frame(JSON &state) {
     try {
-        std::string center_x = state[J_CENTER][J_X];
-        std::string center_y = state[J_CENTER][J_Y];
-        cam.set_center((int) std::stof(center_x) * MULTIPLE, (int) std::stof(center_y) * MULTIPLE);
+        std::string center_str_x = state[J_CENTER][J_X];
+        std::string center_str_y = state[J_CENTER][J_Y];
+        float center_x = std::stof(center_str_x);
+        float center_y = std::stof(center_str_y);
+        cam.set_center((int) (center_x * MULTIPLE), (int) (center_y * MULTIPLE));
 
         cam.prepare_frame();
         entities.clean();
@@ -80,9 +82,8 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
         for (auto &car : cars) {
             std::string x = car[J_X];
             std::string y = car[J_Y];
-
-            float f_x = std::stof(x.data());
-            float f_y = std::stof(y.data());
+            float f_x = std::stof(x);
+            float f_y = std::stof(y);
 
             f_x *= MULTIPLE;
             f_y *= MULTIPLE;
@@ -91,8 +92,8 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
             std::string playerId = car[J_ID];
             std::string moving = car[J_MOVING];
             entities.put(WorldEntities::Entity::CAR,
-                         f_x,
-                         f_y,
+                         (int) f_x,
+                         (int) f_y,
                          std::stoi(angle),
                          std::stoi(playerId),
                          (bool) std::stoi(moving));
