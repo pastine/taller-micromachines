@@ -13,6 +13,8 @@
 void send_moves(ServerProxy *server, bool up, bool down, bool left, bool right) {
     if (left && up) server->player_move(MoveType::UPLEFT);
     else if (right && up) server->player_move(MoveType::UPRIGHT);
+    else if (left && down) server->player_move(MoveType::DOWNLEFT);
+    else if (right && down) server->player_move(MoveType::DOWNRIGHT);
     else if (up) server->player_move(MoveType::UP);
     else if (down) server->player_move(MoveType::DOWN);
     else if (right) server->player_move(MoveType::RIGHT);

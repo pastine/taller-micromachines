@@ -1,7 +1,9 @@
 #include <iostream>
 #include "common/Constants.h"
 #include "server/Car.h"
+
 #define MAX 50
+#define MIN_TURN_SPEED 10
 #define TORQUE 100
 #define FORCE 15
 #define DEGTORAD 0.0174532925199432957f
@@ -18,32 +20,33 @@ b2Vec2 get_forward_normal(float angle) {
 }
 
 Car::Car(b2World &world, unsigned long i) {
-  b2BodyDef bodyDef;
-  bodyDef.type = b2_dynamicBody;
-  //bodyDef.position.Set(10*i+STARTPOINT_X, 16*i+STARTPOINT_Y);
-	bodyDef.position.Set(0, 0);
-  car = world.CreateBody(&bodyDef);
-  b2Vec2 vertices[4];
-  vertices[0].Set(0.0f, 0.0f);
-  vertices[1].Set(0.29f * 2, 0.0f);
-  vertices[2].Set(0.29f * 2, 0.29f * 2);
-  vertices[3].Set(0.0f, 0.29f * 2);
-  int32 count = 4;
-  b2PolygonShape dynamicBox;
-  dynamicBox.Set(vertices, count);
-  dynamicBox.SetAsBox(0.145f * 2, 0.145f * 2);
-  b2FixtureDef fixtureDef;
-  fixtureDef.shape = &dynamicBox;
-  fixtureDef.density = 55.0f;
-  fixtureDef.friction = 8.0f;
-  fixtureDef.restitution = 0.3f;
-  car->CreateFixture(&fixtureDef);
-  max_speed = MAX;
-  min_speed = -MAX;
-  car->SetUserData(this);
-  track = true;
-  lives = new int(3);
-  visibility = true;
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_dynamicBody;
+    //bodyDef.position.Set(10*i+STARTPOINT_X, 16*i+STARTPOINT_Y);
+    bodyDef.position.Set(0, 0);
+    car = world.CreateBody(&bodyDef);
+    b2Vec2 vertices[4];
+    vertices[0].Set(0.0f, 0.0f);
+    vertices[1].Set(0.29f * 2, 0.0f);
+    vertices[2].Set(0.29f * 2, 0.29f * 2);
+    vertices[3].Set(0.0f, 0.29f * 2);
+    int32 count = 4;
+    b2PolygonShape dynamicBox;
+    dynamicBox.Set(vertices, count);
+    dynamicBox.SetAsBox(0.145f * 2, 0.145f * 2);
+    b2FixtureDef fixtureDef;
+    fixtureDef.shape = &dynamicBox;
+    fixtureDef.density = 55.0f;
+    fixtureDef.friction = 8.0f;
+    fixtureDef.restitution = 0.3f;
+    car->CreateFixture(&fixtureDef);
+    max_speed = MAX;
+    min_speed = -MAX;
+    min_turn_speed = MIN_TURN_SPEED;
+    car->SetUserData(this);
+    track = true;
+    lives = new int(3);
+    visibility = true;
 }
 
 b2Vec2 Car::get_position() {
@@ -57,22 +60,13 @@ float32 Car::get_angle() {
     return angle;
 }
 
-void Car::turn_left(bool accelerate) {
-    if (accelerate) this->move_forward();
+void Car::turn(bool turn_left) {
     float currentSpeed = get_speed();
-    if (currentSpeed < 10) return;
-    car->ApplyTorque(TORQUE,true);
-    car->SetAngularDamping(1);
-    int angle = std::abs(this->get_angle());
-    if (angle <= 3 || (angle >= 87 && angle <= 93) || (angle >= 177))
-        car->SetAngularDamping(7);
-}
-
-void Car::turn_right(bool accelerate) {
-    if (accelerate) this->move_forward();
-    float currentSpeed = get_speed();
-    if (currentSpeed < 10) return;
-    car->ApplyTorque(- TORQUE,true);
+    if (currentSpeed < min_turn_speed && currentSpeed > 0) return;
+    if (turn_left)
+        car->ApplyTorque(TORQUE, true);
+    else
+        car->ApplyTorque(-TORQUE, true);
     car->SetAngularDamping(1);
     int angle = std::abs(this->get_angle());
     if (angle <= 3 || (angle >= 87 && angle <= 93) || (angle >= 177))
@@ -84,23 +78,21 @@ void Car::move_forward() {
     float force = 0;
     b2Vec2 normal = get_forward_normal(angle);
     float currentSpeed = get_speed();
-  if (currentSpeed < max_speed) {
-    force = FORCE;
-  }
-  car->ApplyLinearImpulse(force * normal, car->GetPosition(), true);
-  car->SetLinearDamping(2);
+    if (currentSpeed < max_speed)
+        force = FORCE;
+    car->ApplyLinearImpulse(force * normal, car->GetPosition(), true);
+    car->SetLinearDamping(2);
 }
 
 void Car::stop() {
-	float angle = this->get_angle();
-	b2Vec2 normal = get_forward_normal(angle);
-  float force = 0;
-  float currentSpeed = b2Dot(car->GetLinearVelocity(), normal);
-  if (currentSpeed > min_speed) {
-    force = - FORCE / 2;
-  }
-  car->ApplyLinearImpulse(force * normal, car->GetPosition(), true);
-  car->SetLinearDamping(2);
+    float angle = this->get_angle();
+    b2Vec2 normal = get_forward_normal(angle);
+    float force = 0;
+    float currentSpeed = b2Dot(car->GetLinearVelocity(), normal);
+    if (currentSpeed > min_speed)
+        force = -FORCE / 2;
+    car->ApplyLinearImpulse(force * normal, car->GetPosition(), true);
+    car->SetLinearDamping(2);
 }
 
 

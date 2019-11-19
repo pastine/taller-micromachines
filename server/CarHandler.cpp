@@ -15,16 +15,26 @@ void CarHandler::move(MoveType move) {
             car->stop();
             return;
         case LEFT :
-            car->turn_left(false);
+            car->turn(true);
             return;
         case RIGHT :
-            car->turn_right(false);
+            car->turn(false);
             return;
         case UPLEFT :
-            car->turn_left(true);
+            car->move_forward();
+            car->turn(true);
             return;
         case UPRIGHT :
-            car->turn_right(true);
+            car->move_forward();
+            car->turn(false);
+            return;
+        case DOWNLEFT :
+            car->stop();
+            car->turn(true);
+            return;
+        case DOWNRIGHT :
+            car->stop();
+            car->turn(false);
             return;
         default:
             std::cout << "default\n";
