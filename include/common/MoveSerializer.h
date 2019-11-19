@@ -8,7 +8,7 @@ class MoveSerializer {
 public:
     char serialize(MoveType &move);
 
-    MoveType deserialize(char move);
+    MoveType deserialize(std::string move);
 };
 
 

@@ -13,10 +13,10 @@ class Player : public Thread {
 private:
     ClientProxy messenger;
     CarHandler *car;
-    bool playing;
+    bool playing = true;
     int id;
-    int total_laps;
-    int partial_laps;
+    int total_laps = 0;
+    int partial_laps = 0;
     std::vector<std::vector<float>> flags;
     StateHandler<MoveType> *receiver;
     StateHandler<JSON> *updater;

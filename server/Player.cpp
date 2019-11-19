@@ -18,9 +18,7 @@ void add_boundaries(std::vector<std::vector<float>> &flags) {
 }
 
 Player::Player(ClientProxy messenger, CarHandler *car) :
-        messenger(std::move(messenger)),
-        car(car), playing(true),
-        id(rand_r(&seed) % 9999), total_laps(0), partial_laps(0) {
+        messenger(std::move(messenger)), car(car), id(rand_r(&seed) % 9999) {
     add_boundaries(flags);
     receiver = new StateHandler<MoveType>(this->messenger);
     updater = new StateHandler<JSON>(this->messenger);

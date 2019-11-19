@@ -11,7 +11,7 @@ class StateHandler : public Thread {
 private:
     ProtectedQueue<T> queue;
     ClientProxy *messenger;
-    bool running;
+    bool running = true;
 public:
     explicit StateHandler(ClientProxy &messenger);
 

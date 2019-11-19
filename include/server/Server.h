@@ -12,7 +12,7 @@ class Server : public Thread {
 private:
     ClientAccepter acceptor;
     std::list<Race *> races;
-    bool running;
+    bool running = true;
 
 public:
     explicit Server(std::string &service);

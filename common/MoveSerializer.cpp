@@ -26,8 +26,8 @@ char MoveSerializer::serialize(MoveType &move) {
     throw std::runtime_error(msg);
 }
 
-MoveType MoveSerializer::deserialize(char move) {
-    switch (move) {
+MoveType MoveSerializer::deserialize(std::string move) {
+    switch (move[0]) {
         case 'U':
             return MoveType::UP;
         case 'D':
@@ -47,6 +47,6 @@ MoveType MoveSerializer::deserialize(char move) {
     }
     std::string msg = "MoveSerializer::deserialize -> Not recognized character";
     msg += ": ";
-    msg.append(&move);
+    msg.append(&move[0]);
     throw std::runtime_error(msg);
 }

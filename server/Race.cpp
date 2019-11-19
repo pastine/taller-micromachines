@@ -6,21 +6,8 @@
 
 std::atomic_int Race::RaceCount(1);
 
-JSON Race::get_global_status() {
-    JSON status;
-    JSON car_stats;
-    for (auto it = cars.begin(); it != cars.end(); ++it) {
-        if (!it->second->isAlive()) continue;
-        auto car = it->second->get_position();
-        JSON k_umap(car);
-        car_stats.push_back(k_umap);
-    }
-    status[J_CARS] = car_stats;
-    return status;
-}
-
-Race::Race() : id(RaceCount++), world(b2World({0.0f, 0.0f})), track(world),
-               racing(true), limit(world) {
+Race::Race() : id(RaceCount++), world({0.0f, 0.0f}),
+               track(world), limit(world) {
     world.SetContactListener(&listener);
 }
 
@@ -94,4 +81,17 @@ void Race::reaper() {
 
 bool Race::isAlive() {
     return (racing) && (getPlayerCount() > 0);
+}
+
+JSON Race::get_global_status() {
+    JSON status;
+    JSON car_stats;
+    for (auto it = cars.begin(); it != cars.end(); ++it) {
+        if (!it->second->isAlive()) continue;
+        auto car = it->second->get_position();
+        JSON k_umap(car);
+        car_stats.push_back(k_umap);
+    }
+    status[J_CARS] = car_stats;
+    return status;
 }
