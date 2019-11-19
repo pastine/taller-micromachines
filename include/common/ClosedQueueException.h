@@ -4,12 +4,13 @@
 
 #include <string>
 
-class ClosedQueueException {
+class ClosedQueueException : public std::exception {
 private:
-	std::string description;
+    std::string description;
 public:
-	explicit ClosedQueueException(const char* description);
-	const char* what() const noexcept;
+    explicit ClosedQueueException(const char *description);
+
+    const char *what() const noexcept;
 };
 
 

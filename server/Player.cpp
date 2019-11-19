@@ -5,58 +5,55 @@
 
 uint32_t seed;
 
-void add_boundaries(std::vector<std::vector<float>>& flags) {
-  flags.emplace_back(std::vector<float>{-40.0f, 71.75f});
-  flags.emplace_back(std::vector<float>{-34.5f, 71.75f});
-  flags.emplace_back(std::vector<float>{34.5f, 71.75f});
-  flags.emplace_back(std::vector<float>{34.5f, 77.25f});
-  flags.emplace_back(std::vector<float>{34.5f, -2.75f});
-  flags.emplace_back(std::vector<float>{34.5f, 2.75f});
-  flags.emplace_back(std::vector<float>{-34.5f, -2.75f});
-  flags.emplace_back(std::vector<float>{-34.5f, 2.75f});
+void add_boundaries(std::vector<std::vector<float>> &flags) {
+    flags.emplace_back(std::vector<float>{-40.0f, 71.75f});
+    flags.emplace_back(std::vector<float>{-34.5f, 71.75f});
+    flags.emplace_back(std::vector<float>{34.5f, 71.75f});
+    flags.emplace_back(std::vector<float>{34.5f, 77.25f});
+    flags.emplace_back(std::vector<float>{34.5f, -2.75f});
+    flags.emplace_back(std::vector<float>{34.5f, 2.75f});
+    flags.emplace_back(std::vector<float>{-34.5f, -2.75f});
+    flags.emplace_back(std::vector<float>{-34.5f, 2.75f});
 }
 
-Player::Player(ClientProxy messenger, CarHandler* car) :
-  messenger(std::move(messenger)),
-  car(car), playing(true),
-  id(rand_r(&seed)), total_laps(0), partial_laps(0),
-  flags(std::vector<std::vector<float>>()) {
-  add_boundaries(flags);
-  receiver = new StateHandler<MoveType>(&this->messenger);
-  receiver->start();
-  updater = new StateHandler<JSON>(&this->messenger);
-  updater->start();
+Player::Player(ClientProxy messenger, CarHandler *car) :
+        messenger(std::move(messenger)),
+        car(car), playing(true),
+        id(rand_r(&seed)), total_laps(0), partial_laps(0),
+        flags(std::vector<std::vector<float>>()) {
+    add_boundaries(flags);
+    receiver = new StateHandler<MoveType>(&this->messenger);
+    receiver->start();
+    updater = new StateHandler<JSON>(&this->messenger);
+    updater->start();
 }
 
 void Player::run() {
-	try {
-		while (playing) {
-			car->move(receiver->receive());
-			car->update_surface();
-			this->update_lap_count();
-		}
-	} catch (ClosedQueueException) {
-		playing = false;
-	} catch (...) {
-		std::cout<<"Unknown exception found \n";
-	}
+    while (playing) {
+        try {
+            car->move(receiver->receive());
+            car->update_surface();
+            this->update_lap_count();
+        } catch (...) {
+            stop();
+        }
+    }
 }
 
 void Player::stop() {
-  playing = false;
-  receiver->stop();
-  messenger.shutdown();
+    playing = false;
+    messenger.shutdown();
 }
 
 std::unordered_map<std::string, std::string> Player::get_position() {
-  auto position = car->get_position();
-  position.emplace(ANGLE, std::to_string(car->get_angle()));
-  position.emplace(ID, std::to_string(getId()));
-  position.emplace(MOVING, std::to_string(car->isMoving()));
-  return std::move(position);
+    auto position = car->get_position();
+    position.emplace(ANGLE, std::to_string(car->get_angle()));
+    position.emplace(ID, std::to_string(getId()));
+    position.emplace(MOVING, std::to_string(car->isMoving()));
+    return std::move(position);
 }
 
-void Player::update_status(JSON& status, Track& track) {
+void Player::update_status(JSON &status, Track &track) {
     JSON j_umap(car->get_position());
     status[CENTER] = j_umap;
     JSON k_umap(car->get_user_state());
@@ -67,34 +64,53 @@ void Player::update_status(JSON& status, Track& track) {
 }
 
 int Player::getId() {
-  return id;
+    return id;
 }
 
 void Player::update_lap_count() {
-  int first, second;
-  switch (partial_laps) {
-    case(0): first = 0; second = 1; break;
-    case(1): first = 2; second = 3; break;
-    case(2): first = 4; second = 5; break;
-    case(3): first = 6; second = 7; break;
-    case(4): partial_laps = 0; total_laps ++; return;
-  }
-  this->check_progress(first, second);
+    int first, second;
+    switch (partial_laps) {
+        case (0):
+            first = 0;
+            second = 1;
+            break;
+        case (1):
+            first = 2;
+            second = 3;
+            break;
+        case (2):
+            first = 4;
+            second = 5;
+            break;
+        case (3):
+            first = 6;
+            second = 7;
+            break;
+        case (4):
+            partial_laps = 0;
+            total_laps++;
+            return;
+    }
+    this->check_progress(first, second);
 }
 
 void Player::check_progress(int first, int second) {
-  float x = car->get_x();
-  float y = car->get_y();
-  std::vector<float> min = flags[first];
-  std::vector<float> max = flags[second];
-  if ((x>= min[0] || x<= min[1]) && (y>= max[0] || y<= max[1])) {
-    partial_laps++;
-  }
+    float x = car->get_x();
+    float y = car->get_y();
+    std::vector<float> min = flags[first];
+    std::vector<float> max = flags[second];
+    if ((x >= min[0] || x <= min[1]) && (y >= max[0] || y <= max[1])) {
+        partial_laps++;
+    }
 }
 
 Player::~Player() {
-	delete(car);
-	delete(receiver);
-	delete(updater);
-  this->join();
+    delete (car);
+    delete (receiver);
+    delete (updater);
+    this->join();
+}
+
+bool Player::isAlive() {
+    return playing;
 }

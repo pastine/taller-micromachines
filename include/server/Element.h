@@ -9,19 +9,18 @@ class Element : public Entity {
 public:
 //  static Element* get_element(b2World& world);
 
-  virtual void destroy() = 0;
+    virtual void destroy() = 0;
 
-  virtual int get_entity_type() = 0;
+    virtual int get_entity_type() = 0;
 
-  virtual void start_contact() = 0;
+    virtual void start_contact() = 0;
 
-	virtual void end_contact() = 0;
+    virtual void end_contact() = 0;
 
-	virtual ~Element() {}
+    virtual ~Element() {}
 
-   static std::vector<float> get_random_pos();
+    static std::vector<float> get_random_pos();
 };
-
 
 
 #endif //TALLER_MICROMACHINES_ELEMENT_H

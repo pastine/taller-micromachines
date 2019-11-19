@@ -1,7 +1,7 @@
-#include "server/Mud.h"
+#include "server/Boulder.h"
 #include "common/Constants.h"
 
-Mud::Mud(b2World &world, float x, float y) {
+Boulder::Boulder(b2World &world, float x, float y) {
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(x, y);
@@ -18,23 +18,23 @@ Mud::Mud(b2World &world, float x, float y) {
     m_body->SetUserData(this);
 }
 
-void Mud::start_contact() {
+void Boulder::start_contact() {
     //nothing for me
 }
 
-void Mud::end_contact() {
+void Boulder::end_contact() {
     this->destroy();
 }
 
-void Mud::destroy() {
+void Boulder::destroy() {
     //m_body->GetWorld()->DestroyBody(m_body);
 }
 
-int Mud::get_entity_type() {
-    return MUD;
+int Boulder::get_entity_type() {
+    return STONE;
 }
 
-b2Vec2 Mud::get_position() {
+b2Vec2 Boulder::get_position() {
     return m_body->GetPosition();
 }
 

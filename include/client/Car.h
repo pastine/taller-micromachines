@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 18/10/19.
-//
-
 #ifndef TALLER_MICROMACHINES_CAR_H
 #define TALLER_MICROMACHINES_CAR_H
 
@@ -18,13 +14,14 @@ private:
     CarFrameResolver frames;
     int w;
     int h;
-    SDLTexture* texture;
-    std::vector<std::tuple<int,int,int>> colors;
+    SDLTexture *texture;
+    std::vector<std::tuple<int, int, int>> colors;
     int resize_factor;
 public:
     Car();
-    void render(SDL_Renderer* renderer, int x, int y,
-            int angle = 0, int id = 0, bool moving = false);
+
+    void render(SDL_Renderer *renderer, int x, int y,
+                int angle = 0, int id = 0, bool moving = false);
 };
 
 

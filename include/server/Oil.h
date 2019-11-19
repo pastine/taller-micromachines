@@ -7,17 +7,18 @@
 
 class Oil : public Element {
 private:
-	b2Body* m_body;
+    b2Body *m_body;
 public:
-	explicit Oil(b2World& world, float x, float y);
+    explicit Oil(b2World &world, float x, float y);
 
-	void start_contact() override;
+    void start_contact() override;
 
-	void end_contact() override;
+    void end_contact() override;
 
-	void destroy() override;
+    void destroy() override;
 
-	int get_entity_type() override;
+    int get_entity_type() override;
+
     b2Vec2 get_position() override;
 };
 

@@ -8,7 +8,7 @@ Audio::Audio() {
     int err_code = SDL_Init(SDL_INIT_AUDIO);
     if (err_code) throw SDLException("Can't initialize audio", SDL_GetError());
 
-    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0)
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
         throw SDLException("Can't initialize mixer", Mix_GetError());
 
     Mix_Music *background = Mix_LoadMUS("client/audio/background.wav");

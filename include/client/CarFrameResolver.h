@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 18/10/19.
-//
-
 #ifndef TALLER_MICROMACHINES_CARFRAMERESOLVER_H
 #define TALLER_MICROMACHINES_CARFRAMERESOLVER_H
 
@@ -13,7 +9,9 @@
 class CarFrameResolver {
 public:
     CarFrameResolver();
-    Area& resolve_frame(int angle, bool moving);
+
+    Area &resolve_frame(int angle, bool moving);
+
 private:
     std::vector<Area> straight_up_frames;
     std::vector<Area> straight_down_frames;

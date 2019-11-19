@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 1/11/19.
-//
-
 #ifndef TALLER_MICROMACHINES_THSTATERECEIVER_H
 #define TALLER_MICROMACHINES_THSTATERECEIVER_H
 
@@ -12,12 +8,15 @@
 
 class ThStateReceiver : public Thread {
 public:
-    ThStateReceiver(ServerProxy* proxy, ProtectedQueue<JSON>* state_queue);
+    ThStateReceiver(ServerProxy *proxy, ProtectedQueue<JSON> *state_queue);
+
     void run() override;
+
     void stop() override;
+
 private:
-    ProtectedQueue<JSON>* state_queue;
-    ServerProxy* server;
+    ProtectedQueue<JSON> *state_queue;
+    ServerProxy *server;
     bool done;
 };
 

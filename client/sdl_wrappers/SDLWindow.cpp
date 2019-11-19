@@ -1,6 +1,3 @@
-//
-// Created by casimiro on 17/10/19.
-//
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL_render.h>
@@ -43,7 +40,7 @@ void SDLWindow::render() {
     SDL_RenderPresent(this->renderer);
 }
 
-SDL_Renderer* SDLWindow::get_renderer() const {
+SDL_Renderer *SDLWindow::get_renderer() const {
     return this->renderer;
 }
 

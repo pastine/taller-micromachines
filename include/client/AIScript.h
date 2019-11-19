@@ -10,8 +10,11 @@ const char EXTENSION[] = ".lua";
 class AIScript : public LuaFile {
 public:
     explicit AIScript(std::string scriptName) : LuaFile(DIRECTORY + scriptName + EXTENSION) {}
+
     int index = 1;
+
     int getNextMove();
+
     int getMove(int i);
 };
 

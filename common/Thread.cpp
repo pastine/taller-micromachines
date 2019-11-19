@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 28/9/19.
-//
-
 #include "common/Thread.h"
 
 
@@ -11,7 +7,7 @@ Thread::Thread(Thread &&other) {
     other.is_alive = false;
 }
 
-Thread& Thread::operator=(Thread &&other) {
+Thread &Thread::operator=(Thread &&other) {
     if (this == &other) return *this;
     this->thread = std::move(other.thread);
     this->is_alive = true;

@@ -11,34 +11,36 @@
 
 class Player : public Thread {
 private:
-  ClientProxy messenger;
-  CarHandler* car;
-  bool playing;
-  int id;
-  int total_laps;
-  int partial_laps;
-  std::vector<std::vector<float>> flags;
-	StateHandler<MoveType>* receiver;
-    StateHandler<JSON>* updater;
+    ClientProxy messenger;
+    CarHandler *car;
+    bool playing;
+    int id;
+    int total_laps;
+    int partial_laps;
+    std::vector<std::vector<float>> flags;
+    StateHandler<MoveType> *receiver;
+    StateHandler<JSON> *updater;
 
 public:
-  Player(ClientProxy messenger, CarHandler* car);
+    Player(ClientProxy messenger, CarHandler *car);
 
-  virtual void run();
+    virtual void run();
 
-  virtual void stop();
+    virtual void stop();
 
-  ~Player();
+    ~Player();
 
-  std::unordered_map<std::string, std::string> get_position();
+    std::unordered_map<std::string, std::string> get_position();
 
-  void update_status(JSON &status, Track& track);
+    void update_status(JSON &status, Track &track);
 
-  int getId();
+    int getId();
 
-  void update_lap_count();
+    void update_lap_count();
 
-  void check_progress(int first, int second);
+    void check_progress(int first, int second);
+
+    bool isAlive();
 };
 
 

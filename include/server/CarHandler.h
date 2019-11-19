@@ -10,26 +10,26 @@
 
 class CarHandler {
 private:
-  Car* car;
+    Car *car;
 
 public:
-  explicit CarHandler(Car* car);
+    explicit CarHandler(Car *car);
 
-  void move(MoveType move);
+    void move(MoveType move);
 
-  float get_x();
+    float get_x();
 
-  float get_y();
+    float get_y();
 
-	std::unordered_map<std::string, std::string> get_position();
+    std::unordered_map<std::string, std::string> get_position();
 
-  float32 get_angle();
+    float32 get_angle();
 
-  void update_surface();
+    void update_surface();
 
-  ~CarHandler();
+    ~CarHandler();
 
-	std::unordered_map<std::string, std::string> get_user_state();
+    std::unordered_map<std::string, std::string> get_user_state();
 
     bool isMoving();
 };

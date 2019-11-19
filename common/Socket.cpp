@@ -17,7 +17,7 @@ Socket::Socket(Socket &&other) {
     other.skt_fd = -1;
 }
 
-addrinfo* Socket::_get_address_list(const char *host, const char* service) {
+addrinfo *Socket::_get_address_list(const char *host, const char *service) {
     struct addrinfo hints;
     struct addrinfo *addr_list;
     memset(&hints, 0, sizeof hints);
@@ -29,12 +29,12 @@ addrinfo* Socket::_get_address_list(const char *host, const char* service) {
     int err = getaddrinfo(host, service, &hints, &addr_list);
     if (err != 0) {
         std::cout << gai_strerror(err) << "\n";
-        return NULL;
+        return nullptr;
     }
     return addr_list;
 }
 
-int Socket::_try_addrinfo_connections(struct addrinfo* addr_list) {
+int Socket::_try_addrinfo_connections(struct addrinfo *addr_list) {
     // we are trying to connect to each address,
     // stoping (and using) the first one we can connect to.
     int skt_temp = -1;
@@ -56,9 +56,9 @@ int Socket::_try_addrinfo_connections(struct addrinfo* addr_list) {
     return skt_temp;
 }
 
-void Socket::connect_to(std::string& host, std::string& service) {
-    const char* _host = host.data();
-    const char* _service = service.data();
+void Socket::connect_to(std::string &host, std::string &service) {
+    const char *_host = host.data();
+    const char *_service = service.data();
     struct addrinfo *addr_list = this->_get_address_list(_host, _service);
     if (!addr_list) throw std::runtime_error("No address list available");
 
@@ -70,25 +70,25 @@ void Socket::connect_to(std::string& host, std::string& service) {
 }
 
 void Socket::bind_and_listen(std::string &service) {
-    const char* _service = service.data();
-    struct addrinfo *addr_list = _get_address_list(NULL, _service);
-    if (! addr_list) throw std::runtime_error("No address list available");
+    const char *_service = service.data();
+    struct addrinfo *addr_list = _get_address_list(nullptr, _service);
+    if (!addr_list) throw std::runtime_error("No address list available");
 
     int skt_fd_tmp = -1;
     struct addrinfo *ptr;
     for (ptr = addr_list; ptr != nullptr; ptr = ptr->ai_next) {
         skt_fd_tmp = socket(ptr->ai_family,
-                             ptr->ai_socktype,
-                             ptr->ai_protocol);
+                            ptr->ai_socktype,
+                            ptr->ai_protocol);
         if (skt_fd_tmp < 0) break;
 
-      if (bind(skt_fd_tmp, addr_list->ai_addr, addr_list->ai_addrlen) == 0) {
+        if (bind(skt_fd_tmp, addr_list->ai_addr, addr_list->ai_addrlen) == 0) {
             break;
         }
 
         close(skt_fd_tmp);
     }
-  freeaddrinfo(addr_list);
+    freeaddrinfo(addr_list);
 
     if (skt_fd_tmp < 0)
         throw std::runtime_error("Failed to create the socket");
@@ -101,8 +101,8 @@ void Socket::bind_and_listen(std::string &service) {
 
 Socket Socket::accept_connection() {
     Socket other;
-    other.skt_fd = accept(this->skt_fd, NULL, NULL);
-    if (other.skt_fd < 0){
+    other.skt_fd = accept(this->skt_fd, nullptr, nullptr);
+    if (other.skt_fd < 0) {
         std::string err = "Socket can't accept client: ";
         err += strerror(errno);
         throw std::runtime_error(err);
@@ -150,7 +150,7 @@ Socket::~Socket() {
     }
 }
 
-Socket& Socket::operator=(Socket &&other) {
+Socket &Socket::operator=(Socket &&other) {
     if (this == &other) return *this;
     this->skt_fd = other.skt_fd;
     other.skt_fd = -1;

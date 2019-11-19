@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 8/11/19.
-//
-
 #ifndef TALLER_MICROMACHINES_STRAIGHTROAD_H
 #define TALLER_MICROMACHINES_STRAIGHTROAD_H
 
@@ -11,8 +7,6 @@
 class StraightRoad : public StaticRenderizable {
 public:
     StraightRoad();
-
-    void render(SDL_Renderer *renderer, int x, int y, int angle);
 };
 
 

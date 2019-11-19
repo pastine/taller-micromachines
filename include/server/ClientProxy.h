@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 30/10/19.
-//
-
 #ifndef TALLER_MICROMACHINES_CLIENTPROXY_H
 #define TALLER_MICROMACHINES_CLIENTPROXY_H
 
@@ -19,24 +15,28 @@
 class ClientProxy {
 public:
     explicit ClientProxy(Communication comm);
-    void send_state(JSON& state);
+
+    void send_state(JSON &state);
+
     MoveType get_move();
 
     // can't be copied
-    ClientProxy& operator=(const ClientProxy& other) = delete;
-    ClientProxy(const ClientProxy& other) = delete;
+    ClientProxy &operator=(const ClientProxy &other) = delete;
+
+    ClientProxy(const ClientProxy &other) = delete;
 
     // movement
-    ClientProxy(ClientProxy&& other);
-    ClientProxy& operator=(ClientProxy&& other);
+    ClientProxy(ClientProxy &&other);
+
+    ClientProxy &operator=(ClientProxy &&other);
 
     // shutdown communication
     void shutdown();
 
-    ~ClientProxy(){}
+    ~ClientProxy() {}
 
     // Returns the id of the race to be joined or 0 to create one
-    int handshake(std::map<int,int> races_ids_players);
+    int handshake(std::map<int, int> races_ids_players);
 
     void send_track(Track track);
 

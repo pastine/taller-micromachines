@@ -1,15 +1,11 @@
-//
-// Created by casimiro on 17/10/19.
-//
-
 #include <iostream>
 #include "client/SDLTextureLoader.h"
 #include "client/SDLException.h"
 
 
-SDLTextureLoader* SDLTextureLoader::instance = nullptr;
+SDLTextureLoader *SDLTextureLoader::instance = nullptr;
 
-SDLTextureLoader* SDLTextureLoader::get_loader() {
+SDLTextureLoader *SDLTextureLoader::get_loader() {
     if (instance) return instance;
     throw std::runtime_error("Trying to get the TextureLoader while not being initialized");
 }
@@ -24,7 +20,7 @@ SDLTextureLoader::SDLTextureLoader(SDL_Renderer *renderer) : renderer(renderer) 
 
 SDLTextureLoader::~SDLTextureLoader() {}
 
-SDLTexture* SDLTextureLoader::get_texture(std::string &path) {
+SDLTexture *SDLTextureLoader::get_texture(std::string &path) {
     std::map<std::string, SDLTexture>::iterator it;
 
     // get the SDLTexture or load it from the file
@@ -33,12 +29,12 @@ SDLTexture* SDLTextureLoader::get_texture(std::string &path) {
         this->_load_from_file(path);
     }
     it = this->textures.find(path);
-    if (it == this->textures.end()) throw SDLException("Unexpected error in get_texture", 0);
+    if (it == this->textures.end()) throw SDLException("Unexpected error in get_texture", nullptr);
     return &(*it).second;
 }
 
 void SDLTextureLoader::_load_from_file(std::string &path) {
-    SDL_Surface* loaded_surface = IMG_Load(path.data());
+    SDL_Surface *loaded_surface = IMG_Load(path.data());
     if (!loaded_surface) {
         std::string err_msg = "Couldn't load surface from: ";
         err_msg += path;
@@ -46,7 +42,7 @@ void SDLTextureLoader::_load_from_file(std::string &path) {
     }
 
     // transform the surface to a texture
-    SDL_Texture* new_texture = nullptr;
+    SDL_Texture *new_texture = nullptr;
     new_texture = SDL_CreateTextureFromSurface(this->renderer, loaded_surface);
     if (!new_texture) {
         std::string err_msg = "Couldn't convert to texture from file: ";

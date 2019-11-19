@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 17/10/19.
-//
-
 #include <SDL2/SDL.h>
 #include <iostream>
 #include "client/SDLTexture.h"
@@ -10,9 +6,9 @@
 SDLTexture::SDLTexture(SDL_Texture *texture,
                        int width,
                        int height) :
-                       texture(texture),
-                       width(width),
-                       height(height) {}
+        texture(texture),
+        width(width),
+        height(height) {}
 
 SDLTexture::~SDLTexture() {
     if (texture) {
@@ -23,7 +19,7 @@ SDLTexture::~SDLTexture() {
     }
 }
 
-void SDLTexture::render_flipped(SDL_Renderer* renderer,
+void SDLTexture::render_flipped(SDL_Renderer *renderer,
                                 Area &src, Area &dest,
                                 SDL_RendererFlip flip) {
     SDL_Rect render_from = {
@@ -39,7 +35,7 @@ void SDLTexture::render_flipped(SDL_Renderer* renderer,
                              &render_from,
                              &render_to,
                              0,
-                             NULL,
+                             nullptr,
                              flip);
     if (s) {
         std::string err_msg = "Error while rendering texture";
@@ -47,7 +43,7 @@ void SDLTexture::render_flipped(SDL_Renderer* renderer,
     }
 }
 
-void SDLTexture::render(SDL_Renderer* renderer, Area& src, Area& dest, float angle) {
+void SDLTexture::render(SDL_Renderer *renderer, Area &src, Area &dest, float angle) {
     SDL_Rect render_from = {
             src.getX(), src.getY(),
             src.getWidth(), src.getHeight()
@@ -58,12 +54,12 @@ void SDLTexture::render(SDL_Renderer* renderer, Area& src, Area& dest, float ang
     };
 
     int s = SDL_RenderCopyEx(renderer,
-                           this->texture,
-                           &render_from,
-                           &render_to,
-                           (double) angle,
-                           NULL,
-                           SDL_FLIP_NONE);
+                             this->texture,
+                             &render_from,
+                             &render_to,
+                             (double) angle,
+                             nullptr,
+                             SDL_FLIP_NONE);
     if (s) {
         std::string err_msg = "Error while rendering texture";
         throw SDLException(err_msg.data(), SDL_GetError());
@@ -76,7 +72,7 @@ SDLTexture::SDLTexture(SDLTexture &&other) {
     this->height = other.height;
     other.height = 0;
     this->texture = other.texture;
-    other.texture = NULL;
+    other.texture = nullptr;
 }
 
 SDLTexture &SDLTexture::operator=(SDLTexture &&other) {
@@ -86,10 +82,10 @@ SDLTexture &SDLTexture::operator=(SDLTexture &&other) {
     this->height = other.height;
     other.height = 0;
     this->texture = other.texture;
-    other.texture = NULL;
+    other.texture = nullptr;
     return *this;
 }
 
-void SDLTexture::change_color(std::tuple<int,int,int> t) {
-    SDL_SetTextureColorMod(this->texture, std::get<0>(t),std::get<1>(t),std::get<2>(t));
+void SDLTexture::change_color(std::tuple<int, int, int> t) {
+    SDL_SetTextureColorMod(this->texture, std::get<0>(t), std::get<1>(t), std::get<2>(t));
 }

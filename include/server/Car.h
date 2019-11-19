@@ -1,72 +1,69 @@
 #ifndef TALLER_MICROMACHINES_CAR_H
 #define TALLER_MICROMACHINES_CAR_H
+
 #include "Box2D/Box2D.h"
 #include "Entity.h"
 #include <string>
 
 class Car : public Entity {
 private:
-  b2Body* car;
-  float max_speed;
-  float min_speed;
-  bool track;
-  int* lives;
-  bool visibility;
+    b2Body *car;
+    float max_speed;
+    float min_speed;
+    bool track;
+    int *lives;
+    bool visibility;
 
 public:
-  explicit Car(b2World &world, unsigned long i);
+    explicit Car(b2World &world, unsigned long i);
 
-  b2Vec2 get_position() override;
+    b2Vec2 get_position() override;
 
-  float32 get_angle();
+    float32 get_angle();
 
-  b2Vec2 get_lateral_velocity();
+    void move_forward();
 
-  b2Vec2 get_forward_velocity();
+    void stop();
 
-  void move_forward();
+    void start_contact(int id);
 
-  void stop();
+    void end_contact(int id);
 
-  void start_contact(int id);
+    virtual ~Car();
 
-  void end_contact(int id);
+    void turn_right(bool b);
 
-  virtual ~Car();
+    void on_track();
 
-  void turn_right(bool b);
+    void off_track();
 
-  void on_track();
+    void surface_effect();
 
-  void off_track();
+    void turn_left(bool b);
 
-  void surface_effect();
+    int get_entity_type() override;
 
-  void turn_left(bool b);
+    void contact_mud();
 
-	int get_entity_type() override;
+    void contact_oil();
 
-	void contact_mud();
+    void contact_stone();
 
-	void contact_oil();
+    void contact_health();
 
-	void contact_stone();
+    void contact_boost();
 
-	void contact_health();
+    void contact_car();
 
-	void contact_boost();
+    std::string get_lives();
 
-	void contact_car();
-
-	std::string get_lives();
-
-	std::string get_mud_state();
+    std::string get_mud_state();
 
     float get_speed();
 
     bool isMoving();
 
-	void contact_limit();
+    void contact_limit();
 };
 
 

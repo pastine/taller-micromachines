@@ -12,7 +12,7 @@ class RacesSerializer {
 public:
     std::string serialize(std::map<int, int> races);
 
-    JSON deserialize(std::string basicString);
+    JSON deserialize(std::string &basicString);
 };
 
 

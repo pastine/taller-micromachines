@@ -1,9 +1,4 @@
-//
-// Created by casimiro on 17/10/19.
-//
-
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_mixer.h>
 #include <iostream>
 #include <QtWidgets/QApplication>
 #include <client/ServerProxy.h>
@@ -13,7 +8,6 @@
 #include <map>
 #include "client/SDLException.h"
 #include "client/Launcher.h"
-#include "client/Audio.h"
 #include "client/AIScript.h"
 
 void send_moves(ServerProxy *server, bool up, bool down, bool left, bool right) {
@@ -25,13 +19,13 @@ void send_moves(ServerProxy *server, bool up, bool down, bool left, bool right) 
     else if (left) server->player_move(MoveType::LEFT);
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
     try {
         std::string host(argv[1]);
         std::string service(argv[2]);
         ServerProxy server(host, service);
 
-        std::map<std::string,int> races_ids_players = server.handshake();
+        std::map<std::string, int> races_ids_players = server.handshake();
         int retValue = -1;
         bool playwithbot = 0;
         QApplication app(argc, argv);
@@ -58,7 +52,7 @@ int main(int argc, char** argv) {
             send_moves(&server, up, down, left, right);
             if (playwithbot) {
                 int move = script.getNextMove();
-                for (int i = 0; i <20; i++) {
+                for (int i = 0; i < 20; i++) {
                     server.player_move(static_cast<MoveType>(move));
                     SDL_Delay(5);
                 }
@@ -72,30 +66,38 @@ int main(int argc, char** argv) {
                         running = false;
                         break;
                     case SDL_KEYDOWN: {
-                        SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
+                        SDL_KeyboardEvent &keyEvent = (SDL_KeyboardEvent &) event;
                         switch (keyEvent.keysym.sym) {
                             case SDLK_LEFT:
-                                left = true; break;
+                                left = true;
+                                break;
                             case SDLK_RIGHT:
-                                right = true; break;
+                                right = true;
+                                break;
                             case SDLK_UP:
-                                up = true; break;
+                                up = true;
+                                break;
                             case SDLK_DOWN:
-                                down = true; break;
+                                down = true;
+                                break;
                         }
                         break;
                     }
                     case SDL_KEYUP: {
-                        SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
+                        SDL_KeyboardEvent &keyEvent = (SDL_KeyboardEvent &) event;
                         switch (keyEvent.keysym.sym) {
                             case SDLK_LEFT:
-                                left = false; break;
+                                left = false;
+                                break;
                             case SDLK_RIGHT:
-                                right = false; break;
+                                right = false;
+                                break;
                             case SDLK_UP:
-                                up = false; break;
+                                up = false;
+                                break;
                             case SDLK_DOWN:
-                                down = false; break;
+                                down = false;
+                                break;
                         }
                         break;
                     }
@@ -109,7 +111,7 @@ int main(int argc, char** argv) {
         frame_drawer.stop();
         state_receiver.join();
         frame_drawer.join();
-    } catch (SDLException& e) {
+    } catch (SDLException &e) {
         std::cout << e.what() << '\n';
     }
 }

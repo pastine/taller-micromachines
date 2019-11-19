@@ -11,8 +11,8 @@
 #include <string>
 #include <vector>
 
-class Race :public Thread {
-  static std::atomic_int RaceCount;
+class Race : public Thread {
+    static std::atomic_int RaceCount;
 
 private:
   int id;
@@ -24,21 +24,27 @@ private:
   Limit limit;
 
 public:
-  Race();
+    Race();
 
-  virtual void run();
+    virtual void run();
 
-  void add_player(ClientProxy messenger);
+    void add_player(ClientProxy messenger);
 
-  virtual void stop();
+    void reaper();
 
-  ~Race();
+    virtual void stop();
 
-  int getId();
+    ~Race();
 
-  Track getTrack();
+    int getId();
 
-  int getPlayerCount();
+    Track getTrack();
+
+    int getPlayerCount();
+
+    JSON get_global_status();
+
+    bool isAlive();
 };
 
 

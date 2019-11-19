@@ -10,20 +10,26 @@
 
 class Server : public Thread {
 private:
-  ClientAccepter acceptor;
-  std::list<Race*> races;
-  bool running;
+    ClientAccepter acceptor;
+    std::list<Race *> races;
+    bool running;
 
 public:
-  explicit Server(std::string& service);
+    explicit Server(std::string &service);
 
-  virtual void run();
+    virtual void run();
 
-  virtual void stop();
+    virtual void stop();
 
-  ~Server();
+    ~Server();
 
     void reaper();
+
+    void create_race(ClientProxy &proxy);
+
+    void add_player_to_race(ClientProxy &new_client, int id);
+
+    int handshake(ClientProxy &new_client);
 };
 
 

@@ -7,14 +7,14 @@
 #define DEGTORAD 0.0174532925199432957f
 
 b2Vec2 get_forward_normal(float angle) {
-	float correction = 1;
-	if (angle > 0) {correction = -1;}
-	angle = abs(angle);
-	angle *= DEGTORAD;
-	b2Vec2 normal;
-	normal.x = sin(angle) * correction;
-	normal.y = cos(angle);
-	return normal;
+    float correction = 1;
+    if (angle > 0) { correction = -1; }
+    angle = abs(angle);
+    angle *= DEGTORAD;
+    b2Vec2 normal;
+    normal.x = sin(angle) * correction;
+    normal.y = cos(angle);
+    return normal;
 }
 
 Car::Car(b2World &world, unsigned long i) {
@@ -47,14 +47,14 @@ Car::Car(b2World &world, unsigned long i) {
 }
 
 b2Vec2 Car::get_position() {
-  return car->GetPosition();
+    return car->GetPosition();
 }
 
 float32 Car::get_angle() {
-  float32 angle = car->GetAngle();
-  while (angle < -180) {angle += 360;}
-  while (angle > 180) {angle -= 360;}
-  return angle;
+    float32 angle = car->GetAngle();
+    while (angle < -180) { angle += 360; }
+    while (angle > 180) { angle -= 360; }
+    return angle;
 }
 
 void Car::turn_left(bool accelerate) {
@@ -97,77 +97,94 @@ void Car::stop() {
   float force = 0;
   float currentSpeed = b2Dot(car->GetLinearVelocity(), normal);
   if (currentSpeed > min_speed) {
-    force = - FORCE;
+    force = - FORCE / 2;
   }
   car->ApplyLinearImpulse(force * normal, car->GetPosition(), true);
   car->SetLinearDamping(2);
 }
 
+
 void Car::start_contact(int id) {
-	switch (id) {
-		case TRACK : this->on_track(); return;
-		case CAR : this->contact_car(); return;
-		case MUD : this->contact_mud(); return;
-		case OIL : this->contact_oil(); return;
-		case STONE: this->contact_stone(); return;
-		case HEALTH: this->contact_health(); return;
-		case BOOST: this->contact_boost(); return;
-		case LIMIT: this->contact_limit(); return;
-		default: return;
-	}
+    switch (id) {
+        case TRACK :
+            this->on_track();
+            return;
+        case CAR :
+            this->contact_car();
+            return;
+        case MUD :
+            this->contact_mud();
+            return;
+        case OIL :
+            this->contact_oil();
+            return;
+        case STONE:
+            this->contact_stone();
+            return;
+        case HEALTH:
+            this->contact_health();
+            return;
+        case BOOST:
+            this->contact_boost();
+            return;
+        case LIMIT:
+            this->contact_limit();
+            return;
+        default:
+            return;
+    }
 }
 
 void Car::end_contact(int id) {
-	if(id == 0) {
-		this->off_track();
-	}
-	return;
+    if (id == 0) {
+        this->off_track();
+    }
 }
 
 void Car::on_track() {
-  track = true;
-  if (track) {std::cout<<"on track----------\n";}
+    track = true;
+    if (track) { std::cout << "on track----------\n"; }
 }
 
 void Car::off_track() {
-  track = false;
-	if (!track) {std::cout<<"off track----------\n";}
+    track = false;
+    if (!track) { std::cout << "off track----------\n"; }
 }
 
 void Car::contact_car() {
-	*lives-=1;
+    *lives -= 1;
 }
 
 void Car::contact_mud() {
-	visibility = false;
+    visibility = false;
 }
 
 void Car::contact_oil() {
-	float friction = car->GetFixtureList()->GetFriction();
-	friction -= 0.3;
-	car->GetFixtureList()->SetFriction(friction);
+    float friction = car->GetFixtureList()->GetFriction();
+    friction -= 0.3;
+    car->GetFixtureList()->SetFriction(friction);
 }
 
 void Car::contact_stone() {
-	this->stop();
-    *lives-=1;
+    this->stop();
+    *lives -= 1;
 }
 
 void Car::contact_health() {
-	if(*lives < 3) {*lives+=1;}
+    if (*lives < 3) { *lives += 1; }
 }
 
 void Car::contact_boost() {
-	float angle = this->get_angle();
-	b2Vec2 normal = get_forward_normal(angle);
-	float force = 1000;
-	car->ApplyForce(force * normal, car->GetPosition(), true);
-	car->SetLinearDamping(1.0);
+    float angle = this->get_angle();
+    b2Vec2 normal = get_forward_normal(angle);
+    float force = 1000;
+    car->ApplyForce(force * normal, car->GetPosition(), true);
+    car->SetLinearDamping(1.0);
 }
 
 
 int Car::get_entity_type() {
-	return CAR;
+    return CAR;
 }
 
 
@@ -181,19 +198,19 @@ void Car::surface_effect() {
 }
 
 std::string Car::get_lives() {
-	return std::to_string(*lives);
+    return std::to_string(*lives);
 }
 
 std::string Car::get_mud_state() {
-	if (!visibility) {
-		visibility = true;
-		return "true";
-	}
-	return "false";
+    if (!visibility) {
+        visibility = true;
+        return "true";
+    }
+    return "false";
 }
 
 Car::~Car() {
-	delete(lives);
+    delete (lives);
 }
 
 float Car::get_speed() {
@@ -207,6 +224,6 @@ bool Car::isMoving() {
 }
 
 void Car::contact_limit() {
-	std::cout<<"car on limit\n";
+    std::cout << "car on limit\n";
 }
 

@@ -6,22 +6,24 @@
 #include <common/ProtectedQueue.h>
 #include "ClientProxy.h"
 
-template <class T> class StateHandler : public Thread {
+template<class T>
+class StateHandler : public Thread {
 private:
-	ProtectedQueue<T>* queue;
-	ClientProxy* messenger;
-	bool running;
+    ProtectedQueue<T> *queue;
+    ClientProxy *messenger;
+    bool running;
 public:
-	explicit StateHandler(ClientProxy* messenger);
+    explicit StateHandler(ClientProxy *messenger);
 
-	void run() override;
+    void run() override;
 
-	void stop() override;
+    void stop() override;
 
-	T receive();
-	void send(T block);
+    T receive();
 
-	~StateHandler();
+    void send(T block);
+
+    ~StateHandler();
 
     void work();
 };

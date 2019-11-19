@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 10/11/19.
-//
-
 #ifndef TALLER_MICROMACHINES_CARLIVESDRAWER_H
 #define TALLER_MICROMACHINES_CARLIVESDRAWER_H
 
@@ -10,7 +6,8 @@
 
 class CarLivesDrawer {
 public:
-    void draw_lives(int num_of_lives, SDL_Renderer* renderer);
+    void draw_lives(int num_of_lives, SDL_Renderer *renderer);
+
 private:
     Heart heart;
 };

@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 23/10/19.
-//
-
 #include "client/Oil.h"
 #include "client/SDLTextureLoader.h"
 
@@ -11,7 +7,7 @@ Oil::Oil() : StaticRenderizable() {
     img_x = 0;
     img_y = 0;
     resize_factor = 0.25;
-    SDLTextureLoader *loader =  SDLTextureLoader::get_loader();
+    SDLTextureLoader *loader = SDLTextureLoader::get_loader();
     std::string path = "client/img/oil.png";
     this->texture = loader->get_texture(path);
 }

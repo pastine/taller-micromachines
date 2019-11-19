@@ -10,6 +10,6 @@ std::string RacesSerializer::serialize(std::map<int, int> races) {
     return j_races.dump();
 }
 
-JSON RacesSerializer::deserialize(std::string basicString) {
+JSON RacesSerializer::deserialize(std::string &basicString) {
     return JSON::parse(basicString.data());
 }

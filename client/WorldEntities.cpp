@@ -1,12 +1,8 @@
-//
-// Created by casimiro on 26/10/19.
-//
-
 #include <tuple>
 #include "client/WorldEntities.h"
 
 void WorldEntities::put(WorldEntities::Entity entity, int x, int y,
-        int angle, int id, bool moving) {
+                        int angle, int id, bool moving) {
     switch (entity) {
         case Entity::CAR:
             car_positions.emplace_back(x, y, angle, id, moving);
@@ -55,7 +51,7 @@ void WorldEntities::render(Camera &camera) {
     _render_simple_object(this->heart_positions, this->heart, camera);
 
 
-    for (const std::tuple<int, int, int, int, bool>& car_pos : car_positions)
+    for (const std::tuple<int, int, int, int, bool> &car_pos : car_positions)
         camera.render_object(this->car,
                              std::get<0>(car_pos),
                              std::get<1>(car_pos),
@@ -65,8 +61,8 @@ void WorldEntities::render(Camera &camera) {
 }
 
 void WorldEntities::_render_simple_object(
-        std::vector<std::tuple<int, int>> &positions, Renderizable& object, Camera &camera) {
-    for (const std::tuple<int, int>& object_pos : positions)
+        std::vector<std::tuple<int, int>> &positions, Renderizable &object, Camera &camera) {
+    for (const std::tuple<int, int> &object_pos : positions)
         camera.render_object(object,
                              std::get<0>(object_pos),
                              std::get<1>(object_pos));
