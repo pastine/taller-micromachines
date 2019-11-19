@@ -23,15 +23,17 @@ void Health::start_contact() {
 }
 
 void Health::end_contact() {
-    this->destroy();
 }
 
 void Health::destroy() {
-    m_body->GetWorld()->DestroyBody(m_body);
 }
 
 int Health::get_entity_type() {
     return HEALTH;
+}
+
+b2Vec2 Health::get_position() {
+	return b2Vec2(0, 0);
 }
 
 

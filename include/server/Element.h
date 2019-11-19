@@ -7,7 +7,7 @@
 
 class Element : public Entity {
 public:
-//  static Element* get_element(b2World& world);
+	  static Element* get_element(b2World& world);
 
     virtual void destroy() = 0;
 
@@ -16,6 +16,8 @@ public:
     virtual void start_contact() = 0;
 
     virtual void end_contact() = 0;
+
+    virtual b2Vec2 get_position() = 0;
 
     virtual ~Element() {}
 
