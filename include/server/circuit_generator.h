@@ -8,7 +8,7 @@
 
 class CircuitGenerator {
 public:
-  static void generate_circuit();
+    static void generate_circuit();
 };
 
 

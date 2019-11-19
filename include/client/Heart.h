@@ -8,7 +8,7 @@
 
 #include <client/StaticRenderizable.h>
 
-class Heart : public StaticRenderizable{
+class Heart : public StaticRenderizable {
 public:
     Heart();
 };

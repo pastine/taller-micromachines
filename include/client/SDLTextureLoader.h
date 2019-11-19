@@ -18,18 +18,26 @@
  */
 class SDLTextureLoader {
 public:
-    static SDLTextureLoader* get_loader();
-    static void instance_loader(SDL_Renderer* renderer);
+    static SDLTextureLoader *get_loader();
+
+    static void instance_loader(SDL_Renderer *renderer);
+
     ~SDLTextureLoader();
-    SDLTexture* get_texture(std::string& path);
-    SDLTextureLoader(const SDLTextureLoader&) = delete;
-    SDLTextureLoader& operator=(const SDLTextureLoader&) = delete;
+
+    SDLTexture *get_texture(std::string &path);
+
+    SDLTextureLoader(const SDLTextureLoader &) = delete;
+
+    SDLTextureLoader &operator=(const SDLTextureLoader &) = delete;
+
 private:
-    explicit SDLTextureLoader(SDL_Renderer* renderer);
-    void _load_from_file(std::string& path);
+    explicit SDLTextureLoader(SDL_Renderer *renderer);
+
+    void _load_from_file(std::string &path);
+
     std::map<std::string, SDLTexture> textures;
-    static SDLTextureLoader* instance;
-    SDL_Renderer* renderer;
+    static SDLTextureLoader *instance;
+    SDL_Renderer *renderer;
 };
 
 /*

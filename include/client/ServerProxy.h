@@ -17,14 +17,16 @@
 class ServerProxy {
 public:
     ~ServerProxy();
+
     void player_move(MoveType move);
+
     void get_game_state(JSON *json);
 
-    ServerProxy(std::string& host, std::string& service);
+    ServerProxy(std::string &host, std::string &service);
 
     std::map<std::string, int> handshake();
 
-    void handshake_answer(int i, JSON* map);
+    void handshake_answer(int i, JSON *map);
 
 private:
     MoveSerializer move_serializer;

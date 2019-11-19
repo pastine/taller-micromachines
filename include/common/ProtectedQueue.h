@@ -6,22 +6,23 @@
 #include <mutex>
 #include <condition_variable>
 
-template <class T> class ProtectedQueue {
+template<class T>
+class ProtectedQueue {
 private:
-	std::queue<T> q;
-	std::mutex m;
-	std::condition_variable cond_var;
-	bool done;
+    std::queue<T> q;
+    std::mutex m;
+    std::condition_variable cond_var;
+    bool done;
 public:
-	ProtectedQueue();
+    ProtectedQueue();
 
-	void push(T block);
+    void push(T block);
 
-	T pop();
+    T pop();
 
-	void stop();
+    void stop();
 
-	~ProtectedQueue();
+    ~ProtectedQueue();
 };
 
 

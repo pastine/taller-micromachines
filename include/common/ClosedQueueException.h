@@ -6,10 +6,11 @@
 
 class ClosedQueueException {
 private:
-	std::string description;
+    std::string description;
 public:
-	explicit ClosedQueueException(const char* description);
-	const char* what() const noexcept;
+    explicit ClosedQueueException(const char *description);
+
+    const char *what() const noexcept;
 };
 
 

@@ -10,8 +10,9 @@
 
 class StateSerializer {
 public:
-    std::string serialize(JSON& state);
-    JSON deserialize(std::string& serialized_state);
+    std::string serialize(JSON &state);
+
+    JSON deserialize(std::string &serialized_state);
 };
 
 

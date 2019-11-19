@@ -14,10 +14,12 @@
 class Launcher : public QWidget {
 public:
     Launcher(std::map<std::string, int> map, int *retValue, bool *playwithbot);
+
 private:
-    int* retValue;
+    int *retValue;
     bool *playwithbot;
 public slots:
+
     void setValue(std::string id);
 
     void toggleBot();

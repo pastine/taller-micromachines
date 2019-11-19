@@ -10,7 +10,8 @@
 
 class CarLivesDrawer {
 public:
-    void draw_lives(int num_of_lives, SDL_Renderer* renderer);
+    void draw_lives(int num_of_lives, SDL_Renderer *renderer);
+
 private:
     Heart heart;
 };

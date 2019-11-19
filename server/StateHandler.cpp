@@ -1,39 +1,40 @@
 #include "server/StateHandler.h"
+
 #define MAX 1000
 
 template<class T>
-StateHandler<T>::StateHandler(ClientProxy* messenger) :
+StateHandler<T>::StateHandler(ClientProxy *messenger) :
         queue(new ProtectedQueue<T>()),
-        messenger(messenger), running(true){
+        messenger(messenger), running(true) {
 }
 
 template<class T>
 void StateHandler<T>::run() {
     while (running) {
-    	try {
-			work();
-	    } catch (...) {
-		    stop();
-	    }
+        try {
+            work();
+        } catch (...) {
+            stop();
+        }
     }
 }
 
 template<class T>
 T StateHandler<T>::receive() {
-	return queue->pop();
+    return queue->pop();
 }
 
 template<class T>
 void StateHandler<T>::stop() {
-	running = false;
-	queue->stop();
+    running = false;
+    queue->stop();
 }
 
 template<class T>
 StateHandler<T>::~StateHandler() {
-	messenger = nullptr;
-	delete(queue);
-	this->join();
+    messenger = nullptr;
+    delete (queue);
+    this->join();
 }
 
 template<class T>
@@ -53,5 +54,8 @@ void StateHandler<MoveType>::work() {
     queue->push(block);
 }
 
-template class StateHandler<JSON>;
-template class StateHandler<MoveType>;
+template
+class StateHandler<JSON>;
+
+template
+class StateHandler<MoveType>;

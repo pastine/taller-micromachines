@@ -10,7 +10,8 @@
 
 class MoveSerializer {
 public:
-    char serialize(MoveType& move);
+    char serialize(MoveType &move);
+
     MoveType deserialize(char move);
 };
 

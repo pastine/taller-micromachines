@@ -11,37 +11,40 @@
 #include <string>
 #include <vector>
 
-class Race :public Thread {
-  static std::atomic_int RaceCount;
+class Race : public Thread {
+    static std::atomic_int RaceCount;
 
 private:
-  int id;
-  b2World world;
-	Track track;
-  std::unordered_map<std::string, Player*> cars;
-  std::vector<Element*> elements;
-  bool racing;
-  ContactListener listener;
-  Limit limit;
+    int id;
+    b2World world;
+    Track track;
+    std::unordered_map<std::string, Player *> cars;
+    std::vector<Element *> elements;
+    bool racing;
+    ContactListener listener;
+    Limit limit;
 
 public:
-  Race();
+    Race();
 
-  virtual void run();
+    virtual void run();
 
-  void add_player(ClientProxy messenger);
-  void reaper();
-  virtual void stop();
+    void add_player(ClientProxy messenger);
 
-  ~Race();
+    void reaper();
 
-  int getId();
+    virtual void stop();
 
-  Track getTrack();
+    ~Race();
 
-  int getPlayerCount();
+    int getId();
+
+    Track getTrack();
+
+    int getPlayerCount();
 
     JSON get_global_status();
+
     bool isAlive();
 };
 

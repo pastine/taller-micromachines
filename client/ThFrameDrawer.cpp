@@ -8,8 +8,8 @@
 
 #define MULTIPLE 10000.0f
 
-ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON& map)
-: state_queue(state_queue) {
+ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON &map)
+        : state_queue(state_queue) {
     this->done = false;
 
     JSON straight_roads = map["tracks"];
@@ -34,9 +34,9 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON& map)
                      (int) (MULTIPLE * std::stof(y)),
                      std::stoi(angle));
     }
-    
+
     JSON muds = map["elements"]["muds"];
-    for (auto & mud : muds) {
+    for (auto &mud : muds) {
         std::string x = mud["x"];
         std::string y = mud["y"];
         entities.put(WorldEntities::Entity::MUD,
@@ -44,7 +44,7 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON& map)
                      (int) MULTIPLE * std::stof(y));
     }
     JSON oils = map["elements"]["oils"];
-    for (auto & mud : muds) {
+    for (auto &mud : muds) {
         std::string x = mud["x"];
         std::string y = mud["y"];
         entities.put(WorldEntities::Entity::MUD,
@@ -52,7 +52,7 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON& map)
                      (int) MULTIPLE * std::stof(y));
     }
     JSON boulders = map["elements"]["boulders"];
-    for (auto & mud : muds) {
+    for (auto &mud : muds) {
         std::string x = mud["x"];
         std::string y = mud["y"];
         entities.put(WorldEntities::Entity::MUD,
@@ -67,7 +67,7 @@ void ThFrameDrawer::run() {
             JSON state = this->state_queue->pop();
             this->_draw_frame(state);
         }
-    } catch (std::runtime_error& e) {
+    } catch (std::runtime_error &e) {
         std::cout << "Error in FrameDrawer -> " << e.what();
     }
 }
@@ -82,7 +82,7 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
         entities.clean();
 
         JSON cars = state["cars"];
-        for (auto & car : cars) {
+        for (auto &car : cars) {
             std::string x = car["x"];
             std::string y = car["y"];
 
@@ -103,7 +103,7 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
                          f_y,
                          std::stoi(angle),
                          std::stoi(playerId),
-                         (bool)std::stoi(moving));
+                         (bool) std::stoi(moving));
         }
 
         entities.render(cam);
@@ -113,7 +113,7 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
 
         // after rendering everything
         cam.show_frame();
-    } catch (std::domain_error& e) {
+    } catch (std::domain_error &e) {
         std::cout << e.what() << '\n';
     }
 }

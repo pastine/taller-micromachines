@@ -3,11 +3,11 @@
 
 #include <Box2D/Dynamics/b2WorldCallbacks.h>
 
-class ContactListener : public b2ContactListener{
+class ContactListener : public b2ContactListener {
 public:
-  virtual void BeginContact(b2Contact* contact);
+    virtual void BeginContact(b2Contact *contact);
 
-  virtual void EndContact(b2Contact* contact);
+    virtual void EndContact(b2Contact *contact);
 };
 
 

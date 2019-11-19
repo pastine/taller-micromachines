@@ -12,13 +12,14 @@
 class SDLText {
 public:
     SDLText();
+
     ~SDLText();
 
     void render_text(std::string text,
                      SDL_Renderer *renderer,
                      int px_x,
                      int px_y,
-                     SDL_Color color = {0, 0, 0, });
+                     SDL_Color color = {0, 0, 0,});
 
 private:
     TTF_Font *font;

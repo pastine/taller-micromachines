@@ -21,7 +21,7 @@ SDLText::SDLText() {
         throw SDLException(err_msg.data(), err.data());
     }
 
-    this->font = TTF_OpenFont(FONT_FILE,100);
+    this->font = TTF_OpenFont(FONT_FILE, 100);
     if (!this->font) {
         std::string sdl_err = TTF_GetError();
         std::string err = "Could not open font";
@@ -30,18 +30,18 @@ SDLText::SDLText() {
 }
 
 void SDLText::render_text(std::string text,
-                                SDL_Renderer *renderer,
-                                int px_x,
-                                int px_y,
-                                SDL_Color color){
-    SDL_Surface* surface = TTF_RenderText_Solid(this->font, text.data(), color);
+                          SDL_Renderer *renderer,
+                          int px_x,
+                          int px_y,
+                          SDL_Color color) {
+    SDL_Surface *surface = TTF_RenderText_Solid(this->font, text.data(), color);
     if (!surface) {
         std::string err_msg = "Cant create surface from text";
         std::string sdl_err = TTF_GetError();
         throw SDLException(err_msg.data(), sdl_err.data());
     }
 
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
 
     int w = surface->w;
     int h = surface->h;

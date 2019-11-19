@@ -8,7 +8,7 @@
 
 #include <client/StaticRenderizable.h>
 
-class CurvedRoad : public StaticRenderizable{
+class CurvedRoad : public StaticRenderizable {
 public:
     CurvedRoad();
 };

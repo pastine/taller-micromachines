@@ -11,14 +11,14 @@
 #define PIXELS_TO_CM 0.01
 
 
-Camera::Camera() : window(SDLWindow(480, 840)){
-    window.fill(0xFF,0xFF,0,0xFF);
+Camera::Camera() : window(SDLWindow(480, 840)) {
+    window.fill(0xFF, 0xFF, 0, 0xFF);
     this->window.render();
     SDLTextureLoader::instance_loader(window.get_renderer());
 }
 
-void Camera::render_object(Renderizable& object, int abs_x, int abs_y,
-        int angle, int id, bool moving) {
+void Camera::render_object(Renderizable &object, int abs_x, int abs_y,
+                           int angle, int id, bool moving) {
     if (!this->_is_in_frame(object, abs_x, abs_y)) return;
 
     int x_distance_to_center_cms = abs_x - this->center_x_cms;
@@ -31,7 +31,7 @@ void Camera::render_object(Renderizable& object, int abs_x, int abs_y,
     int relative_y_pos_px = this->center_y_px - y_distance_to_center_px;
 
     object.render(this->window.get_renderer(), relative_x_pos_px, relative_y_pos_px,
-            angle, id, moving);
+                  angle, id, moving);
 }
 
 void Camera::show_frame() {
@@ -39,7 +39,7 @@ void Camera::show_frame() {
 }
 
 void Camera::prepare_frame() {
-    window.fill(0x0,0x84,0,0x42);
+    window.fill(0x0, 0x84, 0, 0x42);
 }
 
 void Camera::set_center(int x, int y) {

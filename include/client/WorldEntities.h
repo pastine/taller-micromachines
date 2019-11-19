@@ -40,16 +40,21 @@ private:
     std::vector<std::tuple<int, int>> boost_positions;
     std::vector<std::tuple<int, int>> heart_positions;
 
-    void _render_simple_object(std::vector<std::tuple<int, int>>& positions,
-                               Renderizable& object,
-                               Camera& camera);
+    void _render_simple_object(std::vector<std::tuple<int, int>> &positions,
+                               Renderizable &object,
+                               Camera &camera);
 
 
 public:
-    enum class Entity {CAR, MUD, OIL, BOULDER, STRAIGHT_ROAD, CURVED_ROAD, BOOST, HEART};
-    void put(Entity , int x, int y, int angle = 0, int id = 0, bool moving = false);
+    enum class Entity {
+        CAR, MUD, OIL, BOULDER, STRAIGHT_ROAD, CURVED_ROAD, BOOST, HEART
+    };
+
+    void put(Entity, int x, int y, int angle = 0, int id = 0, bool moving = false);
+
     void clean();
-    void render(Camera& camera);
+
+    void render(Camera &camera);
 };
 
 

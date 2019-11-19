@@ -3,39 +3,42 @@
 #include <common/json.h>
 #include <common/MoveType.h>
 
-template <class T>
+template<class T>
 ProtectedQueue<T>::ProtectedQueue() :
-    q(std::queue<T>()), done(false) {
+        q(std::queue<T>()), done(false) {
 }
 
-template <class T>
+template<class T>
 void ProtectedQueue<T>::push(T block) {
-	std::unique_lock<std::mutex> lock(this->m);
-	this->q.push(std::move(block));
-	this->cond_var.notify_all();
+    std::unique_lock<std::mutex> lock(this->m);
+    this->q.push(std::move(block));
+    this->cond_var.notify_all();
 }
 
-template <class T>
+template<class T>
 T ProtectedQueue<T>::pop() {
-	std::unique_lock<std::mutex> lock(this->m);
-	while (this->q.empty() && ! this->done) {
-		this->cond_var.wait(lock);
-	}
-	if (q.empty() && done) {throw ClosedQueueException("Closed Queue");}
-	T update = std::move(q.front());
-	q.pop();
-	return update;
+    std::unique_lock<std::mutex> lock(this->m);
+    while (this->q.empty() && !this->done) {
+        this->cond_var.wait(lock);
+    }
+    if (q.empty() && done) { throw ClosedQueueException("Closed Queue"); }
+    T update = std::move(q.front());
+    q.pop();
+    return update;
 }
 
-template <class T>
+template<class T>
 void ProtectedQueue<T>::stop() {
-	this->done = true;
-	this->cond_var.notify_all();
+    this->done = true;
+    this->cond_var.notify_all();
 }
 
-template <class T>
+template<class T>
 ProtectedQueue<T>::~ProtectedQueue() {
 }
 
-template class ProtectedQueue<JSON>;
-template class ProtectedQueue<MoveType>;
+template
+class ProtectedQueue<JSON>;
+
+template
+class ProtectedQueue<MoveType>;

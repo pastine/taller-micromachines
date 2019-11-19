@@ -8,7 +8,7 @@
 
 #include <client/StaticRenderizable.h>
 
-class Boost : public StaticRenderizable{
+class Boost : public StaticRenderizable {
 public:
     Boost();
 };

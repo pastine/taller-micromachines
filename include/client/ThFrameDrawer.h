@@ -11,17 +11,21 @@
 #include <client/WorldEntities.h>
 #include <common/Thread.h>
 
-class ThFrameDrawer : public Thread{
+class ThFrameDrawer : public Thread {
 public:
-    explicit ThFrameDrawer(ProtectedQueue<JSON>* state_queue, JSON& map);
+    explicit ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON &map);
+
     void run() override;
+
     void stop() override;
+
 private:
-    ProtectedQueue<JSON>* state_queue;
+    ProtectedQueue<JSON> *state_queue;
     Camera cam;
     WorldEntities entities;
     bool done;
-    void _draw_frame(JSON& json);
+
+    void _draw_frame(JSON &json);
 };
 
 

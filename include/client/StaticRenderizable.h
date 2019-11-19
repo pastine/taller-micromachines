@@ -10,7 +10,7 @@
 
 class StaticRenderizable : public Renderizable {
 protected:
-    SDLTexture* texture;
+    SDLTexture *texture;
     int w;
     int h;
     size_t img_x;
@@ -18,9 +18,11 @@ protected:
     float resize_factor = 1;
 public:
     StaticRenderizable();
-    void render(SDL_Renderer* renderer, int x, int y,
-            int angle = 0, int id = 0, bool moving = false) override;
-    explicit StaticRenderizable(SDLTexture* texture);
+
+    void render(SDL_Renderer *renderer, int x, int y,
+                int angle = 0, int id = 0, bool moving = false) override;
+
+    explicit StaticRenderizable(SDLTexture *texture);
 };
 
 

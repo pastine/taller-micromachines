@@ -6,6 +6,7 @@
 class Audio {
 public:
     Audio();
+
     void play();
 
     Mix_Chunk *powerup;
