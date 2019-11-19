@@ -10,6 +10,7 @@
 Car::Car() : Renderizable() {
     w = 29;
     h = 29;
+    resize_factor = 2;
     SDLTextureLoader *loader =  SDLTextureLoader::get_loader();
     std::string path = "client/img/cars_transparent.png";
     this->texture = loader->get_texture(path);
@@ -31,7 +32,7 @@ void Car::render(SDL_Renderer* renderer, int x, int y, int angle, int id, bool m
     this->texture->change_color(index);
     int _angle = std::abs(angle);
     Area& src = this->frames.resolve_frame(_angle, moving);
-    Area dest = Area(x, y, this->w*2, this->h*2);
+    Area dest = Area(x, y, this->w * resize_factor, this->h * resize_factor);
     if (angle < 0) {
         this->texture->render(renderer, src, dest, 0);
     } else {
