@@ -8,9 +8,11 @@
 
 #include <client/StaticRenderizable.h>
 
-class StraightRoad : public StaticRenderizable{
+class StraightRoad : public StaticRenderizable {
 public:
     StraightRoad();
+
+    void render(SDL_Renderer *renderer, int x, int y, int angle);
 };
 
 

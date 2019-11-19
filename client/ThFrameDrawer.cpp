@@ -5,7 +5,8 @@
 #include "client/ThFrameDrawer.h"
 #include <string.h>
 
-#define MULTIPLE 5
+
+#define MULTIPLE 10000.0f
 
 ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON& map)
 : state_queue(state_queue) {
@@ -19,8 +20,8 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON& map)
         std::string y = (*it)["y"];
         std::string angle = (*it)["angle"];
         entities.put(WorldEntities::Entity::STRAIGHT_ROAD,
-                     (int) 35 * std::stof(x),
-                     (int) 35 * std::stof(y),
+                     (int) MULTIPLE * std::stof(x),
+                     (int) MULTIPLE * std::stof(y),
                      std::stoi(angle));
     }
 
@@ -29,12 +30,28 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON& map)
         std::string y = (*it)["y"];
         std::string angle = (*it)["angle"];
         entities.put(WorldEntities::Entity::CURVED_ROAD,
-                     (int) MULTIPLE * std::stof(x),
-                     (int) MULTIPLE * std::stof(y),
+                     (int) (MULTIPLE * std::stof(x)),
+                     (int) (MULTIPLE * std::stof(y)),
                      std::stoi(angle));
     }
-
+    
     JSON muds = map["elements"]["muds"];
+    for (auto & mud : muds) {
+        std::string x = mud["x"];
+        std::string y = mud["y"];
+        entities.put(WorldEntities::Entity::MUD,
+                     (int) MULTIPLE * std::stof(x),
+                     (int) MULTIPLE * std::stof(y));
+    }
+    JSON oils = map["elements"]["oils"];
+    for (auto & mud : muds) {
+        std::string x = mud["x"];
+        std::string y = mud["y"];
+        entities.put(WorldEntities::Entity::MUD,
+                     (int) MULTIPLE * std::stof(x),
+                     (int) MULTIPLE * std::stof(y));
+    }
+    JSON boulders = map["elements"]["boulders"];
     for (auto & mud : muds) {
         std::string x = mud["x"];
         std::string y = mud["y"];
@@ -68,25 +85,31 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
         for (auto & car : cars) {
             std::string x = car["x"];
             std::string y = car["y"];
+
+            float f_x = std::atof(x.data());
+            float f_y = std::atof(y.data());
+
+            std::cout << "x: " << f_x;
+            std::cout << "y: " << f_y << '\n';
+
+            f_x *= MULTIPLE;
+            f_y *= MULTIPLE;
+
             std::string angle = car["angle"];
             std::string playerId = car["id"];
             std::string moving = car["moving"];
             entities.put(WorldEntities::Entity::CAR,
-                         (int) MULTIPLE * std::stof(x),
-                         (int) MULTIPLE * std::stof(y),
+                         f_x,
+                         f_y,
                          std::stoi(angle),
                          std::stoi(playerId),
                          (bool)std::stoi(moving));
         }
 
-        /* this is just to test it*/
-        entities.put(WorldEntities::Entity::BOOST, 550, -100);
-        entities.put(WorldEntities::Entity::HEART, 500, -150);
-
         entities.render(cam);
-        std::string lives = state["elements"]["lives"];
-        cam.render_text();
+        std::string lives = state["user"]["lives"];
         cam.render_car_lives(std::stoi(lives));
+        cam.render_text();
 
         // after rendering everything
         cam.show_frame();

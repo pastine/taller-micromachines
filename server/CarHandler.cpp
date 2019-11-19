@@ -23,8 +23,8 @@ CarHandler::~CarHandler() {
 
 std::unordered_map<std::string, std::string> CarHandler::get_position() {
 	std::unordered_map<std::string, std::string> center;
-	center.emplace(X, std::to_string((int)this->car->get_position().x));
-	center.emplace(Y, std::to_string((int)this->car->get_position().y));
+	center.emplace(X, std::to_string(this->car->get_position().x));
+	center.emplace(Y, std::to_string(this->car->get_position().y));
 	return center;
 }
 
