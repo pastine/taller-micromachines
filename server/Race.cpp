@@ -21,7 +21,7 @@ void Race::run() {
             world.Step(time, velocity, position);
             State state;
             add_cars(state);
-            for (auto it = cars.begin(); it != cars.end(); ++it) {
+            for (auto it = players.begin(); it != players.end(); ++it) {
                 track.add_elements(state);
                 it->second->add_camera(state);
                 it->second->add_user(state);
@@ -37,31 +37,31 @@ void Race::run() {
 }
 
 void Race::add_player(ClientProxy messenger) {
-    Car *car = new Car(world, cars.size());
+    Car *car = new Car(world, players.size());
     CarHandler *handler = new CarHandler(car);
     auto *player = new Player(std::move(messenger), handler);
-    cars.emplace(player->getId(), player);
+    players.emplace(player->getId(), player);
     player->start();
 }
 
 void Race::stop() {
     racing = false;
-    for (auto it = cars.begin(); it != cars.end(); ++it)
+    for (auto it = players.begin(); it != players.end(); ++it)
         it->second->stop();
 }
 
 Race::~Race() {
-    auto it = cars.begin();
-    while (it != cars.end()) {
+    auto it = players.begin();
+    while (it != players.end()) {
         delete it->second;
-        it = cars.erase(it);
+        it = players.erase(it);
     }
     track.delete_elements();
     this->join();
 }
 
 int Race::getPlayerCount() {
-    return cars.size();
+    return players.size();
 }
 
 int Race::getId() {
@@ -73,11 +73,11 @@ Track Race::getTrack() {
 }
 
 void Race::reaper() {
-    auto it = cars.begin();
-    while (it != cars.end()) {
+    auto it = players.begin();
+    while (it != players.end()) {
         if (!it->second->isAlive()) {
             delete it->second;
-            it = cars.erase(it);
+            it = players.erase(it);
         } else {
             it++;
         }
@@ -90,7 +90,7 @@ bool Race::isAlive() {
 
 void Race::add_cars(State &state) {
     JSON car_stats;
-    for (auto it = cars.begin(); it != cars.end(); ++it) {
+    for (auto it = players.begin(); it != players.end(); ++it) {
         if (!it->second->isAlive()) continue;
         auto car = it->second->get_position();
         JSON k_umap(car);

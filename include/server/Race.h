@@ -19,7 +19,7 @@ private:
   int id;
   b2World world;
 	Track track;
-  std::unordered_map<std::string, Player*> cars;
+    std::unordered_map<std::string, Player *> players;
     bool racing = true;
   ContactListener listener;
   Limit limit;
