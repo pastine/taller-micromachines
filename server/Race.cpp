@@ -1,7 +1,6 @@
 #include "server/Race.h"
 #include "server/Player.h"
 #include "common/json.h"
-#include <memory>
 #include <common/ClosedQueueException.h>
 
 #define CARS "cars"
