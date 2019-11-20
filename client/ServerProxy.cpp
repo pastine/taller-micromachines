@@ -4,27 +4,12 @@ ServerProxy::ServerProxy(std::string &host, std::string &service) : communicatio
 
 
 void ServerProxy::player_move(MoveType move) {
-    try {
-        std::string _move = this->move_serializer.serialize(move);
-        this->communication.send_msg(_move);
-    } catch (std::runtime_error &e) {
-        std::string err = "Error in ServerProxy::player_move -> ";
-        err += e.what();
-        throw std::runtime_error(err);
-    }
+    move_serializer.send(communication, move);
 }
 
 
-void ServerProxy::get_game_state(JSON *json) {
-    try {
-        std::string msg;
-        this->communication.receive_msg(msg);
-        *json = this->state_serializer.deserialize(msg);
-    } catch (std::runtime_error &e) {
-        std::string err = "Error in ServerProxy::get_game_state -> ";
-        err += e.what();
-        throw std::runtime_error(err);
-    }
+JSON ServerProxy::get_game_state() {
+    return state_serializer.receive(communication);
 }
 
 ServerProxy::~ServerProxy() {
@@ -32,27 +17,13 @@ ServerProxy::~ServerProxy() {
 }
 
 std::map<std::string, int> ServerProxy::handshake() {
-    try {
-        std::string msg;
-        this->communication.receive_msg(msg);
-        JSON j = this->races_serializer.deserialize(msg);
-        return j.get<std::map<std::string, int>>();
-    } catch (std::runtime_error &e) {
-        std::string err = "Error in ServerProxy::handshake -> ";
-        err += e.what();
-        throw std::runtime_error(err);
-    }
+    return races_serializer.receive(communication);
 }
 
-void ServerProxy::handshake_answer(int i, JSON *map) {
-    try {
-        std::string msg = std::to_string(i);
-        this->communication.send_msg(msg);
-        this->communication.receive_msg(msg);
-        *map = JSON::parse(msg);
-    } catch (std::runtime_error &e) {
-        std::string err = "Error in ServerProxy::handshake_answer -> ";
-        err += e.what();
-        throw std::runtime_error(err);
-    }
+JSON ServerProxy::handshake_answer(int i) {
+    std::string msg = std::to_string(i);
+    this->communication.send_msg(msg);
+    std::string answer;
+    this->communication.receive_msg(answer);
+    return JSON::parse(answer);
 }
