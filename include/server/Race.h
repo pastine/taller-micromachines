@@ -19,7 +19,7 @@ private:
   int id;
   b2World world;
 	Track track;
-    std::unordered_map<std::string, Player *> players;
+    std::unordered_map<int, Player *> players;
     bool racing = true;
   ContactListener listener;
   Limit limit;
@@ -29,7 +29,7 @@ public:
 
     virtual void run();
 
-    void add_player(ClientProxy messenger);
+    void add_player(ClientProxy& messenger);
 
     void reaper();
 

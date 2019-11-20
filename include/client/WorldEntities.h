@@ -27,16 +27,16 @@ private:
     Boost boost;
     Heart heart;
 
-    std::vector<std::tuple<int, int>> mud_positions;
-    std::vector<std::tuple<int, int>> oil_positions;
-    std::vector<std::tuple<int, int>> boulder_positions;
-    std::vector<std::tuple<int, int, int, int, bool>> car_positions;
-    std::vector<std::tuple<int, int, int>> straight_road_positions;
-    std::vector<std::tuple<int, int, int>> curved_road_positions;
-    std::vector<std::tuple<int, int>> boost_positions;
-    std::vector<std::tuple<int, int>> heart_positions;
+    std::vector<std::tuple<float, float>> mud_positions;
+    std::vector<std::tuple<float, float>> oil_positions;
+    std::vector<std::tuple<float, float>> boulder_positions;
+    std::vector<std::tuple<float, float, float, float, float>> car_positions;
+    std::vector<std::tuple<float, float, float>> straight_road_positions;
+    std::vector<std::tuple<float, float, float>> curved_road_positions;
+    std::vector<std::tuple<float, float>> boost_positions;
+    std::vector<std::tuple<float, float>> heart_positions;
 
-    void _render_simple_object(std::vector<std::tuple<int, int>> &positions,
+    void _render_simple_object(std::vector<std::tuple<float, float>> &positions,
                                Renderizable &object,
                                Camera &camera);
 
@@ -46,7 +46,7 @@ public:
         CAR, MUD, OIL, BOULDER, STRAIGHT_ROAD, CURVED_ROAD, BOOST, HEART
     };
 
-    void put(Entity, int x, int y, int angle = 0, int id = 0, bool moving = false);
+    void put(Entity, float x, float y, float angle = 0, int id = 0, float speed = 0);
 
     void clean();
 

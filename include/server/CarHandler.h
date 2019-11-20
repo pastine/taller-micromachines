@@ -24,9 +24,9 @@ public:
 
     ~CarHandler();
 
-    std::unordered_map<std::string, std::string> get_user_state();
+    std::unordered_map<std::string, int> get_user_state();
 
-    bool isMoving();
+    float getSpeed();
 };
 
 

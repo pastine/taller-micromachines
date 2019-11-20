@@ -20,14 +20,14 @@ Car::Car() : Renderizable() {
 }
 
 
-void Car::render(SDL_Renderer *renderer, int x, int y, int angle, int id, bool moving) {
+void Car::render(SDL_Renderer *renderer, float x, float y, float angle, int id, float speed) {
     /*
      * The angle comes from 180 upto -180.
      * */
     std::tuple<int, int, int> index = colors[id % colors.size()];
     this->texture->change_color(index);
-    int _angle = std::abs(angle);
-    Area &src = this->frames.resolve_frame(_angle, moving);
+    float _angle = std::abs(angle);
+    Area &src = this->frames.resolve_frame(_angle, speed);
     Area dest = Area(x, y, this->w * resize_factor * CAR_RESIZE_FACTOR,
                           this->h * resize_factor * CAR_RESIZE_FACTOR);
     if (angle < 0) {

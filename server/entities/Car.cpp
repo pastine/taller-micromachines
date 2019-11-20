@@ -2,10 +2,10 @@
 #include "common/Constants.h"
 #include "server/Car.h"
 
-#define MAX 30
-#define MIN_TURN_SPEED 1
-#define TORQUE 1800
-#define FORCE 40
+#define MAX 30.0f
+#define MIN_TURN_SPEED 1.0f
+#define TORQUE 1800.0f
+#define FORCE 40.0f
 #define DEGTORAD 0.0174532925199432957f
 
 b2Vec2 get_forward_normal(float angle) {
@@ -70,7 +70,7 @@ void Car::turn(bool turn_left) {
     m_body->SetAngularDamping(3);
     int angle = std::abs(this->get_angle());
     if (angle <= 3 || (angle >= 87 && angle <= 93) || (angle >= 177))
-        m_body->SetAngularDamping(7);
+        m_body->SetAngularDamping(3);
 }
 
 void Car::move_straight(bool move_forward) {
@@ -143,7 +143,7 @@ void Car::contact_mud() {
 
 void Car::contact_oil() {
     float friction = m_body->GetFixtureList()->GetFriction();
-    friction -= 0.3;
+    friction -= 0.3f;
     m_body->GetFixtureList()->SetFriction(friction);
 }
 
@@ -179,16 +179,16 @@ void Car::surface_effect() {
     }*/
 }
 
-std::string Car::get_lives() {
-    return std::to_string(*lives);
+int Car::get_lives() {
+    return *lives;
 }
 
-std::string Car::get_mud_state() {
+bool Car::get_mud_state() {
     if (!visibility) {
         visibility = true;
-        return "true";
+        return true;
     }
-    return "false";
+    return false;
 }
 
 Car::~Car() {

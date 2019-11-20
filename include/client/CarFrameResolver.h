@@ -10,7 +10,7 @@ class CarFrameResolver {
 public:
     CarFrameResolver();
 
-    Area &resolve_frame(int angle, bool moving);
+    Area &resolve_frame(float angle, float speed);
 
 private:
     std::vector<Area> straight_up_frames;

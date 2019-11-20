@@ -57,7 +57,7 @@ void SDLTexture::render(SDL_Renderer *renderer, Area &src, Area &dest, float ang
                              this->texture,
                              &render_from,
                              &render_to,
-                             (double) angle,
+                             angle,
                              nullptr,
                              SDL_FLIP_NONE);
     if (s) {

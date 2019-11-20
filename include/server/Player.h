@@ -31,11 +31,9 @@ public:
 
     ~Player();
 
-    std::unordered_map<std::string, std::string> get_position();
+    std::unordered_map<std::string, float> get_position();
 
-    void update_status(JSON &status, Track &track);
-
-    std::string getId();
+    int getId();
 
     void update_lap_count();
 

@@ -19,8 +19,8 @@ private:
 public:
     Car();
 
-    void render(SDL_Renderer *renderer, int x, int y,
-                int angle = 0, int id = 0, bool moving = false) override;
+    void render(SDL_Renderer *renderer, float x, float y,
+                float angle = 0, int id = 0, float speed = 0) override;
 
     void increase_resize() override;
     void decrease_resize() override;
