@@ -1,10 +1,18 @@
 #include "client/StaticRenderizable.h"
+#include <math.h>
 
-
-void StaticRenderizable::render(SDL_Renderer *renderer, float x, float y,
+void StaticRenderizable::render(SDL_Renderer *renderer, float x_center, float y_center,
                                 float angle, int id, float speed) {
     Area src(img_x, img_y, w, h);
-    Area dest(x, y, w * resize_factor * real_resize, h * resize_factor * real_resize);
+
+    float x_topleft = x_center - ((w * resize_factor / 2) * cos(angle));
+    x_topleft -= ((h * resize_factor / 2) * sin(angle));
+
+    float y_topleft = y_center + ((w * resize_factor / 2) * sin(angle));
+    y_topleft -= ((h * resize_factor / 2) * cos(angle));
+
+    Area dest(x_topleft, y_topleft,
+            w * resize_factor * real_resize, h * resize_factor * real_resize);
     this->texture->render(renderer, src, dest, angle);
 }
 

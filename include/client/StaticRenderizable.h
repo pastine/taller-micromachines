@@ -1,8 +1,8 @@
 #ifndef TALLER_MICROMACHINES_STATICRENDERIZABLE_H
 #define TALLER_MICROMACHINES_STATICRENDERIZABLE_H
 
-
 #include "Renderizable.h"
+
 
 class StaticRenderizable : public Renderizable {
 protected:

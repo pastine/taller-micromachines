@@ -2,9 +2,9 @@
 #include "client/Camera.h"
 #include "client/SDLWindow.h"
 #include "client/SDLTextureLoader.h"
+#include "common/Constants.h"
 
 #define RENDER_BORDER 100000
-#define PIXELS_TO_CM 0.01
 #define ZOOM 0.5
 
 
@@ -61,4 +61,10 @@ void Camera::render_car_lives(int lives) {
 
 void Camera::render_text() {
     this->text_creator.render_text("Hola mundo", this->window.get_renderer(), 10, 50);
+}
+
+void Camera::render_splatter() {
+    MudSplatter splatter;
+    splatter.render(this->window.get_renderer(),
+            0,0, this->window.get_width(), this->window.get_height());
 }

@@ -24,11 +24,18 @@ void Car::render(SDL_Renderer *renderer, float x, float y, float angle, int id, 
     /*
      * The angle comes from 180 upto -180.
      * */
+
+    float w_cm = w * PIXELS_TO_CM;
+    float h_cm = h * PIXELS_TO_CM;
+
+    float x_topleft = x - ((w_cm / 2) * cos(angle)) - ((h_cm/2) * sin(angle));
+    float y_topleft = y - ((w_cm/2) * sin(angle)) + ((h_cm/2) * cos(angle));
+
     std::tuple<int, int, int> index = colors[id % colors.size()];
     this->texture->change_color(index);
     float _angle = std::abs(angle);
     Area &src = this->frames.resolve_frame(_angle, speed);
-    Area dest = Area(x, y, this->w * resize_factor * CAR_RESIZE_FACTOR,
+    Area dest = Area(x_topleft, y_topleft, this->w * resize_factor * CAR_RESIZE_FACTOR,
                           this->h * resize_factor * CAR_RESIZE_FACTOR);
     if (angle < 0) {
         this->texture->render(renderer, src, dest, 0);

@@ -15,19 +15,19 @@ Track::Track(b2World &world) {
     fixture.isSensor = true;
     fixture.shape = &walls;
 
-    for (float i = FIRST_GROUND_TILE_X; i < 31.05; i += W) {
+    for (float i = FIRST_GROUND_TILE_X; i < 31.05; i += (W - 1)) {
         walls.SetAsBox(W / 2, H / 2, b2Vec2(i, FIRST_GROUND_TILE_Y), 0);//ground
         m_body->CreateFixture(&fixture);
     }
-    for (float i = FIRST_CEILING_TILE_X; i < 31.05; i += W) {
+    for (float i = FIRST_CEILING_TILE_X; i < 31.05; i += (W - 1)) {
         walls.SetAsBox(W / 2, H / 2, b2Vec2(i, FIRST_CEILING_TILE_Y), 0);//ceiling
         m_body->CreateFixture(&fixture);
     }
-    for (float i = FIRST_LEFT_TILE_Y; i < 69; i += W) {
+    for (float i = FIRST_LEFT_TILE_Y; i < 69; i += (W - 1)) {
         walls.SetAsBox(H / 2, W / 2, b2Vec2(FIRST_LEFT_TILE_X, i), 0);//left wall
         m_body->CreateFixture(&fixture);
     }
-    for (float i = FIRST_RIGHT_TILE_Y; i < 69; i += W) {
+    for (float i = FIRST_RIGHT_TILE_Y; i < 69; i += (W - 1)) {
         walls.SetAsBox(H / 2, W / 2, b2Vec2(FIRST_RIGHT_TILE_X, i), 0);//right wall
         m_body->CreateFixture(&fixture);
     }

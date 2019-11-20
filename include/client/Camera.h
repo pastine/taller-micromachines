@@ -6,6 +6,7 @@
 #include "SDLWindow.h"
 #include "CarLivesDrawer.h"
 #include "SDLText.h"
+#include "../../client/entities/MudSplatter.h"
 
 class Camera {
 public:
@@ -23,6 +24,8 @@ public:
     void render_car_lives(int lives);
 
     void render_text();
+
+    void render_splatter();
 
 private:
     bool _is_in_frame(Renderizable &object, float abs_x, float abs_y);
