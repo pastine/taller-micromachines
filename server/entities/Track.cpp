@@ -1,6 +1,8 @@
 #include <server/Oil.h>
 #include <server/Mud.h>
 #include <server/Boulder.h>
+#include <server/Boost.h>
+#include <server/Health.h>
 #include <common/CommunicationConstants.h>
 #include "server/Track.h"
 #include "Box2D/Box2D.h"
@@ -15,19 +17,19 @@ Track::Track(b2World &world) {
     fixture.isSensor = true;
     fixture.shape = &walls;
 
-    for (float i = FIRST_GROUND_TILE_X; i < 31.05; i += (W - 1)) {
+    for (float i = FIRST_GROUND_TILE_X; i < 31.05; i += W) {
         walls.SetAsBox(W / 2, H / 2, b2Vec2(i, FIRST_GROUND_TILE_Y), 0);//ground
         m_body->CreateFixture(&fixture);
     }
-    for (float i = FIRST_CEILING_TILE_X; i < 31.05; i += (W - 1)) {
+    for (float i = FIRST_CEILING_TILE_X; i < 31.05; i += W) {
         walls.SetAsBox(W / 2, H / 2, b2Vec2(i, FIRST_CEILING_TILE_Y), 0);//ceiling
         m_body->CreateFixture(&fixture);
     }
-    for (float i = FIRST_LEFT_TILE_Y; i < 69; i += (W - 1)) {
+    for (float i = FIRST_LEFT_TILE_Y; i < 69; i += W) {
         walls.SetAsBox(H / 2, W / 2, b2Vec2(FIRST_LEFT_TILE_X, i), 0);//left wall
         m_body->CreateFixture(&fixture);
     }
-    for (float i = FIRST_RIGHT_TILE_Y; i < 69; i += (W - 1)) {
+    for (float i = FIRST_RIGHT_TILE_Y; i < 69; i += W) {
         walls.SetAsBox(H / 2, W / 2, b2Vec2(FIRST_RIGHT_TILE_X, i), 0);//right wall
         m_body->CreateFixture(&fixture);
     }
@@ -97,9 +99,13 @@ Track::Track(b2World &world) {
         Boulder *s = new Boulder(world, boulder_pos[0], boulder_pos[1]);
         static_elements.emplace_back(s);
 
-				std::vector<float> fav = Element::get_random_pos();
-				Element* element = Element::get_element(world);
-				elements.emplace_back(element);//TODO bien solo 5?
+				std::vector<float> health_pos = Element::get_random_pos();
+				Health *h = new Health(world, health_pos[0], health_pos[1]);
+				elements.emplace_back(h);
+
+				std::vector<float> boost_pos = Element::get_random_pos();
+				Boost *boost = new Boost(world, boost_pos[0], boost_pos[1]);
+				elements.emplace_back(boost);
     }
 }
 
@@ -111,12 +117,26 @@ b2Vec2 Track::get_position() {
     return m_body->GetPosition();
 }
 
-std::unordered_map<std::string, std::string> Track::get_elements_state() {
-//    std::unordered_map<std::string, std::string> user;
-//    user.emplace("mud", car->get_mud_state());
-//    user.emplace("lives", car->get_lives());
-//    return user;
-    return {};
+JSON Track::get_elements_state() {
+	JSON boost;
+	JSON health;
+	for (auto &e : elements) {
+		int id = e->get_entity_type();
+		auto pos = e->get_position();
+		std::unordered_map<std::string, float> aux;
+		aux.emplace(J_X, pos.x);
+		aux.emplace(J_Y, pos.y);
+		JSON j_umap(aux);
+		if (id  == BOOST) {
+			boost.push_back(j_umap);
+		} else {
+			health.push_back(j_umap);
+		}
+	}
+	JSON elemen;
+	elemen["boost"] = boost;
+	elemen["health"] = health;
+	return elemen;
 }
 
 std::vector<Element *> Track::get_static_elements() {

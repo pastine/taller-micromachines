@@ -9,7 +9,7 @@ JSON TrackSerializer::serialize_to_json(Track &track) {
     JSON all;
     JSON aux;
     JSON aux_elements;
-    for (float i = FIRST_GROUND_TILE_X; i < 31.05f; i += (W - 2)) {
+    for (float i = FIRST_GROUND_TILE_X; i < 31.05f; i += W) {
         std::unordered_map<std::string, float> ground;
         ground.emplace(J_X, i);
         ground.emplace(J_Y, FIRST_GROUND_TILE_Y);
@@ -24,7 +24,7 @@ JSON TrackSerializer::serialize_to_json(Track &track) {
         aux.push_back(k_umap);
     }
 
-    for (float i = FIRST_LEFT_TILE_Y; i < 69.0f; i += (W - 2)) {
+    for (float i = FIRST_LEFT_TILE_Y; i < 69.0f; i += W) {
         std::unordered_map<std::string, float> left;
         left.emplace(J_X, FIRST_LEFT_TILE_X);
         left.emplace(J_Y, i);

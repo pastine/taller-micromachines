@@ -19,7 +19,7 @@ public:
 
     int get_entity_type() override;
 
-    std::unordered_map<std::string, std::string> get_elements_state();
+    JSON get_elements_state();
 
     std::vector<Element *> get_static_elements();
 
