@@ -69,10 +69,10 @@ void ThFrameDrawer::run() {
 
 void ThFrameDrawer::_draw_frame(JSON &state) {
     try {
-				float cam_x = state[J_CENTER][J_X];
-				float cam_y = state[J_CENTER][J_Y];
-				cam_x *= MULTIPLE;
-				cam_y *= MULTIPLE;
+        float cam_x = state[J_CENTER][J_X];
+        float cam_y = state[J_CENTER][J_Y];
+        cam_x *= MULTIPLE;
+        cam_y *= MULTIPLE;
         cam.set_center(cam_x, cam_y);
 
         cam.prepare_frame();
@@ -88,6 +88,20 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
                          car[J_ANGLE],
                          car[J_ID],
                          car[J_SPEED]);
+        }
+
+        JSON healths = state[J_ELEMENTS][J_HEALTH];
+        for (auto &health : healths) {
+            float f_x = health[J_X];
+            float f_y = health[J_Y];
+            entities.put(WorldEntities::Entity::HEART, f_x * MULTIPLE, f_y * MULTIPLE);
+        }
+
+        JSON boosts = state[J_ELEMENTS][J_BOOST];
+        for (auto &boost : boosts) {
+            float f_x = boost[J_X];
+            float f_y = boost[J_Y];
+            entities.put(WorldEntities::Entity::BOOST, f_x * MULTIPLE, f_y * MULTIPLE);
         }
 
         entities.render(cam);
