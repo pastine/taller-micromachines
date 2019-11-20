@@ -43,7 +43,7 @@ Element* Element::get_element(b2World& world) {
   std::mt19937 mt(rd());
   std::uniform_real_distribution<double> dist(0.0, 1.01);
   double num = dist(mt);
-	if (num > 0 && num <= 0.49) {
+	if (num > 0.0 && num <= 0.49) {
 		std::cout<<"new Boost\n";
 		return new Boost(world, x, y);
 	} else {

@@ -52,9 +52,9 @@ CarFrameResolver::CarFrameResolver() {
     this->current_frame = -1;
 }
 
-Area &CarFrameResolver::resolve_frame(int angle, bool moving) {
+Area &CarFrameResolver::resolve_frame(float angle, float speed) {
     this->current_frame++;
-    if (!moving) this->current_frame = 1;
+    if (speed < 5) this->current_frame = 1;
     if (angle <= 3) return this->straight_up_frames[this->current_frame % 4];
     if (angle > 3 && angle <= 30) return this->turn_1_up_frames[this->current_frame % 4];
     if (angle > 30 && angle <= 45) return this->turn_2_up_frames[this->current_frame % 4];

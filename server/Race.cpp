@@ -36,10 +36,10 @@ void Race::run() {
     }
 }
 
-void Race::add_player(ClientProxy messenger) {
+void Race::add_player(ClientProxy& messenger) {
     Car *car = new Car(world, players.size());
     CarHandler *handler = new CarHandler(car);
-    auto *player = new Player(std::move(messenger), handler);
+    Player *player = new Player(std::move(messenger), handler);
     players.emplace(player->getId(), player);
     player->start();
 }
@@ -92,8 +92,7 @@ void Race::add_cars(State &state) {
     JSON car_stats;
     for (auto it = players.begin(); it != players.end(); ++it) {
         if (!it->second->isAlive()) continue;
-        auto car = it->second->get_position();
-        JSON k_umap(car);
+        JSON k_umap(it->second->get_position());
         car_stats.push_back(k_umap);
     }
     state.append(J_CARS, car_stats);

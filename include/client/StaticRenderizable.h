@@ -16,8 +16,8 @@ protected:
 public:
     StaticRenderizable();
 
-    void render(SDL_Renderer *renderer, int x, int y,
-                int angle = 0, int id = 0, bool moving = false) override;
+    void render(SDL_Renderer *renderer, float x, float y,
+                float angle = 0, int id = 0, float speed = 0) override;
 
     explicit StaticRenderizable(SDLTexture *texture);
 

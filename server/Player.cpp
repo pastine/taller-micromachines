@@ -43,19 +43,19 @@ void Player::stop() {
     messenger.shutdown();
 }
 
-std::unordered_map<std::string, std::string> Player::get_position() {
-    std::unordered_map<std::string, std::string> position;
+std::unordered_map<std::string, float> Player::get_position() {
+    std::unordered_map<std::string, float> position;
     std::tuple<float, float, float> pos = car->get_position();
-    position.emplace(J_X, std::to_string(std::get<0>(pos)));
-    position.emplace(J_Y, std::to_string(std::get<1>(pos)));
-    position.emplace(J_ANGLE, std::to_string(std::get<2>(pos)));
+    position.emplace(J_X, std::get<0>(pos));
+    position.emplace(J_Y, std::get<1>(pos));
+    position.emplace(J_ANGLE, std::get<2>(pos));
     position.emplace(J_ID, getId());
-    position.emplace(J_MOVING, std::to_string(car->isMoving()));
+    position.emplace(J_SPEED, car->getSpeed());
     return std::move(position);
 }
 
-std::string Player::getId() {
-    return std::to_string(id);
+int Player::getId() {
+    return id;
 }
 
 void Player::update_lap_count() {
@@ -108,10 +108,10 @@ bool Player::isAlive() {
 }
 
 void Player::add_camera(State &state) {
-    std::unordered_map<std::string, std::string> position;
+    std::unordered_map<std::string, float> position;
     std::tuple<float, float, float> pos = car->get_position();
-    position.emplace(J_X, std::to_string(std::get<0>(pos)));
-    position.emplace(J_Y, std::to_string(std::get<1>(pos)));
+    position.emplace(J_X, std::get<0>(pos));
+    position.emplace(J_Y, std::get<1>(pos));
     state.append(J_CENTER, position);
 }
 

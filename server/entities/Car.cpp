@@ -2,10 +2,10 @@
 #include "common/Constants.h"
 #include "server/Car.h"
 
-#define MAX 50 * CAR_RESIZE_FACTOR
-#define MIN_TURN_SPEED 10 * CAR_RESIZE_FACTOR
-#define TORQUE 300 * CAR_RESIZE_FACTOR
-#define FORCE 10 * CAR_RESIZE_FACTOR
+#define MAX 30.0f
+#define MIN_TURN_SPEED 1.0f
+#define TORQUE 1800.0f
+#define FORCE 40.0f
 #define DEGTORAD 0.0174532925199432957f
 
 b2Vec2 get_forward_normal(float angle) {
@@ -36,8 +36,8 @@ Car::Car(b2World &world, unsigned long i) {
     dynamicBox.SetAsBox(0.145f * CAR_RESIZE_FACTOR, 0.145f * CAR_RESIZE_FACTOR);
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &dynamicBox;
-    fixtureDef.density = 55.0f;
-    fixtureDef.friction = 8.0f;
+    fixtureDef.density = 40.0f;
+    fixtureDef.friction = 11.0f;
     fixtureDef.restitution = 0.3f;
     m_body->CreateFixture(&fixtureDef);
     max_speed = MAX;
@@ -62,7 +62,7 @@ float32 Car::get_angle() {
 
 void Car::turn(bool turn_left) {
     float currentSpeed = get_speed();
-    if (currentSpeed < min_turn_speed && currentSpeed > 0) return;
+    if (currentSpeed > -min_turn_speed && currentSpeed < min_turn_speed) return;
     if (turn_left)
         m_body->ApplyTorque(TORQUE, true);
     else
@@ -70,7 +70,7 @@ void Car::turn(bool turn_left) {
     m_body->SetAngularDamping(1);
     int angle = std::abs(this->get_angle());
     if (angle <= 3 || (angle >= 87 && angle <= 93) || (angle >= 177))
-        m_body->SetAngularDamping(7);
+        m_body->SetAngularDamping(3);
 }
 
 void Car::move_straight(bool move_forward) {
@@ -83,7 +83,7 @@ void Car::move_straight(bool move_forward) {
     else if (!move_forward && currentSpeed > min_speed)
         force = -FORCE / 2;
     m_body->ApplyLinearImpulse(force * normal, m_body->GetPosition(), true);
-    m_body->SetLinearDamping(2);
+    m_body->SetLinearDamping(3);
 }
 
 void Car::start_contact(int id) {
@@ -143,7 +143,7 @@ void Car::contact_mud() {
 
 void Car::contact_oil() {
     float friction = m_body->GetFixtureList()->GetFriction();
-    friction -= 0.3;
+    friction -= 0.3f;
     m_body->GetFixtureList()->SetFriction(friction);
 }
 
@@ -179,16 +179,16 @@ void Car::surface_effect() {
     }*/
 }
 
-std::string Car::get_lives() {
-    return std::to_string(*lives);
+int Car::get_lives() {
+    return *lives;
 }
 
-std::string Car::get_mud_state() {
+bool Car::get_mud_state() {
     if (!visibility) {
         visibility = true;
-        return "true";
+        return true;
     }
-    return "false";
+    return false;
 }
 
 Car::~Car() {

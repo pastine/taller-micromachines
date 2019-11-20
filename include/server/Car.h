@@ -22,8 +22,6 @@ public:
 
     void move_straight(bool move_forward);
 
-    void stop();
-
     void start_contact(int id);
 
     void end_contact(int id);
@@ -37,8 +35,6 @@ public:
     void off_track();
 
     void surface_effect();
-
-    void turn_left();
 
     int get_entity_type() override;
 
@@ -54,9 +50,9 @@ public:
 
     void contact_car();
 
-    std::string get_lives();
+    int get_lives();
 
-    std::string get_mud_state();
+    bool get_mud_state();
 
     float get_speed();
 
