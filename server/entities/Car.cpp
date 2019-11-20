@@ -67,7 +67,7 @@ void Car::turn(bool turn_left) {
         m_body->ApplyTorque(TORQUE, true);
     else
         m_body->ApplyTorque(-TORQUE, true);
-    m_body->SetAngularDamping(1);
+    m_body->SetAngularDamping(3);
     int angle = std::abs(this->get_angle());
     if (angle <= 3 || (angle >= 87 && angle <= 93) || (angle >= 177))
         m_body->SetAngularDamping(3);

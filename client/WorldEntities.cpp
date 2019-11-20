@@ -44,6 +44,7 @@ void WorldEntities::render(Camera &camera) {
                              std::get<1>(road_pos),
                              std::get<2>(road_pos));
 
+
     _render_simple_object(this->boulder_positions, this->boulder, camera);
     _render_simple_object(this->oil_positions, this->oil, camera);
     _render_simple_object(this->mud_positions, this->mud, camera);
