@@ -8,11 +8,10 @@ ThStateReceiver::ThStateReceiver(ServerProxy *proxy,
 }
 
 void ThStateReceiver::run() {
-    JSON state;
     try {
         while (!done) {
-            this->server->get_game_state(&state);
-            this->state_queue->push(std::move(state));
+            JSON j = this->server->get_game_state();
+            this->state_queue->push(std::move(j));
         }
     } catch (std::runtime_error &e) {
         std::cout << "Error in StateHandler -> " << e.what();

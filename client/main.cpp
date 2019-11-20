@@ -37,8 +37,7 @@ int main(int argc, char **argv) {
         launcher.show();
         app.exec();
 
-        JSON map;
-        server.handshake_answer(retValue, &map);
+        JSON map = server.handshake_answer(retValue);
 
         ProtectedQueue<JSON> queue;
 

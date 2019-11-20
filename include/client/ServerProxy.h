@@ -16,13 +16,13 @@ public:
 
     void player_move(MoveType move);
 
-    void get_game_state(JSON *json);
+    JSON get_game_state();
 
     ServerProxy(std::string &host, std::string &service);
 
     std::map<std::string, int> handshake();
 
-    void handshake_answer(int i, JSON *map);
+    JSON handshake_answer(int i);
 
 private:
     MoveSerializer move_serializer;
