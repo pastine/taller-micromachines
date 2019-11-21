@@ -61,20 +61,12 @@ void Server::create_race(ClientProxy &new_client, std::string name) {
     race->add_player(new_client, name);
 }
 
-<<<<<<< HEAD
-void Server::add_player_to_race(ClientProxy &new_client, int id) {
+void Server::add_player_to_race(ClientProxy &new_client, int id, std::string name) {
     for (Race *race: races) {
         if (race->getId() == id) {
-						auto aux = race->getTrack();
+        		auto aux = race->getTrack();
             new_client.send_track(aux);
-            race->add_player(new_client);
-=======
-void Server::add_player_to_race(ClientProxy &new_client, int id, std::string name) {
-    for (Race *r: races) {
-        if (r->getId() == id) {
-            new_client.send_track(r->getTrack());
-            r->add_player(new_client, name);
->>>>>>> b17a4869fe1db94db4c85abf24a35dc027eee986
+            race->add_player(new_client, name);
         }
     }
 }

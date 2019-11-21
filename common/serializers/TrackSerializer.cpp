@@ -67,6 +67,5 @@ JSON TrackSerializer::serialize_to_json(
     aux_elements[J_MUDS] = muds;
     aux_elements[J_BOULDERS] = boulders;
     all["elements"] = aux_elements;
-    std::cout<<all.dump()<<'\n';
     return std::move(all);
 }

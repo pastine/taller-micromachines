@@ -46,7 +46,7 @@ Car::Car(b2World &world, unsigned long i) {
     m_body->SetUserData(this);
     track = true;
     lives = new int(3);
-    visibility = true;
+    visibility = false;
 }
 
 b2Vec2 Car::get_position() {
@@ -138,7 +138,7 @@ void Car::contact_car() {
 }
 
 void Car::contact_mud() {
-    visibility = false;
+    visibility = true;
 }
 
 void Car::contact_oil() {
@@ -184,8 +184,8 @@ int Car::get_lives() {
 }
 
 bool Car::get_mud_state() {
-    if (!visibility) {
-        visibility = true;
+    if (visibility) {
+        visibility = false;
         return true;
     }
     return false;
