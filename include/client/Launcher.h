@@ -9,20 +9,32 @@
 #include <qt5/QtWidgets/QLineEdit>
 #include <list>
 #include <map>
+#include <vector>
 #include <string>
+#include <utility>
 
 class Launcher : public QWidget {
 public:
-    Launcher(std::map<std::string, int> map, int *retValue, bool *playwithbot);
+    Launcher(std::map<std::string, int> map,
+            std::map<int, std::string> botNames, int *retValue, int *playwithbot);
 
 private:
     int *retValue;
-    bool *playwithbot;
+    QVBoxLayout *mainLayout;
+    int *playwithbot;
 public slots:
 
-    void setValue(std::string id);
+    void toggleRace(std::string id);
 
-    void toggleBot();
+    void toggleBot(std::pair<const int, std::basic_string<char>> n, QToolButton *pButton);
+
+    void setBots(std::map<int, std::string> map);
+
+    void setImage();
+
+    void setCreateBtn();
+
+    void setExistingRaces(std::map<std::string, int> map);
 };
 
 #endif // LAUNCHER_H

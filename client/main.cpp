@@ -6,11 +6,14 @@
 #include <client/ThStateReceiver.h>
 #include <client/ThFrameDrawer.h>
 #include <map>
+#include <dirent.h>
 #include "client/SDLException.h"
 #include "client/Launcher.h"
 #include "client/AIScript.h"
 
 const int JOYSTICK_DEAD_ZONE = 8000;
+
+std::map<int, std::string> getBotNames();
 
 void send_moves(ServerProxy *server, bool up, bool down, bool left, bool right) {
     if (left && up) server->player_move(MoveType::UPLEFT);
@@ -31,9 +34,10 @@ int main(int argc, char **argv) {
 
         std::map<std::string, int> races_ids_players = server.handshake();
         int retValue = -1;
-        bool playwithbot = 0;
+        int playwithbot = -1;
+        std::map<int, std::string> botNames = getBotNames();
         QApplication app(argc, argv);
-        Launcher launcher(races_ids_players, &retValue, &playwithbot);
+        Launcher launcher(races_ids_players, botNames, &retValue, &playwithbot);
         launcher.show();
         app.exec();
 
@@ -47,19 +51,18 @@ int main(int argc, char **argv) {
         ThFrameDrawer frame_drawer(&queue, map);
         state_receiver.start();
         frame_drawer.start();
+        AIScript script(botNames[playwithbot]);
 
         bool running = true;
         bool up = false, down = false, left = false, right = false;
-        AIScript script("bot");
         SDL_Joystick* gGameController = NULL;
         if (SDL_NumJoysticks() >= 1) {
             gGameController = SDL_JoystickOpen(0);
             std::cout << "Yas" <<"\n";
         }
-
         while (running) {
             send_moves(&server, up, down, left, right);
-            if (playwithbot) {
+            if (playwithbot > 0) {
                 int move = script.getNextMove();
                 for (int i = 0; i < 20; i++) {
                     server.player_move(static_cast<MoveType>(move));
@@ -149,4 +152,18 @@ int main(int argc, char **argv) {
     } catch (SDLException& e) {
         std::cout << e.what() << '\n';
     }
+}
+
+std::map<int, std::string> getBotNames() {
+    DIR* botDir = opendir("client/bots");
+    if (!botDir) return {};
+    struct dirent *ent;
+    std::map<int, std::string> names;
+    int counter = 1;
+    while ((ent = readdir(botDir)) != NULL) {
+        std::string name = ent->d_name;
+        if (name == "." || name == "..") continue;
+        names.insert({counter++, name});
+    }
+    return names;
 }
