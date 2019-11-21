@@ -24,9 +24,10 @@ public:
 
     ~CarHandler();
 
-    std::unordered_map<std::string, int> get_user_state();
+    std::unordered_map<std::string, int> get_lives();
+    std::unordered_map<std::string, bool> get_mud_state();
 
-    float getSpeed();
+    float get_speed();
 };
 
 

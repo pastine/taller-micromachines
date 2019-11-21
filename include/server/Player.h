@@ -9,6 +9,7 @@
 #include <vector>
 #include "StateHandler.h"
 #include "State.h"
+#include <map>
 
 class Player : public Thread {
 private:
@@ -47,6 +48,8 @@ public:
     void add_user(State &state);
 
     void send_update(State &state);
+
+    std::map<std::string, std::string> get_player_names();
 };
 
 

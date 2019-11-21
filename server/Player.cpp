@@ -50,7 +50,7 @@ std::unordered_map<std::string, float> Player::get_position() {
     position.emplace(J_Y, std::get<1>(pos));
     position.emplace(J_ANGLE, std::get<2>(pos));
     position.emplace(J_ID, getId());
-    position.emplace(J_SPEED, car->getSpeed());
+    position.emplace(J_SPEED, car->get_speed());
     return std::move(position);
 }
 
@@ -116,13 +116,18 @@ void Player::add_camera(State &state) {
 }
 
 void Player::add_user(State &state) {
-    state.append(J_USER, car->get_user_state());
-    std::map<std::string, std::string> namemap;
-    std::string n = name + "#" + std::to_string(id);
-    namemap.emplace(J_NAME, n);
-    state.append(J_USER, namemap);
+    state.append(J_USER, car->get_lives());
+    state.append(J_USER, car->get_mud_state());
+    state.append(J_USER, get_player_names());
 }
 
 void Player::send_update(State &state) {
     updater->send(state);
+}
+
+std::map<std::string, std::string> Player::get_player_names() {
+    std::map<std::string, std::string> namemap;
+    std::string n = name + "#" + std::to_string(id);
+    namemap.emplace(J_NAME, n);
+    return namemap;
 }

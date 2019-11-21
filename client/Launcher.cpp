@@ -62,7 +62,7 @@ void Launcher::setExistingRaces(std::map<std::string, int> races) {
         std::string label = str.str();
         QPushButton *btn = new QPushButton(label.c_str());
         connect(btn, &QPushButton::clicked, this,
-                [this, p]() { toggleRace(p.first); });
+                [this, p]() { toggleRace(p.first); quit(); });
         existingGames->addWidget(btn);
     }
     mainLayout->addLayout(existingGames);

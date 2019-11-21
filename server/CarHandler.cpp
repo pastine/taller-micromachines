@@ -54,13 +54,18 @@ void CarHandler::update_surface() {
     car->surface_effect();
 }
 
-std::unordered_map<std::string, int> CarHandler::get_user_state() {
-    std::unordered_map<std::string, int> user;
-    user.emplace(J_MUD, car->get_mud_state());
-    user.emplace(J_LIVES, car->get_lives());
-    return user;
+std::unordered_map<std::string, int> CarHandler::get_lives() {
+    std::unordered_map<std::string, int> lives;
+    lives.emplace(J_LIVES, car->get_lives());
+    return lives;
 }
 
-float CarHandler::getSpeed() {
+std::unordered_map<std::string, bool> CarHandler::get_mud_state() {
+    std::unordered_map<std::string, bool> mud;
+    mud.emplace(J_MUD, car->get_mud_state());
+    return mud;
+}
+
+float CarHandler::get_speed() {
     return car->get_speed();
 }

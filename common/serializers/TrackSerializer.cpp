@@ -45,7 +45,7 @@ JSON TrackSerializer::serialize_to_json(
     JSON oils, muds, boulders;
 
     auto aux_oils = track[J_OILS];
-    auto aux_muds = track[J_MUD];
+    auto aux_muds = track[J_MUDS];
     auto aux_boulder = track[J_BOULDERS];
 
     for (size_t i = 0; i < aux_oils.size(); i++) {

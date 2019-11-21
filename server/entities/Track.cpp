@@ -154,7 +154,7 @@ std::unordered_map<std::string, std::vector<b2Vec2>> Track::get_static_state() {
     std::unordered_map<std::string, std::vector<b2Vec2>> result;
     result.emplace(J_BOULDERS, boulder);
     result.emplace(J_OILS, oil);
-    result.emplace(J_MUD, mud);
+    result.emplace(J_MUDS, mud);
     return result;
 }
 

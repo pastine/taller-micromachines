@@ -38,7 +38,7 @@ void ClientProxy::send_track(
 }
 
 void ClientProxy::modify_state(State& state) {
-    void *shared_lib = dlopen("./libAlwaysMud.so", RTLD_NOW);
+    void *shared_lib = dlopen("./libOneLife.so", RTLD_NOW);
     typedef char *(*func)(char *);
     func middleman = (func) dlsym(shared_lib, "middleman");
     std::string msg = state.json.dump();
