@@ -16,7 +16,7 @@ SDLText::SDLText() {
         throw SDLException(err_msg.data(), err.data());
     }
 
-    this->font = TTF_OpenFont(FONT_FILE, 100);
+    this->font = TTF_OpenFontIndex(FONT_FILE, 26, 0);
     if (!this->font) {
         std::string sdl_err = TTF_GetError();
         std::string err = "Could not open font";

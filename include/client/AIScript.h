@@ -4,12 +4,11 @@
 #include <string>
 #include "LuaFile.h"
 
-const char DIRECTORY[] = "client/scripts/";
-const char EXTENSION[] = ".lua";
+const char DIRECTORY[] = "client/bots/";
 
 class AIScript : public LuaFile {
 public:
-    explicit AIScript(std::string scriptName) : LuaFile(DIRECTORY + scriptName + EXTENSION) {}
+    explicit AIScript(std::string scriptName) : LuaFile(DIRECTORY + scriptName) {}
 
     int index = 1;
 

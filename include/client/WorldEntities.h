@@ -14,7 +14,7 @@
 #include "CurvedRoad.h"
 #include "Boost.h"
 #include "Heart.h"
-#include "../../client/entities/MudSplatter.h"
+#include "MudSplatter.h"
 
 
 class WorldEntities {

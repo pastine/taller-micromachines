@@ -22,7 +22,7 @@ public:
 
     std::map<std::string, int> handshake();
 
-    JSON handshake_answer(int i);
+    JSON handshake_answer(int i, std::string name);
 
 private:
     MoveSerializer move_serializer;

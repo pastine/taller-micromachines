@@ -59,12 +59,12 @@ void Camera::render_car_lives(int lives) {
     lives_drawer.draw_lives(lives, this->window.get_renderer());
 }
 
-void Camera::render_text() {
-    this->text_creator.render_text("Hola mundo", this->window.get_renderer(), 10, 50);
-}
-
 void Camera::render_splatter() {
     MudSplatter splatter;
     splatter.render(this->window.get_renderer(),
             0,0, this->window.get_width(), this->window.get_height());
+}
+
+void Camera::render_name(std::string name) {
+    this->text_creator.render_text(name, this->window.get_renderer(), 800, 10);
 }

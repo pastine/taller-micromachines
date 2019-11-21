@@ -3,7 +3,7 @@
 //
 
 #include <client/SDLTextureLoader.h>
-#include "MudSplatter.h"
+#include "client/MudSplatter.h"
 
 MudSplatter::MudSplatter() {
     w = 785;
@@ -21,6 +21,6 @@ void MudSplatter::render(SDL_Renderer *renderer, float x, float y, int w_screen,
                          int h_screen) {
     Area src(img_x, img_y, w, h);
     Area dest(0, 0,
-    w * resize_factor * real_resize, h * resize_factor * real_resize);
+              w_screen * resize_factor * real_resize, h_screen * resize_factor * real_resize);
     this->texture->render(renderer, src, dest, 0);
 }

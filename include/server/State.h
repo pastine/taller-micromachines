@@ -7,8 +7,12 @@
 
 class State {
 public:
+    State() = default;
+    explicit State(std::string string);
+
     JSON json;
 
+    void insert(std::string key, JSON value);
     void append(std::string key, JSON value);
 };
 
