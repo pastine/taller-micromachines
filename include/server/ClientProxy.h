@@ -50,7 +50,7 @@ private:
     StateSerializer state_serializer;
     TrackSerializer track_serializer;
 
-    void modify_state(std::string &basicString);
+    void modify_state(State& state);
 };
 
 

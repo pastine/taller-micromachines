@@ -4,7 +4,7 @@
 ClientProxy::ClientProxy(Communication comm) : communication(std::move(comm)) {}
 
 void ClientProxy::send_state(State &state) {
-//    modify_state(msg);
+    modify_state(state);
     state_serializer.send(communication, state);
 }
 
@@ -36,13 +36,14 @@ void ClientProxy::send_track(Track track) {
     track_serializer.send(communication, track);
 }
 
-void ClientProxy::modify_state(std::string &msg) {
-    void *shared_lib = dlopen("./libMiddleManState.so", RTLD_NOW);
+void ClientProxy::modify_state(State& state) {
+    void *shared_lib = dlopen("./libAlwaysMud.so", RTLD_NOW);
     typedef char *(*func)(char *);
     func middleman = (func) dlsym(shared_lib, "middleman");
+    std::string msg = state.json.dump();
     char *dup_msg = strdup(msg.c_str());
     char *modifiedstr = middleman(dup_msg);
-    msg = std::string(modifiedstr);
+    state = State(modifiedstr);
     free(dup_msg);
     free(modifiedstr);
     dlclose(shared_lib);

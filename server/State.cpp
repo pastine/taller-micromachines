@@ -13,3 +13,5 @@ void State::append(std::string key, JSON value) {
     prevval.insert(newvalue.begin(), newvalue.end());
     json[key] = prevval;
 }
+
+State::State(std::string str) : json(JSON::parse(str)) {}

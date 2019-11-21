@@ -26,8 +26,10 @@ add_executable(server_test
         entities/Limit.cpp ../include/server/Limit.h
         State.cpp ../include/server/State.h)
 
-add_library(MiddleManState SHARED mods/libMiddleManState.cpp)
+add_library(OneLife SHARED mods/libOneLife.cpp)
+add_library(AlwaysMud SHARED mods/libAlwaysMud.cpp)
 
 
 target_link_libraries(server_test box2d)
-target_link_libraries(server_test MiddleManState ${CMAKE_DL_LIBS})
+target_link_libraries(server_test OneLife ${CMAKE_DL_LIBS})
+target_link_libraries(server_test AlwaysMud ${CMAKE_DL_LIBS})
