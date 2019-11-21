@@ -2,8 +2,8 @@
 #include "client/Heart.h"
 
 Heart::Heart() {
-    w = 50;
-    h = 50;
+    w = 9;
+    h = 8;
     img_x = 0;
     img_y = 0;
     real_resize = 5;
