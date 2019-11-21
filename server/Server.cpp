@@ -53,17 +53,19 @@ void Server::reaper() {
 
 void Server::create_race(ClientProxy &new_client) {
     Race *race = new Race();
-    new_client.send_track(race->getTrack());
+    auto aux = race->getTrack();
+    new_client.send_track(aux);
     races.push_back(race);
     race->start();
     race->add_player(new_client);
 }
 
 void Server::add_player_to_race(ClientProxy &new_client, int id) {
-    for (Race *r: races) {
-        if (r->getId() == id) {
-            new_client.send_track(r->getTrack());
-            r->add_player(new_client);
+    for (Race *race: races) {
+        if (race->getId() == id) {
+						auto aux = race->getTrack();
+            new_client.send_track(aux);
+            race->add_player(new_client);
         }
     }
 }

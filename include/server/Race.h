@@ -3,11 +3,9 @@
 
 #include "ClientProxy.h"
 #include "Player.h"
-#include "ContactListener.h"
-#include "Track.h"
 #include "Element.h"
-#include "Limit.h"
 #include "State.h"
+#include "../../server/Environment.h"
 #include <unordered_map>
 #include <string>
 #include <vector>
@@ -17,12 +15,9 @@ class Race : public Thread {
 
 private:
   int id;
-  b2World world;
-	Track track;
-    std::unordered_map<int, Player *> players;
-    bool racing = true;
-  ContactListener listener;
-  Limit limit;
+  std::unordered_map<int, Player *> players;
+  bool racing = true;
+  Environment environment;
 
 public:
     Race();
@@ -39,7 +34,7 @@ public:
 
     int getId();
 
-    Track getTrack();
+		std::unordered_map<std::string, std::vector<b2Vec2>> getTrack();
 
     int getPlayerCount();
 

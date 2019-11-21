@@ -12,22 +12,24 @@
 
 class Track : public Entity {
 private:
-    std::vector<Element *> static_elements;
-	std::vector<Element *> elements;
+	std::vector<Element*> static_elements;
+	std::vector<Element*> elements;
 public:
-    explicit Track(b2World &world);
+    explicit Track(b2World& world);
 
     int get_entity_type() override;
 
     JSON get_elements_state();
 
-    std::vector<Element *> get_static_elements();
+    std::vector<Element*> get_static_elements();
 
     b2Vec2 get_position() override;
 
-    void delete_elements();
+    void add_elements(State& state);
 
-    void add_elements(State &state);
+    ~Track();
+
+	std::unordered_map<std::string, std::vector<b2Vec2>> get_static_state();
 };
 
 

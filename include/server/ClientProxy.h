@@ -13,6 +13,7 @@
 #include <common/TrackSerializer.h>
 #include "Track.h"
 #include <string>
+#include <unordered_map>
 
 class ClientProxy {
 public:
@@ -40,7 +41,7 @@ public:
     // Returns the id of the race to be joined or 0 to create one
     int handshake(std::map<int, int> races_ids_players);
 
-    void send_track(Track track);
+    void send_track(std::unordered_map<std::string, std::vector<b2Vec2>>& track);
 
 private:
     Communication communication;

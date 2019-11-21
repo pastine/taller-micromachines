@@ -43,7 +43,6 @@ void Serializer<T>::send(Communication &comm, T &block) {
 }
 
 template class Serializer<MoveType>;
-template class Serializer<Track>;
+template class Serializer<std::unordered_map<std::string, std::vector<b2Vec2>>>;
 template class Serializer<std::map<int,int>>; //Races
-template
-class Serializer<State>;
+template class Serializer<State>;

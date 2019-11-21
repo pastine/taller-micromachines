@@ -5,7 +5,8 @@
 #include "common/Constants.h"
 #include "common/CommunicationConstants.h"
 
-JSON TrackSerializer::serialize_to_json(Track &track) {
+JSON TrackSerializer::serialize_to_json(
+				std::unordered_map<std::string, std::vector<b2Vec2>>& track) {
     JSON all;
     JSON aux;
     JSON aux_elements;
@@ -41,32 +42,31 @@ JSON TrackSerializer::serialize_to_json(Track &track) {
 
     all["tracks"] = aux;
 
-    std::unordered_map<std::string, float> oils;
-    std::unordered_map<std::string, float> muds;
-    std::unordered_map<std::string, float> boulders;
+    JSON oils, muds, boulders;
 
-    for (auto &element : track.get_static_elements()) {
-        int t = element->get_entity_type();
-        b2Vec2 a = element->get_position();
-        switch (t) {
-            case 2:
-                muds.emplace("x", a.x);
-                muds.emplace("y", a.y);
-                break;
-            case 3:
-                oils.emplace("x", a.x);
-                oils.emplace("y", a.y);
-                break;
-            case 4:
-                boulders.emplace("x", a.x);
-                boulders.emplace("y", a.y);
-                break;
-        }
+    auto aux_oils = track[J_OILS];
+    auto aux_muds = track[J_MUD];
+    auto aux_boulder = track[J_BOULDERS];
+
+    for (size_t i = 0; i < aux_oils.size(); i++) {
+    	std::unordered_map<std::string, float> oil;
+    	oil.emplace(J_X, aux_oils[i].x);
+    	oil.emplace(J_Y, aux_oils[i].y);
+    	oils.push_back(JSON(oil));
+			std::unordered_map<std::string, float> mud;
+			mud.emplace(J_X, aux_muds[i].x);
+			mud.emplace(J_Y, aux_muds[i].y);
+			muds.push_back(JSON(mud));
+			std::unordered_map<std::string, float> boulder;
+			boulder.emplace(J_X, aux_boulder[i].x);
+			boulder.emplace(J_Y, aux_boulder[i].y);
+			boulders.push_back(JSON(boulder));
     }
-    aux_elements["oils"].push_back(JSON(oils));
-    aux_elements["muds"].push_back(JSON(muds));
-    aux_elements["boulders"].push_back(JSON(boulders));
-    all["elements"] = aux_elements;
 
-    return all;
+    aux_elements[J_OILS]= oils;
+    aux_elements[J_MUDS] = muds;
+    aux_elements[J_BOULDERS] = boulders;
+    all["elements"] = aux_elements;
+    std::cout<<all.dump()<<'\n';
+    return std::move(all);
 }

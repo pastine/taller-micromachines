@@ -139,15 +139,31 @@ JSON Track::get_elements_state() {
 	return elemen;
 }
 
-std::vector<Element *> Track::get_static_elements() {
-    return static_elements;
+std::unordered_map<std::string, std::vector<b2Vec2>> Track::get_static_state() {
+	std::vector<b2Vec2> mud;
+	std::vector<b2Vec2> oil;
+	std::vector<b2Vec2> boulder;
+    for (auto &e : static_elements) {
+    	int id = e->get_entity_type();
+    	switch (id) {
+    		case MUD: mud.emplace_back(e->get_position()); break;
+				case OIL: oil.emplace_back(e->get_position()); break;
+				case STONE: boulder.emplace_back(e->get_position()); break;
+    	}
+    }
+    std::unordered_map<std::string, std::vector<b2Vec2>> result;
+    result.emplace(J_BOULDERS, boulder);
+    result.emplace(J_OILS, oil);
+    result.emplace(J_MUD, mud);
+    return result;
 }
 
-void Track::delete_elements() {
-    for (auto &e : static_elements)
-        delete (e);
-}
+Track::~Track() {
+	for (auto &e : static_elements) {
+		delete (e);
+	}
 
-void Track::add_elements(State &state) {
-    state.append(J_ELEMENTS, get_elements_state());
+	for (auto &a : elements) {
+		delete (a);
+	}
 }

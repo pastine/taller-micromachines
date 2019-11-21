@@ -7,22 +7,17 @@
 
 std::atomic_int Race::RaceCount(1);
 
-Race::Race() : id(RaceCount++), world({0.0f, 0.0f}),
-               track(world), limit(world) {
-    world.SetContactListener(&listener);
+Race::Race() : id(RaceCount++), environment(Environment()) {
 }
 
 void Race::run() {
     while (racing) {
         try {
-            float32 time = 1.0f / 30.0f;
-            int32 velocity = 6;
-            int32 position = 2;
-            world.Step(time, velocity, position);
+            environment.step();
             State state;
             add_cars(state);
             for (auto it = players.begin(); it != players.end(); ++it) {
-                track.add_elements(state);
+                environment.get_elements(state);
                 it->second->add_camera(state);
                 it->second->add_user(state);
                 it->second->send_update(state);
@@ -37,7 +32,7 @@ void Race::run() {
 }
 
 void Race::add_player(ClientProxy& messenger) {
-    Car *car = new Car(world, players.size());
+    Car *car = environment.create_car(players.size());
     CarHandler *handler = new CarHandler(car);
     Player *player = new Player(std::move(messenger), handler);
     players.emplace(player->getId(), player);
@@ -56,7 +51,6 @@ Race::~Race() {
         delete it->second;
         it = players.erase(it);
     }
-    track.delete_elements();
     this->join();
 }
 
@@ -68,8 +62,8 @@ int Race::getId() {
     return id;
 }
 
-Track Race::getTrack() {
-    return track;
+std::unordered_map<std::string, std::vector<b2Vec2>> Race::getTrack() {
+    return std::move(environment.get_track());
 }
 
 void Race::reaper() {

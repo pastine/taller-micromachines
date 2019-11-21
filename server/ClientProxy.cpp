@@ -32,7 +32,8 @@ int ClientProxy::handshake(std::map<int, int> races_ids_players) {
     return std::stoi(j.dump());
 }
 
-void ClientProxy::send_track(Track track) {
+void ClientProxy::send_track(
+				std::unordered_map<std::string, std::vector<b2Vec2>>& track) {
     track_serializer.send(communication, track);
 }
 
