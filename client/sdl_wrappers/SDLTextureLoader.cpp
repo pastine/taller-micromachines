@@ -18,7 +18,9 @@ void SDLTextureLoader::instance_loader(SDL_Renderer *renderer) {
 
 SDLTextureLoader::SDLTextureLoader(SDL_Renderer *renderer) : renderer(renderer) {}
 
-SDLTextureLoader::~SDLTextureLoader() {}
+SDLTextureLoader::~SDLTextureLoader() {
+    //TODO free every texture
+}
 
 SDLTexture *SDLTextureLoader::get_texture(std::string &path) {
     std::map<std::string, SDLTexture>::iterator it;

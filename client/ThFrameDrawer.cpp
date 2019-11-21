@@ -106,6 +106,10 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
 
         entities.render(cam);
         cam.render_car_lives(state[J_USER][J_LIVES]);
+
+        if (state[J_USER][J_MUD])
+            cam.render_splatter();
+        
         cam.render_name(state[J_USER][J_NAME]);
         //cam.render_splatter();
 

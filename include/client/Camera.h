@@ -6,7 +6,7 @@
 #include "SDLWindow.h"
 #include "CarLivesDrawer.h"
 #include "SDLText.h"
-#include "../../client/entities/MudSplatter.h"
+#include "MudSplatter.h"
 #include <string>
 
 class Camera {
