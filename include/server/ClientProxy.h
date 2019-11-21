@@ -37,10 +37,11 @@ public:
 
     ~ClientProxy() {}
 
-    // Returns the id of the race to be joined or 0 to create one
-    int handshake(std::map<int, int> races_ids_players);
+    int handshake_get_race(std::map<int, int> races_ids_players);
 
     void send_track(Track track);
+
+    std::string handshake_get_name(ClientProxy &proxy);
 
 private:
     Communication communication;

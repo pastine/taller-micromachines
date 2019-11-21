@@ -20,5 +20,6 @@
 #define J_CURVED "curved"
 #define J_HEALTH "health"
 #define J_BOOST "boost"
+#define J_NAME "name"
 
 #endif //TALLER_MICROMACHINES_COMMUNICATIONCONSTANTS_H

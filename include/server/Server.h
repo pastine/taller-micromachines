@@ -25,11 +25,11 @@ public:
 
     void reaper();
 
-    void create_race(ClientProxy &proxy);
+    void create_race(ClientProxy &proxy, std::string name);
 
-    void add_player_to_race(ClientProxy &new_client, int id);
+    void add_player_to_race(ClientProxy &new_client, int id, std::string name);
 
-    int handshake(ClientProxy &new_client);
+    int handshake_get_race(ClientProxy &new_client);
 };
 
 

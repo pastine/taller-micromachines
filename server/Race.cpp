@@ -36,10 +36,10 @@ void Race::run() {
     }
 }
 
-void Race::add_player(ClientProxy& messenger) {
+void Race::add_player(ClientProxy &messenger, std::string name) {
     Car *car = new Car(world, players.size());
     CarHandler *handler = new CarHandler(car);
-    Player *player = new Player(std::move(messenger), handler);
+    Player *player = new Player(std::move(messenger), handler, name);
     players.emplace(player->getId(), player);
     player->start();
 }

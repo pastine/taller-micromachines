@@ -26,7 +26,7 @@ void ClientProxy::shutdown() {
     this->communication.shutdown();
 }
 
-int ClientProxy::handshake(std::map<int, int> races_ids_players) {
+int ClientProxy::handshake_get_race(std::map<int, int> races_ids_players) {
     races_serializer.send(communication, races_ids_players);
     JSON j = races_serializer.receive(communication);
     return std::stoi(j.dump());
@@ -46,4 +46,10 @@ void ClientProxy::modify_state(std::string &msg) {
     free(dup_msg);
     free(modifiedstr);
     dlclose(shared_lib);
+}
+
+std::string ClientProxy::handshake_get_name(ClientProxy &proxy) {
+    std::string msg;
+    this->communication.receive_msg(msg);
+    return msg;
 }

@@ -16,12 +16,14 @@
 class Launcher : public QWidget {
 public:
     Launcher(std::map<std::string, int> map,
-            std::map<int, std::string> botNames, int *retValue, int *playwithbot);
+             std::map<int, std::string> botNames, int *retValue,
+             int *playwithbot, std::string *name);
 
 private:
     int *retValue;
     QVBoxLayout *mainLayout;
     int *playwithbot;
+    std::string *inputName;
 public slots:
 
     void toggleRace(std::string id);
@@ -35,6 +37,13 @@ public slots:
     void setCreateBtn();
 
     void setExistingRaces(std::map<std::string, int> map);
+
+    void setInput(std::string *name);
+
+    void quit();
+
+    QLineEdit *input;
+    QHBoxLayout *footerLayout;
 };
 
 #endif // LAUNCHER_H

@@ -20,9 +20,10 @@ std::map<std::string, int> ServerProxy::handshake() {
     return races_serializer.receive(communication);
 }
 
-JSON ServerProxy::handshake_answer(int i) {
+JSON ServerProxy::handshake_answer(int i, std::string playerName) {
     std::string msg = std::to_string(i);
     this->communication.send_msg(msg);
+    this->communication.send_msg(playerName);
     std::string answer;
     this->communication.receive_msg(answer);
     return JSON::parse(answer);

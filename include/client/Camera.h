@@ -7,6 +7,7 @@
 #include "CarLivesDrawer.h"
 #include "SDLText.h"
 #include "../../client/entities/MudSplatter.h"
+#include <string>
 
 class Camera {
 public:
@@ -23,9 +24,10 @@ public:
 
     void render_car_lives(int lives);
 
-    void render_text();
 
     void render_splatter();
+
+    void render_name(std::string name);
 
 private:
     bool _is_in_frame(Renderizable &object, float abs_x, float abs_y);

@@ -35,13 +35,14 @@ int main(int argc, char **argv) {
         std::map<std::string, int> races_ids_players = server.handshake();
         int retValue = -1;
         int playwithbot = -1;
+        std::string playerName = "Player";
         std::map<int, std::string> botNames = getBotNames();
         QApplication app(argc, argv);
-        Launcher launcher(races_ids_players, botNames, &retValue, &playwithbot);
+        Launcher launcher(races_ids_players, botNames, &retValue, &playwithbot, &playerName);
         launcher.show();
         app.exec();
 
-        JSON map = server.handshake_answer(retValue);
+        JSON map = server.handshake_answer(retValue, playerName);
 
         ProtectedQueue<JSON> queue;
 

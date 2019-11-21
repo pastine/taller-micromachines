@@ -6,21 +6,28 @@
 
 
 Launcher::Launcher(std::map<std::string, int> races,
-        std::map<int, std::string> botNames, int *ret, int *bot) :
-        retValue(ret), playwithbot(bot) {
+                   std::map<int, std::string> botNames, int *ret, int *bot, std::string *name) :
+        retValue(ret), playwithbot(bot), inputName(name) {
     mainLayout =  new QVBoxLayout();
+    footerLayout = new QHBoxLayout();
 
     setImage();
     setCreateBtn();
-    setBots(botNames);
     setExistingRaces(races);
+    setBots(botNames);
+    footerLayout->addStretch();
+    setInput(name);
 
+    mainLayout->addLayout(footerLayout);
     this->setLayout(mainLayout);
 }
 
 void Launcher::setCreateBtn() {
     QPushButton *createGameBtn = new QPushButton("Create Game");
-    connect(createGameBtn, &QPushButton::clicked, this, [this]() { toggleRace("0"); });
+    connect(createGameBtn, &QPushButton::clicked, this, [this]() {
+        toggleRace("0");
+        quit();
+    });
     mainLayout->addWidget(createGameBtn);
 }
 
@@ -44,7 +51,7 @@ void Launcher::setBots(std::map<int, std::string> botNames) {
                 [this, b, botDropdown]() { toggleBot(b, botDropdown); });
     }
     botDropdown->setMenu(botMenu);
-    mainLayout->addWidget(botDropdown);
+    footerLayout->addWidget(botDropdown);
 }
 
 void Launcher::setExistingRaces(std::map<std::string, int> races) {
@@ -64,10 +71,21 @@ void Launcher::setExistingRaces(std::map<std::string, int> races) {
 
 void Launcher::toggleRace(std::string id) {
     *retValue = stoi(id);
-    this->close();
 }
 
 void Launcher::toggleBot(std::pair<const int, std::basic_string<char>> n, QToolButton *btn) {
     *playwithbot = n.first;
     btn->setText(n.second.c_str());
+}
+
+void Launcher::setInput(std::string *name) {
+    input = new QLineEdit(name->c_str());
+    input->setAlignment(Qt::AlignRight);
+    footerLayout->addWidget(input);
+}
+
+void Launcher::quit() {
+    std::string s = input->text().toStdString();
+    *inputName = s;
+    this->close();
 }

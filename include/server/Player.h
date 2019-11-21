@@ -21,9 +21,10 @@ private:
     std::vector<std::vector<float>> flags;
     StateHandler<MoveType> *receiver;
     StateHandler<State> *updater;
+    std::string name;
 
 public:
-    Player(ClientProxy messenger, CarHandler *car);
+    Player(ClientProxy messenger, CarHandler *car, std::string name);
 
     virtual void run();
 

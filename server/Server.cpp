@@ -9,11 +9,12 @@ void Server::run() {
             ClientProxy new_client = acceptor.accept_client();
             std::cout << "New accept!\n";
             reaper();
-            int race_id = handshake(new_client);
+            int race_id = handshake_get_race(new_client);
+            std::string name = new_client.handshake_get_name(new_client);
             if (race_id == 0) {
-                create_race(new_client);
+                create_race(new_client, name);
             } else {
-                add_player_to_race(new_client, race_id);
+                add_player_to_race(new_client, race_id, name);
             }
         } catch (...) {
             stop();
@@ -51,27 +52,27 @@ void Server::reaper() {
     }
 }
 
-void Server::create_race(ClientProxy &new_client) {
+void Server::create_race(ClientProxy &new_client, std::string name) {
     Race *race = new Race();
     new_client.send_track(race->getTrack());
     races.push_back(race);
     race->start();
-    race->add_player(new_client);
+    race->add_player(new_client, name);
 }
 
-void Server::add_player_to_race(ClientProxy &new_client, int id) {
+void Server::add_player_to_race(ClientProxy &new_client, int id, std::string name) {
     for (Race *r: races) {
         if (r->getId() == id) {
             new_client.send_track(r->getTrack());
-            r->add_player(new_client);
+            r->add_player(new_client, name);
         }
     }
 }
 
-int Server::handshake(ClientProxy &new_client) {
+int Server::handshake_get_race(ClientProxy &new_client) {
     std::map<int, int> races_ids_players;
     for (Race *r: races) {
         races_ids_players.insert({r->getId(), r->getPlayerCount()});
     }
-    return new_client.handshake(races_ids_players);
+    return new_client.handshake_get_race(races_ids_players);
 }

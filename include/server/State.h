@@ -9,6 +9,7 @@ class State {
 public:
     JSON json;
 
+    void insert(std::string key, JSON value);
     void append(std::string key, JSON value);
 };
 

@@ -17,8 +17,8 @@ void add_boundaries(std::vector<std::vector<float>> &flags) {
     flags.emplace_back(std::vector<float>{-34.5f, 2.75f});
 }
 
-Player::Player(ClientProxy messenger, CarHandler *car) :
-        messenger(std::move(messenger)), car(car), id(rand_r(&seed) % 9999) {
+Player::Player(ClientProxy messenger, CarHandler *car, std::string name) :
+        messenger(std::move(messenger)), car(car), id(rand_r(&seed) % 9999), name(name) {
     add_boundaries(flags);
     receiver = new StateHandler<MoveType>(this->messenger);
     updater = new StateHandler<State>(this->messenger);
@@ -117,6 +117,10 @@ void Player::add_camera(State &state) {
 
 void Player::add_user(State &state) {
     state.append(J_USER, car->get_user_state());
+    std::map<std::string, std::string> namemap;
+    std::string n = name + "#" + std::to_string(id);
+    namemap.emplace(J_NAME, n);
+    state.append(J_USER, namemap);
 }
 
 void Player::send_update(State &state) {
