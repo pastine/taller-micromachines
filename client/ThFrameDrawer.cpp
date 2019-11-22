@@ -2,10 +2,12 @@
 #include "common/CommunicationConstants.h"
 
 #define MULTIPLE (10000.0f)
+#define FRAMES_TO_RENDER_MUD 100
 
 ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON &map)
         : state_queue(state_queue) {
     this->done = false;
+    this->frames_rendered_mud = 0;
 
     JSON straight_roads = map[J_TRACKS];
     JSON curved_roads = map[J_CURVED];
@@ -107,9 +109,16 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
         entities.render(cam);
         cam.render_car_lives(state[J_USER][J_LIVES]);
 
-        if (state[J_USER][J_MUD])
+        if (state[J_USER][J_MUD]) {
+            this->frames_rendered_mud = 1;
+        }
+        if (this->frames_rendered_mud < FRAMES_TO_RENDER_MUD && this->frames_rendered_mud > 0) {
             cam.render_splatter();
-        
+            this->frames_rendered_mud += 1;
+        } else {
+            this->frames_rendered_mud = 0;
+        }
+
         cam.render_name(state[J_USER][J_NAME]);
         //cam.render_splatter();
 
