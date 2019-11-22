@@ -54,7 +54,7 @@ void SDLTexture::render(SDL_Renderer *renderer, Area &src, Area &dest, float ang
             dest.getWidth(), dest.getHeight()
     };
 
-    SDL_Point center = {dest.getWidth() / 4, dest.getHeight() / 4};
+    SDL_Point center = {dest.getHeight(), -dest.getWidth()/6};
 
     int s = SDL_RenderCopyEx(renderer,
                              this->texture,
