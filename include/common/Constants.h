@@ -12,8 +12,7 @@
 #define LIMIT (7)
 
 
-#define W (5.5f)
-#define H (6.9f)
+#define W (6.85f)
 
 #define FIRST_GROUND_TILE_X (-31.05f)
 #define FIRST_GROUND_TILE_Y (0.0f)

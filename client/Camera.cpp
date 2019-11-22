@@ -5,7 +5,7 @@
 #include "common/Constants.h"
 
 #define RENDER_BORDER 100000
-#define ZOOM 0.5
+#define ZOOM 0.5 // the less the furthest
 
 
 Camera::Camera() : window(SDLWindow(480, 840)) {

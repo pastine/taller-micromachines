@@ -6,12 +6,14 @@
 #include "common/Constants.h"
 #include "Element.h"
 #include "State.h"
+#include "../../server/TrackStructure.h"
 #include <unordered_map>
 #include <string>
 #include <vector>
 
 class Track : public Entity {
 private:
+	TrackStructure skeleton;
 	std::vector<Element*> static_elements;
 	std::vector<Element*> elements;
 public:

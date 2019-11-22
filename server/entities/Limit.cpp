@@ -11,11 +11,11 @@ Limit::Limit(b2World &world) {
     fixture_box_def.shape = &limit_box;
     limit_box.SetAsBox(50, 1, b2Vec2(0, -10), 0);//ground
     m_body->CreateFixture(&fixture_box_def);
-    limit_box.SetAsBox(50, 1, b2Vec2(0, 90), 0);//ceiling
+    limit_box.SetAsBox(50, 1, b2Vec2(0, 120), 0);//ceiling
     m_body->CreateFixture(&fixture_box_def);
-    limit_box.SetAsBox(1, 50, b2Vec2(-50, 40), 0);//left wall
+    limit_box.SetAsBox(1, 65, b2Vec2(-50, 55), 0);//left wall
     m_body->CreateFixture(&fixture_box_def);
-    limit_box.SetAsBox(1, 50, b2Vec2(50, 40), 0);//right wall
+    limit_box.SetAsBox(1, 65, b2Vec2(50, 55), 0);//right wall
     m_body->CreateFixture(&fixture_box_def);
     m_body->SetUserData(this);
 }

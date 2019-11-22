@@ -2,8 +2,8 @@
 #include "client/StraightRoad.h"
 
 StraightRoad::StraightRoad() {
-    w = 685;
-    h = 685;
+    w = 688;
+    h = w;
     img_x = 0;
     img_y = 0;
     resize_factor = 1;

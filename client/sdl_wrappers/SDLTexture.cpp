@@ -48,18 +48,21 @@ void SDLTexture::render(SDL_Renderer *renderer, Area &src, Area &dest, float ang
             src.getX(), src.getY(),
             src.getWidth(), src.getHeight()
     };
+
     SDL_Rect render_to = {
             dest.getX(), dest.getY(),
             dest.getWidth(), dest.getHeight()
     };
 
+    SDL_Point center = {dest.getWidth() / 4, dest.getHeight() / 4};
+
     int s = SDL_RenderCopyEx(renderer,
                              this->texture,
                              &render_from,
-                             &render_to,
+														 &render_to,
                              angle,
-                             nullptr,
-                             SDL_FLIP_NONE);
+                             &center
+                             ,SDL_FLIP_NONE);
     if (s) {
         std::string err_msg = "Error while rendering texture";
         throw SDLException(err_msg.data(), SDL_GetError());

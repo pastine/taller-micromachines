@@ -38,12 +38,16 @@ void WorldEntities::clean() {
 }
 
 void WorldEntities::render(Camera &camera) {
-    for (const std::tuple<float, float, float> &road_pos : straight_road_positions)
-        camera.render_object(this->straight_road,
-                             std::get<0>(road_pos),
-                             std::get<1>(road_pos),
-                             std::get<2>(road_pos));
-
+    for (const std::tuple<float, float, float> &road_pos : straight_road_positions) {
+			camera.render_object(this->straight_road,
+													 std::get<0>(road_pos),
+													 std::get<1>(road_pos),
+													 std::get<2>(road_pos));
+		}
+	for (const std::tuple<float, float, float> &road_pos : straight_road_positions) {
+		camera.render_object(this->heart, std::get<0>(road_pos),
+												 std::get<1>(road_pos));
+	}
 
     _render_simple_object(this->boulder_positions, this->boulder, camera);
     _render_simple_object(this->oil_positions, this->oil, camera);
