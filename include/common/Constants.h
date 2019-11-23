@@ -15,6 +15,6 @@
 
 #define CAR_RESIZE_FACTOR (4.0f)
 
-#define PIXELS_TO_CM 0.01f
+#define TO_PX 0.01f
 
 #endif //TALLER_MICROMACHINES_CONSTANTS_H

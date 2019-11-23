@@ -5,7 +5,7 @@
 #include "common/Constants.h"
 
 #define RENDER_BORDER 100000
-#define ZOOM 0.5 // the less the furthest
+#define ZOOM 0.4 // the less the furthest
 
 
 Camera::Camera() : window(SDLWindow(480, 840)) {
@@ -21,8 +21,8 @@ void Camera::render_object(Renderizable &object, float abs_x, float abs_y,
     float x_distance_to_center_cms = abs_x - this->center_x_cms;
     float y_distance_to_center_cms = abs_y - this->center_y_cms;
 
-    float x_distance_to_center_px = x_distance_to_center_cms * PIXELS_TO_CM;
-    float y_distance_to_center_px = y_distance_to_center_cms * PIXELS_TO_CM;
+    float x_distance_to_center_px = x_distance_to_center_cms * TO_PX;
+    float y_distance_to_center_px = y_distance_to_center_cms * TO_PX;
 
     float relative_x_pos_px = this->center_x_px + x_distance_to_center_px;
     float relative_y_pos_px = this->center_y_px - y_distance_to_center_px;
@@ -45,11 +45,13 @@ void Camera::set_center(float x, float y) {
     this->center_y_cms = y;
     this->center_x_px = this->window.get_width() / 2;
     this->center_y_px = this->window.get_height() - (this->window.get_height() / 3);
+    this->center_y_px /= ZOOM;
+    this->center_x_px /= ZOOM;
 }
 
 bool Camera::_is_in_frame(Renderizable &object, float object_x_cms, float object_y_cms) {
-    float w_width_cms = this->window.get_width() / PIXELS_TO_CM;
-    float w_height_cms = this->window.get_height() / PIXELS_TO_CM;
+    float w_width_cms = this->window.get_width() / TO_PX;
+    float w_height_cms = this->window.get_height() / TO_PX;
     if (std::abs(this->center_x_cms - object_x_cms) > w_width_cms + RENDER_BORDER) return false;
     return std::abs(this->center_y_cms - object_y_cms) <= w_height_cms + RENDER_BORDER;
 }
