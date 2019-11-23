@@ -25,8 +25,8 @@ void Car::render(SDL_Renderer *renderer, float x, float y, float angle, int id, 
      * The angle comes from 180 upto -180.
      * */
 
-    float w_cm = w * PIXELS_TO_CM;
-    float h_cm = h * PIXELS_TO_CM;
+    float w_cm = w * TO_PX;
+    float h_cm = h * TO_PX;
 
     float x_topleft = x - ((w_cm / 2) * cos(angle)) - ((h_cm/2) * sin(angle));
     float y_topleft = y - ((w_cm/2) * sin(angle)) + ((h_cm/2) * cos(angle));
