@@ -31,6 +31,8 @@ public:
     void add_elements(State& state);
 
     ~Track();
+
+	std::vector<float> get_random_pos();
 };
 
 

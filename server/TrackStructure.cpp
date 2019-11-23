@@ -12,5 +12,6 @@ TrackStructure::TrackStructure(char* file) {
 }
 
 JSON TrackStructure::get_track() {
-	return track;
+	auto aux = track;
+	return aux;
 }
