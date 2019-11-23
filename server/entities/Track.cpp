@@ -17,6 +17,7 @@ Track::Track(b2World &world, char* file) : skeleton(TrackStructure(file)) {
     b2FixtureDef fixture;
     fixture.isSensor = true;
     fixture.shape = &walls;
+    fixture.filter.groupIndex = 9;
     JSON track = skeleton.get_track()["straight"];
 
     for (JSON::iterator it = track.begin(); it != track.end(); ++it) {

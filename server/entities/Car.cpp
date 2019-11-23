@@ -170,12 +170,16 @@ int Car::get_entity_type() {
 
 
 void Car::surface_effect() {
-    /*if (track) {
-        std::cout<<"ontrack"<<"\n";
-    }
-    if (!track) {
-        std::cout<<"offtrack"<<"\n";
-    }*/
+	float friction = m_body->GetFixtureList()->GetFriction();
+	if (track) {
+		friction -= 10;
+	  std::cout<<"ontrack"<<"\n";
+  }
+  if (!track) {
+		friction += 10.f;
+  	std::cout<<"offtrack"<<"\n";
+  }
+	m_body->GetFixtureList()->SetFriction(friction);
 }
 
 int Car::get_lives() {
