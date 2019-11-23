@@ -21,5 +21,13 @@
 #define J_HEALTH "health"
 #define J_BOOST "boost"
 #define J_NAME "name"
+#define J_STRAIGHT "straight"
+#define J_X0 "x0"
+#define J_Y0 "y0"
+#define J_X1 "x1"
+#define J_Y1 "y1"
+#define J_X2 "x2"
+#define J_Y2 "y2"
+
 
 #endif //TALLER_MICROMACHINES_COMMUNICATIONCONSTANTS_H
