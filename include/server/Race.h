@@ -3,10 +3,9 @@
 
 #include "ClientProxy.h"
 #include "Player.h"
-#include "Element.h"
 #include "TrackData.h"
 #include "State.h"
-#include "../../server/Environment.h"
+#include "Environment.h"
 #include <unordered_map>
 #include <string>
 #include <vector>

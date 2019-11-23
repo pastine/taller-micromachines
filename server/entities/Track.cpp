@@ -59,10 +59,6 @@ int Track::get_entity_type() {
     return TRACK;
 }
 
-b2Vec2 Track::get_position() {
-    return m_body->GetPosition();
-}
-
 JSON Track::get_elements_state() {
 	JSON boost;
 	JSON health;
@@ -120,9 +116,9 @@ std::vector<float> Track::get_random_pos() {
 
 Track::~Track() {
 	for (auto &e : static_elements) {
-		delete (e);
+		delete(e);
 	}
 	for (auto &a : elements) {
-		delete (a);
+		delete(a);
 	}
 }

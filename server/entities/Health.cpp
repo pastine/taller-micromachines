@@ -1,5 +1,4 @@
 #include "server/Health.h"
-#include "common/Constants.h"
 
 Health::Health(b2World &world, float x, float y) {
     b2BodyDef bodyDef;
@@ -23,9 +22,6 @@ void Health::start_contact() {
 }
 
 void Health::end_contact() {
-}
-
-void Health::destroy() {
 }
 
 int Health::get_entity_type() {

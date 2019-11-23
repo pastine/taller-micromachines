@@ -1,5 +1,4 @@
 #include "server/Mud.h"
-#include "common/Constants.h"
 
 Mud::Mud(b2World &world, float x, float y) {
     b2BodyDef bodyDef;

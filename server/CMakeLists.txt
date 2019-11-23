@@ -15,7 +15,7 @@ add_executable(server_test
         main.cpp Player.cpp ../include/server/Player.h
         Race.cpp ../include/server/Race.h
         ContactListener.cpp ../include/server/ContactListener.h
-        Element.cpp ../include/server/Element.h
+        Entity.cpp
         entities/Boost.cpp ../include/server/Boost.h
         entities/Health.cpp ../include/server/Health.h
         entities/Oil.cpp ../include/server/Oil.h
@@ -24,7 +24,7 @@ add_executable(server_test
         StateHandler.cpp ../include/server/StateHandler.h
         ../include/server/Entity.h
         entities/Limit.cpp ../include/server/Limit.h
-        State.cpp ../include/server/State.h Environment.cpp Environment.h TrackStructure.cpp ../include/server/TrackStructure.h TrackData.cpp ../include/server/TrackData.h)
+        State.cpp ../include/server/State.h Environment.cpp ../include/server/Environment.h TrackStructure.cpp ../include/server/TrackStructure.h TrackData.cpp ../include/server/TrackData.h)
 
 add_library(OneLife SHARED mods/libOneLife.cpp)
 add_library(AlwaysMud SHARED mods/libAlwaysMud.cpp)

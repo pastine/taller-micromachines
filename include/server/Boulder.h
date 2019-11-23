@@ -2,9 +2,10 @@
 #define TALLER_MICROMACHINES_BOULDER_H
 
 #include <Box2D/Box2D.h>
-#include "server/Element.h"
+#include "Entity.h"
 
-class Boulder : public Element {
+
+class Boulder : public Entity {
 public:
     explicit Boulder(b2World &world, float x, float y);
 

@@ -27,10 +27,6 @@ void Limit::start_contact() {
 void Limit::end_contact() {
 }
 
-b2Vec2 Limit::get_position() {
-    return m_body->GetPosition();
-}
-
 int Limit::get_entity_type() {
     return LIMIT;
 }

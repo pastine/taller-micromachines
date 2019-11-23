@@ -3,6 +3,7 @@
 
 #include "Box2D/Box2D.h"
 #include "Entity.h"
+#include "common/Constants.h"
 #include <string>
 
 class Car : public Entity {
@@ -25,8 +26,6 @@ public:
     void start_contact(int id);
 
     void end_contact(int id);
-
-    virtual ~Car();
 
     void turn(bool turn_left);
 
@@ -61,6 +60,8 @@ public:
     void contact_limit();
 
     int min_turn_speed;
+
+		~Car() override;
 };
 
 

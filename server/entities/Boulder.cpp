@@ -23,7 +23,6 @@ void Boulder::start_contact() {
 }
 
 void Boulder::end_contact() {
-    this->destroy();
 }
 
 int Boulder::get_entity_type() {

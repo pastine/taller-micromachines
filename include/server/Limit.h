@@ -4,19 +4,19 @@
 
 #include "Box2D/Box2D.h"
 #include "common/Constants.h"
-#include "Element.h"
+#include "Entity.h"
 
-class Limit : public Element {
+class Limit : public Entity {
 public:
-    explicit Limit(b2World &world);
+	explicit Limit(b2World &world);
 
-    void start_contact() override;
+	void start_contact() override;
 
-    void end_contact() override;
+	void end_contact() override;
 
-    b2Vec2 get_position() override;
+	int get_entity_type() override;
 
-    int get_entity_type() override;
+	~Limit() override = default;
 };
 
 #endif //TALLER_MICROMACHINES_LIMIT_H

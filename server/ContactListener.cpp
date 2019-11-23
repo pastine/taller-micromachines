@@ -1,5 +1,4 @@
 #include <server/Car.h>
-#include <server/Element.h>
 #include "server/ContactListener.h"
 
 void ContactListener::BeginContact(b2Contact *contact) {
@@ -16,12 +15,12 @@ void ContactListener::BeginContact(b2Contact *contact) {
     } else if (A_ID == 1) {
         static_cast<Car *>(A)->start_contact(B_ID);
         if (B_ID != 0) {
-            static_cast<Element *>(B)->start_contact();
+            static_cast<Entity *>(B)->start_contact();
         }
     } else {
         static_cast<Car *>(B)->start_contact(A_ID);
         if (A_ID != 0) {
-            static_cast<Element *>(A)->start_contact();
+            static_cast<Entity *>(A)->start_contact();
         }
     }
 }
@@ -40,12 +39,12 @@ void ContactListener::EndContact(b2Contact *contact) {
     } else if (A_ID == 1) {
         static_cast<Car *>(A)->end_contact(B_ID);
         if (B_ID != 0) {
-            static_cast<Element *>(B)->end_contact();
+            static_cast<Entity *>(B)->end_contact();
         }
     } else {
         static_cast<Car *>(B)->end_contact(A_ID);
         if (A_ID != 0) {
-            static_cast<Element *>(A)->end_contact();
+            static_cast<Entity *>(A)->end_contact();
         }
     }
 }

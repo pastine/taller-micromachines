@@ -4,7 +4,6 @@
 #include "Box2D/Box2D.h"
 #include "Entity.h"
 #include "common/Constants.h"
-#include "Element.h"
 #include "State.h"
 #include "TrackStructure.h"
 #include "TrackData.h"
@@ -15,24 +14,24 @@
 class Track : public Entity {
 private:
 	TrackStructure skeleton;
-	std::vector<Element*> static_elements;
-	std::vector<Element*> elements;
+	std::vector<Entity*> static_elements;
+	std::vector<Entity*> elements;
 public:
-    explicit Track(b2World& world, char* file);
+	explicit Track(b2World& world, char* file);
 
-    int get_entity_type() override;
+	int get_entity_type() override;
 
-    JSON get_elements_state();
+	void start_contact() override {};
 
-    TrackData get_static_data();
+	void end_contact() override {};
 
-    b2Vec2 get_position() override;
+	JSON get_elements_state();
 
-    void add_elements(State& state);
-
-    ~Track();
+	TrackData get_static_data();
 
 	std::vector<float> get_random_pos();
+
+	~Track() override;
 };
 
 

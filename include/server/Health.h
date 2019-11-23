@@ -2,19 +2,21 @@
 #define TALLER_MICROMACHINES_HEALTH_H
 
 #include <Box2D/Box2D.h>
-#include "server/Element.h"
+#include "common/Constants.h"
+#include "Entity.h"
 
-class Health : public Element {
+
+class Health : public Entity {
 public:
-    explicit Health(b2World &world, float x, float y);
+	explicit Health(b2World &world, float x, float y);
 
-    void start_contact() override;
+	void start_contact() override;
 
-    void end_contact() override;
+	void end_contact() override;
 
-    void destroy() override;
+	int get_entity_type() override;
 
-    int get_entity_type() override;
+	~Health() override = default;
 };
 
 

@@ -1,4 +1,4 @@
-#include "Environment.h"
+#include "server/Environment.h"
 
 Environment::Environment(char* file) : world({0.0f, 0.0f}),
 													 track(Track(world, file)), limit(Limit(world)) {
