@@ -1,7 +1,7 @@
 #include "Environment.h"
 
-Environment::Environment() : world({0.0f, 0.0f}),
-													 track(Track(world)), limit(Limit(world)) {
+Environment::Environment(char* file) : world({0.0f, 0.0f}),
+													 track(Track(world, file)), limit(Limit(world)) {
 	world.SetContactListener(&listener);
 }
 
@@ -13,8 +13,8 @@ void Environment::step() {
 	world.Step(time, velocity, position);
 }
 
-std::unordered_map<std::string, std::vector<b2Vec2>> Environment::get_track() {
-	return std::move(track.get_static_state());
+TrackData Environment::get_track_data() {
+	return std::move(track.get_static_data());
 }
 
 Car* Environment::create_car(unsigned long i) {

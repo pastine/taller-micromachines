@@ -4,6 +4,7 @@
 #include "ClientProxy.h"
 #include "Player.h"
 #include "Element.h"
+#include "TrackData.h"
 #include "State.h"
 #include "../../server/Environment.h"
 #include <unordered_map>
@@ -20,7 +21,7 @@ private:
   Environment environment;
 
 public:
-    Race();
+    explicit Race(char* file);
 
     virtual void run();
 
@@ -34,7 +35,7 @@ public:
 
     int getId();
 
-		std::unordered_map<std::string, std::vector<b2Vec2>> getTrack();
+		TrackData get_track_data();
 
     int getPlayerCount();
 

@@ -1,11 +1,11 @@
-#include "TrackStructure.h"
+#include "server/TrackStructure.h"
 #include <iostream>
 #include <fstream>
 
-TrackStructure::TrackStructure() {
+TrackStructure::TrackStructure(char* file) {
 	std::string track_string;
 	std::ifstream track_file;
-	track_file.open("server/temp.txt");
+	track_file.open(file);
 	track_file >> track_string;
 	track_file.close();
 	track = JSON::parse(track_string);

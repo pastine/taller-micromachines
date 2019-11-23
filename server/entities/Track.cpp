@@ -7,7 +7,7 @@
 #include "server/Track.h"
 #include "Box2D/Box2D.h"
 
-Track::Track(b2World &world) {
+Track::Track(b2World &world, char* file) : skeleton(TrackStructure(file)) {
     b2BodyDef def;
     def.type = b2_staticBody;
     def.position.Set(0, 0);
@@ -16,7 +16,6 @@ Track::Track(b2World &world) {
     b2FixtureDef fixture;
     fixture.isSensor = true;
     fixture.shape = &walls;
-
     JSON track = skeleton.get_track()["straight"];
 
     for (JSON::iterator it = track.begin(); it != track.end(); ++it) {
@@ -85,24 +84,28 @@ JSON Track::get_elements_state() {
 	return elemen;
 }
 
-std::unordered_map<std::string, std::vector<b2Vec2>> Track::get_static_state() {
+TrackData Track::get_static_data() {
 	std::vector<b2Vec2> mud;
 	std::vector<b2Vec2> oil;
 	std::vector<b2Vec2> boulder;
-    for (auto &e : static_elements) {
-    	int id = e->get_entity_type();
-    	switch (id) {
-    		case MUD: mud.emplace_back(e->get_position()); break;
-				case OIL: oil.emplace_back(e->get_position()); break;
-				case STONE: boulder.emplace_back(e->get_position()); break;
-    	}
-    }
-    std::unordered_map<std::string, std::vector<b2Vec2>> result;
-    result.emplace(J_BOULDERS, boulder);
-    result.emplace(J_OILS, oil);
-    result.emplace(J_MUDS, mud);
-    return result;
+	for (auto &e : static_elements) {
+		int id = e->get_entity_type();
+		switch (id) {
+			case MUD: mud.emplace_back(e->get_position()); break;
+			case OIL: oil.emplace_back(e->get_position()); break;
+			case STONE: boulder.emplace_back(e->get_position()); break;
+		}
+	}
+	std::unordered_map<std::string, std::vector<b2Vec2>> result;
+	result.emplace(J_BOULDERS, boulder);
+	result.emplace(J_OILS, oil);
+	result.emplace(J_MUDS, mud);
+
+	TrackData all(result, skeleton.get_track());
+
+	return all;
 }
+
 
 Track::~Track() {
 	for (auto &e : static_elements) {

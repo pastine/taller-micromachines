@@ -2,9 +2,11 @@
 #include <iostream>
 
 int main(int argc, char *argv[]) {
-    char *aux = argv[1];
+		if (argc != 3) { return 1;}
+    char* aux = argv[1];
     std::string service(aux);
-    Server server(service);
+    char* track = argv[2];
+    Server server(service, track);
     server.start();
     while (std::getchar() != 'q') {}
     return 0;

@@ -6,7 +6,8 @@
 #include "common/Constants.h"
 #include "Element.h"
 #include "State.h"
-#include "../../server/TrackStructure.h"
+#include "TrackStructure.h"
+#include "TrackData.h"
 #include <unordered_map>
 #include <string>
 #include <vector>
@@ -17,21 +18,19 @@ private:
 	std::vector<Element*> static_elements;
 	std::vector<Element*> elements;
 public:
-    explicit Track(b2World& world);
+    explicit Track(b2World& world, char* file);
 
     int get_entity_type() override;
 
     JSON get_elements_state();
 
-    std::vector<Element*> get_static_elements();
+    TrackData get_static_data();
 
     b2Vec2 get_position() override;
 
     void add_elements(State& state);
 
     ~Track();
-
-	std::unordered_map<std::string, std::vector<b2Vec2>> get_static_state();
 };
 
 

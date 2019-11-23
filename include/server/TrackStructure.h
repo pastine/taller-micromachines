@@ -8,7 +8,7 @@ class TrackStructure {
 private:
 	JSON track;
 public:
-	TrackStructure();
+	explicit TrackStructure(char* file);
 
 	JSON get_track();
 

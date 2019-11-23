@@ -7,12 +7,11 @@
 #include <vector>
 #include <unordered_map>
 #include <Box2D/Common/b2Math.h>
+#include "server/TrackData.h"
 
-class TrackSerializer : public
-				Serializer<std::unordered_map<std::string, std::vector<b2Vec2>>> {
+class TrackSerializer : public Serializer<TrackData> {
 public:
-    JSON serialize_to_json(std::unordered_map<std::string,
-    				std::vector<b2Vec2>>& track) override;
+    JSON serialize_to_json(TrackData& track) override;
 };
 
 

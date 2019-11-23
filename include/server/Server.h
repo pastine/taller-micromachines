@@ -13,9 +13,10 @@ private:
     ClientAccepter acceptor;
     std::list<Race *> races;
     bool running = true;
+    char* track_file;
 
 public:
-    explicit Server(std::string &service);
+    explicit Server(std::string &service, char* file);
 
     virtual void run();
 

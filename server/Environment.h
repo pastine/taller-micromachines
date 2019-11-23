@@ -8,6 +8,7 @@
 #include <server/ContactListener.h>
 #include <server/Car.h>
 #include "common/CommunicationConstants.h"
+#include "server/TrackData.h"
 #include <vector>
 #include <string>
 #include <unordered_map>
@@ -20,11 +21,11 @@ private:
 	ContactListener listener;
 
 public:
-	Environment();
+	explicit Environment(char* file);
 
 	void step();
 
-	std::unordered_map<std::string, std::vector<b2Vec2>> get_track();
+	TrackData get_track_data();
 
 	Car* create_car(unsigned long i);
 

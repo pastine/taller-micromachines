@@ -1,7 +1,9 @@
 #include "server/Server.h"
 #include "server/ClientProxy.h"
 
-Server::Server(std::string &service) : acceptor(service) {}
+Server::Server(std::string &service, char* file) : acceptor(service),
+																									 track_file(file) {
+}
 
 void Server::run() {
     while (running) {
@@ -53,8 +55,8 @@ void Server::reaper() {
 }
 
 void Server::create_race(ClientProxy &new_client, std::string name) {
-    Race *race = new Race();
-    auto aux = race->getTrack();
+    Race *race = new Race(track_file);
+    auto aux = race->get_track_data();
     new_client.send_track(aux);
     races.push_back(race);
     race->start();
@@ -64,7 +66,7 @@ void Server::create_race(ClientProxy &new_client, std::string name) {
 void Server::add_player_to_race(ClientProxy &new_client, int id, std::string name) {
     for (Race *race: races) {
         if (race->getId() == id) {
-        		auto aux = race->getTrack();
+        		auto aux = race->get_track_data();
             new_client.send_track(aux);
             race->add_player(new_client, name);
         }

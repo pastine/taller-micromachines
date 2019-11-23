@@ -8,6 +8,7 @@
 #include <common/RacesSerializer.h>
 #include <common/MoveSerializer.h>
 #include <common/StateSerializer.h>
+#include "TrackData.h"
 #include <map>
 #include <vector>
 #include <common/TrackSerializer.h>
@@ -40,7 +41,7 @@ public:
 
     int handshake_get_race(std::map<int, int> races_ids_players);
 
-    void send_track(std::unordered_map<std::string, std::vector<b2Vec2>>& track);
+    void send_track(TrackData& data);
 
     std::string handshake_get_name(ClientProxy &proxy);
 

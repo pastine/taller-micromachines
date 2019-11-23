@@ -1,24 +1,21 @@
 #include <common/json.h>
 #include <unordered_map>
-#include <server/Oil.h>
 #include "common/TrackSerializer.h"
-#include "common/Constants.h"
 #include "common/CommunicationConstants.h"
-#include "../../server/TrackStructure.h"
 
-JSON TrackSerializer::serialize_to_json(
-				std::unordered_map<std::string, std::vector<b2Vec2>>& track) {
+JSON TrackSerializer::serialize_to_json(TrackData& track) {
+		auto track_roads = track.get_track();
+		auto track_elements = track.get_elements();
+	
     JSON all;
     JSON aux_elements;
-
-		TrackStructure skeleton;
-    all["tracks"] = skeleton.get_track()["straight"];
+    
+    all["tracks"] = track_roads["straight"];
 
     JSON oils, muds, boulders;
-
-    auto aux_oils = track[J_OILS];
-    auto aux_muds = track[J_MUDS];
-    auto aux_boulder = track[J_BOULDERS];
+    auto aux_oils = track_elements[J_OILS];
+    auto aux_muds = track_elements[J_MUDS];
+    auto aux_boulder = track_elements[J_BOULDERS];
 
     for (size_t i = 0; i < aux_oils.size(); i++) {
     	std::unordered_map<std::string, float> oil;
@@ -34,7 +31,6 @@ JSON TrackSerializer::serialize_to_json(
 			boulder.emplace(J_Y, aux_boulder[i].y);
 			boulders.push_back(JSON(boulder));
     }
-
     aux_elements[J_OILS]= oils;
     aux_elements[J_MUDS] = muds;
     aux_elements[J_BOULDERS] = boulders;

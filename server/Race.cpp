@@ -7,7 +7,7 @@
 
 std::atomic_int Race::RaceCount(1);
 
-Race::Race() : id(RaceCount++), environment(Environment()) {
+Race::Race(char* file) : id(RaceCount++), environment(Environment(file)) {
 }
 
 void Race::run() {
@@ -62,8 +62,8 @@ int Race::getId() {
     return id;
 }
 
-std::unordered_map<std::string, std::vector<b2Vec2>> Race::getTrack() {
-    return std::move(environment.get_track());
+TrackData Race::get_track_data() {
+    return std::move(environment.get_track_data());
 }
 
 void Race::reaper() {
