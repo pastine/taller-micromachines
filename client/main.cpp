@@ -166,5 +166,6 @@ std::map<int, std::string> getBotNames() {
         if (name == "." || name == "..") continue;
         names.insert({counter++, name});
     }
+    closedir(botDir);
     return names;
 }

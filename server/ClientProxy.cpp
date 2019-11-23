@@ -4,7 +4,6 @@
 ClientProxy::ClientProxy(Communication comm) : communication(std::move(comm)) {}
 
 void ClientProxy::send_state(State &state) {
-    modify_state(state);
     state_serializer.send(communication, state);
 }
 
@@ -34,19 +33,6 @@ int ClientProxy::handshake_get_race(std::map<int, int> races_ids_players) {
 
 void ClientProxy::send_track(TrackData& data){
     track_serializer.send(communication, data);
-}
-
-void ClientProxy::modify_state(State& state) {
-    void *shared_lib = dlopen("./libOneLife.so", RTLD_NOW);
-    typedef char *(*func)(char *);
-    func middleman = (func) dlsym(shared_lib, "middleman");
-    std::string msg = state.json.dump();
-    char *dup_msg = strdup(msg.c_str());
-    char *modifiedstr = middleman(dup_msg);
-    state = State(modifiedstr);
-    free(dup_msg);
-    free(modifiedstr);
-    dlclose(shared_lib);
 }
 
 std::string ClientProxy::handshake_get_name(ClientProxy &proxy) {

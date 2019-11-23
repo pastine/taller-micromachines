@@ -51,8 +51,6 @@ private:
     RacesSerializer races_serializer;
     StateSerializer state_serializer;
     TrackSerializer track_serializer;
-
-    void modify_state(State& state);
 };
 
 

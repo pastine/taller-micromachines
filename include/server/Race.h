@@ -6,9 +6,11 @@
 #include "TrackData.h"
 #include "State.h"
 #include "Environment.h"
+#include "Mod.h"
 #include <unordered_map>
 #include <string>
 #include <vector>
+#include <map>
 
 class Race : public Thread {
     static std::atomic_int RaceCount;
@@ -34,13 +36,21 @@ public:
 
     int getId();
 
-		TrackData get_track_data();
+    TrackData get_track_data();
 
     int getPlayerCount();
 
     bool isAlive();
 
     void add_cars(State &state);
+
+    void toggle_mod(std::string modFileName);
+
+    std::map<std::string, Mod *> activatedMods;
+
+    void deactivate_mod(std::string modFileName);
+
+    void activate_mod(std::string modFileName);
 };
 
 

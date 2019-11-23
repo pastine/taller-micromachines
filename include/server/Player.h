@@ -9,7 +9,9 @@
 #include <vector>
 #include "StateHandler.h"
 #include "State.h"
+#include "Mod.h"
 #include <map>
+#include <list>
 
 class Player : public Thread {
 private:
@@ -23,6 +25,7 @@ private:
     StateHandler<MoveType> *receiver;
     StateHandler<State> *updater;
     std::string name;
+    std::list<Mod *> mods;
 
 public:
     Player(ClientProxy messenger, CarHandler *car, std::string name);
@@ -49,7 +52,11 @@ public:
 
     void send_update(State &state);
 
+    void remove_mod(Mod &mod);
+
     std::map<std::string, std::string> get_player_names();
+
+    void add_mod(Mod &mod);
 };
 
 
