@@ -6,5 +6,5 @@
 4. Compile any of the different binaries: `make server_test && make client_test`
 
 6. Open (at least) two terminals **on the root directory, not build**:
-* On one, run `./server_test 7777`
+* On one, run `./server_test 7777 track.txt`
 * On the rest, run `./client_test localhost 7777`
