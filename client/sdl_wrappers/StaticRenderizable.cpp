@@ -4,10 +4,10 @@
 void StaticRenderizable::render(SDL_Renderer *renderer, float x_center, float y_center,
                                 float angle, int id, float speed) {
     Area src(img_x, img_y, w, h);
+    
+    float x_topleft = x_center - (w * resize_factor / 2);
 
-    float x_topleft = x_center - ((w * resize_factor / 2));
-
-    float y_topleft = y_center - ((h * resize_factor / 2));
+    float y_topleft = y_center - (h * resize_factor / 2);
 
     Area dest(x_topleft, y_topleft,
             w * resize_factor * real_resize, h * resize_factor * real_resize);
