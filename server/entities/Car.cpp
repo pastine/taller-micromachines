@@ -123,36 +123,35 @@ void Car::end_contact(int id) {
 }
 
 void Car::on_track() {
-    track = true;
-    if (track) { std::cout << "on track----------\n"; }
+	track = true;
+	if (track) { std::cout << "on track----------\n"; }
 }
 
 void Car::off_track() {
-    track = false;
-    if (!track) { std::cout << "off track----------\n"; }
+	track = false;
+	if (!track) { std::cout << "off track----------\n"; }
 }
 
 void Car::contact_car() {
-    *lives -= 1;
+	*lives -= 1;
 }
 
 void Car::contact_mud() {
-    visibility = true;
+	visibility = true;
 }
 
 void Car::contact_oil() {
-    float friction = m_body->GetFixtureList()->GetFriction();
-    friction -= 0.3f;
-    m_body->GetFixtureList()->SetFriction(friction);
+	float friction = m_body->GetFixtureList()->GetFriction();
+	friction -= 0.3f;
+	m_body->GetFixtureList()->SetFriction(friction);
 }
 
 void Car::contact_stone() {
-    this->move_straight(false);
-    *lives -= 1;
+	*lives -= 1;
 }
 
 void Car::contact_health() {
-    if (*lives < 3) { *lives += 1; }
+	if (*lives < 3) { *lives += 1; }
 }
 
 void Car::contact_boost() {
@@ -183,15 +182,15 @@ void Car::surface_effect() {
 }
 
 int Car::get_lives() {
-    return *lives;
+	return *lives;
 }
 
 bool Car::get_mud_state() {
-    if (visibility) {
-        visibility = false;
-        return true;
-    }
-    return false;
+	if (visibility) {
+		visibility = false;
+		return true;
+	}
+	return false;
 }
 
 Car::~Car() {
@@ -199,16 +198,16 @@ Car::~Car() {
 }
 
 float Car::get_speed() {
-    float angle = this->get_angle();
-    b2Vec2 normal = get_forward_normal(angle);
-    return b2Dot(m_body->GetLinearVelocity(), normal);
+	float angle = this->get_angle();
+	b2Vec2 normal = get_forward_normal(angle);
+	return b2Dot(m_body->GetLinearVelocity(), normal);
 }
 
 bool Car::isMoving() {
-    return m_body->GetLinearVelocity().Length() > 1;
+	return m_body->GetLinearVelocity().Length() > 1;
 }
 
 void Car::contact_limit() {
-    std::cout << "car on limit\n";
+  std::cout << "car on limit\n";
 }
 

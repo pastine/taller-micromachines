@@ -52,24 +52,24 @@ Track::Track(b2World* world, char* file) : skeleton(TrackStructure(file)),
 	m_body->SetUserData(this);
 
 	for (int i = 0; i < 2; i++) {
-		/*std::vector<float> oil_pos = get_random_pos();
-		Oil *o = new Oil(world, oil_pos[0], oil_pos[1]);
+		std::vector<float> oil_pos = get_random_pos();
+		Oil *o = new Oil(*world, oil_pos[0], oil_pos[1]);
 		static_elements.emplace_back(o);
 
 		std::vector<float> mud_pos = get_random_pos();
-		Mud *m = new Mud(world, mud_pos[0], mud_pos[1]);
+		Mud *m = new Mud(*world, mud_pos[0], mud_pos[1]);
 		static_elements.emplace_back(m);
 
 		std::vector<float> boulder_pos = get_random_pos();
-		Boulder *s = new Boulder(world, boulder_pos[0], boulder_pos[1]);
+		Boulder *s = new Boulder(*world, boulder_pos[0], boulder_pos[1]);
 		static_elements.emplace_back(s);
 
 		std::vector<float> health_pos = get_random_pos();
-		Health *h = new Health(world, health_pos[0], health_pos[1]);
-		elements.emplace_back(h);*/
+		Health *h = new Health(*world, health_pos[0], health_pos[1]);
+		elements.emplace_back(h);
 
-		//std::vector<float> boost_pos = get_random_pos();
-		Boost *boost = new Boost(*world, 0, 0);
+		std::vector<float> boost_pos = get_random_pos();
+		Boost *boost = new Boost(*world, boost_pos[0], boost_pos[1]);
 		elements.emplace_back(boost);
 	}
 }
