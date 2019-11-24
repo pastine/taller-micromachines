@@ -126,7 +126,7 @@ void Player::add_user(State &state) {
     state.append(J_USER, car->get_crash_state());
 }
 
-void Player::send_update(State &state) {
+void Player::send_update(State state) {
     for (auto &m : mods) {
         m->modify_state(state);
     }

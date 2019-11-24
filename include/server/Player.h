@@ -52,7 +52,7 @@ public:
 
     void add_user(State &state);
 
-    void send_update(State &state);
+    void send_update(State state);
 
     void remove_mod(Mod &mod);
 
