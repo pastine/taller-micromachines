@@ -1,6 +1,6 @@
 #include "server/Health.h"
 
-Health::Health(b2World &world, float x, float y) {
+Health::Health(b2World &world, float x, float y) : consumed(false) {
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(x, y);
@@ -8,23 +8,34 @@ Health::Health(b2World &world, float x, float y) {
     b2CircleShape circleShape;
     circleShape.m_p.Set(0, 0); //position, relative to body position
     circleShape.m_radius = 0.5; //TODO define dimension
-    b2FixtureDef fixture;
-    fixture.shape = &circleShape; //this is a pointer to the shape above
-    fixture.density = 1.0f;
-    fixture.friction = 0.3f;
-    fixture.isSensor = true;
-    m_body->CreateFixture(&fixture);
+    b2FixtureDef fixture_def;
+    fixture_def.shape = &circleShape; //this is a pointer to the shape above
+    fixture_def.density = 1.0f;
+    fixture_def.friction = 0.3f;
+    fixture_def.isSensor = true;
+    fixture = m_body->CreateFixture(&fixture_def);
     m_body->SetUserData(this);
 }
 
 void Health::start_contact() {
-    //nothing for me
+}
+
+bool Health::was_consumed() {
+	return consumed;
 }
 
 void Health::end_contact() {
+	consumed = true;
 }
 
 int Health::get_entity_type() {
     return HEALTH;
+}
+
+Health::~Health() {
+	m_body->DestroyFixture(fixture);
+	fixture = nullptr;
+	m_body->GetWorld()->DestroyBody(m_body);
+	m_body = nullptr;
 }
 

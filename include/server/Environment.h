@@ -30,6 +30,8 @@ public:
 	Car* create_car(unsigned long i);
 
 	void get_elements(State &state);
+
+	~Environment() = default;
 };
 
 

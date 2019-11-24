@@ -16,6 +16,7 @@
 #define J_LIVES "lives"
 #define J_OILS "oils"
 #define J_BOULDERS "boulders"
+#define J_CONSUMED "consumed"
 #define J_TRACKS "tracks"
 #define J_CURVED "curved"
 #define J_HEALTH "health"
