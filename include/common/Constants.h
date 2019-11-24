@@ -13,6 +13,8 @@
 
 #define W (6.88f)
 
+#define START_POINT_X (0.0f)
+#define START_POINT_Y (0.0f)
 #define CAR_RESIZE_FACTOR (4.0f)
 
 #define TO_PX 0.01f

@@ -164,6 +164,11 @@ std::vector<float> Track::get_random_pos() {
 	return std::vector<float>{new_pos[J_X], new_pos[J_Y]};
 }
 
+JSON Track::get_straight_points() {
+	auto aux = skeleton.get_track()[J_STRAIGHT];
+	return aux;
+}
+
 Track::~Track() {
 	for (auto &e: static_elements) {
 		delete(e);

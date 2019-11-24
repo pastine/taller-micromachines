@@ -31,6 +31,8 @@ public:
 
 	void get_elements(State &state);
 
+	JSON get_flag_points();
+
 	~Environment() = default;
 };
 

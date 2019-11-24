@@ -50,10 +50,6 @@ std::tuple<float, float, float> CarHandler::get_position() {
     return {car->get_position().x, car->get_position().y, car->get_angle()};
 }
 
-void CarHandler::update_surface() {
-    car->surface_effect();
-}
-
 std::unordered_map<std::string, int> CarHandler::get_lives() {
     std::unordered_map<std::string, int> lives;
     lives.emplace(J_LIVES, car->get_lives());

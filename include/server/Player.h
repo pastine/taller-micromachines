@@ -12,6 +12,7 @@
 #include "Mod.h"
 #include <map>
 #include <list>
+#include <queue>
 
 class Player : public Thread {
 private:
@@ -19,16 +20,17 @@ private:
     CarHandler *car;
     bool playing = true;
     int id;
-    int total_laps = 0;
-    int partial_laps = 0;
-    std::vector<std::vector<float>> flags;
+    size_t total_laps;
+    size_t partial_laps;
     StateHandler<MoveType> *receiver;
     StateHandler<State> *updater;
     std::string name;
     std::list<Mod *> mods;
+		std::queue<std::vector<float>> flags;
+		size_t flag_number;
 
 public:
-    Player(ClientProxy messenger, CarHandler *car, std::string name);
+    Player(ClientProxy messenger, CarHandler *car, std::string name, JSON& flags);
 
     virtual void run();
 
@@ -42,7 +44,7 @@ public:
 
     void update_lap_count();
 
-    void check_progress(int first, int second);
+    bool check_progress(std::vector<float>& pos);
 
     bool isAlive();
 

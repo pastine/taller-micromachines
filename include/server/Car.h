@@ -34,8 +34,6 @@ public:
 
     void off_track();
 
-    void surface_effect();
-
     int get_entity_type() override;
 
     void contact_mud();

@@ -37,6 +37,8 @@ public:
 	~Track() override;
 
 	std::vector<Entity*> get_removable_elements();
+
+	JSON get_straight_points();
 };
 
 

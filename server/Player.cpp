@@ -3,23 +3,32 @@
 #include "common/Constants.h"
 #include "common/CommunicationConstants.h"
 #include "common/ClosedQueueException.h"
-
+#define TILES 8
 uint32_t seed;
 
-void add_boundaries(std::vector<std::vector<float>> &flags) {
-    flags.emplace_back(std::vector<float>{-40.0f, 71.75f});
-    flags.emplace_back(std::vector<float>{-34.5f, 71.75f});
-    flags.emplace_back(std::vector<float>{34.5f, 71.75f});
-    flags.emplace_back(std::vector<float>{34.5f, 77.25f});
-    flags.emplace_back(std::vector<float>{34.5f, -2.75f});
-    flags.emplace_back(std::vector<float>{34.5f, 2.75f});
-    flags.emplace_back(std::vector<float>{-34.5f, -2.75f});
-    flags.emplace_back(std::vector<float>{-34.5f, 2.75f});
+std::queue<std::vector<float>> prepare_flags(JSON& all) {
+	std::cout<<all.size()<<" size of all tracks\n";
+	std::queue<std::vector<float>> flags;
+	int i = 0;
+	for (auto& pos : all) {
+		if (i % TILES == 0) {
+			std::vector<float> new_flag;
+			new_flag.emplace_back(pos[J_X]);
+			new_flag.emplace_back(pos[J_Y]);
+			flags.push(new_flag);
+		}
+		i++;
+	}
+	return flags;
 }
 
-Player::Player(ClientProxy messenger, CarHandler *car, std::string name) :
-        messenger(std::move(messenger)), car(car), id(rand_r(&seed) % 9999), name(name) {
-    add_boundaries(flags);
+Player::Player(ClientProxy messenger, CarHandler *car, std::string name, JSON& flags) :
+        messenger(std::move(messenger)), car(car), id(rand_r(&seed) % 9999),
+        name(name) {
+		this->flags = prepare_flags(flags);
+		flag_number = this->flags.size();
+		partial_laps = 0;
+		total_laps = 0;
     receiver = new StateHandler<MoveType>(&this->messenger);
     updater = new StateHandler<State>(&this->messenger);
     receiver->start();
@@ -30,8 +39,7 @@ void Player::run() {
     while (playing) {
         try {
             car->move(receiver->receive());
-            car->update_surface();
-            this->update_lap_count();
+            update_lap_count();
         } catch (...) {
             stop();
         }
@@ -59,41 +67,37 @@ int Player::getId() {
 }
 
 void Player::update_lap_count() {
-    int first, second;
-    switch (partial_laps) {
-        case (0):
-            first = 0;
-            second = 1;
-            break;
-        case (1):
-            first = 2;
-            second = 3;
-            break;
-        case (2):
-            first = 4;
-            second = 5;
-            break;
-        case (3):
-            first = 6;
-            second = 7;
-            break;
-        case (4):
-            partial_laps = 0;
-            total_laps++;
-            return;
-    }
-    this->check_progress(first, second);
+	std::cout<<"partial laps inicial : " << partial_laps<<'\n';
+	std::cout<<"total laps inicial : " << total_laps<<'\n';
+	std::cout<<"flag_number" <<flag_number<< '\n';
+	auto pos = flags.front();
+	if(this->check_progress(pos)) {
+		flags.pop();
+		flags.push(pos);
+	}
+	if (partial_laps == (flag_number - 1)) {
+		std::cout<<"partial laps : " << partial_laps<<'\n';
+		total_laps++;
+		partial_laps = 0;
+	}
 }
 
-void Player::check_progress(int first, int second) {
-    std::tuple<float, float, float> pos = car->get_position();
-    float x = std::get<0>(pos);
-    float y = std::get<1>(pos);
-    std::vector<float> min = flags[first];
-    std::vector<float> max = flags[second];
-    if ((x >= min[0] || x <= min[1]) && (y >= max[0] || y <= max[1])) {
-        partial_laps++;
-    }
+bool Player::check_progress(std::vector<float>& pos) {
+	std::tuple<float, float, float> car_pos = car->get_position();
+	float x = std::get<0>(car_pos);
+	float y = std::get<1>(car_pos);
+	float x_min = pos[0] - W / 2;
+	float x_max = pos[0] + W / 2;
+	float y_min = pos[1] - W / 2;
+	float y_max = pos[1] + W / 2;
+	std::cout<<"posiciones en x: "<<x<<" en y: "<<y<<'\n';
+	std::cout<<"posiciones en x_min: "<<x_min<<" en y_min: "<<y_min<<'\n';
+	std::cout<<"posiciones en x_max: "<<x_max<<" en y_max: "<<y_max<<'\n';
+	if ((x >= x_min && x <= x_max) && (y >= y_min && y <= y_max)) {
+	  partial_laps++;
+		return true;
+  }
+	return false;
 }
 
 Player::~Player() {
@@ -123,8 +127,11 @@ void Player::add_user(State &state) {
 }
 
 void Player::send_update(State &state) {
-    for (auto &m : mods)
+    for (auto &m : mods) {
         m->modify_state(state);
+    }
+    add_camera(state);
+    add_user(state);
     updater->send(state);
 }
 
