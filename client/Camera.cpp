@@ -70,3 +70,8 @@ void Camera::render_splatter() {
 void Camera::render_name(std::string name) {
     this->text_creator.render_text(name, this->window.get_renderer(), 800, 10);
 }
+
+Camera::~Camera() {
+    SDLTextureLoader *loader = SDLTextureLoader::get_loader();
+    loader->free_textures();
+}

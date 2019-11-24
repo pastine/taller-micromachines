@@ -16,11 +16,15 @@ void SDLTextureLoader::instance_loader(SDL_Renderer *renderer) {
     instance = new SDLTextureLoader(renderer);
 }
 
+void SDLTextureLoader::free_textures() {
+    std::map<std::string, SDLTexture>::iterator it;
+    for (it = this->textures.begin(); it != this->textures.end(); ++it)
+        (*it).second.free_texture();
+}
+
 SDLTextureLoader::SDLTextureLoader(SDL_Renderer *renderer) : renderer(renderer) {}
 
-SDLTextureLoader::~SDLTextureLoader() {
-    //TODO free every texture
-}
+SDLTextureLoader::~SDLTextureLoader() {}
 
 SDLTexture *SDLTextureLoader::get_texture(std::string &path) {
     std::map<std::string, SDLTexture>::iterator it;
@@ -57,5 +61,6 @@ void SDLTextureLoader::_load_from_file(std::string &path) {
     this->textures.insert(std::pair<std::string, SDLTexture>(path, std::move(texture)));
     SDL_FreeSurface(loaded_surface);
 }
+
 
 

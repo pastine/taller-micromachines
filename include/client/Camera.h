@@ -13,6 +13,8 @@ class Camera {
 public:
     Camera();
 
+    ~Camera();
+
     void prepare_frame();
 
     void render_object(Renderizable &object, float abs_x, float abs_y,
@@ -23,7 +25,6 @@ public:
     void set_center(float x, float y);
 
     void render_car_lives(int lives);
-
 
     void render_splatter();
 
