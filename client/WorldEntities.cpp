@@ -43,7 +43,14 @@ void WorldEntities::render(Camera &camera) {
 													 std::get<0>(road_pos),
 													 std::get<1>(road_pos),
 													 std::get<2>(road_pos));
-		}
+    }
+
+    for (const std::tuple<float, float, float> &road_pos : curved_road_positions) {
+        camera.render_object(this->curved_road,
+                             std::get<0>(road_pos),
+                             std::get<1>(road_pos),
+                             std::get<2>(road_pos));
+    }
 
     _render_simple_object(this->boulder_positions, this->boulder, camera);
     _render_simple_object(this->oil_positions, this->oil, camera);

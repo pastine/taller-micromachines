@@ -2,11 +2,11 @@
 #include "client/CurvedRoad.h"
 
 CurvedRoad::CurvedRoad() {
-    w = 550;
-    h = 550;
+    w = 688;
+    h = 688;
     img_x = 0;
     img_y = 0;
-    resize_factor = 0.5;
+    resize_factor = 1;
     SDLTextureLoader *loader = SDLTextureLoader::get_loader();
     std::string path = "client/img/curved-road.png";
     this->texture = loader->get_texture(path);

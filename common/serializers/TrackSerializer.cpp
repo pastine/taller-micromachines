@@ -11,6 +11,7 @@ JSON TrackSerializer::serialize_to_json(TrackData& track) {
     JSON aux_elements;
     
     all["tracks"] = track_roads["straight"];
+    all["curved"] = track_roads["curved_center"];
 
     JSON oils, muds, boulders;
     auto aux_oils = track_elements[J_OILS];
