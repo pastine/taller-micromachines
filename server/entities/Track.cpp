@@ -8,11 +8,12 @@
 #include "server/Track.h"
 #include "Box2D/Box2D.h"
 
-Track::Track(b2World &world, char* file) : skeleton(TrackStructure(file)) {
+Track::Track(b2World* world, char* file) : skeleton(TrackStructure(file)),
+																					 world(world) {
 	b2BodyDef def;
 	def.type = b2_staticBody;
 	def.position.Set(0, 0);
-	m_body = world.CreateBody(&def);
+	m_body = world->CreateBody(&def);
 	b2PolygonShape walls;
 	b2FixtureDef fixture;
 	fixture.isSensor = true;
@@ -50,8 +51,8 @@ Track::Track(b2World &world, char* file) : skeleton(TrackStructure(file)) {
 
 	m_body->SetUserData(this);
 
-	for (int i = 0; i < 3; i++) {
-		std::vector<float> oil_pos = get_random_pos();
+	for (int i = 0; i < 2; i++) {
+		/*std::vector<float> oil_pos = get_random_pos();
 		Oil *o = new Oil(world, oil_pos[0], oil_pos[1]);
 		static_elements.emplace_back(o);
 
@@ -65,10 +66,10 @@ Track::Track(b2World &world, char* file) : skeleton(TrackStructure(file)) {
 
 		std::vector<float> health_pos = get_random_pos();
 		Health *h = new Health(world, health_pos[0], health_pos[1]);
-		elements.emplace_back(h);
+		elements.emplace_back(h);*/
 
-		std::vector<float> boost_pos = get_random_pos();
-		Boost *boost = new Boost(world, boost_pos[0], boost_pos[1]);
+		//std::vector<float> boost_pos = get_random_pos();
+		Boost *boost = new Boost(*world, 0, 0);
 		elements.emplace_back(boost);
 	}
 }
@@ -77,26 +78,53 @@ int Track::get_entity_type() {
     return TRACK;
 }
 
+
 JSON Track::get_elements_state() {
 	JSON boost;
 	JSON health;
+	std::vector<Entity*> new_elements;
 	for (auto &e : elements) {
 		int id = e->get_entity_type();
-		auto pos = e->get_position();
-		std::unordered_map<std::string, float> aux;
-		aux.emplace(J_X, pos.x);
-		aux.emplace(J_Y, pos.y);
-		JSON j_umap(aux);
-		if (id  == BOOST) {
-			boost.push_back(j_umap);
+		b2Vec2 pos = e->get_position();
+		if (id == BOOST) {
+			if (dynamic_cast<Boost *>(e)->was_consumed()) {
+				std::vector<float> boost_pos = get_random_pos();
+				Boost *new_boost = new Boost(*world, boost_pos[0], boost_pos[1]);
+				pos = new_boost->get_position();
+				new_elements.emplace_back(new_boost);
+				to_remove.emplace_back(e);
+			} else {
+				new_elements.emplace_back(e);
+			}
+			std::unordered_map<std::string, float> aux;
+			aux.emplace(J_X, pos.x);
+			aux.emplace(J_Y, pos.y);
+			boost.push_back(JSON(aux));
 		} else {
-			health.push_back(j_umap);
+			if (dynamic_cast<Health *>(e)->was_consumed()) {
+				std::vector<float> health_pos = get_random_pos();
+				Health *new_health = new Health(*world, health_pos[0], health_pos[1]);
+				pos = new_health->get_position();
+				new_elements.emplace_back(new_health);
+				to_remove.emplace_back(e);
+			} else {
+				new_elements.emplace_back(e);
+			}
+			std::unordered_map<std::string, float> aux;
+			aux.emplace(J_X, pos.x);
+			aux.emplace(J_Y, pos.y);
+			health.push_back(JSON(aux));
 		}
 	}
+	elements = new_elements;
 	JSON elemen;
 	elemen[J_BOOST] = boost;
 	elemen[J_HEALTH] = health;
 	return elemen;
+}
+
+std::vector<Entity*>* Track::get_removable_elements() {
+	return &to_remove;
 }
 
 TrackData Track::get_static_data() {
@@ -131,10 +159,8 @@ std::vector<float> Track::get_random_pos() {
 }
 
 Track::~Track() {
-	for (auto &e : static_elements) {
-		delete(e);
-	}
-	for (auto &a : elements) {
-		delete(a);
-	}
+	world = nullptr;
+	static_elements.clear();
+	elements.clear();
+	to_remove.clear();
 }

@@ -16,8 +16,11 @@ private:
 	TrackStructure skeleton;
 	std::vector<Entity*> static_elements;
 	std::vector<Entity*> elements;
+	std::vector<Entity*> to_remove;
+	b2World* world;
+
 public:
-	explicit Track(b2World& world, char* file);
+	explicit Track(b2World* world, char* file);
 
 	int get_entity_type() override;
 
@@ -32,6 +35,8 @@ public:
 	std::vector<float> get_random_pos();
 
 	~Track() override;
+
+	std::vector<Entity*>* get_removable_elements();
 };
 
 

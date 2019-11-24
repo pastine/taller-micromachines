@@ -3,7 +3,7 @@
 #define MAX 1000
 
 template<class T>
-StateHandler<T>::StateHandler(ClientProxy &messenger) : messenger(&messenger) {}
+StateHandler<T>::StateHandler(ClientProxy* messenger) : messenger(messenger) {}
 
 template<class T>
 void StateHandler<T>::run() {
@@ -29,6 +29,8 @@ void StateHandler<T>::stop() {
 
 template<class T>
 StateHandler<T>::~StateHandler() {
+		messenger = nullptr;
+		queue.stop();
     this->join();
 }
 

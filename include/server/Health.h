@@ -7,6 +7,9 @@
 
 
 class Health : public Entity {
+private:
+	bool consumed;
+	b2Fixture* fixture;
 public:
 	explicit Health(b2World &world, float x, float y);
 
@@ -16,7 +19,9 @@ public:
 
 	int get_entity_type() override;
 
-	~Health() override = default;
+	bool was_consumed();
+
+	~Health() override;
 };
 
 
