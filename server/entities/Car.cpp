@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 #include "server/Car.h"
 
 #define MAX 30.0f
@@ -21,8 +22,7 @@ b2Vec2 get_forward_normal(float angle) {
 Car::Car(b2World &world, unsigned long i) {
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
-    //bodyDef.position.Set(10*i+STARTPOINT_X, 16*i+STARTPOINT_Y);
-    bodyDef.position.Set(0, 0);
+    bodyDef.position.Set(10 * i + START_POINT_X, START_POINT_Y);
     m_body = world.CreateBody(&bodyDef);
     b2Vec2 vertices[4];
     vertices[0].Set(0.0f, 0.0f);
@@ -118,19 +118,23 @@ void Car::start_contact(int id) {
 }
 
 void Car::end_contact(int id) {
-    if (id == 0) {
+    if (id == TRACK) {
         this->off_track();
     }
 }
 
 void Car::on_track() {
+	float friction = m_body->GetFixtureList()->GetFriction();
+	friction += 15;
+	m_body->GetFixtureList()->SetFriction(friction);
 	track = true;
-	if (track) { std::cout << "on track----------\n"; }
 }
 
 void Car::off_track() {
+	float friction = m_body->GetFixtureList()->GetFriction();
+	friction -= 15;
+	m_body->GetFixtureList()->SetFriction(friction);
 	track = false;
-	if (!track) { std::cout << "off track----------\n"; }
 }
 
 void Car::contact_car() {
@@ -149,6 +153,19 @@ void Car::contact_oil() {
 }
 
 void Car::contact_stone() {
+	std::cout<<"contact stone-----------------\n";
+	move_straight(true);
+	std::random_device rd;
+	std::mt19937 mt(rd());
+	std::uniform_real_distribution<double> dist(0.0, 1.99);
+	int num = dist(mt);
+	bool turn;
+	if (num) {
+		turn = true;
+	} else {
+		turn = false;
+	}
+	this->turn(turn);
 	*lives -= 1;
 }
 
@@ -159,7 +176,7 @@ void Car::contact_health() {
 void Car::contact_boost() {
     float angle = this->get_angle();
     b2Vec2 normal = get_forward_normal(angle);
-    float force = 1000;
+    float force = 20000;
     m_body->ApplyForce(force * normal, m_body->GetPosition(), true);
     m_body->SetLinearDamping(1.0);
 }
@@ -167,20 +184,6 @@ void Car::contact_boost() {
 
 int Car::get_entity_type() {
     return CAR;
-}
-
-
-void Car::surface_effect() {
-	float friction = m_body->GetFixtureList()->GetFriction();
-	if (track) {
-		friction -= 10;
-	  std::cout<<"ontrack"<<"\n";
-  }
-  if (!track) {
-		friction += 10.f;
-  	std::cout<<"offtrack"<<"\n";
-  }
-	m_body->GetFixtureList()->SetFriction(friction);
 }
 
 int Car::get_lives() {

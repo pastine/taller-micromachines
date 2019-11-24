@@ -20,8 +20,6 @@ public:
 
     std::tuple<float, float, float> get_position();
 
-    void update_surface();
-
     std::unordered_map<std::string, int> get_lives();
 
     std::unordered_map<std::string, bool> get_mud_state();

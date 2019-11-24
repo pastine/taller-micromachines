@@ -2,8 +2,8 @@
 #include "client/SDLTextureLoader.h"
 
 Boulder::Boulder() : StaticRenderizable() {
-    w = 543;
-    h = 483;
+    w = 467;
+    h = 436;
     img_x = 70;
     img_y = 43;
     real_resize = 0.25;

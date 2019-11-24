@@ -18,8 +18,6 @@ void Race::run() {
             add_cars(state);
             for (auto it = players.begin(); it != players.end(); ++it) {
                 environment.get_elements(state);
-                it->second->add_camera(state);
-                it->second->add_user(state);
                 it->second->send_update(state);
             }
             std::chrono::milliseconds tic(20); //20  - delta
@@ -34,7 +32,8 @@ void Race::run() {
 void Race::add_player(ClientProxy &messenger, std::string name) {
 		Car *car = environment.create_car(players.size());
 	  CarHandler *handler = new CarHandler(car);
-    Player *player = new Player(std::move(messenger), handler, name);
+	  JSON aux = environment.get_flag_points();
+    Player *player = new Player(std::move(messenger), handler, name, aux);
     players.emplace(player->getId(), player);
     player->start();
 }

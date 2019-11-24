@@ -30,3 +30,7 @@ Car* Environment::create_car(unsigned long i) {
 void Environment::get_elements(State &state) {
 	state.append(J_ELEMENTS, track.get_elements_state());
 }
+
+JSON Environment::get_flag_points() {
+	return track.get_straight_points();
+}
