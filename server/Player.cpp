@@ -9,15 +9,11 @@ uint32_t seed;
 std::queue<std::vector<float>> prepare_flags(JSON& all) {
 	std::cout<<all.size()<<" size of all tracks\n";
 	std::queue<std::vector<float>> flags;
-	int i = 0;
 	for (auto& pos : all) {
-		if (i % TILES == 0) {
-			std::vector<float> new_flag;
-			new_flag.emplace_back(pos[J_X]);
-			new_flag.emplace_back(pos[J_Y]);
-			flags.push(new_flag);
-		}
-		i++;
+		std::vector<float> new_flag;
+		new_flag.emplace_back(pos[J_X]);
+		new_flag.emplace_back(pos[J_Y]);
+		flags.push(new_flag);
 	}
 	return flags;
 }
@@ -75,7 +71,7 @@ void Player::update_lap_count() {
 		flags.pop();
 		flags.push(pos);
 	}
-	if (partial_laps == (flag_number - 1)) {
+	if (partial_laps == flag_number) {
 		std::cout<<"partial laps : " << partial_laps<<'\n';
 		total_laps++;
 		partial_laps = 0;

@@ -165,7 +165,7 @@ std::vector<float> Track::get_random_pos() {
 }
 
 JSON Track::get_straight_points() {
-	auto aux = skeleton.get_track()[J_STRAIGHT];
+	auto aux = skeleton.get_track()[J_CURVED_CENTER];
 	return aux;
 }
 

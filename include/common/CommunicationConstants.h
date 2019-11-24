@@ -20,6 +20,7 @@
 #define J_CONSUMED "consumed"
 #define J_TRACKS "tracks"
 #define J_CURVED "curved"
+#define J_CURVED_CENTER "curved_center"
 #define J_HEALTH "health"
 #define J_BOOST "boost"
 #define J_NAME "name"
