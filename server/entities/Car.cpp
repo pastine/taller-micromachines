@@ -46,6 +46,7 @@ Car::Car(b2World &world, unsigned long i) {
     track = true;
     lives = new int(3);
     visibility = false;
+    crash = false;
 }
 
 b2Vec2 Car::get_position() {
@@ -133,6 +134,7 @@ void Car::off_track() {
 }
 
 void Car::contact_car() {
+	crash = true;
 	*lives -= 1;
 }
 
@@ -185,6 +187,13 @@ int Car::get_lives() {
 	return *lives;
 }
 
+bool Car::get_crash_state() {
+	if(crash) {
+		crash = false;
+		return true;
+	}
+	return false;
+}
 bool Car::get_mud_state() {
 	if (visibility) {
 		visibility = false;

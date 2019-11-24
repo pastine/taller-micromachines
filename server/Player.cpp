@@ -119,6 +119,7 @@ void Player::add_user(State &state) {
     state.append(J_USER, car->get_lives());
     state.append(J_USER, car->get_mud_state());
     state.append(J_USER, get_player_names());
+    state.append(J_USER, car->get_crash_state());
 }
 
 void Player::send_update(State &state) {

@@ -14,6 +14,7 @@
 #define J_MUD "mud"
 #define J_MUDS "muds"
 #define J_LIVES "lives"
+#define J_CRASH "crash"
 #define J_OILS "oils"
 #define J_BOULDERS "boulders"
 #define J_CONSUMED "consumed"

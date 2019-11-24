@@ -60,6 +60,12 @@ std::unordered_map<std::string, int> CarHandler::get_lives() {
     return lives;
 }
 
+std::unordered_map<std::string, bool> CarHandler::get_crash_state() {
+	std::unordered_map<std::string, bool> crash;
+	crash.emplace(J_CRASH, car->get_crash_state());
+	return crash;
+}
+
 std::unordered_map<std::string, bool> CarHandler::get_mud_state() {
     std::unordered_map<std::string, bool> mud;
     mud.emplace(J_MUD, car->get_mud_state());

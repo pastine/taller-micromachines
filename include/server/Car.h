@@ -13,6 +13,7 @@ private:
     bool track;
     int *lives;
     bool visibility;
+    bool crash;
 
 public:
     explicit Car(b2World &world, unsigned long i);
@@ -62,6 +63,8 @@ public:
     int min_turn_speed;
 
 		~Car() override;
+
+		bool get_crash_state();
 };
 
 

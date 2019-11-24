@@ -22,12 +22,15 @@ public:
 
     void update_surface();
 
-    ~CarHandler();
-
     std::unordered_map<std::string, int> get_lives();
+
     std::unordered_map<std::string, bool> get_mud_state();
 
+		std::unordered_map<std::string, bool> get_crash_state();
+
     float get_speed();
+
+		~CarHandler();
 };
 
 
