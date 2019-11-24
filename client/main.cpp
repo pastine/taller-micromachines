@@ -67,7 +67,7 @@ int main(int argc, char **argv) {
                 int move = script.getNextMove();
                 for (int i = 0; i < 20; i++) {
                     server.player_move(static_cast<MoveType>(move));
-                    SDL_Delay(5);
+                    SDL_Delay(20);
                 }
                 SDL_Delay(1);
             }
