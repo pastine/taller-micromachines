@@ -33,7 +33,7 @@ set(CPPLINT_FILTER_OPTIONS
         +readability/braces,+readability/check,+readability/fn_size,\
         +readability/function,+readability/multiline_comment,+readability/multiline_string,+readability/utf8,\
         +runtime/arrays,+runtime/casting,+runtime/explicit,+runtime/init,+runtime/invalid_increment,\
-        +runtime/memset,+runtime/operator,+runtime/printf,+runtime/printf_format,+runtime/rtti,+runtime/string,+runtime/threadsafe_fn,\
+        +runtime/memset,+runtime/operator,+runtime/printf_format,+runtime/rtti,+runtime/string,+runtime/threadsafe_fn,\
         +whitespace/blank_line,+whitespace/empty_loop_body,+whitespace/ending_newline,+whitespace/line_length,\
         +whitespace/newline,+whitespace/parens,+whitespace/semicolon"
         )

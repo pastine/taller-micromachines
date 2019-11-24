@@ -18,6 +18,8 @@ public:
 
     static void instance_loader(SDL_Renderer *renderer);
 
+    void free_textures();
+
     ~SDLTextureLoader();
 
     SDLTexture *get_texture(std::string &path);

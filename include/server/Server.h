@@ -31,6 +31,14 @@ public:
     void add_player_to_race(ClientProxy &new_client, int id, std::string name);
 
     int handshake_get_race(ClientProxy &new_client);
+
+    void print_mods();
+
+    void toggle_mod(int i);
+
+    void load_mods();
+
+    std::map<int, std::string> mods;
 };
 
 

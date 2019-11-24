@@ -11,6 +11,10 @@ SDLTexture::SDLTexture(SDL_Texture *texture,
         height(height) {}
 
 SDLTexture::~SDLTexture() {
+    this->free_texture();
+}
+
+void SDLTexture::free_texture() {
     if (texture) {
         SDL_DestroyTexture(texture);
         texture = nullptr;
@@ -92,3 +96,4 @@ SDLTexture &SDLTexture::operator=(SDLTexture &&other) {
 void SDLTexture::change_color(std::tuple<int, int, int> t) {
     SDL_SetTextureColorMod(this->texture, std::get<0>(t), std::get<1>(t), std::get<2>(t));
 }
+

@@ -122,6 +122,8 @@ void Player::add_user(State &state) {
 }
 
 void Player::send_update(State &state) {
+    for (auto &m : mods)
+        m->modify_state(state);
     updater->send(state);
 }
 
@@ -130,4 +132,12 @@ std::map<std::string, std::string> Player::get_player_names() {
     std::string n = name + "#" + std::to_string(id);
     namemap.emplace(J_NAME, n);
     return namemap;
+}
+
+void Player::add_mod(Mod &mod) {
+    mods.emplace_back(&mod);
+}
+
+void Player::remove_mod(Mod &mod) {
+    mods.remove(&mod);
 }

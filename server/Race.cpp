@@ -91,3 +91,25 @@ void Race::add_cars(State &state) {
     }
     state.append(J_CARS, car_stats);
 }
+
+void Race::toggle_mod(std::string modFileName) {
+    if (activatedMods.count(modFileName))
+        deactivate_mod(modFileName);
+    else
+        activate_mod(modFileName);
+}
+
+void Race::deactivate_mod(std::string modFileName) {
+    Mod *m = activatedMods[modFileName];
+    for (auto &p : players)
+        p.second->remove_mod(*m);
+    activatedMods.erase(modFileName);
+}
+
+void Race::activate_mod(std::string modFileName) {
+    if (modFileName.empty()) return;
+    Mod m(modFileName);
+    activatedMods[modFileName] = &m;
+    for (auto &p : players)
+        p.second->add_mod(*activatedMods[modFileName]);
+}

@@ -1,8 +1,9 @@
+#include <dirent.h>
 #include "server/Server.h"
 #include "server/ClientProxy.h"
 
-Server::Server(std::string &service, char* file) : acceptor(service),
-																									 track_file(file) {
+Server::Server(std::string &service, char *file) : acceptor(service), track_file(file) {
+    load_mods();
 }
 
 void Server::run() {
@@ -66,7 +67,7 @@ void Server::create_race(ClientProxy &new_client, std::string name) {
 void Server::add_player_to_race(ClientProxy &new_client, int id, std::string name) {
     for (Race *race: races) {
         if (race->getId() == id) {
-        		auto aux = race->get_track_data();
+            auto aux = race->get_track_data();
             new_client.send_track(aux);
             race->add_player(new_client, name);
         }
@@ -75,8 +76,32 @@ void Server::add_player_to_race(ClientProxy &new_client, int id, std::string nam
 
 int Server::handshake_get_race(ClientProxy &new_client) {
     std::map<int, int> races_ids_players;
-    for (Race *r: races) {
+    for (Race *r: races)
         races_ids_players.insert({r->getId(), r->getPlayerCount()});
-    }
     return new_client.handshake_get_race(races_ids_players);
+}
+
+void Server::print_mods() {
+    std::cout << "Available Mods: \n";
+    std::cout << "(input the number to activate them)\n";
+    for (auto &p : mods)
+        std::cout << "\t" << p.first << ": " << p.second << "\n";
+}
+
+void Server::toggle_mod(int i) {
+    for (Race *r: races)
+        r->toggle_mod(mods[i]);
+}
+
+void Server::load_mods() {
+    DIR *modsDir = opendir("server/mods/");
+    if (!modsDir) return;
+    struct dirent *ent;
+    int counter = 1;
+    while ((ent = readdir(modsDir)) != NULL) {
+        std::string name = ent->d_name;
+        if (name == "." || name == "..") continue;
+        mods.insert({counter++, name});
+    }
+    closedir(modsDir);
 }
