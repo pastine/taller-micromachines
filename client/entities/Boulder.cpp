@@ -2,11 +2,11 @@
 #include "client/SDLTextureLoader.h"
 
 Boulder::Boulder() : StaticRenderizable() {
-    w = 543;
-    h = 483;
-    img_x = 70;
-    img_y = 43;
-    real_resize = 0.25;
+    w = 80;
+    h = 75;
+    img_x = 0;
+    img_y = 0;
+    real_resize = 2;
     SDLTextureLoader *loader = SDLTextureLoader::get_loader();
     std::string path = "client/img/boulder.png";
     this->texture = loader->get_texture(path);
