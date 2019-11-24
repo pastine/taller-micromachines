@@ -83,6 +83,7 @@ JSON Track::get_elements_state() {
 	JSON boost;
 	JSON health;
 	std::vector<Entity*> new_elements;
+	to_remove.clear();
 	for (auto &e : elements) {
 		int id = e->get_entity_type();
 		b2Vec2 pos = e->get_position();
@@ -94,7 +95,8 @@ JSON Track::get_elements_state() {
 				new_elements.emplace_back(new_boost);
 				to_remove.emplace_back(e);
 			} else {
-				new_elements.emplace_back(e);
+				auto* aux = e;
+				new_elements.emplace_back(aux);
 			}
 			std::unordered_map<std::string, float> aux;
 			aux.emplace(J_X, pos.x);
@@ -108,7 +110,8 @@ JSON Track::get_elements_state() {
 				new_elements.emplace_back(new_health);
 				to_remove.emplace_back(e);
 			} else {
-				new_elements.emplace_back(e);
+				auto* aux = e;
+				new_elements.emplace_back(aux);
 			}
 			std::unordered_map<std::string, float> aux;
 			aux.emplace(J_X, pos.x);
@@ -116,6 +119,7 @@ JSON Track::get_elements_state() {
 			health.push_back(JSON(aux));
 		}
 	}
+	elements.clear();
 	elements = new_elements;
 	JSON elemen;
 	elemen[J_BOOST] = boost;
@@ -123,8 +127,10 @@ JSON Track::get_elements_state() {
 	return elemen;
 }
 
-std::vector<Entity*>* Track::get_removable_elements() {
-	return &to_remove;
+std::vector<Entity*> Track::get_removable_elements() {
+	auto aux = to_remove;
+	to_remove.clear();
+	return aux;
 }
 
 TrackData Track::get_static_data() {
@@ -159,8 +165,15 @@ std::vector<float> Track::get_random_pos() {
 }
 
 Track::~Track() {
-	world = nullptr;
-	static_elements.clear();
-	elements.clear();
-	to_remove.clear();
+	for (auto &e: static_elements) {
+		delete(e);
+	}
+	for (auto &e: elements) {
+		delete(e);
+	}
+	for (auto &e: to_remove) {
+		delete(e);
+	}
 }
+
+

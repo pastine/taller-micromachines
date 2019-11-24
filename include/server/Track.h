@@ -36,7 +36,7 @@ public:
 
 	~Track() override;
 
-	std::vector<Entity*>* get_removable_elements();
+	std::vector<Entity*> get_removable_elements();
 };
 
 

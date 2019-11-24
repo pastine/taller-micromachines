@@ -23,7 +23,7 @@ public:
 
     void send(T block);
 
-    ~StateHandler();
+    ~StateHandler() override;
 
     void work();
 };
