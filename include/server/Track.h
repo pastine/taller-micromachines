@@ -12,10 +12,12 @@
 #include <unordered_map>
 #include <string>
 #include <vector>
+#include <set>
 
 class Track : public Entity {
 private:
 	TrackStructure skeleton;
+	std::vector<std::vector<float>> positions;
 	std::vector<Entity*> static_elements;
 	std::vector<Consumable*> elements;
 	std::vector<Consumable*> to_remove;

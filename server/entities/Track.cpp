@@ -8,6 +8,17 @@
 #include "server/Track.h"
 #include "Box2D/Box2D.h"
 
+std::vector<std::vector<float>> fill_pos(JSON pos) {
+	std::vector<std::vector<float>> positions;
+	for (auto& element : pos) {
+		std::vector<float> aux = {element[J_X], element[J_Y]};
+		positions.emplace_back(aux);
+	}
+	auto rng = std::default_random_engine {};
+	std::shuffle(positions.begin(), positions.end(), rng);
+	return std::move(positions);
+}
+
 Track::Track(b2World* world, char* file) : skeleton(TrackStructure(file)),
 																					 world(world) {
 	b2BodyDef def;
@@ -22,6 +33,8 @@ Track::Track(b2World* world, char* file) : skeleton(TrackStructure(file)),
 	JSON track = skeleton.get_track();
 	JSON straight = track[J_STRAIGHT];
 	JSON curved = track [J_CURVED];
+
+	positions = fill_pos(straight);
 
 	for (JSON::iterator it = straight.begin(); it != straight.end(); ++it) {
 		JSON aux = *it;
@@ -147,14 +160,10 @@ TrackData Track::get_static_data() {
 }
 
 std::vector<float> Track::get_random_pos() {
-	JSON pos = skeleton.get_track()[J_STRAIGHT];
-	auto top = pos.size();
-	std::random_device rd;
-	std::mt19937 mt(rd());
-	std::uniform_real_distribution<double> dist(0.0, top);
-	int num = dist(mt);
-	auto new_pos = pos[num];
-	return std::vector<float>{new_pos[J_X], new_pos[J_Y]};
+	size_t size = positions.size();
+	auto pos = positions[size - 1];
+	positions.pop_back();
+	return pos;
 }
 
 JSON Track::get_straight_points() {
