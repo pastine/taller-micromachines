@@ -8,6 +8,15 @@
 
 #define MAX_CLIENT_QUEUE 10
 
+SocketException::SocketException(const char *description, const char* error)
+	: description(description){
+	this->description.append("\n Socket error: ").append(error);
+}
+
+const char *SocketException::what() const noexcept {
+	return this->description.c_str();
+}
+
 Socket::Socket() {
     this->skt_fd = -1;
 }
@@ -28,8 +37,7 @@ addrinfo *Socket::_get_address_list(const char *host, const char *service) {
     // we get a list of posible addresses to connect to.
     int err = getaddrinfo(host, service, &hints, &addr_list);
     if (err != 0) {
-        std::cout << gai_strerror(err) << "\n";
-        return nullptr;
+    		throw SocketException("Get address list error", gai_strerror(err));
     }
     return addr_list;
 }
@@ -60,10 +68,15 @@ void Socket::connect_to(std::string &host, std::string &service) {
     const char *_host = host.data();
     const char *_service = service.data();
     struct addrinfo *addr_list = this->_get_address_list(_host, _service);
-    if (!addr_list) throw std::runtime_error("No address list available");
+    if (!addr_list) {
+			throw SocketException("Connect to error", "no addr_list");
+		}
 
     int skt_temp = _try_addrinfo_connections(addr_list);
-    if (skt_temp < 0) throw std::runtime_error("Failed to connect socket");
+    if (skt_temp < 0) {
+			throw SocketException("Connect to error", "Failed to connect");
+    }
+    
     freeaddrinfo(addr_list);
 
     this->skt_fd = skt_temp;
@@ -72,8 +85,9 @@ void Socket::connect_to(std::string &host, std::string &service) {
 void Socket::bind_and_listen(std::string &service) {
     const char *_service = service.data();
     struct addrinfo *addr_list = _get_address_list(nullptr, _service);
-    if (!addr_list) throw std::runtime_error("No address list available");
-
+    if (!addr_list) {
+			throw SocketException("Bind and listen error", "no addr_list");
+		}
     int skt_fd_tmp = -1;
     struct addrinfo *ptr;
     for (ptr = addr_list; ptr != nullptr; ptr = ptr->ai_next) {
@@ -90,11 +104,14 @@ void Socket::bind_and_listen(std::string &service) {
     }
     freeaddrinfo(addr_list);
 
-    if (skt_fd_tmp < 0)
-        throw std::runtime_error("Failed to create the socket");
+    if (skt_fd_tmp < 0) {
+			throw SocketException("Bind and listen error", "failed to create socket");
+    }
 
     int status = listen(skt_fd_tmp, MAX_CLIENT_QUEUE);
-    if (status != 0) throw std::runtime_error("Failed to start listening");
+    if (status != 0) {
+			throw SocketException("Bind and listen error", "failed to start listening");
+    }
 
     this->skt_fd = skt_fd_tmp;
 }
@@ -105,7 +122,8 @@ Socket Socket::accept_connection() {
     if (other.skt_fd < 0) {
         std::string err = "Socket can't accept client: ";
         err += strerror(errno);
-        throw std::runtime_error(err);
+        const char* error = err.c_str();
+				throw SocketException("Accept error", error);
     }
     // this socket will be moved because there is no copy constructor
     return other;
@@ -122,7 +140,8 @@ int Socket::send(const char *message, size_t len) {
         if (sent_this_time <= 0) {
             std::string err = "Socket Connection lost: ";
             err += strerror(errno);
-            throw std::runtime_error(err);
+						const char* error = err.c_str();
+						throw SocketException("Send error", error);
         }
     }
     return bytes_sent;
@@ -136,9 +155,10 @@ void Socket::receive(char *buffer, size_t bytes_to_read) {
                                 bytes_to_read - bytes_received,
                                 0);
         if (recv_this_time <= 0) {
-            std::string err = "Socket Connection lost: ";
-            err += strerror(errno);
-            throw std::runtime_error(err);
+					std::string err = "Socket Connection lost: ";
+					err += strerror(errno);
+					const char* error = err.c_str();
+					throw SocketException("Receive error", error);
         }
         bytes_received += recv_this_time;
     }

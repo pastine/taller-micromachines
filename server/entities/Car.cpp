@@ -161,18 +161,19 @@ void Car::contact_stone() {
 	std::uniform_real_distribution<double> dist(0.0, 1.99);
 	int num = dist(mt);
 	bool coin;
-	if (num) {
+	if (num == 0) {
 		coin = true;
 	} else {
 		coin = false;
 	}
-	move_straight(coin);
+	this->move_straight(coin);
 	this->turn(coin);
-	(*lives) -= 1;
-	if ((*lives) == 0) {
+	if ((lives) == 0) {
 		back_to_track();
 		(*lives) += 3;
 	}
+	(*lives) -= 1;
+	if((*lives) == 0) {(*lives) += 3;}
 }
 
 void Car::contact_health() {

@@ -6,6 +6,15 @@
 #include <netdb.h>
 #include <vector>
 
+class SocketException : public std::exception {
+private:
+	std::string description;
+public:
+	SocketException(const char* description, const char* error);
+
+	const char* what() const noexcept;
+};
+
 class Socket {
 private:
     int skt_fd;
