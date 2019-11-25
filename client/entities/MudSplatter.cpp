@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 20/11/19.
-//
-
 #include <client/SDLTextureLoader.h>
 #include "client/MudSplatter.h"
 

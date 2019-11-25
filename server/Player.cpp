@@ -135,7 +135,10 @@ void Player::send_update(State state, size_t stopped) {
 	add_camera(state);
 	add_user(state);
 	add_progress(state, stopped);
+	if (state == prevstate)
+	    return;
 	updater->send(state);
+	prevstate = state;
 }
 
 std::map<std::string, std::string> Player::get_player_names() {

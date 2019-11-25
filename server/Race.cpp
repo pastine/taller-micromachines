@@ -24,7 +24,7 @@ void Race::run() {
 									if(player->finished()) {stopped++;}
 								}
             }
-            std::chrono::milliseconds tic(20); //20  - delta
+            std::chrono::milliseconds tic(20);
             std::this_thread::sleep_for(tic);
 						environment.step();
         } catch (...) {

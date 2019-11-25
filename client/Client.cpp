@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 25/11/19.
-//
-
 #include <dirent.h>
 #include <QtWidgets/QApplication>
 #include <client/Launcher.h>
@@ -115,7 +111,6 @@ void Client::start() {
         SDL_Delay(20);
     }
 
-    // stopping all threads
     state_receiver.stop();
     frame_drawer.stop();
     state_receiver.join();

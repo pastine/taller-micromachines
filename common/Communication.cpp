@@ -35,6 +35,7 @@ void Communication::receive_msg(std::string &msg) {
         this->socket.receive((char *) &bytes_to_read, sizeof(uint16_t));
         msg.resize(bytes_to_read);
         this->socket.receive((char *) msg.data(), bytes_to_read);
+        std::cout << msg.data() << "\n";
     } catch (std::runtime_error &e) {
         std::string err = "Error in Communication::receive_msg -> ";
         err += e.what();

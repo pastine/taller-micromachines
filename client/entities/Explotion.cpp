@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 24/11/19.
-//
-
 #include <client/SDLTextureLoader.h>
 #include <iostream>
 #include "client/Explotion.h"
@@ -35,8 +31,6 @@ void
 Explotion::render(SDL_Renderer *renderer, float x, float y, float angle, int id,
                   float speed) {
     if (this->frame_resolver.is_done()) return;
-
-    std::cout << "explotionnnn\n";
 
     float x_topleft= x - (w * resize_factor / 2);
     float y_topleft = y - (h * resize_factor / 2);

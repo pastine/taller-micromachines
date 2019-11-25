@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 24/11/19.
-//
-
 #include <iostream>
 #include "client/ExplotionFrameResolver.h"
 
@@ -31,7 +27,6 @@ ExplotionFrameResolver::ExplotionFrameResolver() {
 
 Area &ExplotionFrameResolver::resolve_frame() {
     current_frame += 1;
-    std::cout << current_frame << "\n";
     return this->frames[current_frame % frames.size()];
 }
 

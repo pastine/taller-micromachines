@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 20/11/19.
-//
-
 #ifndef TALLER_MICROMACHINES_MUDSPLATTER_H
 #define TALLER_MICROMACHINES_MUDSPLATTER_H
 

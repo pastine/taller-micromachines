@@ -13,6 +13,7 @@
 #include <map>
 #include <list>
 #include <queue>
+#include <server/State.h>
 
 class Player : public Thread {
 private:
@@ -64,6 +65,8 @@ public:
 		void add_progress(State &state, size_t stopped);
 
 		~Player();
+
+    State prevstate;
 };
 
 

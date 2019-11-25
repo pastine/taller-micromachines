@@ -129,7 +129,6 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
             cam.render_podium(state[J_USER][J_POS]);
         else
             cam.render_lapcount(state[J_USER][J_LAPS], state[J_USER][J_TOTALLAPS]);
-        // after rendering everything
         cam.show_frame();
     } catch (std::domain_error &e) {
         std::cout << e.what() << '\n';

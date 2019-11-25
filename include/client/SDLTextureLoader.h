@@ -38,20 +38,4 @@ private:
     SDL_Renderer *renderer;
 };
 
-/*
- Definition of the exception the texture loader might throw
-class TextureLoaderException {
-public:
-    TextureLoaderException(const char* description);
-    const char* what() const noexcept;
-private:
-    std::string description;
-};
-
-TextureLoaderException::TextureLoaderException(const char* description) : description(description) {}
-
-const char* TextureLoaderException::what() const noexcept{
-    return this->description.c_str();
-}*/
-
 #endif //TALLER_MICROMACHINES_SDLTEXTURELOADER_H

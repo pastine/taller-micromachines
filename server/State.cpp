@@ -15,3 +15,9 @@ void State::append(std::string key, JSON value) {
 }
 
 State::State(std::string str) : json(JSON::parse(str)) {}
+
+bool State::operator==(const State &other) const {
+    auto x = this->json.dump();
+    auto y = other.json.dump();
+    return x == y;
+}

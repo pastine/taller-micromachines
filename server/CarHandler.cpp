@@ -37,7 +37,6 @@ void CarHandler::move(MoveType move) {
             car->turn(true);
             return;
         default:
-            std::cout << "default\n";
             return;
     }
 }

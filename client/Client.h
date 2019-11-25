@@ -1,7 +1,3 @@
-//
-// Created by casimiro on 25/11/19.
-//
-
 #ifndef TALLER_MICROMACHINES_CLIENT_H
 #define TALLER_MICROMACHINES_CLIENT_H
 

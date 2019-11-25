@@ -10,8 +10,6 @@
 
 
 Camera::Camera() : window(SDLWindow(480, 840)) {
-    window.fill(0xFF, 0xFF, 0, 0xFF);
-    this->window.render();
     SDLTextureLoader::instance_loader(window.get_renderer());
 }
 

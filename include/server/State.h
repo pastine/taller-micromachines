@@ -9,7 +9,7 @@ class State {
 public:
     State() = default;
     explicit State(std::string string);
-
+    bool operator==(const State& other) const;
     JSON json;
 
     void insert(std::string key, JSON value);
