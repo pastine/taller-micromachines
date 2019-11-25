@@ -22,8 +22,6 @@ public:
 
     virtual void stop();
 
-    ~Server();
-
     void reaper();
 
     void create_race(ClientProxy &proxy, std::string name);
@@ -39,6 +37,8 @@ public:
     void load_mods();
 
     std::map<int, std::string> mods;
+
+		~Server();
 };
 
 

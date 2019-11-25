@@ -29,23 +29,11 @@ void Server::stop() {
     running = false;
 }
 
-Server::~Server() {
-    this->stop();
-    acceptor.shutdown();
-    auto it = races.begin();
-    while (it != races.end()) {
-        (*it)->stop();
-        delete *it;
-        it = races.erase(it);
-    }
-    this->join();
-}
-
 void Server::reaper() {
     auto it = races.begin();
     while (it != races.end()) {
         (*it)->reaper();
-        if (!(*it)->isAlive()) {
+        if (!(*it)->is_alive()) {
             (*it)->stop();
             delete *it;
             it = races.erase(it);
@@ -66,7 +54,7 @@ void Server::create_race(ClientProxy &new_client, std::string name) {
 
 void Server::add_player_to_race(ClientProxy &new_client, int id, std::string name) {
     for (Race *race: races) {
-        if (race->getId() == id) {
+        if (race->get_id() == id) {
             auto aux = race->get_track_data();
             new_client.send_track(aux);
             race->add_player(new_client, name);
@@ -77,7 +65,7 @@ void Server::add_player_to_race(ClientProxy &new_client, int id, std::string nam
 int Server::handshake_get_race(ClientProxy &new_client) {
     std::map<int, int> races_ids_players;
     for (Race *r: races)
-        races_ids_players.insert({r->getId(), r->getPlayerCount()});
+        races_ids_players.insert({r->get_id(), r->get_player_count()});
     return new_client.handshake_get_race(races_ids_players);
 }
 
@@ -104,4 +92,16 @@ void Server::load_mods() {
         mods.insert({counter++, name});
     }
     closedir(modsDir);
+}
+
+Server::~Server() {
+	this->stop();
+	acceptor.shutdown();
+	auto it = races.begin();
+	while (it != races.end()) {
+		(*it)->stop();
+		delete *it;
+		it = races.erase(it);
+	}
+	this->join();
 }

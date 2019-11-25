@@ -1,6 +1,7 @@
 #ifndef TALLER_MICROMACHINES_CAR_H
 #define TALLER_MICROMACHINES_CAR_H
 
+
 #include "Box2D/Box2D.h"
 #include "Entity.h"
 #include "common/Constants.h"
@@ -12,8 +13,9 @@ private:
     float min_speed;
     bool track;
     int *lives;
-    bool visibility;
-    bool crash;
+    float min_turn_speed;
+		bool visibility;
+		bool crash;
 
 public:
     explicit Car(b2World &world, unsigned long i);
@@ -56,9 +58,9 @@ public:
 
 		void contact_limit();
 
-    int min_turn_speed;
-
 		bool get_crash_state();
+
+		void back_to_track();
 
 		~Car() override;
 };

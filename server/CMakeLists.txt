@@ -24,7 +24,7 @@ add_executable(server_test
         StateHandler.cpp ../include/server/StateHandler.h
         ../include/server/Entity.h
         entities/Limit.cpp ../include/server/Limit.h
-        State.cpp ../include/server/State.h Environment.cpp ../include/server/Environment.h TrackStructure.cpp ../include/server/TrackStructure.h TrackData.cpp ../include/server/TrackData.h Mod.cpp ../include/server/Mod.h)
+        State.cpp ../include/server/State.h Environment.cpp ../include/server/Environment.h TrackStructure.cpp ../include/server/TrackStructure.h TrackData.cpp ../include/server/TrackData.h Mod.cpp ../include/server/Mod.h Consumable.cpp ../include/server/Consumable.h)
 
 add_library(OneLife SHARED mods/libOneLife.cpp)
 add_library(AlwaysMud SHARED mods/libAlwaysMud.cpp)

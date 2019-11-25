@@ -4,11 +4,11 @@
 #include <Box2D/Box2D.h>
 #include "common/Constants.h"
 #include "Entity.h"
+#include "Consumable.h"
 
 
-class Health : public Entity {
+class Health : public Consumable {
 private:
-	bool consumed;
 	b2Fixture* fixture;
 public:
 	explicit Health(b2World &world, float x, float y);
@@ -18,8 +18,6 @@ public:
 	void end_contact() override;
 
 	int get_entity_type() override;
-
-	bool was_consumed();
 
 	~Health() override;
 };

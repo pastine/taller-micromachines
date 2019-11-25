@@ -37,17 +37,15 @@ public:
 
     virtual void stop();
 
-    ~Player();
-
     std::unordered_map<std::string, float> get_position();
 
-    int getId();
+    int get_id();
 
     void update_lap_count();
 
     bool check_progress(std::vector<float>& pos);
 
-    bool isAlive();
+    bool is_alive();
 
     void add_camera(State &state);
 
@@ -64,6 +62,8 @@ public:
     bool finished();
 
 		void add_progress(State &state, size_t stopped);
+
+		~Player();
 };
 
 

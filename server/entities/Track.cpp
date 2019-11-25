@@ -31,13 +31,13 @@ Track::Track(b2World* world, char* file) : skeleton(TrackStructure(file)),
 		m_body->CreateFixture(&fixture);
 	}
 
-	int count = 3;
+	int count = 3; //triangle
 	for (JSON::iterator it = curved.begin(); it != curved.end(); ++it) {
 		JSON aux = *it;
 		float x0 = aux[J_X0], y0 = aux[J_Y0];
 		float x1 = aux[J_X1], y1 = aux[J_Y1];
 		float x2 = aux[J_X2], y2 = aux[J_Y2];
-		b2Vec2 vertex[3]; //triangle
+		b2Vec2 vertex[3];
 		vertex[0].Set(x0, y0);
 		vertex[1].Set(x1, y1);
 		vertex[2].Set(x2, y2);
@@ -51,7 +51,7 @@ Track::Track(b2World* world, char* file) : skeleton(TrackStructure(file)),
 
 	m_body->SetUserData(this);
 
-	for (int i = 0; i < 2; i++) {
+	for (int i = 0; i < 3; i++) {
 		std::vector<float> oil_pos = get_random_pos();
 		Oil *o = new Oil(*world, oil_pos[0], oil_pos[1]);
 		static_elements.emplace_back(o);
@@ -78,44 +78,37 @@ int Track::get_entity_type() {
     return TRACK;
 }
 
-
 JSON Track::get_elements_state() {
-	JSON boost;
-	JSON health;
-	std::vector<Entity*> new_elements;
+	JSON boost, health;
 	to_remove.clear();
+	std::vector<Consumable*> new_elements;
 	for (auto &e : elements) {
 		int id = e->get_entity_type();
+		bool consumed = e->was_consumed();
 		b2Vec2 pos = e->get_position();
-		if (id == BOOST) {
-			if (dynamic_cast<Boost *>(e)->was_consumed()) {
-				std::vector<float> boost_pos = get_random_pos();
-				Boost *new_boost = new Boost(*world, boost_pos[0], boost_pos[1]);
+		if (consumed) {
+			std::vector<float> new_pos = get_random_pos();
+			if (id == BOOST) {
+				Boost *new_boost = new Boost(*world, new_pos[0], new_pos[1]);
 				pos = new_boost->get_position();
 				new_elements.emplace_back(new_boost);
 				to_remove.emplace_back(e);
 			} else {
-				auto* aux = e;
-				new_elements.emplace_back(aux);
-			}
-			std::unordered_map<std::string, float> aux;
-			aux.emplace(J_X, pos.x);
-			aux.emplace(J_Y, pos.y);
-			boost.push_back(JSON(aux));
-		} else {
-			if (dynamic_cast<Health *>(e)->was_consumed()) {
-				std::vector<float> health_pos = get_random_pos();
-				Health *new_health = new Health(*world, health_pos[0], health_pos[1]);
+				Health *new_health = new Health(*world, new_pos[0], new_pos[1]);
 				pos = new_health->get_position();
 				new_elements.emplace_back(new_health);
 				to_remove.emplace_back(e);
-			} else {
-				auto* aux = e;
-				new_elements.emplace_back(aux);
 			}
-			std::unordered_map<std::string, float> aux;
-			aux.emplace(J_X, pos.x);
-			aux.emplace(J_Y, pos.y);
+		} else {
+				auto* a = e;
+				new_elements.emplace_back(a);
+		}
+		std::unordered_map<std::string, float> aux;
+		aux.emplace(J_X, pos.x);
+		aux.emplace(J_Y, pos.y);
+		if (id == BOOST) {
+			boost.push_back(JSON(aux));
+		} else {
 			health.push_back(JSON(aux));
 		}
 	}
@@ -127,7 +120,7 @@ JSON Track::get_elements_state() {
 	return elemen;
 }
 
-std::vector<Entity*> Track::get_removable_elements() {
+std::vector<Consumable*> Track::get_removable_elements() {
 	auto aux = to_remove;
 	to_remove.clear();
 	return aux;

@@ -42,10 +42,6 @@ void CarHandler::move(MoveType move) {
     }
 }
 
-CarHandler::~CarHandler() {
-    delete (car);
-}
-
 std::tuple<float, float, float> CarHandler::get_position() {
     return {car->get_position().x, car->get_position().y, car->get_angle()};
 }
@@ -70,4 +66,8 @@ std::unordered_map<std::string, bool> CarHandler::get_mud_state() {
 
 float CarHandler::get_speed() {
     return car->get_speed();
+}
+
+CarHandler::~CarHandler() {
+	delete (car);
 }

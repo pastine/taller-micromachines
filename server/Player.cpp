@@ -19,15 +19,15 @@ std::queue<std::vector<float>> prepare_flags(JSON& all) {
 Player::Player(ClientProxy messenger, CarHandler *car, std::string name, JSON& flags) :
 			messenger(std::move(messenger)), car(car), id(rand_r(&seed) % 9999),
 			name(name) {
+	total_laps = 0;
+	partial_laps = 0;
 	this->flags = prepare_flags(flags);
 	flag_number = this->flags.size();
-	partial_laps = 0;
-	total_laps = 0;
+	won = false;
 	receiver = new StateHandler<MoveType>(&this->messenger);
 	updater = new StateHandler<State>(&this->messenger);
 	receiver->start();
 	updater->start();
-	won = false;
 }
 
 void Player::run() {
@@ -52,12 +52,12 @@ std::unordered_map<std::string, float> Player::get_position() {
 	position.emplace(J_X, std::get<0>(pos));
 	position.emplace(J_Y, std::get<1>(pos));
 	position.emplace(J_ANGLE, std::get<2>(pos));
-	position.emplace(J_ID, getId());
+	position.emplace(J_ID, get_id());
 	position.emplace(J_SPEED, car->get_speed());
 	return std::move(position);
 }
 
-int Player::getId() {
+int Player::get_id() {
 	return id;
 }
 
@@ -71,9 +71,7 @@ void Player::update_lap_count() {
 	if (partial_laps == flag_number) {
 		total_laps++;
 		partial_laps = 0;
-		if (total_laps == LAPS) {
-			won = true;
-		}
+		if (total_laps == LAPS) {won = true;}
 	}
 }
 
@@ -96,7 +94,7 @@ bool Player::finished() {
 	return won;
 }
 
-bool Player::isAlive() {
+bool Player::is_alive() {
 	return playing;
 }
 
