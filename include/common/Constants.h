@@ -17,6 +17,8 @@
 #define START_POINT_Y (0.0f)
 #define CAR_RESIZE_FACTOR (4.0f)
 
+#define LAPS 3
+
 #define TO_PX 0.01f
 
 #endif //TALLER_MICROMACHINES_CONSTANTS_H

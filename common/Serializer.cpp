@@ -35,6 +35,7 @@ void Serializer<T>::send(Communication &comm, T &block) {
         std::string msg;
         msg = serialize(block);
         comm.send_msg(msg);
+        std::cout<<msg<<'\n';
     } catch (std::runtime_error &e) {
         std::string err = "Error in Serializer<T>::send -> ";
         err += e.what();

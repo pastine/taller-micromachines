@@ -13,12 +13,19 @@ Race::Race(char* file) : id(RaceCount++), environment(Environment(file)) {
 void Race::run() {
     while (racing) {
         try {
+        		size_t stopped = 0;
             environment.step();
             State state;
             add_cars(state);
-            for (auto it = players.begin(); it != players.end(); ++it) {
-                environment.get_elements(state);
-                it->second->send_update(state);
+            for (auto & it : players) {
+            		auto * player = it.second;
+            		if(player->finished()) {stopped++;}
+            		environment.get_elements(state);
+            		it.second->send_update(state, stopped);
+            }
+            size_t size = players.size();
+            if (size > 0 && stopped == size) {
+            	racing = false;
             }
             std::chrono::milliseconds tic(20); //20  - delta
             std::this_thread::sleep_for(tic);

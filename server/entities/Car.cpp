@@ -22,7 +22,7 @@ b2Vec2 get_forward_normal(float angle) {
 Car::Car(b2World &world, unsigned long i) {
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(10 * i + START_POINT_X, START_POINT_Y);
+    bodyDef.position.Set(7 * i + START_POINT_X, START_POINT_Y);
     m_body = world.CreateBody(&bodyDef);
     b2Vec2 vertices[4];
     vertices[0].Set(0.0f, 0.0f);
@@ -213,10 +213,6 @@ float Car::get_speed() {
 	float angle = this->get_angle();
 	b2Vec2 normal = get_forward_normal(angle);
 	return b2Dot(m_body->GetLinearVelocity(), normal);
-}
-
-bool Car::isMoving() {
-	return m_body->GetLinearVelocity().Length() > 1;
 }
 
 void Car::contact_limit() {

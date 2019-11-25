@@ -28,6 +28,7 @@ private:
     std::list<Mod *> mods;
 		std::queue<std::vector<float>> flags;
 		size_t flag_number;
+		bool won;
 
 public:
     Player(ClientProxy messenger, CarHandler *car, std::string name, JSON& flags);
@@ -52,13 +53,17 @@ public:
 
     void add_user(State &state);
 
-    void send_update(State state);
+    void send_update(State state, size_t stopped);
 
     void remove_mod(Mod &mod);
 
     std::map<std::string, std::string> get_player_names();
 
     void add_mod(Mod &mod);
+    
+    bool finished();
+
+		void add_progress(State &state, size_t stopped);
 };
 
 

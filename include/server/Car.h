@@ -54,15 +54,13 @@ public:
 
     float get_speed();
 
-    bool isMoving();
-
-    void contact_limit();
+		void contact_limit();
 
     int min_turn_speed;
 
-		~Car() override;
-
 		bool get_crash_state();
+
+		~Car() override;
 };
 
 

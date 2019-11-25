@@ -17,6 +17,8 @@
 #define J_CRASH "crash"
 #define J_OILS "oils"
 #define J_BOULDERS "boulders"
+#define J_POS "pos"
+#define J_END "end"
 #define J_CONSUMED "consumed"
 #define J_TRACKS "tracks"
 #define J_CURVED "curved"
