@@ -1,0 +1,34 @@
+==16488== Memcheck, a memory error detector
+==16488== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==16488== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==16488== Command: ./server_test 6663 track.txt
+==16488== 
+==16488== 
+==16488== Process terminating with default action of signal 2 (SIGINT)
+==16488==    at 0x59906D5: accept (accept.c:26)
+==16488==    by 0x18B732: Socket::accept_connection() (Socket.cpp:121)
+==16488==    by 0x12EEA0: ClientAccepter::accept_client() (ClientAccepter.cpp:8)
+==16488==    by 0x12F11B: Server::run() (Server.cpp:12)
+==16488==    by 0x18C439: void std::__invoke_impl<void, void (Thread::*)(), Thread*>(std::__invoke_memfun_deref, void (Thread::*&&)(), Thread*&&) (invoke.h:73)
+==16488==    by 0x18C0F7: std::__invoke_result<void (Thread::*)(), Thread*>::type std::__invoke<void (Thread::*)(), Thread*>(void (Thread::*&&)(), Thread*&&) (invoke.h:95)
+==16488==    by 0x18C97A: decltype (__invoke((_S_declval<0ul>)(), (_S_declval<1ul>)())) std::thread::_Invoker<std::tuple<void (Thread::*)(), Thread*> >::_M_invoke<0ul, 1ul>(std::_Index_tuple<0ul, 1ul>) (thread:234)
+==16488==    by 0x18C91B: std::thread::_Invoker<std::tuple<void (Thread::*)(), Thread*> >::operator()() (thread:243)
+==16488==    by 0x18C8EB: std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (Thread::*)(), Thread*> > >::_M_run() (thread:186)
+==16488==    by 0x50FD66E: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==16488==    by 0x59866DA: start_thread (pthread_create.c:463)
+==16488==    by 0x5CBF88E: clone (clone.S:95)
+==16488== 
+==16488== HEAP SUMMARY:
+==16488==     in use at exit: 481 bytes in 5 blocks
+==16488==   total heap usage: 10 allocs, 5 frees, 107,106 bytes allocated
+==16488== 
+==16488== LEAK SUMMARY:
+==16488==    definitely lost: 0 bytes in 0 blocks
+==16488==    indirectly lost: 0 bytes in 0 blocks
+==16488==      possibly lost: 288 bytes in 1 blocks
+==16488==    still reachable: 193 bytes in 4 blocks
+==16488==         suppressed: 0 bytes in 0 blocks
+==16488== Rerun with --leak-check=full to see details of leaked memory
+==16488== 
+==16488== For counts of detected and suppressed errors, rerun with: -v
+==16488== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

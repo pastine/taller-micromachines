@@ -14,8 +14,9 @@ void Race::run() {
 		size_t stopped = 0;
     while (racing) {
         try {
+					  environment.step();
             State state;
-            add_cars(state);
+						add_cars(state);
             for (auto & it : players) {
             		auto * player = it.second;
             		if(!player->finished()) {
@@ -26,7 +27,6 @@ void Race::run() {
             }
             std::chrono::milliseconds tic(20);
             std::this_thread::sleep_for(tic);
-						environment.step();
         } catch (...) {
             reaper();
             if (!is_alive()) stop();
