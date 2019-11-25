@@ -22,7 +22,7 @@ add_executable(client_test
         ../../include/client/AIScript.h
         ServerProxy.cpp ../include/client/ServerProxy.h ThStateReceiver.cpp ../include/client/ThStateReceiver.h ThFrameDrawer.cpp ../include/client/ThFrameDrawer.h
         sdl_wrappers/Audio.cpp ../include/client/Audio.h
-        entities/StraightRoad.cpp ../include/client/StraightRoad.h entities/CurvedRoad.cpp ../include/client/CurvedRoad.h entities/Boost.cpp ../include/client/Boost.h entities/Heart.cpp ../include/client/Heart.h CarLivesDrawer.cpp ../include/client/CarLivesDrawer.h AIScript.cpp sdl_wrappers/SDLText.cpp ../include/client/SDLText.h entities/MudSplatter.cpp ../include/client/MudSplatter.h entities/Explotion.cpp ../include/client/Explotion.h entities/ExplotionFrameResolver.cpp ../include/client/ExplotionFrameResolver.h)
+        entities/StraightRoad.cpp ../include/client/StraightRoad.h entities/CurvedRoad.cpp ../include/client/CurvedRoad.h entities/Boost.cpp ../include/client/Boost.h entities/Heart.cpp ../include/client/Heart.h CarLivesDrawer.cpp ../include/client/CarLivesDrawer.h AIScript.cpp sdl_wrappers/SDLText.cpp ../include/client/SDLText.h entities/MudSplatter.cpp ../include/client/MudSplatter.h entities/Explotion.cpp ../include/client/Explotion.h entities/ExplotionFrameResolver.cpp ../include/client/ExplotionFrameResolver.h Client.cpp Client.h)
 
 target_link_libraries(client_test SDL2 SDL2_image SDL2_ttf SDL2_mixer)
 target_link_libraries(client_test Qt5::Widgets)
