@@ -5,6 +5,7 @@
 #include <tuple>
 #include <vector>
 #include <common/json.h>
+#include <queue>
 #include "Car.h"
 #include "Boulder.h"
 #include "Oil.h"
@@ -15,6 +16,7 @@
 #include "Boost.h"
 #include "Heart.h"
 #include "MudSplatter.h"
+#include "Explotion.h"
 
 
 class WorldEntities {
@@ -37,10 +39,11 @@ private:
     std::vector<std::tuple<float, float>> boost_positions;
     std::vector<std::tuple<float, float>> heart_positions;
 
+    std::queue<std::tuple<Explotion, float, float>> explotion_positions;
+
     void _render_simple_object(std::vector<std::tuple<float, float>> &positions,
                                Renderizable &object,
                                Camera &camera);
-
 
 public:
     enum class Entity {
@@ -48,6 +51,8 @@ public:
     };
 
     void put(Entity, float x, float y, float angle = 0, int id = 0, float speed = 0);
+
+    void put_explotion(float x, float y);
 
     void clean();
 

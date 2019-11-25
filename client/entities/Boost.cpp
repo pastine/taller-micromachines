@@ -2,8 +2,8 @@
 #include "client/Boost.h"
 
 Boost::Boost() {
-    w = 50;
-    h = 50;
+    w = 8;
+    h = 8;
     img_x = 0;
     img_y = 0;
     real_resize = 5;

@@ -106,6 +106,11 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
             entities.put(WorldEntities::Entity::BOOST, f_x * MULTIPLE, f_y * MULTIPLE);
         }
 
+
+        if (state[J_USER][J_CRASH]) {
+            entities.put_explotion(cam_x, cam_y);
+        }
+
         entities.render(cam);
         cam.render_car_lives(state[J_USER][J_LIVES]);
 
@@ -120,7 +125,6 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
         }
 
         cam.render_name(state[J_USER][J_NAME]);
-        //cam.render_splatter();
 
         // after rendering everything
         cam.show_frame();

@@ -66,6 +66,14 @@ void WorldEntities::render(Camera &camera) {
                              std::get<2>(car_pos),
                              std::get<3>(car_pos),
                              std::get<4>(car_pos));
+
+    for (size_t i = 0; i < this->explotion_positions.size(); ++i) {
+        std::tuple<Explotion, float, float> item = explotion_positions.front();
+        camera.render_object(std::get<0>(item), std::get<1>(item), std::get<2>(item));
+        explotion_positions.pop();
+        if (!std::get<0>(item).is_done())
+            explotion_positions.push(item);
+    }
 }
 
 void WorldEntities::_render_simple_object(
@@ -74,4 +82,9 @@ void WorldEntities::_render_simple_object(
         camera.render_object(object,
                              std::get<0>(object_pos),
                              std::get<1>(object_pos));
+}
+
+void WorldEntities::put_explotion(float x, float y) {
+    Explotion explotion;
+    explotion_positions.push(std::tuple<Explotion, float, float>(explotion, x, y));
 }

@@ -7,7 +7,7 @@ Oil::Oil(b2World &world, float x, float y) {
     m_body = world.CreateBody(&bodyDef);
     b2CircleShape circleShape;
     circleShape.m_p.Set(0, 0); //position, relative to body position
-    circleShape.m_radius = 0.5; //TODO define dimension
+    circleShape.m_radius = 0.3; //TODO define dimension
     b2FixtureDef fixture;
     fixture.shape = &circleShape; //this is a pointer to the shape above
     fixture.density = 1.0f;
