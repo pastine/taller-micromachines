@@ -151,11 +151,12 @@ void Car::contact_mud() {
 
 void Car::contact_oil() {
 	float friction = m_body->GetFixtureList()->GetFriction();
-	friction -= 5.0f;
+	friction -= 8.0f;
 	m_body->GetFixtureList()->SetFriction(friction);
 }
 
 void Car::contact_stone() {
+	crash = true;
 	if ((lives) == 0) {
 		back_to_track();
 		(*lives) += 3;

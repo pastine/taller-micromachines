@@ -100,6 +100,9 @@ JSON Track::get_elements_state() {
 		bool consumed = e->was_consumed();
 		b2Vec2 pos = e->get_position();
 		if (consumed) {
+			std::vector<float> aux;
+			aux.emplace_back(pos.x);
+			aux.emplace_back(pos.y);
 			std::vector<float> new_pos = get_random_pos();
 			if (id == BOOST) {
 				Boost *new_boost = new Boost(*world, new_pos[0], new_pos[1]);
@@ -112,6 +115,9 @@ JSON Track::get_elements_state() {
 				new_elements.emplace_back(new_health);
 				to_remove.emplace_back(e);
 			}
+			positions.push_back(aux);
+			auto rng = std::default_random_engine {};
+			std::shuffle(positions.begin(), positions.end(), rng);
 		} else {
 				auto* a = e;
 				new_elements.emplace_back(a);
@@ -160,8 +166,7 @@ TrackData Track::get_static_data() {
 }
 
 std::vector<float> Track::get_random_pos() {
-	size_t size = positions.size();
-	auto pos = positions[size - 1];
+	auto pos = positions.back();
 	positions.pop_back();
 	return pos;
 }
