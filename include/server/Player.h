@@ -13,6 +13,7 @@
 #include <map>
 #include <list>
 #include <queue>
+#include <memory>
 
 class Player : public Thread {
 private:
@@ -22,8 +23,8 @@ private:
     int id;
     size_t total_laps;
     size_t partial_laps;
-    StateHandler<MoveType> *receiver;
-    StateHandler<State> *updater;
+    std::unique_ptr<StateHandler<MoveType>> receiver;
+		std::unique_ptr<StateHandler<State>> updater;
     std::string name;
     std::list<Mod *> mods;
 		std::queue<std::vector<float>> flags;

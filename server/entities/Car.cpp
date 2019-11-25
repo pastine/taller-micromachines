@@ -215,6 +215,7 @@ void Car::back_to_track() {
 }
 
 void Car::contact_limit() {
+	crash = true;
 	back_to_track();
 }
 
