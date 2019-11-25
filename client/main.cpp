@@ -5,10 +5,6 @@
 #include "client/Launcher.h"
 #include "Client.h"
 
-
-
-
-
 int main(int argc, char **argv) {
     try {
         std::string host(argv[1]);
@@ -16,6 +12,7 @@ int main(int argc, char **argv) {
         Client client(host, service);
         client.handshake(argc, argv);
         client.start();
+        return 0;
     } catch (SDLException& e) {
         std::cout << e.what() << '\n';
     }
