@@ -22,10 +22,6 @@ void Race::run() {
             		environment.get_elements(state);
             		it.second->send_update(state, stopped);
             }
-            size_t size = players.size();
-            if (size > 0 && stopped == size) {
-            	racing = false;
-            }
             std::chrono::milliseconds tic(20); //20  - delta
             std::this_thread::sleep_for(tic);
 						environment.step();

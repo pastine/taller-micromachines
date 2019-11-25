@@ -3,7 +3,8 @@
 #include "common/Constants.h"
 #include "common/CommunicationConstants.h"
 #include "common/ClosedQueueException.h"
-uint32_t seed;
+
+uint32_t seed = time(NULL);
 
 std::queue<std::vector<float>> prepare_flags(JSON& all) {
 	std::queue<std::vector<float>> flags;
@@ -71,7 +72,13 @@ void Player::update_lap_count() {
 	if (partial_laps == flag_number) {
 		total_laps++;
 		partial_laps = 0;
+<<<<<<< HEAD
 		if (total_laps == LAPS) {won = true;}
+=======
+        if (total_laps > LAPS) {
+			won = true;
+		}
+>>>>>>> a7919d1728907b914f9cf416c2c264f960e2b4f4
 	}
 }
 
@@ -79,10 +86,10 @@ bool Player::check_progress(std::vector<float>& pos) {
 	std::tuple<float, float, float> car_pos = car->get_position();
 	float x = std::get<0>(car_pos);
 	float y = std::get<1>(car_pos);
-	float x_min = pos[0] - W / 2;
-	float x_max = pos[0] + W / 2;
-	float y_min = pos[1] - W / 2;
-	float y_max = pos[1] + W / 2;
+    float x_min = pos[0] - W;
+    float x_max = pos[0] + W;
+    float y_min = pos[1] - W;
+    float y_max = pos[1] + W;
 	if ((x >= x_min && x <= x_max) && (y >= y_min && y <= y_max)) {
 	  partial_laps++;
 		return true;
@@ -114,12 +121,17 @@ void Player::add_user(State &state) {
 }
 
 void Player::add_progress(State& state, size_t stopped) {
-	std::unordered_map<std::string, bool> progress;
-	progress.emplace(J_END, finished());
-	if(finished()) {
-		progress.emplace(J_POS, stopped);
-	}
-	state.append(J_USER, progress);
+    std::unordered_map<std::string, bool> end;
+    end.emplace(J_END, finished());
+    state.append(J_USER, end);
+    std::unordered_map<std::string, size_t> pos;
+    if (finished()) {
+        pos.emplace(J_POS, stopped);
+    } else {
+        pos.emplace(J_LAPS, total_laps);
+        pos.emplace(J_TOTALLAPS, LAPS);
+    }
+    state.append(J_USER, pos);
 }
 
 void Player::send_update(State state, size_t stopped) {
