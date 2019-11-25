@@ -1,7 +1,6 @@
 #include <iostream>
 #include <random>
 #include "server/Car.h"
-
 #define MAX 30.0f
 #define MIN_TURN_SPEED 1.0f
 #define TORQUE 1800.0f
@@ -22,7 +21,7 @@ b2Vec2 get_forward_normal(float angle) {
 Car::Car(b2World &world, unsigned long i) {
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(10 * i + START_POINT_X, START_POINT_Y);
+    bodyDef.position.Set(7 * i + START_POINT_X, START_POINT_Y);
     m_body = world.CreateBody(&bodyDef);
     b2Vec2 vertices[4];
     vertices[0].Set(0.0f, 0.0f);
@@ -39,10 +38,10 @@ Car::Car(b2World &world, unsigned long i) {
     fixtureDef.friction = 11.0f;
     fixtureDef.restitution = 0.3f;
     m_body->CreateFixture(&fixtureDef);
+		m_body->SetUserData(this);
     max_speed = MAX;
     min_speed = -MAX;
     min_turn_speed = MIN_TURN_SPEED;
-    m_body->SetUserData(this);
     track = true;
     lives = new int(3);
     visibility = false;
@@ -140,6 +139,10 @@ void Car::off_track() {
 void Car::contact_car() {
 	crash = true;
 	*lives -= 1;
+	if (*lives == 0) {
+		back_to_track();
+		*lives += 3;
+	}
 }
 
 void Car::contact_mud() {
@@ -148,12 +151,11 @@ void Car::contact_mud() {
 
 void Car::contact_oil() {
 	float friction = m_body->GetFixtureList()->GetFriction();
-	friction -= 0.3f;
+	friction -= 5.0f;
 	m_body->GetFixtureList()->SetFriction(friction);
 }
 
 void Car::contact_stone() {
-	std::cout<<"contact stone-----------------\n";
 	move_straight(true);
 	std::random_device rd;
 	std::mt19937 mt(rd());
@@ -167,6 +169,10 @@ void Car::contact_stone() {
 	}
 	this->turn(turn);
 	*lives -= 1;
+	if (*lives == 0) {
+		back_to_track();
+		*lives += 3;
+	}
 }
 
 void Car::contact_health() {
@@ -197,6 +203,7 @@ bool Car::get_crash_state() {
 	}
 	return false;
 }
+
 bool Car::get_mud_state() {
 	if (visibility) {
 		visibility = false;
@@ -205,21 +212,22 @@ bool Car::get_mud_state() {
 	return false;
 }
 
-Car::~Car() {
-    delete (lives);
-}
-
 float Car::get_speed() {
 	float angle = this->get_angle();
 	b2Vec2 normal = get_forward_normal(angle);
 	return b2Dot(m_body->GetLinearVelocity(), normal);
 }
 
-bool Car::isMoving() {
-	return m_body->GetLinearVelocity().Length() > 1;
+void Car::back_to_track() {
+	b2Vec2 pos = this->get_position();
+	b2Vec2 force = {-pos.x * TORQUE, -pos.y * TORQUE};
+	m_body->ApplyLinearImpulse(force, m_body->GetWorldCenter(), true);
 }
 
 void Car::contact_limit() {
-  std::cout << "car on limit\n";
+	back_to_track();
 }
 
+Car::~Car() {
+	delete (lives);
+}

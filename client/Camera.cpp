@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include "client/Camera.h"
 #include "client/SDLWindow.h"
 #include "client/SDLTextureLoader.h"
@@ -75,4 +76,20 @@ void Camera::render_name(std::string name) {
 Camera::~Camera() {
     SDLTextureLoader *loader = SDLTextureLoader::get_loader();
     loader->free_textures();
+}
+
+void Camera::render_podium(size_t position) {
+    if (position <= 3) {
+        this->text_creator.render_text("Congratulations" + std::string(position, '!'),
+                                       this->window.get_renderer(), 72, 40);
+    }
+    std::ostringstream str;
+    str << "Final Position: " << position;
+    this->text_creator.render_text(str.str(), this->window.get_renderer(), 72, 70);
+}
+
+void Camera::render_lapcount(int lapcount, int total_laps) {
+    std::ostringstream str;
+    str << lapcount << "/" << total_laps << " laps";
+    this->text_creator.render_text(str.str(), this->window.get_renderer(), 840, 40);
 }

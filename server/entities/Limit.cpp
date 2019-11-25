@@ -21,7 +21,6 @@ Limit::Limit(b2World &world) {
 }
 
 void Limit::start_contact() {
-    std::cout << "borde\n";
 }
 
 void Limit::end_contact() {

@@ -32,15 +32,13 @@ public:
 
     virtual void stop();
 
-    ~Race();
-
-    int getId();
+    int get_id();
 
     TrackData get_track_data();
 
-    int getPlayerCount();
+    int get_player_count();
 
-    bool isAlive();
+    bool is_alive();
 
     void add_cars(State &state);
 
@@ -51,6 +49,8 @@ public:
     void deactivate_mod(std::string modFileName);
 
     void activate_mod(std::string modFileName);
+
+		~Race();
 };
 
 

@@ -3,11 +3,10 @@
 
 
 #include <Box2D/Box2D.h>
-#include "Entity.h"
+#include "Consumable.h"
 
-class Boost : public Entity {
+class Boost : public Consumable {
 private:
-	bool consumed;
 	b2Fixture* fixture;
 public:
 	explicit Boost(b2World &world, float x, float y);
@@ -17,8 +16,6 @@ public:
 	void end_contact() override;
 
 	int get_entity_type() override;
-
-	bool was_consumed();
 
 	~Boost() override;
 };

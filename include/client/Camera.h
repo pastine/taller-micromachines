@@ -30,6 +30,10 @@ public:
 
     void render_name(std::string name);
 
+    void render_podium(size_t position);
+
+    void render_lapcount(int lapcount, int total_laps);
+
 private:
     bool _is_in_frame(Renderizable &object, float abs_x, float abs_y);
 

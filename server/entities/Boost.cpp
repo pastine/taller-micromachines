@@ -1,7 +1,7 @@
 #include "server/Boost.h"
 #include "common/Constants.h"
 
-Boost::Boost(b2World &world, float x, float y) : consumed(false) {
+Boost::Boost(b2World &world, float x, float y) {
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(x, y);
@@ -27,10 +27,6 @@ void Boost::end_contact() {
 
 int Boost::get_entity_type() {
     return BOOST;
-}
-
-bool Boost::was_consumed() {
-	return consumed;
 }
 
 Boost::~Boost() {

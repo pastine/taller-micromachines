@@ -5,6 +5,8 @@
 #include "Entity.h"
 #include "common/Constants.h"
 #include "State.h"
+#include "Consumable.h"
+#include "Entity.h"
 #include "TrackStructure.h"
 #include "TrackData.h"
 #include <unordered_map>
@@ -15,8 +17,8 @@ class Track : public Entity {
 private:
 	TrackStructure skeleton;
 	std::vector<Entity*> static_elements;
-	std::vector<Entity*> elements;
-	std::vector<Entity*> to_remove;
+	std::vector<Consumable*> elements;
+	std::vector<Consumable*> to_remove;
 	b2World* world;
 
 public:
@@ -34,11 +36,11 @@ public:
 
 	std::vector<float> get_random_pos();
 
-	~Track() override;
-
-	std::vector<Entity*> get_removable_elements();
+	std::vector<Consumable*> get_removable_elements();
 
 	JSON get_straight_points();
+
+	~Track() override;
 };
 
 

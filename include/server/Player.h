@@ -28,6 +28,7 @@ private:
     std::list<Mod *> mods;
 		std::queue<std::vector<float>> flags;
 		size_t flag_number;
+		bool won;
 
 public:
     Player(ClientProxy messenger, CarHandler *car, std::string name, JSON& flags);
@@ -36,29 +37,33 @@ public:
 
     virtual void stop();
 
-    ~Player();
-
     std::unordered_map<std::string, float> get_position();
 
-    int getId();
+    int get_id();
 
     void update_lap_count();
 
     bool check_progress(std::vector<float>& pos);
 
-    bool isAlive();
+    bool is_alive();
 
     void add_camera(State &state);
 
     void add_user(State &state);
 
-    void send_update(State state);
+    void send_update(State state, size_t stopped);
 
     void remove_mod(Mod &mod);
 
     std::map<std::string, std::string> get_player_names();
 
     void add_mod(Mod &mod);
+    
+    bool finished();
+
+		void add_progress(State &state, size_t stopped);
+
+		~Player();
 };
 
 

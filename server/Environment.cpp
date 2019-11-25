@@ -1,9 +1,9 @@
-#include <server/Boost.h>
-#include <server/Health.h>
+#include "server/Consumable.h"
 #include "server/Environment.h"
 
 Environment::Environment(char* file) : world({0.0f, 0.0f}),
-													 track(Track(&world, file)), limit(Limit(world)) {
+																			 track(Track(&world, file)),
+																			 limit(Limit(world)) {
 	world.SetContactListener(&listener);
 }
 
