@@ -22,6 +22,8 @@ private:
     bool done;
     size_t frames_rendered_mud;
     void _draw_frame(JSON &json);
+
+    bool first_time = true;
 };
 
 

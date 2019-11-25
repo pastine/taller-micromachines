@@ -63,6 +63,10 @@ void ThFrameDrawer::run() {
         while (!this->done) {
             JSON state = this->state_queue->pop();
             this->_draw_frame(state);
+            if (first_time) {
+                this->_draw_frame(state);
+                first_time = false;
+            }
         }
     } catch (std::runtime_error &e) {
         std::cout << "Error in FrameDrawer -> " << e.what();
