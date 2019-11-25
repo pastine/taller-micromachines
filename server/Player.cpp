@@ -72,13 +72,7 @@ void Player::update_lap_count() {
 	if (partial_laps == flag_number) {
 		total_laps++;
 		partial_laps = 0;
-<<<<<<< HEAD
 		if (total_laps == LAPS) {won = true;}
-=======
-        if (total_laps > LAPS) {
-			won = true;
-		}
->>>>>>> a7919d1728907b914f9cf416c2c264f960e2b4f4
 	}
 }
 
