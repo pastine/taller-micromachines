@@ -69,7 +69,8 @@ void Camera::render_splatter() {
 }
 
 void Camera::render_name(std::string name) {
-    this->text_creator.render_text(name, this->window.get_renderer(), 800, 10);
+    int padding = 25;
+    this->text_creator.render_text(name, this->window.get_renderer(), padding, 80);
 }
 
 Camera::~Camera() {
