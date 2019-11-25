@@ -18,9 +18,11 @@ void Race::run() {
             add_cars(state);
             for (auto & it : players) {
             		auto * player = it.second;
-            		if(player->finished()) {stopped++;}
-            		environment.get_elements(state);
-            		it.second->send_update(state, stopped);
+            		if(!player->finished()) {
+									environment.get_elements(state);
+									it.second->send_update(state, stopped);
+									if(player->finished()) {stopped++;}
+								}
             }
             std::chrono::milliseconds tic(20); //20  - delta
             std::this_thread::sleep_for(tic);

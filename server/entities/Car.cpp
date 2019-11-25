@@ -138,10 +138,10 @@ void Car::off_track() {
 
 void Car::contact_car() {
 	crash = true;
-	*lives -= 1;
-	if (*lives == 0) {
+	(*lives) -= 1;
+	if ((*lives) == 0) {
 		back_to_track();
-		*lives += 3;
+		(*lives) += 3;
 	}
 }
 
@@ -156,27 +156,27 @@ void Car::contact_oil() {
 }
 
 void Car::contact_stone() {
-	move_straight(true);
 	std::random_device rd;
 	std::mt19937 mt(rd());
 	std::uniform_real_distribution<double> dist(0.0, 1.99);
 	int num = dist(mt);
-	bool turn;
+	bool coin;
 	if (num) {
-		turn = true;
+		coin = true;
 	} else {
-		turn = false;
+		coin = false;
 	}
-	this->turn(turn);
-	*lives -= 1;
-	if (*lives == 0) {
+	move_straight(coin);
+	this->turn(coin);
+	(*lives) -= 1;
+	if ((*lives) == 0) {
 		back_to_track();
-		*lives += 3;
+		(*lives) += 3;
 	}
 }
 
 void Car::contact_health() {
-	if (*lives < 3) { *lives += 1; }
+	if ((*lives) < 3) { (*lives) += 1; }
 }
 
 void Car::contact_boost() {
