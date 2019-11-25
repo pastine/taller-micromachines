@@ -89,5 +89,6 @@ void Camera::render_podium(size_t position) {
 void Camera::render_lapcount(int lapcount, int total_laps) {
     std::ostringstream str;
     str << lapcount << "/" << total_laps << " laps";
-    this->text_creator.render_text(str.str(), this->window.get_renderer(), 840, 40);
+    this->text_creator.render_text(str.str(),
+            this->window.get_renderer(), this->window.get_width() - 150, 40);
 }
