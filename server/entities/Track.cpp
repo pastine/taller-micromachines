@@ -8,6 +8,17 @@
 #include "server/Track.h"
 #include "Box2D/Box2D.h"
 
+std::vector<std::vector<float>> fill_pos(JSON pos) {
+	std::vector<std::vector<float>> positions;
+	for (auto& element : pos) {
+		std::vector<float> aux = {element[J_X], element[J_Y]};
+		positions.emplace_back(aux);
+	}
+	auto rng = std::default_random_engine {};
+	std::shuffle(positions.begin(), positions.end(), rng);
+	return std::move(positions);
+}
+
 Track::Track(b2World* world, char* file) : skeleton(TrackStructure(file)),
 																					 world(world) {
 	b2BodyDef def;
@@ -22,6 +33,8 @@ Track::Track(b2World* world, char* file) : skeleton(TrackStructure(file)),
 	JSON track = skeleton.get_track();
 	JSON straight = track[J_STRAIGHT];
 	JSON curved = track [J_CURVED];
+
+	positions = fill_pos(straight);
 
 	for (JSON::iterator it = straight.begin(); it != straight.end(); ++it) {
 		JSON aux = *it;
@@ -87,6 +100,9 @@ JSON Track::get_elements_state() {
 		bool consumed = e->was_consumed();
 		b2Vec2 pos = e->get_position();
 		if (consumed) {
+			std::vector<float> aux;
+			aux.emplace_back(pos.x);
+			aux.emplace_back(pos.y);
 			std::vector<float> new_pos = get_random_pos();
 			if (id == BOOST) {
 				Boost *new_boost = new Boost(*world, new_pos[0], new_pos[1]);
@@ -99,6 +115,9 @@ JSON Track::get_elements_state() {
 				new_elements.emplace_back(new_health);
 				to_remove.emplace_back(e);
 			}
+			positions.push_back(aux);
+			auto rng = std::default_random_engine {};
+			std::shuffle(positions.begin(), positions.end(), rng);
 		} else {
 				auto* a = e;
 				new_elements.emplace_back(a);
@@ -147,14 +166,9 @@ TrackData Track::get_static_data() {
 }
 
 std::vector<float> Track::get_random_pos() {
-	JSON pos = skeleton.get_track()[J_STRAIGHT];
-	auto top = pos.size();
-	std::random_device rd;
-	std::mt19937 mt(rd());
-	std::uniform_real_distribution<double> dist(0.0, top);
-	int num = dist(mt);
-	auto new_pos = pos[num];
-	return std::vector<float>{new_pos[J_X], new_pos[J_Y]};
+	auto pos = positions.back();
+	positions.pop_back();
+	return pos;
 }
 
 JSON Track::get_straight_points() {

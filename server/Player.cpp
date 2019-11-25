@@ -3,6 +3,7 @@
 #include "common/Constants.h"
 #include "common/CommunicationConstants.h"
 #include "common/ClosedQueueException.h"
+#include <memory>
 
 uint32_t seed = time(NULL);
 
@@ -25,8 +26,8 @@ Player::Player(ClientProxy messenger, CarHandler *car, std::string name, JSON& f
 	this->flags = prepare_flags(flags);
 	flag_number = this->flags.size();
 	won = false;
-	receiver = new StateHandler<MoveType>(&this->messenger);
-	updater = new StateHandler<State>(&this->messenger);
+	receiver = std::unique_ptr<StateHandler<MoveType>>(new StateHandler<MoveType>(&this->messenger));
+	updater = std::unique_ptr<StateHandler<State>>(new StateHandler<State>(&this->messenger));
 	receiver->start();
 	updater->start();
 }
@@ -158,7 +159,5 @@ void Player::remove_mod(Mod &mod) {
 
 Player::~Player() {
 	delete (car);
-	delete (receiver);
-	delete (updater);
 	this->join();
 }

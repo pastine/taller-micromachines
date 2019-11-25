@@ -151,23 +151,12 @@ void Car::contact_mud() {
 
 void Car::contact_oil() {
 	float friction = m_body->GetFixtureList()->GetFriction();
-	friction -= 5.0f;
+	friction -= 8.0f;
 	m_body->GetFixtureList()->SetFriction(friction);
 }
 
 void Car::contact_stone() {
-	std::random_device rd;
-	std::mt19937 mt(rd());
-	std::uniform_real_distribution<double> dist(0.0, 1.99);
-	int num = dist(mt);
-	bool coin;
-	if (num == 0) {
-		coin = true;
-	} else {
-		coin = false;
-	}
-	this->move_straight(coin);
-	this->turn(coin);
+	crash = true;
 	if ((lives) == 0) {
 		back_to_track();
 		(*lives) += 3;
@@ -226,6 +215,7 @@ void Car::back_to_track() {
 }
 
 void Car::contact_limit() {
+	crash = true;
 	back_to_track();
 }
 
