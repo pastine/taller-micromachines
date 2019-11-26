@@ -55,11 +55,11 @@ public:
 
     void send_update(State state);
 
-    void remove_mod(Mod &mod);
+    void remove_mod(Mod *mod);
 
     std::map<std::string, std::string> get_player_names();
 
-    void add_mod(Mod &mod);
+    void add_mod(Mod *mod);
 
     bool finished();
 
