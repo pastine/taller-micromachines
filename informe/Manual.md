@@ -84,13 +84,13 @@ Luego de haber puesto el input correcto (y que el servidor este corriendo en el 
 
 ![](pantalla_1_cliente.png)
 
-Aquí vamos a poder especificar el nombre que queremos usar y si quisieramos usar un bot, podríamos elegir el tipo de bot.
+Aquí vamos a poder especificar el nombre que queremos usar y si quisiéramos usar un bot, podríamos elegir el tipo de bot.
 
 Luego de esto, vamos a crear la partida para comenzar una nueva partida.
 
-El número default de jugadores es 4, pero puede ser cambiado. La partida no va a empezar hasta que esten conectados todos los jugadores.
+El número default de jugadores es 4, pero puede ser cambiado. La partida no va a empezar hasta que estén conectados todos los jugadores.
 
-Por otro lado, si quisieramos unirnos a una partida, nos van a aparecer las partidas disponibles para unirnos:
+Por otro lado, si quisiéramos unirnos a una partida, nos van a aparecer las partidas disponibles para unirnos:
 
 ![](pantalla_2_cliente.png)
 
@@ -125,7 +125,7 @@ Durante la carrera, el jugador va a encontrarse con ciertos obstáculos en la pi
 
 Al chocar con una piedra, el jugador va a perder una vida y ocurrirá una explosión.
 
-Además, la piedra es un objeto sólido, por lo tanto el jugador no va a poder atravesarla y deberá maniobrar alrededor de la misma
+Además, la piedra es un objeto sólido, por lo tanto el jugador no va a poder atravesarla y deberá maniobrar alrededor de la misma.
 
 ##### Barro
 
