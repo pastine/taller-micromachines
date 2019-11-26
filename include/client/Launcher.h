@@ -12,17 +12,19 @@
 #include <vector>
 #include <string>
 #include <utility>
+#include <tuple>
 
 class Launcher : public QWidget {
 public:
-    Launcher(std::map<std::string, int> map,
-             std::map<int, std::string> botNames, int *retValue,
+    Launcher(std::map<std::string, std::tuple<int, int>> map,
+             std::map<int, std::string> botNames, int *retValue, int *maxPlayers,
              int *playwithbot, std::string *name);
 
 private:
     int *retValue;
     QVBoxLayout *mainLayout;
     int *playwithbot;
+    int *maxPlayers;
     std::string *inputName;
 public slots:
 
@@ -36,7 +38,7 @@ public slots:
 
     void setCreateBtn();
 
-    void setExistingRaces(std::map<std::string, int> map);
+    void setExistingRaces(std::map<std::string, std::tuple<int, int>> map);
 
     void setInput(std::string *name);
 

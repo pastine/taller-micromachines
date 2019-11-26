@@ -13,10 +13,11 @@ Audio::Audio() {
 
     Mix_Music *background = Mix_LoadMUS("client/audio/background.wav");
     Mix_VolumeMusic(20);
-    powerup = Mix_LoadWAV("client/audio/powerup.wav");
     Mix_PlayMusic(background, -1);
 }
 
-void Audio::play() {
-    Mix_PlayChannel(-1, powerup, 0);
+void Audio::play(std::string filename) {
+    std::string file = "client/audio/"+filename+".wav";
+    Mix_Chunk *sound = Mix_LoadWAV(file.c_str());
+    Mix_PlayChannel(-1, sound, 0);
 }

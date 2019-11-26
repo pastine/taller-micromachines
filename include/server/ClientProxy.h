@@ -15,6 +15,7 @@
 #include "Track.h"
 #include <string>
 #include <unordered_map>
+#include <tuple>
 
 class ClientProxy {
 public:
@@ -39,11 +40,13 @@ public:
 
     ~ClientProxy() {}
 
-    int handshake_get_race(std::map<int, int> races_ids_players);
+    int handshake_get_race(std::map<int, std::tuple<int, int>> races_ids_players);
 
     void send_track(TrackData& data);
 
-    std::string handshake_get_name(ClientProxy &proxy);
+    std::string handshake_get_name();
+
+    int handshake_get_players();
 
 private:
     Communication communication;

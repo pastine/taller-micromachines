@@ -20,9 +20,10 @@ private:
   std::unordered_map<int, Player *> players;
   bool racing = true;
   Environment environment;
+    int max_players;
 
 public:
-    explicit Race(char* file);
+    explicit Race(char *file, int i);
 
     virtual void run();
 
@@ -40,7 +41,7 @@ public:
 
     bool is_alive();
 
-    void add_cars(State &state);
+    void add_cars_to_state(State &state);
 
     void toggle_mod(std::string modFileName);
 
@@ -51,6 +52,10 @@ public:
     void activate_mod(std::string modFileName);
 
 		~Race();
+
+    int get_max_players();
+
+    bool didnt_start = true;
 };
 
 

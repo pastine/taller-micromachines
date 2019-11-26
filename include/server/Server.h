@@ -24,7 +24,7 @@ public:
 
     void reaper();
 
-    void create_race(ClientProxy &proxy, std::string name);
+    void create_race(ClientProxy &proxy, std::string name, int i);
 
     void add_player_to_race(ClientProxy &new_client, int id, std::string name);
 

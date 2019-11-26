@@ -8,10 +8,11 @@
 #include <unordered_map>
 #include <common/json.h>
 #include <common/Serializer.h>
+#include <tuple>
 
-class RacesSerializer : public Serializer<std::map<int,int>>{
+class RacesSerializer : public Serializer<std::map<int, std::tuple<int, int>>> {
 public:
-    JSON serialize_to_json(std::map<int,int> &races) override;
+    JSON serialize_to_json(std::map<int, std::tuple<int, int>> &races) override;
 };
 
 

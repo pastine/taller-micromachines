@@ -9,6 +9,7 @@
 #include <string>
 #include <map>
 #include <common/RacesSerializer.h>
+#include <tuple>
 
 class ServerProxy {
 public:
@@ -20,9 +21,9 @@ public:
 
     ServerProxy(std::string &host, std::string &service);
 
-    std::map<std::string, int> handshake();
+    std::map<std::string, std::tuple<int, int>> handshake();
 
-    JSON handshake_answer(int i, std::string name);
+    JSON handshake_answer(int i, std::string name, int numPlayers);
 
 private:
     MoveSerializer move_serializer;

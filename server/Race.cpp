@@ -7,16 +7,19 @@
 
 std::atomic_int Race::RaceCount(1);
 
-Race::Race(char* file) : id(RaceCount++), environment(Environment(file)) {
+Race::Race(char *file, int i) : id(RaceCount++), environment(Environment(file)), max_players(i) {
 }
 
 void Race::run() {
 		size_t stopped = 0;
     while (racing) {
         try {
-            environment.step();
             State state;
-            add_cars(state);
+            if (didnt_start)
+                state.append(J_WAITFORPLAYERS, true);
+            else
+                environment.step();
+            add_cars_to_state(state);
             for (auto & it : players) {
             		auto * player = it.second;
             		if(!player->finished()) {
@@ -41,6 +44,7 @@ void Race::add_player(ClientProxy &messenger, std::string name) {
     Player *player = new Player(std::move(messenger), handler, name, aux);
     players.emplace(player->get_id(), player);
     player->start();
+    if (players.size() == (uint) max_players) didnt_start = false;
 }
 
 void Race::stop() {
@@ -77,7 +81,7 @@ bool Race::is_alive() {
     return (racing) && (get_player_count() > 0);
 }
 
-void Race::add_cars(State &state) {
+void Race::add_cars_to_state(State &state) {
     JSON car_stats;
     for (auto it = players.begin(); it != players.end(); ++it) {
         if (!it->second->is_alive()) continue;
@@ -116,4 +120,8 @@ Race::~Race() {
 		it = players.erase(it);
 	}
 	this->join();
+}
+
+int Race::get_max_players() {
+    return max_players;
 }

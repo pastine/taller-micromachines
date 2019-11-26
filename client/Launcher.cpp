@@ -2,12 +2,14 @@
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QAction>
+#include <QtWidgets/QSpinBox>
 #include "client/Launcher.h"
 
 
-Launcher::Launcher(std::map<std::string, int> races,
-                   std::map<int, std::string> botNames, int *ret, int *bot, std::string *name) :
-        retValue(ret), playwithbot(bot), inputName(name) {
+Launcher::Launcher(std::map<std::string, std::tuple<int, int>> races,
+                   std::map<int, std::string> botNames, int *ret,
+                   int *players, int *bot, std::string *name) :
+        retValue(ret), playwithbot(bot), maxPlayers(players), inputName(name) {
     mainLayout =  new QVBoxLayout();
     footerLayout = new QHBoxLayout();
 
@@ -23,12 +25,20 @@ Launcher::Launcher(std::map<std::string, int> races,
 }
 
 void Launcher::setCreateBtn() {
+    QHBoxLayout *createLayout = new QHBoxLayout();
     QPushButton *createGameBtn = new QPushButton("Create Game");
+    QSpinBox *numberPlayers = new QSpinBox();
+    numberPlayers->setValue(4);
+    numberPlayers->setMinimum(1);
+    connect(numberPlayers, QOverload<int>::of(&QSpinBox::valueChanged),
+            [=](int i) { *maxPlayers = i; });
     connect(createGameBtn, &QPushButton::clicked, this, [this]() {
         toggleRace("0");
         quit();
     });
-    mainLayout->addWidget(createGameBtn);
+    createLayout->addWidget(createGameBtn, 2);
+    createLayout->addWidget(numberPlayers);
+    mainLayout->addLayout(createLayout);
 }
 
 void Launcher::setImage() {
@@ -54,11 +64,12 @@ void Launcher::setBots(std::map<int, std::string> botNames) {
     footerLayout->addWidget(botDropdown);
 }
 
-void Launcher::setExistingRaces(std::map<std::string, int> races) {
+void Launcher::setExistingRaces(std::map<std::string, std::tuple<int, int>> races) {
     QGridLayout *existingGames = new QGridLayout();
-    for (std::pair<const std::string, int> &p : races) {
+    for (auto &p : races) {
         std::ostringstream str;
-        str << "Join Game #" << p.first << " (" << p.second << " players)";
+        str << "Join Game #" << p.first << " (" << std::get<0>(p.second) << "/";
+        str << std::get<1>(p.second) << " players)";
         std::string label = str.str();
         QPushButton *btn = new QPushButton(label.c_str());
         connect(btn, &QPushButton::clicked, this,

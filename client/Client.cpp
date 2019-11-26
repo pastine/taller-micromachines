@@ -5,6 +5,7 @@
 #include <client/ThFrameDrawer.h>
 #include <client/AIScript.h>
 #include <client/SDLException.h>
+#include <client/Audio.h>
 #include "client/Client.h"
 
 const int JOYSTICK_DEAD_ZONE = 8000;
@@ -15,7 +16,7 @@ void _send_moves(ServerProxy *server, bool up, bool down, bool left, bool right)
 
 void Client::start() {
     try {
-        //Audio audio;
+        Audio audio;
         ThStateReceiver state_receiver(&server, &queue);
         ThFrameDrawer frame_drawer(&queue, map);
         state_receiver.start();
@@ -138,16 +139,18 @@ void Client::start() {
 std::map<int, std::string> _get_bot_names();
 
 void Client::handshake(int argc, char** argv) {
-    std::map<std::string, int> races_ids_players = server.handshake();
+    std::map<std::string, std::tuple<int, int>> races_ids_players = server.handshake();
     int retValue = -1;
+    int maxPlayers = 4;
     playwithbot = -1;
     std::string playerName = "Player";
     botNames = _get_bot_names();
     QApplication app(argc, argv);
-    Launcher launcher(races_ids_players, botNames, &retValue, &playwithbot, &playerName);
+    Launcher launcher(races_ids_players, botNames, &retValue,
+                      &maxPlayers, &playwithbot, &playerName);
     launcher.show();
     app.exec();
-    map = server.handshake_answer(retValue, playerName);
+    map = server.handshake_answer(retValue, playerName, maxPlayers);
 }
 
 std::map<int, std::string> _get_bot_names() {
