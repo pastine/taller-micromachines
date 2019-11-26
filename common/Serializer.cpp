@@ -4,6 +4,7 @@
 #include <server/State.h>
 #include <map>
 #include "common/MoveType.h"
+#include <tuple>
 
 template<class T>
 std::string Serializer<T>::serialize(T &block) {
@@ -44,5 +45,6 @@ void Serializer<T>::send(Communication &comm, T &block) {
 
 template class Serializer<MoveType>;
 template class Serializer<TrackData>; //Track
-template class Serializer<std::map<int,int>>; //Races
+template
+class Serializer<std::map<int, std::tuple<int, int>>>; //Races
 template class Serializer<State>;

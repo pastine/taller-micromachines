@@ -2,7 +2,10 @@
 #ifndef TALLER_MICROMACHINES_COMMUNICATIONCONSTANTS_H
 #define TALLER_MICROMACHINES_COMMUNICATIONCONSTANTS_H
 
+#define J_PLAYERS "players"
+#define J_MAXPLAYERS "max_players"
 #define J_CARS "cars"
+#define J_WAITFORPLAYERS "waitforplayers"
 #define J_CENTER "center"
 #define J_USER "user"
 #define J_ELEMENTS "elements"

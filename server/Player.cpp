@@ -19,8 +19,8 @@ std::queue<std::vector<float>> prepare_flags(JSON& all) {
 }
 
 Player::Player(ClientProxy messenger, CarHandler *car, std::string name, JSON& flags) :
-			messenger(std::move(messenger)), car(car), id(rand_r(&seed) % 9999),
-			name(name) {
+        messenger(std::move(messenger)), car(car), id(rand_r(&seed) % 999),
+        name(name) {
 	total_laps = 1;
 	partial_laps = 0;
 	this->flags = prepare_flags(flags);
