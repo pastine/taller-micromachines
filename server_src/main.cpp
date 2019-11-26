@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[]) {
     if (argc != 3) {
-        std::cout << "Wrong params: ./server service track.txt\n";
+        std::cout << "Wrong params: ./server service track.json\n";
         return 1;
     }
     try {
