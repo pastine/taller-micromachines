@@ -1,5 +1,9 @@
 # Cliente
 
+## Diagrama de clases general
+
+![clases_client.png](clases_client.png)
+
 ## Comunicación cliente - servidor
 
 ### Protocolo
@@ -170,7 +174,6 @@ Se creó `SDLTextureLoader`, que sería el encargado de cargar las texturas de l
 
 Por otro lado, esta entidad va a ser responsable de eliminar las texturas que queden en memoria.
 
-
 ### Renderizado de entidades
 
 Luego de haber diseñado la parte de renderizado de texturas, había que agregarle cierta funcionalidad a los elementos para darle responsabilidad a las clases.
@@ -191,9 +194,15 @@ Por otro lado, se dividen en dos categorías:
 
     Estas entidades son aquellas que vienen con una animación.
 
+#### Camera & WorldEntities
 
+Para lograr manejar las entidades y poder renderizarlas en la pantalla se destinaron dos clases que van a interactuar.
 
+Por un lado tenemos la clase que va guardar infromación de dónde se encuentra cada entidad en el servidor. Esta va a ser `WorldEntities`
 
+Por otro lado, tenemos la clase que va a transformar las coordenadas del servidor a píxeles en pantalla. De esto se va a encargar la clase `Camera`.
+
+Se le va a pasar una entidad y su posición, luego la camara va a verificar si la entidad se encuentra dentro de la pantalla y si es así, renderizarla.
 
 ### Hilos Involucrados
 
