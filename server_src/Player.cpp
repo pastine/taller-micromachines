@@ -130,14 +130,14 @@ void Player::add_progress(State &state) {
 }
 
 void Player::send_update(State state) {
-    for (auto &m : mods) {
-        m->modify_state(state);
-    }
     add_camera(state);
     add_user(state);
     add_progress(state);
-    updater->send(state);
     prevstate = state;
+    for (auto &m : mods) {
+        m->modify_state(state);
+    }
+    updater->send(state);
 }
 
 std::map<std::string, std::string> Player::get_player_names() {
@@ -147,12 +147,12 @@ std::map<std::string, std::string> Player::get_player_names() {
     return namemap;
 }
 
-void Player::add_mod(Mod &mod) {
-    mods.emplace_back(&mod);
+void Player::add_mod(Mod *mod) {
+    mods.emplace_back(mod);
 }
 
-void Player::remove_mod(Mod &mod) {
-    mods.remove(&mod);
+void Player::remove_mod(Mod *mod) {
+    mods.remove(mod);
 }
 
 Player::~Player() {

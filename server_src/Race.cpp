@@ -97,17 +97,19 @@ void Race::toggle_mod(std::string modFileName) {
 
 void Race::deactivate_mod(std::string modFileName) {
     Mod *m = activatedMods[modFileName];
-    for (auto &p : players)
-        p.second->remove_mod(*m);
+    for (auto &p : players) {
+        p.second->remove_mod(m);
+    }
+    delete activatedMods[modFileName];
     activatedMods.erase(modFileName);
 }
 
 void Race::activate_mod(std::string modFileName) {
     if (modFileName.empty()) return;
-    Mod m(modFileName);
-    activatedMods[modFileName] = &m;
+    Mod *m = new Mod(modFileName);
+    activatedMods[modFileName] = m;
     for (auto &p : players)
-        p.second->add_mod(*activatedMods[modFileName]);
+        p.second->add_mod(activatedMods[modFileName]);
 }
 
 Race::~Race() {
@@ -115,6 +117,10 @@ Race::~Race() {
     while (it != players.end()) {
         delete it->second;
         it = players.erase(it);
+    }
+    for (auto &m : activatedMods) {
+        delete m.second;
+        activatedMods.erase(m.first);
     }
     this->join();
 }
