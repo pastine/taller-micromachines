@@ -10,14 +10,15 @@
 
 class TrackData {
 private:
-	std::unordered_map<std::string, std::vector<b2Vec2>> static_elements;
-	JSON track;
+    std::unordered_map<std::string, std::vector<b2Vec2>> static_elements;
+    JSON track;
 public:
-	TrackData(std::unordered_map<std::string, std::vector<b2Vec2>>
-	elements, JSON roads);
+    TrackData(std::unordered_map<std::string, std::vector<b2Vec2>>
+              elements, JSON roads);
 
-	std::unordered_map<std::string, std::vector<b2Vec2>> get_elements();
-	JSON get_track();
+    std::unordered_map<std::string, std::vector<b2Vec2>> get_elements();
+
+    JSON get_track();
 };
 
 

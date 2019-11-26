@@ -7,17 +7,17 @@
 
 class Boost : public Consumable {
 private:
-	b2Fixture* fixture;
+    b2Fixture *fixture;
 public:
-	explicit Boost(b2World &world, float x, float y);
+    explicit Boost(b2World &world, float x, float y);
 
-	void start_contact() override;
+    void start_contact() override;
 
-	void end_contact() override;
+    void end_contact() override;
 
-	int get_entity_type() override;
+    int get_entity_type() override;
 
-	~Boost() override;
+    ~Boost() override;
 };
 
 

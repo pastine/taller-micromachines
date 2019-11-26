@@ -42,7 +42,7 @@ public:
 
     int handshake_get_race(std::map<int, std::tuple<int, int>> races_ids_players);
 
-    void send_track(TrackData& data);
+    void send_track(TrackData &data);
 
     std::string handshake_get_name();
 

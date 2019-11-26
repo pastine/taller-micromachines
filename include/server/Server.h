@@ -13,10 +13,10 @@ private:
     ClientAccepter acceptor;
     std::list<Race *> races;
     bool running = true;
-    char* track_file;
+    char *track_file;
 
 public:
-    explicit Server(std::string &service, char* file);
+    explicit Server(std::string &service, char *file);
 
     virtual void run();
 
@@ -38,7 +38,7 @@ public:
 
     std::map<int, std::string> mods;
 
-		~Server();
+    ~Server();
 };
 
 

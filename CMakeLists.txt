@@ -10,23 +10,23 @@ include_directories(include/)
 include_directories(libs/)
 include_directories(${PROJECT_BINARY_DIR})
 
-add_subdirectory(client)
-add_subdirectory(server)
+add_subdirectory(client_src)
+add_subdirectory(server_src)
 
-add_library(common STATIC
-        common/Communication.cpp include/common/Communication.h
-        common/serializers/MoveSerializer.cpp include/common/MoveSerializer.h
-        common/serializers/StateSerializer.cpp include/common/StateSerializer.h
-        common/Socket.cpp include/common/Socket.h
-        common/Thread.cpp include/common/Thread.h
+add_library(common_src STATIC
+        common_src/Communication.cpp include/common/Communication.h
+        common_src/serializers/MoveSerializer.cpp include/common/MoveSerializer.h
+        common_src/serializers/StateSerializer.cpp include/common/StateSerializer.h
+        common_src/Socket.cpp include/common/Socket.h
+        common_src/Thread.cpp include/common/Thread.h
         include/common/json.h
         include/common/MoveType.h
-        common/serializers/RacesSerializer.cpp include/common/RacesSerializer.h common/serializers/TrackSerializer.cpp include/common/TrackSerializer.h include/common/Constants.h common/ClosedQueueException.cpp include/common/ClosedQueueException.h common/ProtectedQueue.cpp include/common/ProtectedQueue.h include/common/CommunicationConstants.h
-        common/Serializer.cpp include/common/Serializer.h
+        common_src/serializers/RacesSerializer.cpp include/common/RacesSerializer.h common_src/serializers/TrackSerializer.cpp include/common/TrackSerializer.h include/common/Constants.h common_src/ClosedQueueException.cpp include/common/ClosedQueueException.h common_src/ProtectedQueue.cpp include/common/ProtectedQueue.h include/common/CommunicationConstants.h
+        common_src/Serializer.cpp include/common/Serializer.h
         )
 
-target_link_libraries(server_test common)
-target_link_libraries(client_test common)
+target_link_libraries(server common_src)
+target_link_libraries(client common_src)
 
 set(CPPLINT_FILTER_OPTIONS
         "-,+build/class,+build/deprecated,+build/include_what_you_use,+build/printf_format,\
@@ -39,21 +39,21 @@ set(CPPLINT_FILTER_OPTIONS
         )
 
 add_custom_target(lint_common
-        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/common/"
+        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/common_src/"
         COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/include/common/"
         )
 
 add_custom_target(lint_server
-        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/server/"
+        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/server_src/server_src"
         COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/include/server/"
         )
 
 add_custom_target(lint_client
-        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/client/"
+        COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/client_src/client_src"
         COMMAND cpplint --extensions=h,hpp,c,cpp --filter=${CPPLINT_FILTER_OPTIONS} --linelength=100 --recursive "${PROJECT_SOURCE_DIR}/include/client/"
         )
 
 
-#add_dependencies(common lint_common)
-#add_dependencies(client_test lint_client)
-#add_dependencies(server_test lint_server)
+add_dependencies(common_src lint_common)
+add_dependencies(client lint_client)
+add_dependencies(server lint_server)

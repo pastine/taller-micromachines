@@ -8,13 +8,13 @@
 class SwsContext {
 private:
     std::vector<char> dataBuffer;
-    ProtectedQueue<std::vector<char>>& producedFrames;
+    ProtectedQueue<std::vector<char>> &producedFrames;
 
 public:
-    SwsContext(ProtectedQueue<std::vector<char>>& producedFrames);
-    void write(SDLWindow& window);
-};
+    explicit SwsContext(ProtectedQueue<std::vector<char>> &producedFrames);
 
+    void write(SDLWindow &window);
+};
 
 
 #endif //SWSContext

@@ -11,7 +11,7 @@
 
 class TrackSerializer : public Serializer<TrackData> {
 public:
-    JSON serialize_to_json(TrackData& track) override;
+    JSON serialize_to_json(TrackData &track) override;
 };
 
 

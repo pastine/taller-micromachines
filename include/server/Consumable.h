@@ -6,11 +6,11 @@
 
 class Consumable : public Entity {
 public:
-	bool consumed = false;
+    bool consumed = false;
 
-	virtual int get_entity_type() = 0;
+    virtual int get_entity_type() = 0;
 
-	virtual bool was_consumed();
+    virtual bool was_consumed();
 };
 
 

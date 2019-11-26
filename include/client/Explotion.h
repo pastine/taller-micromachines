@@ -20,7 +20,9 @@ public:
     bool is_done();
 
     void increase_resize() override;
+
     void decrease_resize() override;
+
     void set_resize_factor(float resize) override;
 };
 

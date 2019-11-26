@@ -9,17 +9,17 @@
 
 class Health : public Consumable {
 private:
-	b2Fixture* fixture;
+    b2Fixture *fixture;
 public:
-	explicit Health(b2World &world, float x, float y);
+    explicit Health(b2World &world, float x, float y);
 
-	void start_contact() override;
+    void start_contact() override;
 
-	void end_contact() override;
+    void end_contact() override;
 
-	int get_entity_type() override;
+    int get_entity_type() override;
 
-	~Health() override;
+    ~Health() override;
 };
 
 

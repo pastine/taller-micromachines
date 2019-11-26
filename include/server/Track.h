@@ -16,33 +16,33 @@
 
 class Track : public Entity {
 private:
-	TrackStructure skeleton;
-	std::vector<std::vector<float>> positions;
-	std::vector<Entity*> static_elements;
-	std::vector<Consumable*> elements;
-	std::vector<Consumable*> to_remove;
-	b2World* world;
+    TrackStructure skeleton;
+    std::vector<std::vector<float>> positions;
+    std::vector<Entity *> static_elements;
+    std::vector<Consumable *> elements;
+    std::vector<Consumable *> to_remove;
+    b2World *world;
 
 public:
-	explicit Track(b2World* world, char* file);
+    explicit Track(b2World *world, char *file);
 
-	int get_entity_type() override;
+    int get_entity_type() override;
 
-	void start_contact() override {};
+    void start_contact() override {};
 
-	void end_contact() override {};
+    void end_contact() override {};
 
-	JSON get_elements_state();
+    JSON get_elements_state();
 
-	TrackData get_static_data();
+    TrackData get_static_data();
 
-	std::vector<float> get_random_pos();
+    std::vector<float> get_random_pos();
 
-	std::vector<Consumable*> get_removable_elements();
+    std::vector<Consumable *> get_removable_elements();
 
-	JSON get_straight_points();
+    JSON get_straight_points();
 
-	~Track() override;
+    ~Track() override;
 };
 
 

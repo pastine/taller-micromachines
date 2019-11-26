@@ -23,7 +23,9 @@ public:
                 float angle = 0, int id = 0, float speed = 0) override;
 
     void increase_resize() override;
+
     void decrease_resize() override;
+
     void set_resize_factor(float resize) override;
 };
 

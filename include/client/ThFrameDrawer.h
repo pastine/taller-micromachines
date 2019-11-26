@@ -2,12 +2,15 @@
 #define TALLER_MICROMACHINES_THFRAMEDRAWER_H
 
 #define FRAMES_TO_SKIP 10
+
 #include <common/ProtectedQueue.h>
 #include <client/Camera.h>
 #include <client/WorldEntities.h>
 #include <common/Thread.h>
 #include "client/SwsContext.h"
 #include "client/Consumer.h"
+#include<vector>
+
 extern "C" {
 #include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
@@ -30,11 +33,10 @@ private:
     WorldEntities entities;
     bool done;
     size_t frames_rendered_mud;
+
     void _draw_frame(JSON &json);
 
     bool first_time = true;
-
-    void _add_angled_element();
 
     void _add_simple_element(WorldEntities::Entity entity, JSON &elements);
 

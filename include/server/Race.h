@@ -16,10 +16,10 @@ class Race : public Thread {
     static std::atomic_int RaceCount;
 
 private:
-  int id;
-  std::unordered_map<int, Player *> players;
-  bool racing = true;
-  Environment environment;
+    int id;
+    std::unordered_map<int, Player *> players;
+    bool racing = true;
+    Environment environment;
     int max_players;
 
 public:
@@ -51,7 +51,7 @@ public:
 
     void activate_mod(std::string modFileName);
 
-		~Race();
+    ~Race();
 
     int get_max_players();
 

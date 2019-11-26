@@ -36,6 +36,7 @@ public:
     void render_lapcount(int lapcount, int total_laps);
 
     SDLWindow window;
+
 private:
     bool _is_in_frame(Renderizable &object, float abs_x, float abs_y);
 

@@ -6,13 +6,13 @@
 
 class TrackStructure {
 private:
-	JSON track;
+    JSON track;
 public:
-	explicit TrackStructure(char* file);
+    explicit TrackStructure(char *file);
 
-	JSON get_track();
+    JSON get_track();
 
-	~TrackStructure() = default;
+    ~TrackStructure() = default;
 };
 
 

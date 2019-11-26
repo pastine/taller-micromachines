@@ -9,9 +9,11 @@
 
 class Client {
 public:
-    Client(std::string& host, std::string& service);
+    Client(std::string &host, std::string &service);
+
     void start();
-    void handshake(int argc, char** argv);
+
+    void handshake(int argc, char **argv);
 
 private:
     ServerProxy server;

@@ -2,6 +2,7 @@
 #define FRAME_H
 
 #include <string>
+
 extern "C" {
 #include <libavutil/frame.h>
 #include <libavcodec/avcodec.h>
@@ -10,18 +11,18 @@ extern "C" {
 
 class Frame {
 private:
-    AVFrame* frame;
+    AVFrame *frame;
     int currentPts;
 
 public:
     Frame(int format, int width, int height);
+
     ~Frame();
 
     void write(const char *data, SwsContext *ctx);
 
-    AVFrame* get() {return this->frame;}
+    AVFrame *get() { return this->frame; }
 };
-
 
 
 #endif //FRAME_H

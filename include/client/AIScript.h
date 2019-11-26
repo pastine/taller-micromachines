@@ -4,7 +4,7 @@
 #include <string>
 #include "LuaFile.h"
 
-const char DIRECTORY[] = "client/bots/";
+const char DIRECTORY[] = "client_src/bots/";
 
 class AIScript : public LuaFile {
 public:

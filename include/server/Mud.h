@@ -7,15 +7,15 @@
 
 class Mud : public Entity {
 public:
-	explicit Mud(b2World &world, float x, float y);
+    explicit Mud(b2World &world, float x, float y);
 
-	int get_entity_type() override;
+    int get_entity_type() override;
 
-	void start_contact() override;
+    void start_contact() override;
 
-	void end_contact() override;
+    void end_contact() override;
 
-	~Mud() override = default;
+    ~Mud() override = default;
 };
 
 

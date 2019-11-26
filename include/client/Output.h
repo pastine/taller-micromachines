@@ -14,19 +14,23 @@ class Output {
 private:
     FormatOutput format;
     CodecContext codecContext;
-    FILE* outputFile;
+    FILE *outputFile;
     Frame frame;
     Packet pkt;
 
 public:
     // Ctor
     Output();
+
     // Dtor
     ~Output();
+
     // Escribe un frame a disco. Utiliza `swsContext` para convertir
     // de RGB24 a YUV420p
-    void writeFrame(const char* data, SwsContext* swsContext);
+    void writeFrame(const char *data, SwsContext *swsContext);
+
     // Cierra el stream de video
     void close();
 };
+
 #endif

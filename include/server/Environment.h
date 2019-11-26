@@ -15,25 +15,25 @@
 
 class Environment {
 private:
-	b2World world;
-	Track track;
-	Limit limit;
-	ContactListener listener;
+    b2World world;
+    Track track;
+    Limit limit;
+    ContactListener listener;
 
 public:
-	explicit Environment(char* file);
+    explicit Environment(char *file);
 
-	void step();
+    void step();
 
-	TrackData get_track_data();
+    TrackData get_track_data();
 
-	Car* create_car(unsigned long i);
+    Car *create_car(unsigned long i);
 
-	void get_elements(State &state);
+    void get_elements(State &state);
 
-	JSON get_flag_points();
+    JSON get_flag_points();
 
-	~Environment() = default;
+    ~Environment() = default;
 };
 
 

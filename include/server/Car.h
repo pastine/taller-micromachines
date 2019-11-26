@@ -14,8 +14,8 @@ private:
     bool track;
     int *lives;
     float min_turn_speed;
-		bool visibility;
-		bool crash;
+    bool visibility;
+    bool crash;
     bool crash_car;
     bool powerup;
     bool slip;
@@ -59,9 +59,9 @@ public:
 
     float get_speed();
 
-		void contact_limit();
+    void contact_limit();
 
-		bool get_crash_state();
+    bool get_crash_state();
 
     bool get_crash_car_state();
 
@@ -69,9 +69,9 @@ public:
 
     bool get_slip_state();
 
-		void back_to_track();
+    void back_to_track();
 
-		~Car() override;
+    ~Car() override;
 };
 
 

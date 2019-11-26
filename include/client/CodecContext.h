@@ -7,7 +7,7 @@ extern "C" {
 
 class CodecContext {
 private:
-    AVCodecContext* codecContext;
+    AVCodecContext *codecContext;
 
 public:
     explicit CodecContext(AVCodec *codec);

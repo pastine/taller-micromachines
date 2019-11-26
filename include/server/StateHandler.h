@@ -10,10 +10,10 @@ template<class T>
 class StateHandler : public Thread {
 private:
     ProtectedQueue<T> queue;
-    ClientProxy* messenger;
+    ClientProxy *messenger;
     bool running = true;
 public:
-    explicit StateHandler(ClientProxy* messenger);
+    explicit StateHandler(ClientProxy *messenger);
 
     void run() override;
 

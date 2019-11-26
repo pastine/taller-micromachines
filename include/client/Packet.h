@@ -7,10 +7,11 @@ extern "C" {
 
 class Packet {
 private:
-    AVPacket* pkt;
+    AVPacket *pkt;
 
 public:
     Packet();
+
     ~Packet();
 
     AVPacket *get();

@@ -8,8 +8,11 @@
 class ExplotionFrameResolver {
 public:
     ExplotionFrameResolver();
+
     Area &resolve_frame();
+
     bool is_done();
+
 private:
     std::vector<Area> frames;
     size_t current_frame;

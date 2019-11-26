@@ -7,6 +7,7 @@
 class MudSplatter : public StaticRenderizable {
 public:
     MudSplatter();
+
     void render(SDL_Renderer *renderer, float x, float y, int w_screen, int h_screen);
 };
 

@@ -8,11 +8,11 @@
 
 class SocketException : public std::exception {
 private:
-	std::string description;
+    std::string description;
 public:
-	SocketException(const char* description, const char* error);
+    SocketException(const char *description, const char *error);
 
-	const char* what() const noexcept;
+    const char *what() const noexcept;
 };
 
 class Socket {

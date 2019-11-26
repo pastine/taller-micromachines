@@ -25,15 +25,15 @@ private:
     size_t total_laps;
     size_t partial_laps;
     std::unique_ptr<StateHandler<MoveType>> receiver;
-		std::unique_ptr<StateHandler<State>> updater;
+    std::unique_ptr<StateHandler<State>> updater;
     std::string name;
     std::list<Mod *> mods;
-		std::queue<std::vector<float>> flags;
-		size_t flag_number;
-		bool won;
+    std::queue<std::vector<float>> flags;
+    size_t flag_number;
+    bool won;
 
 public:
-    Player(ClientProxy messenger, CarHandler *car, std::string name, JSON& flags);
+    Player(ClientProxy messenger, CarHandler *car, std::string name, JSON &flags);
 
     virtual void run();
 
@@ -45,7 +45,7 @@ public:
 
     void update_lap_count();
 
-    bool check_progress(std::vector<float>& pos);
+    bool check_progress(std::vector<float> &pos);
 
     bool is_alive();
 
@@ -60,12 +60,12 @@ public:
     std::map<std::string, std::string> get_player_names();
 
     void add_mod(Mod &mod);
-    
+
     bool finished();
 
     void add_progress(State &state);
 
-		~Player();
+    ~Player();
 
     State prevstate;
 

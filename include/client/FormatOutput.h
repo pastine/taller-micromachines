@@ -7,11 +7,12 @@ extern "C" {
 
 class FormatOutput {
 private:
-    AVOutputFormat* avOutputFormat;
+    AVOutputFormat *avOutputFormat;
     AVCodec *codec;
 
 public:
-    explicit FormatOutput();
+    FormatOutput();
+
     AVCodec *getCodec();
 };
 
