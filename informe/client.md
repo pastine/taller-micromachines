@@ -112,7 +112,7 @@ Información de servidor al cliente sobre la partida que eligió tendrá este fo
 }
 ```
 
-### Implementacion
+### Implementación
 
 Para lograr una implementación desacoplada de las decisiones de diseño definimos ciertas entidades.
 
