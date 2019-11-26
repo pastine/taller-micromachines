@@ -8,8 +8,14 @@ El servidor cuenta con un Acceptor de clientes, en el handshake les informa las 
 ### Carreras
 La carrera cuenta con la clase Environment y un vector de Players. En el ambiente están encapsuladas las clases: Limit, Track y la clase propia de Box2D b2World, encargada de simular la física. Cada carrera corre en un hilo diferente y a su vez todos los jugadores participantes de la misma corren en hilos diferentes.
 
+![clases_client.png](clases_server_1.png)
+
+![clases_client.png](clases_server_2.png)
+
 ### Entidades
 La clase Entity es la clase madre de todos los elementos que componen la carrera, la pista, el borde, los autos y elementos dinámicos. Eston son simulados por el motor físico.
+
+![clases_client.png](clases_server_3.png)
 
 ### Autos
 Esta clase se encarga de modificar la física del auto y efectuar los contactos con los demás elementos. Para manejar el auto existe la clase CarHandler.
