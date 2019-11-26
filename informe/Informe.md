@@ -1,6 +1,6 @@
 # Micromachines
 
-##Server
+## Server
 
 ### Servidor
 El servidor cuenta con un Acceptor de clientes, en el handshake les informa las partidas existentes o si desea crear una nueva, si es así, debe indicar cuantos jugadores serán.
