@@ -78,7 +78,7 @@ Camera::~Camera() {
 
 void Camera::render_podium(size_t position) {
     if (position <= 3) {
-        this->text_creator.render_text("Congratulations" + std::string(position, '!'),
+        this->text_creator.render_text("Congratulations" + std::string(4-position, '!'),
                                        this->window.get_renderer(), this->window.get_width() - 350, 40);
     }
     std::ostringstream str;
