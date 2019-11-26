@@ -70,7 +70,7 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
                          car[J_ID],
                          car[J_SPEED]);
         }
-        
+
         _add_simple_element(WorldEntities::Entity::HEART, state[J_ELEMENTS][J_HEALTH]);
         _add_simple_element(WorldEntities::Entity::BOOST, state[J_ELEMENTS][J_BOOST]);
 
