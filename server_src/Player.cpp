@@ -136,8 +136,6 @@ void Player::send_update(State state) {
     add_camera(state);
     add_user(state);
     add_progress(state);
-    if (state == prevstate)
-        return;
     updater->send(state);
     prevstate = state;
 }
