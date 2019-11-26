@@ -1,6 +1,6 @@
 # Server
 
-##I nicialización
+## Inicialización
 
 Para inicializar el server:
 
