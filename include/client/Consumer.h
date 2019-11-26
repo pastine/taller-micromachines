@@ -15,6 +15,7 @@ private:
     ProtectedQueue<std::vector<char>> &producedFrames;
     Output videoOutput;
     SwsContext *ctx;
+    bool running;
 
 public:
     /// first you need to Initialize libavformat and register all the muxers, demuxers and
@@ -25,7 +26,7 @@ public:
 
     virtual void run() override;
 
-    virtual void stop() override {};
+    virtual void stop() override;
 };
 
 

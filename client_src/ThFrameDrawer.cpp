@@ -1,4 +1,5 @@
 #include <client/Audio.h>
+#include <common/ClosedQueueException.h>
 #include "client/ThFrameDrawer.h"
 #include "common/CommunicationConstants.h"
 
@@ -39,7 +40,6 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON &map)
     videoTexture = SDL_CreateTexture(cam.window.get_renderer(),
                                      SDL_PIXELFORMAT_RGB24, SDL_TEXTUREACCESS_TARGET,
                                      840, 480);
-
     consumer.start();
 }
 
@@ -65,6 +65,8 @@ void ThFrameDrawer::run() {
                 }
             }
         }
+    } catch (ClosedQueueException &e) {
+        return;
     } catch (std::runtime_error &e) {
         std::cout << "Error in FrameDrawer -> " << e.what();
     }
@@ -106,11 +108,9 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
         }
         if (state[J_USER][J_POWERUP]) {
             Audio::play("powerup");
-            entities.put_explotion(cam_x, cam_y);
         }
         if (state[J_USER][J_SLIP]) {
             Audio::play("slip");
-            entities.put_explotion(cam_x, cam_y);
         }
 
         entities.render(cam);
@@ -143,8 +143,10 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
 }
 
 void ThFrameDrawer::stop() {
-    this->done = true;
+    consumer.stop();
     consumer.join();
+    this->done = true;
+    this->state_queue->stop();
 }
 
 void ThFrameDrawer::toggle_record() {

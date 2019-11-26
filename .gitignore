@@ -4,3 +4,5 @@ build/
 cmake-build-debug/
 *_test*.mp4
 *.mp4
+client
+server

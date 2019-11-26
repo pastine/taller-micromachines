@@ -31,16 +31,24 @@ Output::Output() :
 }
 
 void Output::close() {
-    encode(&codecContext, nullptr, &pkt, this->outputFile);
-    // add sequence end code to have a real MPEG file
-    uint8_t endCode[] = {0, 0, 1, 0xb7};
-    fwrite(endCode, 1, sizeof(endCode), this->outputFile);
+    try {
+        encode(&codecContext, nullptr, &pkt, this->outputFile);
+        // add sequence end code to have a real MPEG file
+        uint8_t endCode[] = {0, 0, 1, 0xb7};
+        fwrite(endCode, 1, sizeof(endCode), this->outputFile);
+    } catch (std::runtime_error &e) {
+        return;
+    }
 }
 
 
 void Output::writeFrame(const char *data, SwsContext *ctx) {
-    frame.write(data, ctx);
-    encode(&codecContext, &frame, &pkt, outputFile);
+    try {
+        frame.write(data, ctx);
+        encode(&codecContext, &frame, &pkt, outputFile);
+    } catch (std::runtime_error& e) {
+        return;
+    }
 }
 
 
