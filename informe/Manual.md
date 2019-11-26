@@ -4,7 +4,7 @@
 
 ### Inicialización
 
-Para inicializar el server:
+Para inicializar el server luego de haber corrido las dependencias y compilado los archivos necesarios:
 
 ```bash
 ./server <servicio> <archivo_config.txt>
