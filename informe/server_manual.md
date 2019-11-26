@@ -1,6 +1,6 @@
-#Server
+# Server
 
-##Inicialización
+##I nicialización
 
 Para inicializar el server:
 
@@ -53,7 +53,7 @@ Para el armado de la pista utilizamos la interfaz gráfica que proporciona Box2D
 
 ![Pista](Track_croquis.png)
 
-##Como cerrar 
+## Como cerrar 
 
 Para terminar con todas las partidas existentes y cerrar el servidor, escribir en la termina el caracter 'q' y se despedirá.
 
