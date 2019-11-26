@@ -12,36 +12,36 @@ El archivo de configuración deberá contener un JSON con la disposición de la 
 
 EJ:
 
-```
+```JSON
 {
   "curved": [
     {
-      "x0": n,
-      "x1": n,
-      "x2": n,
-      "y0": n,
-      "y1": n,
-      "y2": n
+      "x0": <float>,
+      "x1": <float>,
+      "x2": <float>,
+      "y0": <float>,
+      "y1": <float>,
+      "y2": <float>
     } ,...
   ],
   "straight": [
     {
-      "angle": n,
-      "x": n,
-      "y": n
+      "angle": <float>,
+      "x": <float>,
+      "y": <float>
     } ,...
   ],
   "curved_center": [
     {
-      "angle": n,
-      "x": n,
-      "y": n
+      "angle": <float>,
+      "x": <float>,
+      "y": <float>
     } ,...
   ]
 }
 ```
 
-Con n siendo del tipo `float` por convención de Box2D. En cada clave:
+En cada clave:
 
 * "straight": En esta clave se encuentran los centros geométricos de las partes rectas de la pista.
 * "curved": Siendo las curvas triángulos, los 3 vértices del triángulo en `{"x0": n, "x1": n,"x2": n, "y0": n, "y1": n,"y2": n}`.

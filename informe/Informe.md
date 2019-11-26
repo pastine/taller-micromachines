@@ -10,6 +10,7 @@ La carrera cuenta con la clase Environment y un vector de Players. En el ambient
 
 ![clases_client.png](clases_server_1.png)
 
+
 ![clases_client.png](clases_server_2.png)
 
 ### Entidades
