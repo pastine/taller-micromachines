@@ -9,6 +9,8 @@ public:
     Audio();
 
     static void play(std::string filename);
+
+    static void ending();
 };
 
 

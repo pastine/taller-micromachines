@@ -24,7 +24,7 @@ public:
 
     std::unordered_map<std::string, bool> get_mud_state();
 
-		std::unordered_map<std::string, bool> get_crash_state();
+    std::unordered_map<std::string, bool> get_contacts_state();
 
     float get_speed();
 

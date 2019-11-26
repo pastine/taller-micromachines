@@ -28,6 +28,8 @@ private:
     void _add_angled_element();
 
     void _add_simple_element(WorldEntities::Entity entity, JSON &elements);
+
+    bool ending_not_played = true;
 };
 
 

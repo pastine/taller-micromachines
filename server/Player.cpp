@@ -112,16 +112,16 @@ void Player::add_user(State &state) {
 	state.append(J_USER, car->get_lives());
 	state.append(J_USER, car->get_mud_state());
 	state.append(J_USER, get_player_names());
-	state.append(J_USER, car->get_crash_state());
+    state.append(J_USER, car->get_contacts_state());
 }
 
-void Player::add_progress(State& state, size_t stopped) {
+void Player::add_progress(State &state) {
     std::unordered_map<std::string, bool> end;
     end.emplace(J_END, finished());
     state.append(J_USER, end);
     std::unordered_map<std::string, size_t> pos;
     if (finished()) {
-        pos.emplace(J_POS, stopped);
+        pos.emplace(J_POS, final_pos);
     } else {
         pos.emplace(J_LAPS, total_laps);
         pos.emplace(J_TOTALLAPS, LAPS);
@@ -129,13 +129,13 @@ void Player::add_progress(State& state, size_t stopped) {
     state.append(J_USER, pos);
 }
 
-void Player::send_update(State state, size_t stopped) {
+void Player::send_update(State state) {
 	for (auto &m : mods) {
 			m->modify_state(state);
 	}
 	add_camera(state);
 	add_user(state);
-	add_progress(state, stopped);
+    add_progress(state);
 	if (state == prevstate)
 	    return;
 	updater->send(state);
@@ -160,4 +160,9 @@ void Player::remove_mod(Mod &mod) {
 Player::~Player() {
 	delete (car);
 	this->join();
+}
+
+void Player::set_final_pos(size_t i) {
+    if (final_pos == 0)
+        final_pos = i;
 }

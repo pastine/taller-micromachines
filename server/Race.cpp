@@ -15,18 +15,15 @@ void Race::run() {
     while (racing) {
         try {
             State state;
-            if (didnt_start)
-                state.append(J_WAITFORPLAYERS, true);
-            else
+            if (!didnt_start)
                 environment.step();
             add_cars_to_state(state);
             for (auto & it : players) {
-            		auto * player = it.second;
-            		if(!player->finished()) {
-									environment.get_elements(state);
-									it.second->send_update(state, stopped);
-									if(player->finished()) {stopped++;}
-								}
+                auto *player = it.second;
+                environment.get_elements(state);
+                player->send_update(state);
+                if (player->finished())
+                    player->set_final_pos(stopped++);
             }
             std::chrono::milliseconds tic(20);
             std::this_thread::sleep_for(tic);

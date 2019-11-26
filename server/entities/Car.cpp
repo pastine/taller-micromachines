@@ -137,7 +137,7 @@ void Car::off_track() {
 }
 
 void Car::contact_car() {
-	crash = true;
+    crash_car = true;
 	(*lives) -= 1;
 	if ((*lives) == 0) {
 		back_to_track();
@@ -146,11 +146,13 @@ void Car::contact_car() {
 }
 
 void Car::contact_mud() {
-	visibility = true;
+    slip = true;
+    visibility = true;
 }
 
 void Car::contact_oil() {
-	float friction = m_body->GetFixtureList()->GetFriction();
+    slip = true;
+    float friction = m_body->GetFixtureList()->GetFriction();
 	friction -= 8.0f;
 	m_body->GetFixtureList()->SetFriction(friction);
 }
@@ -166,10 +168,14 @@ void Car::contact_stone() {
 }
 
 void Car::contact_health() {
-	if ((*lives) < 3) { (*lives) += 1; }
+    if ((*lives) < 3) {
+        powerup = true;
+        (*lives) += 1;
+    }
 }
 
 void Car::contact_boost() {
+    powerup = true;
     float angle = this->get_angle();
     b2Vec2 normal = get_forward_normal(angle);
     float force = 20000;
@@ -187,13 +193,36 @@ int Car::get_lives() {
 }
 
 bool Car::get_crash_state() {
-	if(crash) {
+    if (crash) {
 		crash = false;
 		return true;
 	}
 	return false;
 }
 
+bool Car::get_crash_car_state() {
+    if (crash_car) {
+        crash_car = false;
+        return true;
+    }
+    return false;
+}
+
+bool Car::get_powerup_state() {
+    if (powerup) {
+        powerup = false;
+        return true;
+    }
+    return false;
+}
+
+bool Car::get_slip_state() {
+    if (slip) {
+        slip = false;
+        return true;
+    }
+    return false;
+}
 bool Car::get_mud_state() {
 	if (visibility) {
 		visibility = false;
@@ -216,7 +245,12 @@ void Car::back_to_track() {
 
 void Car::contact_limit() {
 	crash = true;
-	back_to_track();
+    if ((lives) == 0) {
+        back_to_track();
+        (*lives) += 3;
+    }
+    (*lives) -= 1;
+    if ((*lives) == 0) { (*lives) += 3; }
 }
 
 Car::~Car() {

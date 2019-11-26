@@ -80,7 +80,19 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
         _add_simple_element(WorldEntities::Entity::BOOST, state[J_ELEMENTS][J_BOOST]);
 
         if (state[J_USER][J_CRASH]) {
+            Audio::play("crash");
+            entities.put_explotion(cam_x, cam_y);
+        }
+        if (state[J_USER][J_CRASHCAR]) {
+            Audio::play("crash_car");
+            entities.put_explotion(cam_x, cam_y);
+        }
+        if (state[J_USER][J_POWERUP]) {
             Audio::play("powerup");
+            entities.put_explotion(cam_x, cam_y);
+        }
+        if (state[J_USER][J_SLIP]) {
+            Audio::play("slip");
             entities.put_explotion(cam_x, cam_y);
         }
 
@@ -98,10 +110,15 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
         }
 
         cam.render_name(state[J_USER][J_NAME]);
-        if (state[J_USER][J_END])
+        if (state[J_USER][J_END]) {
+            if (ending_not_played) {
+                ending_not_played = false;
+                Audio::ending();
+            }
             cam.render_podium(state[J_USER][J_POS]);
-        else
+        } else {
             cam.render_lapcount(state[J_USER][J_LAPS], state[J_USER][J_TOTALLAPS]);
+        }
         cam.show_frame();
     } catch (std::domain_error &e) {
         std::cout << e.what() << '\n';

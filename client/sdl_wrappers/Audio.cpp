@@ -21,3 +21,9 @@ void Audio::play(std::string filename) {
     Mix_Chunk *sound = Mix_LoadWAV(file.c_str());
     Mix_PlayChannel(-1, sound, 0);
 }
+
+void Audio::ending() {
+    Mix_HaltMusic();
+    Mix_Music *background = Mix_LoadMUS("client/audio/ending.wav");
+    Mix_PlayMusic(background, 3);
+}

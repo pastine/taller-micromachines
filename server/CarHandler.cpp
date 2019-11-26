@@ -51,10 +51,13 @@ std::unordered_map<std::string, int> CarHandler::get_lives() {
     return lives;
 }
 
-std::unordered_map<std::string, bool> CarHandler::get_crash_state() {
-	std::unordered_map<std::string, bool> crash;
-	crash.emplace(J_CRASH, car->get_crash_state());
-	return crash;
+std::unordered_map<std::string, bool> CarHandler::get_contacts_state() {
+    std::unordered_map<std::string, bool> contacts;
+    contacts.emplace(J_CRASH, car->get_crash_state());
+    contacts.emplace(J_POWERUP, car->get_powerup_state());
+    contacts.emplace(J_SLIP, car->get_slip_state());
+    contacts.emplace(J_CRASHCAR, car->get_crash_car_state());
+    return contacts;
 }
 
 std::unordered_map<std::string, bool> CarHandler::get_mud_state() {

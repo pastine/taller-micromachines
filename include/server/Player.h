@@ -53,7 +53,7 @@ public:
 
     void add_user(State &state);
 
-    void send_update(State state, size_t stopped);
+    void send_update(State state);
 
     void remove_mod(Mod &mod);
 
@@ -63,11 +63,15 @@ public:
     
     bool finished();
 
-		void add_progress(State &state, size_t stopped);
+    void add_progress(State &state);
 
 		~Player();
 
     State prevstate;
+
+    void set_final_pos(size_t i);
+
+    int final_pos = 0;
 };
 
 

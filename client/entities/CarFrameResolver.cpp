@@ -1,4 +1,5 @@
 #include <stdexcept>
+#include <client/Audio.h>
 #include "client/CarFrameResolver.h"
 
 CarFrameResolver::CarFrameResolver() {

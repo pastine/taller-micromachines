@@ -16,6 +16,9 @@ private:
     float min_turn_speed;
 		bool visibility;
 		bool crash;
+    bool crash_car;
+    bool powerup;
+    bool slip;
 
 public:
     explicit Car(b2World &world, unsigned long i);
@@ -59,6 +62,12 @@ public:
 		void contact_limit();
 
 		bool get_crash_state();
+
+    bool get_crash_car_state();
+
+    bool get_powerup_state();
+
+    bool get_slip_state();
 
 		void back_to_track();
 

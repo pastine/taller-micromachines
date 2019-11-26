@@ -79,11 +79,12 @@ Camera::~Camera() {
 void Camera::render_podium(size_t position) {
     if (position <= 3) {
         this->text_creator.render_text("Congratulations" + std::string(position, '!'),
-                                       this->window.get_renderer(), 72, 40);
+                                       this->window.get_renderer(), this->window.get_width() - 350, 40);
     }
     std::ostringstream str;
     str << "Final Position: " << position;
-    this->text_creator.render_text(str.str(), this->window.get_renderer(), 72, 70);
+    this->text_creator.render_text(str.str(), this->window.get_renderer(),
+                                   this->window.get_width() - 350, 70);
 }
 
 void Camera::render_lapcount(int lapcount, int total_laps) {
