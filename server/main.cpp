@@ -17,11 +17,13 @@ int main(int argc, char *argv[]) {
             if (input == 'q') {
                 std::cout << "Goodbye!\n";
                 return 0;
+            } else if (input == 'm') {
+                server.print_mods();
+            } else if (isdigit(input)) {
+                server.toggle_mod(input - '0');
+            } else {
+                continue;
             }
-			else if (input == 'm') server.print_mods();
-			else if (isdigit(input)) server.toggle_mod(input - '0');
-			else
-				continue;
 		}
 		return 0;
 	} catch (...) {
