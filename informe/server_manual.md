@@ -5,7 +5,7 @@
 Para inicializar el server:
 
 ```
-$ ./server_test servicio archivo_config.txt
+$ ./server servicio archivo_config.txt
 ```
 
 El archivo de configuración deberá contener un JSON con la disposición de la pista. La pista está compuesta por tiles cuadradas y triángulos isósceles. Las claves del JSON son "curved", "straight" y "curved_center".
@@ -52,6 +52,8 @@ Con n siendo del tipo `float` por convención de Box2D. En cada clave:
 Para el armado de la pista utilizamos la interfaz gráfica que proporciona Box2D, denominada "Testbed". Y tiene la siguiente forma:
 
 ![Pista](Track_croquis.png)
+
+Para reproducir el armado de la pista remitirse a [este repositorio](https://github.com/milenamarchese/Box2D) donde se explica como inicializar la Testbed y como agregar una prueba nueva. El archivo de la prueba a agregar es "FooTest.h".
 
 ## MODS
 
