@@ -24,10 +24,10 @@ void Client::start() {
 
         bool running = true;
         bool up = false, down = false, left = false, right = false;
-        SDL_Joystick* gGameController = NULL;
+        SDL_Joystick *gGameController = NULL;
         if (SDL_NumJoysticks() >= 1) {
             gGameController = SDL_JoystickOpen(0);
-            std::cout << "Joystick found!" <<"\n";
+            std::cout << "Joystick found!" << "\n";
         }
         while (running) {
             _send_moves(&server, up, down, left, right);
@@ -52,16 +52,20 @@ void Client::start() {
                         switch (keyEvent.keysym.sym) {
                             case SDLK_LEFT:
                             case SDLK_a:
-                                left = true; break;
+                                left = true;
+                                break;
                             case SDLK_RIGHT:
                             case SDLK_d:
-                                right = true; break;
+                                right = true;
+                                break;
                             case SDLK_UP:
                             case SDLK_w:
-                                up = true; break;
+                                up = true;
+                                break;
                             case SDLK_DOWN:
                             case SDLK_s:
-                                down = true; break;
+                                down = true;
+                                break;
                         }
                         break;
                     }
@@ -70,16 +74,20 @@ void Client::start() {
                         switch (keyEvent.keysym.sym) {
                             case SDLK_LEFT:
                             case SDLK_a:
-                                left = false; break;
+                                left = false;
+                                break;
                             case SDLK_RIGHT:
                             case SDLK_d:
-                                right = false; break;
+                                right = false;
+                                break;
                             case SDLK_UP:
                             case SDLK_w:
-                                up = false; break;
+                                up = false;
+                                break;
                             case SDLK_DOWN:
                             case SDLK_s:
-                                down = false; break;
+                                down = false;
+                                break;
                         }
                         break;
                     }

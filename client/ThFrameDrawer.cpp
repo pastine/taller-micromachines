@@ -42,6 +42,10 @@ void ThFrameDrawer::run() {
         while (!this->done) {
             JSON state = this->state_queue->pop();
             this->_draw_frame(state);
+            if (first_time) {
+                this->_draw_frame(state);
+                first_time = false;
+            }
         }
     } catch (std::runtime_error &e) {
         std::cout << "Error in FrameDrawer -> " << e.what();
@@ -106,11 +110,11 @@ void ThFrameDrawer::stop() {
     this->done = true;
 }
 
-void ThFrameDrawer::_add_simple_element(WorldEntities::Entity entity, JSON& elements) {
+void ThFrameDrawer::_add_simple_element(WorldEntities::Entity entity, JSON &elements) {
     for (auto &element : elements) {
         float x = element[J_X];
         float y = element[J_Y];
-        entities.put(entity,x*MULTIPLE,y*MULTIPLE);
+        entities.put(entity, x * MULTIPLE, y * MULTIPLE);
     }
 }
 

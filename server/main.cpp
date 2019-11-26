@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[]) {
 	if (argc != 3) {
-		std::cout << "Wrong params: /server_test service track.txt\n";
+        std::cout << "Wrong params: /server_test service track.txt\n";
 		return 1;
 	}
 	try {
@@ -14,7 +14,10 @@ int main(int argc, char *argv[]) {
 		server.start();
 		char input;
 		while ((input = std::getchar())) {
-			if (input == 'q') return 0;
+            if (input == 'q') {
+                std::cout << "Goodbye!\n";
+                return 0;
+            }
 			else if (input == 'm') server.print_mods();
 			else if (isdigit(input)) server.toggle_mod(input - '0');
 			else

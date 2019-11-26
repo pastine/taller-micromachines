@@ -90,5 +90,5 @@ void Camera::render_lapcount(int lapcount, int total_laps) {
     std::ostringstream str;
     str << lapcount << "/" << total_laps << " laps";
     this->text_creator.render_text(str.str(),
-            this->window.get_renderer(), this->window.get_width() - 150, 40);
+                                   this->window.get_renderer(), this->window.get_width() - 150, 40);
 }

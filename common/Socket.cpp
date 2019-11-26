@@ -7,6 +7,7 @@
 #include <cstring>
 
 #define MAX_CLIENT_QUEUE 10
+#define ALL_INTERFACES "0.0.0.0"
 
 SocketException::SocketException(const char *description, const char* error)
 	: description(description){
@@ -84,7 +85,7 @@ void Socket::connect_to(std::string &host, std::string &service) {
 
 void Socket::bind_and_listen(std::string &service) {
     const char *_service = service.data();
-    struct addrinfo *addr_list = _get_address_list(nullptr, _service);
+    struct addrinfo *addr_list = _get_address_list(ALL_INTERFACES, _service);
     if (!addr_list) {
 			throw SocketException("Bind and listen error", "no addr_list");
 		}

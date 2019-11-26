@@ -23,7 +23,10 @@ private:
     size_t frames_rendered_mud;
     void _draw_frame(JSON &json);
 
+    bool first_time = true;
+
     void _add_angled_element();
+
     void _add_simple_element(WorldEntities::Entity entity, JSON &elements);
 };
 
