@@ -132,6 +132,7 @@ void Car::on_track() {
 
 void Car::off_track() {
     float friction = m_body->GetFixtureList()->GetFriction();
+    if ((friction - 15.0f) <= 0) return;
     friction -= 15;
     m_body->GetFixtureList()->SetFriction(friction);
     track = false;
@@ -154,6 +155,7 @@ void Car::contact_mud() {
 void Car::contact_oil() {
     slip = true;
     float friction = m_body->GetFixtureList()->GetFriction();
+    if ((friction - 8.0f) <= 0) return;
     friction -= 8.0f;
     m_body->GetFixtureList()->SetFriction(friction);
 }
