@@ -32,30 +32,9 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON &map)
                      angle);
     }
 
-    JSON muds = map[J_ELEMENTS][J_MUDS];
-    for (auto &mud : muds) {
-        float x = mud[J_X];
-        float y = mud[J_Y];
-        entities.put(WorldEntities::Entity::MUD,
-                     x*MULTIPLE,
-                     y*MULTIPLE);
-    }
-    JSON oils = map[J_ELEMENTS][J_OILS];
-    for (auto &oil : oils) {
-        float x = oil[J_X];
-        float y = oil[J_Y];
-        entities.put(WorldEntities::Entity::OIL,
-                     x*MULTIPLE,
-                     y*MULTIPLE);
-    }
-    JSON boulders = map[J_ELEMENTS][J_BOULDERS];
-    for (auto &boulder : boulders) {
-        float x = boulder[J_X];
-        float y = boulder[J_Y];
-        entities.put(WorldEntities::Entity::BOULDER,
-                     x*MULTIPLE,
-                     y*MULTIPLE);
-    }
+    _add_simple_element(WorldEntities::Entity::MUD, map[J_ELEMENTS][J_MUDS]);
+    _add_simple_element(WorldEntities::Entity::OIL, map[J_ELEMENTS][J_OILS]);
+    _add_simple_element(WorldEntities::Entity::BOULDER, map[J_ELEMENTS][J_BOULDERS]);
 }
 
 void ThFrameDrawer::run() {
@@ -91,21 +70,9 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
                          car[J_ID],
                          car[J_SPEED]);
         }
-
-        JSON healths = state[J_ELEMENTS][J_HEALTH];
-        for (auto &health : healths) {
-            float f_x = health[J_X];
-            float f_y = health[J_Y];
-            entities.put(WorldEntities::Entity::HEART, f_x * MULTIPLE, f_y * MULTIPLE);
-        }
-
-        JSON boosts = state[J_ELEMENTS][J_BOOST];
-        for (auto &boost : boosts) {
-            float f_x = boost[J_X];
-            float f_y = boost[J_Y];
-            entities.put(WorldEntities::Entity::BOOST, f_x * MULTIPLE, f_y * MULTIPLE);
-        }
-
+        
+        _add_simple_element(WorldEntities::Entity::HEART, state[J_ELEMENTS][J_HEALTH]);
+        _add_simple_element(WorldEntities::Entity::BOOST, state[J_ELEMENTS][J_BOOST]);
 
         if (state[J_USER][J_CRASH]) {
             entities.put_explotion(cam_x, cam_y);
@@ -139,3 +106,14 @@ void ThFrameDrawer::stop() {
     this->done = true;
 }
 
+void ThFrameDrawer::_add_simple_element(WorldEntities::Entity entity, JSON& elements) {
+    for (auto &element : elements) {
+        float x = element[J_X];
+        float y = element[J_Y];
+        entities.put(entity,x*MULTIPLE,y*MULTIPLE);
+    }
+}
+
+void ThFrameDrawer::_add_angled_element() {
+    return;
+}

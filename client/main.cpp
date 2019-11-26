@@ -3,7 +3,7 @@
 #include <QtWidgets/QApplication>
 #include "client/SDLException.h"
 #include "client/Launcher.h"
-#include "Client.h"
+#include "client/Client.h"
 
 
 bool _validate_params(int argc, char **argv) {

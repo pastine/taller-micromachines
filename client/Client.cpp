@@ -5,7 +5,7 @@
 #include <client/ThFrameDrawer.h>
 #include <client/AIScript.h>
 #include <client/SDLException.h>
-#include "Client.h"
+#include "client/Client.h"
 
 const int JOYSTICK_DEAD_ZONE = 8000;
 
@@ -116,6 +116,10 @@ void Client::start() {
         state_receiver.join();
         frame_drawer.join();
         SDL_JoystickClose(gGameController);
+    } catch (SocketException &e) {
+        std::string err_msg = "Error in Client::start -> ";
+        err_msg += e.what();
+        throw std::runtime_error(err_msg);
     } catch (std::runtime_error &e) {
         std::string err_msg = "Error in Client::start -> ";
         err_msg += e.what();
