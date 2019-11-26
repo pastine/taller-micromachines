@@ -5,6 +5,7 @@
 #include "client/Launcher.h"
 #include "Client.h"
 
+
 bool _validate_params(int argc, char **argv) {
     std::string expected_format = "Expected format: ./client <host> <service/port>\n";
     if (argc != 3) {
@@ -17,13 +18,10 @@ bool _validate_params(int argc, char **argv) {
 
 int main(int argc, char **argv) {
     try {
-        if (_validate_params(argc, argv) == false) {
-            return 1;
-        }
+        if (!_validate_params(argc, argv)) return 1;
 
         std::string host(argv[1]);
         std::string service(argv[2]);
-
 
         Client client(host, service);
         client.handshake(argc, argv);
@@ -31,6 +29,10 @@ int main(int argc, char **argv) {
         return 0;
     } catch (SDLException& e) {
         std::cout << e.what() << '\n';
+    } catch (std::runtime_error &e) {
+        std::cout << e.what() << '\n';
+    } catch (...) {
+        std::cout << "unexpected error occurred :(\n";
     }
 }
 
