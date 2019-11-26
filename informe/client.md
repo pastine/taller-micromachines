@@ -1,5 +1,9 @@
 # Cliente
 
+## Diagrama de clases general
+
+![clases_client.png](clases_client.png)
+
 ## Comunicación cliente - servidor
 
 ### Protocolo
