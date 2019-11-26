@@ -14,6 +14,8 @@ Aquí vamos a poder especificar el nombre que queremos usar y si quisieramos usa
 
 Luego de esto, vamos a crear la partida para comenzar una nueva partida.
 
+El número default de jugadores es 4, pero puede ser cambiado. La partida no va a empezar hasta que esten conectados todos los jugadores.
+
 Por otro lado, si quisieramos unirnos a una partida, nos van a aparecer las partidas disponibles para unirnos:
 
 ![](pantalla_2_cliente.png)
@@ -79,3 +81,7 @@ Para terminar la carrera el jugador va a tener que cumplir con el número de vue
 Para completar una vuelta, el jugador va a tener que pasar por todas las curvas de la pista. Si se pierde una curva, no se le contará la vuelta como tal.
 
 Luego de terminar las vueltas, se le va a indicar al jugador en que posición quedó.
+
+### Sonidos
+
+Por default los sonidos del juego van a escucharse, pero si se quiere puede presionar la tecla `m` para apagarlos.

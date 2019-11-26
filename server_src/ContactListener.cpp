@@ -17,7 +17,7 @@ void ContactListener::BeginContact(b2Contact *contact) {
         if (B_ID != 0) {
             static_cast<Entity *>(B)->start_contact();
         }
-    } else {
+    } else if (B_ID == 1) {
         static_cast<Car *>(B)->start_contact(A_ID);
         if (A_ID != 0) {
             static_cast<Entity *>(A)->start_contact();
@@ -41,7 +41,7 @@ void ContactListener::EndContact(b2Contact *contact) {
         if (B_ID != 0) {
             static_cast<Entity *>(B)->end_contact();
         }
-    } else {
+    } else if (B_ID == 1) {
         static_cast<Car *>(B)->end_contact(A_ID);
         if (A_ID != 0) {
             static_cast<Entity *>(A)->end_contact();
