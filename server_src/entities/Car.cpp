@@ -160,7 +160,7 @@ void Car::contact_oil() {
 
 void Car::contact_stone() {
     crash = true;
-    if ((lives) == 0) {
+    if ((*lives) == 0) {
         back_to_track();
         (*lives) += 3;
     }
@@ -247,7 +247,7 @@ void Car::back_to_track() {
 
 void Car::contact_limit() {
     crash = true;
-    if ((lives) == 0) {
+    if ((*lives) == 0) {
         back_to_track();
         (*lives) += 3;
     }
