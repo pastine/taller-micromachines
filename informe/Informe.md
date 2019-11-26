@@ -2,6 +2,11 @@
 
 ## Server
 
+Para modelar la física del servidor elegimos a el motor Box2D.
+> https://box2d.org/
+>
+> https://github.com/erincatto/Box2D
+
 ### Servidor
 El servidor cuenta con un Acceptor de clientes, en el handshake les informa las partidas existentes o si desea crear una nueva, si es así, debe indicar cuantos jugadores serán.
 
@@ -19,7 +24,7 @@ La clase Entity es la clase madre de todos los elementos que componen la carrera
 ![clases_client.png](clases_server_3.png)
 
 ### Autos
-Esta clase se encarga de modificar la física del auto y efectuar los contactos con los demás elementos. Para manejar el auto existe la clase CarHandler.
+La clase Car se encarga de modificar la física del auto y efectuar los contactos con los demás elementos. Para manejar el auto existe la clase CarHandler.
 
 ### Elementos extra
 
