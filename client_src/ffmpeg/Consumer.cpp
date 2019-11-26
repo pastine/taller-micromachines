@@ -1,4 +1,5 @@
 #include <common/ClosedQueueException.h>
+#include <iostream>
 #include "client/Consumer.h"
 #include "common/Constants.h"
 
@@ -12,7 +13,7 @@ Consumer::Consumer(ProtectedQueue<std::vector<char>> &producedFrames) :
 
 void Consumer::run() {
     try {
-        while (true) {
+        while (this->is_alive) {
             std::vector<char> frame = this->producedFrames.pop();
             for (int i = 0; i < 7; i++)
                 videoOutput.writeFrame(frame.data(), ctx);
@@ -21,6 +22,11 @@ void Consumer::run() {
     catch (ClosedQueueException &e) {
         return;
     }
+}
+
+void Consumer::stop() {
+    this->producedFrames.stop();
+    this->is_alive = false;
 }
 
 Consumer::~Consumer() {
