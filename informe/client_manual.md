@@ -85,3 +85,7 @@ Luego de terminar las vueltas, se le va a indicar al jugador en que posición qu
 ### Sonidos
 
 Por default los sonidos del juego van a escucharse, pero si se quiere puede presionar la tecla `m` para apagarlos.
+
+### Grabar video
+
+Al presionar la tecla `F5` se empezara a grabar la pantalla, y luego al volver a presionarla se guardará en el archivo `micromachines.mp4`.
