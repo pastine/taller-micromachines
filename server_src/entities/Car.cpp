@@ -7,6 +7,7 @@
 #define TORQUE 1800.0f
 #define FORCE 40.0f
 #define DEGTORAD 0.0174532925199432957f
+#define DEFAULT_DENSITY 40.0f
 
 b2Vec2 get_forward_normal(float angle) {
     float correction = 1;
@@ -35,7 +36,7 @@ Car::Car(b2World &world, unsigned long i) {
     dynamicBox.SetAsBox(0.145f * CAR_RESIZE_FACTOR, 0.145f * CAR_RESIZE_FACTOR);
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &dynamicBox;
-    fixtureDef.density = 40.0f;
+    fixtureDef.density = DEFAULT_DENSITY;
     fixtureDef.friction = 11.0f;
     fixtureDef.restitution = 0.3f;
     m_body->CreateFixture(&fixtureDef);
@@ -124,17 +125,18 @@ void Car::end_contact(int id) {
 }
 
 void Car::on_track() {
-    float friction = m_body->GetFixtureList()->GetFriction();
-    friction += 15;
-    m_body->GetFixtureList()->SetFriction(friction);
+    float density = m_body->GetFixtureList()->GetDensity();
+    if (density != DEFAULT_DENSITY)
+        density = DEFAULT_DENSITY;
+    m_body->GetFixtureList()->SetDensity(density);
     track = true;
 }
 
 void Car::off_track() {
-    float friction = m_body->GetFixtureList()->GetFriction();
-    if ((friction - 15.0f) <= 0) return;
-    friction -= 15;
-    m_body->GetFixtureList()->SetFriction(friction);
+    float density = m_body->GetFixtureList()->GetDensity();
+    if (density == DEFAULT_DENSITY)
+        density += 20;
+    m_body->GetFixtureList()->SetDensity(density);
     track = false;
 }
 
