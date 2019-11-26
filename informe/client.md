@@ -112,7 +112,7 @@ Información de servidor al cliente sobre la partida que eligió tendrá este fo
 }
 ```
 
-### Implementacion
+### Implementación
 
 Para lograr una implementación desacoplada de las decisiones de diseño definimos ciertas entidades.
 
@@ -150,3 +150,77 @@ Tenemos el proxy que va a usar el cliente: __ServerProxy__
 Al cual se le va a poder pedir el estado actual del juego, para luego poder renderizarlo. Además, se le va a envíar el tipo de movimiento que el jugador realizó.
 
 Por otro lado, tenemos el __ClientProxy__. Este va a ser usado por el servidor para mandarle el estado del juego y recibir los movimientos de los jugadores.
+
+
+## Renderizado de escenarios
+
+Luego de que el cliente recibe el estado actual del juego, envíado por el servidor, este va a tener que dibujar el estado en la pantalla.
+
+### Renderizado de texturas
+
+Para lograr renderizar elementos en pantalla durante el juego se decidió usar SDL.
+
+Para poder hacer uso de las buenas prácticas de c++ se tuvieron que hacer varios _wrappers_ RAII de las clases de SDL.
+
+#### Cargado de Texturas
+
+Para evitar problemas de performance al cargar varias veces la misma textura de SDL, se decidió hacer un cache de estas texturas.
+
+Se creó `SDLTextureLoader`, que sería el encargado de cargar las texturas de los archivos a memoria. Pero además se va a guardar qué texturas fueron cargadas.
+
+Por otro lado, esta entidad va a ser responsable de eliminar las texturas que queden en memoria.
+
+
+### Renderizado de entidades
+
+Luego de haber diseñado la parte de renderizado de texturas, había que agregarle cierta funcionalidad a los elementos para darle responsabilidad a las clases.
+
+Por lo tanto, se decidió tener una clase por cada entidad del juego que debía ser renderizable.
+
+Cada clase está encargada de conocer cual es la imagen que les corresponde, cuánto mide, etc.
+
+Luego de esto se decidió crear una clase `Renderizable` que es una clase abstracta que contiene los métodos que cualquier entidad renderizable debe implementar.
+
+Por otro lado, se dividen en dos categorías:
+
+1. Entidades estáticas
+
+    Estas son aquellas entidades que son representadas por una imagen.
+
+2. Entidades dinámicas
+
+    Estas entidades son aquellas que vienen con una animación.
+
+
+
+
+
+### Hilos Involucrados
+
+Para lograr dibujar, recibir estados y enviar estados fué necesario disponer de tres hilos de ejecución durante el juego.
+
+Utilizando dos de los tres, para implementar un patrón _producer-consumer_.
+
+#### Hilo Principal
+
+De este hilo se desprenden los otros dos. Es el hilo donde va a estar el _"game loop"_.
+
+En este hilo se va realizar el _"handshake"_ entre el cliente y el servidor. Luego se van a instanciar y correr los otros dos hilos.
+
+Luego de todo eso, se escuchan los eventos de SDL para ver que es lo que está haciendo el jugador y se le envían estos eventos al servidor.
+
+En el caso de que ocurra un evento de cierre de juego, este hilo va a parar los otros dos hilos y esperarlos. Luego de esto va a cerrar los recursos y salir de la ejecución del juego.
+
+#### Recibiendo Estados
+
+Por otro lado, tenemos un hilo que va a recibir estados del _ServerProxy_ y los va a encolar en una cola para que mas tarde otro hilo los use.
+
+Este va a ser el hilo _productor_.
+
+#### Dibujando Estados
+
+Por último, tenemos el hilo que va a ir dibujando los escenarios.
+
+Este va a leer de la cola compartida el estado a dibujar y luego lo va a mostrar por pantalla.
+
+Este va a ser el hilo _consumidor_.

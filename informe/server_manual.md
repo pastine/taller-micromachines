@@ -53,6 +53,10 @@ Para el armado de la pista utilizamos la interfaz gráfica que proporciona Box2D
 
 ![Pista](Track_croquis.png)
 
+## MODS
+
+
+
 ## Como cerrar 
 
 Para terminar con todas las partidas existentes y cerrar el servidor, escribir en la termina el caracter 'q' y se despedirá.
