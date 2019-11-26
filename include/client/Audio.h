@@ -2,14 +2,13 @@
 #ifndef TALLER_MICROMACHINES_AUDIO_H
 #define TALLER_MICROMACHINES_AUDIO_H
 
+#include <string>
 
 class Audio {
 public:
     Audio();
 
-    void play();
-
-    Mix_Chunk *powerup;
+    static void play(std::string filename);
 };
 
 

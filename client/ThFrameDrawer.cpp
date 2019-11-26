@@ -1,3 +1,4 @@
+#include <client/Audio.h>
 #include "client/ThFrameDrawer.h"
 #include "common/CommunicationConstants.h"
 
@@ -79,6 +80,7 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
         _add_simple_element(WorldEntities::Entity::BOOST, state[J_ELEMENTS][J_BOOST]);
 
         if (state[J_USER][J_CRASH]) {
+            Audio::play("powerup");
             entities.put_explotion(cam_x, cam_y);
         }
 

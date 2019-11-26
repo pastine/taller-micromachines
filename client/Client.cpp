@@ -5,6 +5,7 @@
 #include <client/ThFrameDrawer.h>
 #include <client/AIScript.h>
 #include <client/SDLException.h>
+#include <client/Audio.h>
 #include "client/Client.h"
 
 const int JOYSTICK_DEAD_ZONE = 8000;
@@ -15,7 +16,7 @@ void _send_moves(ServerProxy *server, bool up, bool down, bool left, bool right)
 
 void Client::start() {
     try {
-        //Audio audio;
+        Audio audio;
         ThStateReceiver state_receiver(&server, &queue);
         ThFrameDrawer frame_drawer(&queue, map);
         state_receiver.start();
