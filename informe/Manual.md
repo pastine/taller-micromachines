@@ -80,7 +80,7 @@ Luego de haber corrido las dependencias y compilado los archivos necesarios, se 
 ./client <host> <puerto>
 ```
 
-Luego de haber puesto el input correcto (y que el servidor este corriendo en el host y puerto especificados) se levantará la sigueinte ventana:
+Luego de haber puesto el input correcto (y que el servidor este corriendo en el host y puerto especificados) se abrirá la siguiente ventana:
 
 ![](pantalla_1_cliente.png)
 
