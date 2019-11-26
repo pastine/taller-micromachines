@@ -15,6 +15,9 @@
 
 #define START_POINT_X (0.0f)
 #define START_POINT_Y (0.0f)
+#define CAM_WIDTH (840)
+#define CAM_HEIGHT (480)
+
 #define CAR_RESIZE_FACTOR (4.0f)
 
 #define LAPS 3

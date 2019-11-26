@@ -7,3 +7,4 @@ sudo apt install libsdl2-mixer-dev -y
 sudo apt install libsdl2-ttf-dev -y
 sudo apt install qtbase5-dev -y
 sudo apt install nlohmann-json-dev -y
+sudo apt install libavutil-dev libswresample-dev libavformat-dev libavcodec-dev libswscale-dev

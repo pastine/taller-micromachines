@@ -2,4 +2,5 @@ build/
 .idea/
 *.so
 cmake-build-debug/
-*_test
+*_test*.mp4
+*.mp4

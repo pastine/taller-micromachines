@@ -1,6 +1,7 @@
 #ifndef TALLER_MICROMACHINES_SDLWINDOW_H
 #define TALLER_MICROMACHINES_SDLWINDOW_H
 
+#include <SDL2/SDL.h>
 
 class SDLWindow {
 public:
@@ -12,7 +13,7 @@ public:
 
     void render();
 
-    SDL_Renderer *get_renderer() const;
+    SDL_Renderer *get_renderer();
 
     int get_width();
 

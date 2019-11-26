@@ -40,7 +40,7 @@ void SDLWindow::render() {
     SDL_RenderPresent(this->renderer);
 }
 
-SDL_Renderer *SDLWindow::get_renderer() const {
+SDL_Renderer *SDLWindow::get_renderer() {
     return this->renderer;
 }
 

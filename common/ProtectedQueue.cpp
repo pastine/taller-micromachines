@@ -46,3 +46,6 @@ class ProtectedQueue<JSON>;
 
 template
 class ProtectedQueue<MoveType>;
+
+template
+class ProtectedQueue<std::vector<char>>;

@@ -6,7 +6,7 @@
 #define FRAMES_TO_RENDER_MUD 100
 
 ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON &map)
-        : state_queue(state_queue) {
+        : state_queue(state_queue), ctx(record_queue), consumer(record_queue){
     this->done = false;
     this->frames_rendered_mud = 0;
 
@@ -36,16 +36,33 @@ ThFrameDrawer::ThFrameDrawer(ProtectedQueue<JSON> *state_queue, JSON &map)
     _add_simple_element(WorldEntities::Entity::MUD, map[J_ELEMENTS][J_MUDS]);
     _add_simple_element(WorldEntities::Entity::OIL, map[J_ELEMENTS][J_OILS]);
     _add_simple_element(WorldEntities::Entity::BOULDER, map[J_ELEMENTS][J_BOULDERS]);
+    videoTexture = SDL_CreateTexture(cam.window.get_renderer(),
+                                     SDL_PIXELFORMAT_RGB24, SDL_TEXTUREACCESS_TARGET,
+                                     840, 480);
+
+    consumer.start();
 }
 
 void ThFrameDrawer::run() {
     try {
         while (!this->done) {
             JSON state = this->state_queue->pop();
+            SDL_SetRenderTarget(cam.window.get_renderer(), NULL);
             this->_draw_frame(state);
             if (first_time) {
                 this->_draw_frame(state);
                 first_time = false;
+            }
+
+            if (recording) {
+                SDL_SetRenderTarget(cam.window.get_renderer(), videoTexture);
+                this->_draw_frame(state);
+
+                recordFrame--;
+                if (recordFrame == 0) {
+                    ctx.write(cam.window);
+                    recordFrame = 10;
+                }
             }
         }
     } catch (std::runtime_error &e) {
@@ -127,6 +144,11 @@ void ThFrameDrawer::_draw_frame(JSON &state) {
 
 void ThFrameDrawer::stop() {
     this->done = true;
+    consumer.join();
+}
+
+void ThFrameDrawer::toggle_record() {
+    recording = !recording;
 }
 
 void ThFrameDrawer::_add_simple_element(WorldEntities::Entity entity, JSON &elements) {

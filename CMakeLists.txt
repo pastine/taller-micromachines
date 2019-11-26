@@ -54,6 +54,6 @@ add_custom_target(lint_client
         )
 
 
-add_dependencies(common lint_common)
-add_dependencies(client_test lint_client)
-add_dependencies(server_test lint_server)
+#add_dependencies(common lint_common)
+#add_dependencies(client_test lint_client)
+#add_dependencies(server_test lint_server)

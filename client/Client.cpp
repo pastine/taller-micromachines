@@ -51,6 +51,9 @@ void Client::start() {
                     case SDL_KEYDOWN: {
                         SDL_KeyboardEvent &keyEvent = (SDL_KeyboardEvent &) event;
                         switch (keyEvent.keysym.sym) {
+                            case SDLK_F5:
+                                frame_drawer.toggle_record();
+                                break;
                             case SDLK_LEFT:
                             case SDLK_a:
                                 left = true;

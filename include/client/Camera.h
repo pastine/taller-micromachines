@@ -26,6 +26,7 @@ public:
 
     void render_car_lives(int lives);
 
+
     void render_splatter();
 
     void render_name(std::string name);
@@ -34,10 +35,10 @@ public:
 
     void render_lapcount(int lapcount, int total_laps);
 
+    SDLWindow window;
 private:
     bool _is_in_frame(Renderizable &object, float abs_x, float abs_y);
 
-    SDLWindow window;
     float center_x_cms;
     float center_y_cms;
     float center_x_px;
