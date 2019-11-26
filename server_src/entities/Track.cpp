@@ -14,7 +14,7 @@ std::vector<std::vector<float>> fill_pos(JSON pos) {
         std::vector<float> aux = {element[J_X], element[J_Y]};
         positions.emplace_back(aux);
     }
-    auto rng = std::default_random_engine{};
+    std::default_random_engine rng(time(NULL));
     std::shuffle(positions.begin(), positions.end(), rng);
     return std::move(positions);
 }
@@ -116,7 +116,7 @@ JSON Track::get_elements_state() {
                 to_remove.emplace_back(e);
             }
             positions.push_back(aux);
-            auto rng = std::default_random_engine{};
+            std::default_random_engine rng(time(NULL));
             std::shuffle(positions.begin(), positions.end(), rng);
         } else {
             auto *a = e;
